@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<!-- GENERATED FILE — do not edit by hand. Rebuilt by scripts/build-targets.mjs from content/targets.json. Run "npm run gen" instead. -->
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!--#include partials/theme-boot.html-->
+  <title>Compress an Image to 100 KB — Free, No Upload | Browser Image Editor</title>
+  <meta name="description" content="Compress a JPEG, PNG or WebP to 100 KB or less in your browser. The target size is searched for you, nothing is uploaded, and a batch downloads as one ZIP.">
+  <link rel="canonical" href="https://browserimageeditor.online/targets/compress-image-to-100kb/">
+  <link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/compress-image-to-100kb/">
+  <link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/compress-image-to-100kb/">
+  <link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/compress-image-to-100kb/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Browser Image Editor">
+  <meta property="og:title" content="Compress an Image to 100 KB — Free, No Upload">
+  <meta property="og:description" content="Compress a JPEG, PNG or WebP to 100 KB or less in your browser. The target size is searched for you, nothing is uploaded, and a batch downloads as one ZIP.">
+  <meta property="og:url" content="https://browserimageeditor.online/targets/compress-image-to-100kb/">
+  <meta property="og:image" content="https://browserimageeditor.online/og/guide-compress-image-to-100kb.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Compress an Image to 100 KB — Free, No Upload">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Compress an Image to 100 KB — Free, No Upload">
+  <meta name="twitter:description" content="Compress a JPEG, PNG or WebP to 100 KB or less in your browser. The target size is searched for you, nothing is uploaded, and a batch downloads as one ZIP.">
+  <meta name="twitter:image" content="https://browserimageeditor.online/og/guide-compress-image-to-100kb.png">
+  <meta name="twitter:image:alt" content="Compress an Image to 100 KB — Free, No Upload">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "FAQPage",
+      "@id": "https://browserimageeditor.online/targets/compress-image-to-100kb/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What happens if my image cannot get down to 100 KB?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You get the smallest file the encoder can make, plus a message stating how far over the target it finished. The tool never silently hands you something above the size you asked for without saying so."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will it always be exactly 100 KB?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, and it aims to be just under instead. The search keeps the highest quality setting that stays at or below 100 KB, so the result is usually a little smaller — a file that fits is worth more than a file that matches the number exactly."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I compress a whole batch to 100 KB each?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Every image gets its own 100 KB budget and its own progress bar, and the finished files download together as a single ZIP."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does compressing to 100 KB reduce the image dimensions?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not on its own — the pixel dimensions are untouched unless you set a max width or height. Compression spends bytes, not pixels, which is why the pixel controls are the stronger lever when a target is out of reach."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://browserimageeditor.online/targets/compress-image-to-100kb/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "All tools",
+          "item": "https://browserimageeditor.online/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Compress Image",
+          "item": "https://browserimageeditor.online/tools/compress-image/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Compress to 100 KB",
+          "item": "https://browserimageeditor.online/targets/compress-image-to-100kb/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon-180.png">
+  <meta name="theme-color" content="#0366d6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+
+  <script type="application/json" id="tool-config">{
+  "slug": "compress-image",
+  "name": "Compress Image",
+  "accepts": [
+    "image/jpeg",
+    "image/png",
+    "image/webp"
+  ],
+  "outputs": [
+    "image/webp",
+    "image/jpeg"
+  ],
+  "defaultOutput": "image/webp",
+  "maxInputBytes": 52428800,
+  "outputLabels": {
+    "image/webp": "WebP",
+    "image/jpeg": "JPEG"
+  },
+  "outputExtensions": {
+    "image/webp": "webp",
+    "image/jpeg": "jpg"
+  },
+  "defaults": {
+    "targetSizeKB": 100
+  }
+}</script>
+  <script type="application/json" id="ui-strings">{
+  "js.chrome.menuOpen": "Open menu",
+  "js.chrome.menuClose": "Close menu",
+  "js.enhance.ready": "Ready — drop a photo, or a batch, to enhance it.",
+  "js.enhance.unsupported": "This browser cannot enhance photos locally.",
+  "js.enhance.workerStopped": "The enhancement worker stopped unexpectedly. Reload the page and try again.",
+  "js.enhance.failed": "Enhancement failed.",
+  "js.enhance.failedUnknown": "Enhancement failed for an unknown reason.",
+  "js.enhance.phaseProbe": "Reading the photo…",
+  "js.enhance.phaseAnalyse": "Measuring the histogram…",
+  "js.enhance.phaseGrade": "Applying the style…",
+  "js.enhance.phaseEncode": "Finishing up…",
+  "js.enhance.running": "Enhancing…",
+  "js.enhance.startingOne": "Enhancing {name} in your browser…",
+  "js.enhance.startingMany": "Enhancing {count} photos in your browser…",
+  "js.enhance.previewsLoading": "Rendering previews from your photo…",
+  "js.enhance.previewsProgress": "Rendering previews from your photo — {percent}%",
+  "js.enhance.previewsReady": "Previews ready — pick a style, or use Auto enhance.",
+  "js.enhance.previewsFailed": "The previews could not be rendered on this device. You can still pick a style by name and enhance the full-size photo.",
+  "js.enhance.thumbAlt": "Your photo with the {preset} style applied",
+  "js.enhance.doneStyled": "Done — {preset} at the intensity you chose.",
+  "js.enhance.doneAuto": "Done — auto-corrected, with no style applied.",
+  "js.enhance.correctionApplied": "Auto-correct stretched each channel to the full range: gains {gains} for red, green and blue. The black points were {black} and the white points {white}.",
+  "js.enhance.correctionSkipped": "Auto-correct found nothing worth fixing: this photo already used the full tonal range, so stretching it further would only have amplified noise.",
+  "js.enhance.largerNote": "The enhanced file is {size} larger ({percent}%). Re-encoding does that — the pixel dimensions are unchanged.",
+  "js.enhance.manualPath": "This browser has no GPU filter support, so the style was computed pixel by pixel instead of on the graphics chip. The arithmetic is equivalent — the two paths land within a few code values of each other — but it takes a little longer.",
+  "js.enhance.formatFallback": "Your photo's own format could not be written back on this device, so the result was saved as JPEG.",
+  "js.enhance.zeroIntensity": "The intensity sits at 0%, so this is the auto-corrected photo with no style on it.",
+  "js.enhance.enhancedCount": "{count} enhanced",
+  "js.enhance.zipTail": "Use \"Download all as ZIP\" for the whole batch.",
+  "js.error.INVALID_PRESET": "That enhancement style does not exist.",
+  "js.common.waiting": "Waiting",
+  "js.common.compare": "Compare",
+  "js.common.download": "Download",
+  "js.common.retry": "Retry",
+  "js.common.somethingWrong": "Something went wrong.",
+  "js.common.cancelled": "Cancelled.",
+  "js.common.cancelling": "Cancelling…",
+  "js.common.cancelledBeforeStart": "Cancelled before it started.",
+  "js.common.retrying": "Retrying…",
+  "js.common.nothingToDownload": "There is nothing to download yet.",
+  "js.common.zipFailed": "The ZIP could not be built.",
+  "js.common.done": "Done",
+  "js.common.imageOne": "image",
+  "js.common.imageMany": "images",
+  "js.common.savedFile": "Saved {name} ({size}).",
+  "js.common.packaging": "Packaging {count} images…",
+  "js.common.zipReady": "ZIP ready — {count} {images}, {size}.",
+  "js.common.zipReadyLarge": "ZIP ready ({size}) — large batches are held in memory while the ZIP is built, so leave the tab open until the download starts.",
+  "js.common.batchSummary": "{total} {images}",
+  "js.common.batchReady": "{count} ready",
+  "js.common.batchFailed": "{count} failed",
+  "js.common.batchCancelled": "{count} cancelled",
+  "js.common.batchWaitingCount": "{count} waiting",
+  "js.common.progressDone": "{succeeded} of {total} done.",
+  "js.common.progressDoneFailed": "{succeeded} of {total} done — {failed} failed.",
+  "js.common.progressPercent": "{finished} of {total} done — {percent}%",
+  "js.common.progressFor": "Progress for {name}",
+  "js.common.downloadSize": "Download {size}",
+  "js.common.jpegFlatten": "JPEG cannot store transparency, so transparent areas were flattened onto white.",
+  "js.common.largerThanOriginal": "This file ended up {size} larger than the original — try WebP, or set a target size.",
+  "js.common.largerThanOriginalResize": "The new file is {size} larger than the original — re-encoding to a different format can do that even when the pixel count drops.",
+  "js.common.noResampling": "No resampling",
+  "js.common.scaleOfPixels": "{percent} of the pixels",
+  "js.common.compareSliderValue": "{percent}% original image",
+  "js.common.browserUnsupported": "This browser cannot process images locally.",
+  "js.common.checkingBrowser": "Checking this browser…",
+  "js.common.readyAgain": "Ready for another image.",
+  "js.common.batchQueued": "{count} images ready. Set the options, then press \"{action}\".",
+  "js.common.listOr": "or",
+  "js.common.presetFitsInside": "fits inside the box",
+  "js.common.presetOriginDerived": "derived from the platform's published ratio limits",
+  "js.common.presetOriginPublished": "published by the platform",
+  "js.common.presetNote": "{label}: {width}×{height} px ({ratio}) — {origin}. {note} {source}",
+  "js.common.doneParts": "Done — {parts}.",
+  "js.preset.instagram-square": "Square post",
+  "js.preset.instagram-portrait": "Portrait post",
+  "js.preset.instagram-landscape": "Landscape post",
+  "js.preset.instagram-story": "Story or reel",
+  "js.preset.youtube-thumbnail": "Video thumbnail",
+  "js.preset.youtube-shorts-cover": "Shorts cover",
+  "js.preset.hd-1080p": "Full HD (1080p)",
+  "js.preset.web-1280": "Web image (1280 wide)",
+  "js.dropzone.empty": "{name} appears to be empty.",
+  "js.dropzone.tooLarge": "{name} is {size}. The limit here is {limit}.",
+  "js.dropzone.unsupportedType": "{name} is not a supported type. Accepted formats: {accepted}.",
+  "js.dropzone.tooMany": "{count} files were provided; only {name} can be used here.",
+  "js.pwa.bannerLabel": "Install Browser Image Editor",
+  "js.pwa.bannerText": "Install Browser Image Editor: it opens like an app, and the tools you have visited keep working with no connection at all.",
+  "js.pwa.install": "Install app",
+  "js.pwa.notNow": "Not now",
+  "js.compress.ready": "Ready — drop an image, or a batch, to compress it.",
+  "js.compress.unsupported": "This browser cannot compress images locally.",
+  "js.compress.workerStopped": "The compression worker stopped unexpectedly. Reload the page and try again.",
+  "js.compress.failed": "Compression failed.",
+  "js.compress.failedUnknown": "Compression failed for an unknown reason.",
+  "js.compress.invalidSettings": "Those settings are not valid.",
+  "js.compress.phaseProbe": "Reading the image…",
+  "js.compress.phaseFit": "Resizing…",
+  "js.compress.phaseSearch": "Looking for the best quality…",
+  "js.compress.phaseEncode": "Finishing up…",
+  "js.compress.running": "Compressing…",
+  "js.compress.startingOne": "Compressing {name} in your browser…",
+  "js.compress.startingMany": "Compressing {count} images in your browser…",
+  "js.compress.doneAt": "Done at {percent}% quality.",
+  "js.compress.zipTail": "Use \"Download all as ZIP\" for the whole batch.",
+  "js.compress.compressedCount": "{count} compressed",
+  "js.compress.tryingQuality": "Trying quality {percent}%…",
+  "js.compress.nearTarget": "Close: {over} over your {target} target, and this is the smallest this image gets.",
+  "js.compress.unreachableTarget": "Cannot reach {target}: the smallest this image gets is {smallest}. Lower the max width or height to save more.",
+  "js.resize.ready": "Ready — drop an image, or a batch, to resize it.",
+  "js.resize.unsupported": "This browser cannot resize images locally.",
+  "js.resize.workerStopped": "The resize worker stopped unexpectedly. Reload the page and try again.",
+  "js.resize.failed": "Resizing failed.",
+  "js.resize.failedUnknown": "Resizing failed for an unknown reason.",
+  "js.resize.invalidDimensions": "Those dimensions are not valid.",
+  "js.resize.phaseProbe": "Reading the image…",
+  "js.resize.phaseResize": "Resampling…",
+  "js.resize.phaseEncode": "Finishing up…",
+  "js.resize.running": "Resizing…",
+  "js.resize.startingOne": "Resizing {name} in your browser…",
+  "js.resize.startingMany": "Resizing {count} images in your browser…",
+  "js.resize.doneScaled": "Done — {change}",
+  "js.resize.doneUnchanged": "Done — unchanged size, {change}",
+  "js.resize.upscaleSkipped": "That image was already smaller than the size you asked for, so it was left alone. Tick \"Allow enlarging\" to scale it up.",
+  "js.resize.resizedCount": "{count} resized",
+  "js.convert.ready": "Ready — drop an image, or a batch, to convert it.",
+  "js.convert.unsupported": "This browser cannot convert images locally.",
+  "js.convert.workerStopped": "The conversion worker stopped unexpectedly. Reload the page and try again.",
+  "js.convert.failed": "Conversion failed.",
+  "js.convert.failedUnknown": "Conversion failed for an unknown reason.",
+  "js.convert.phaseProbe": "Reading the image…",
+  "js.convert.phaseEncode": "Writing the new format…",
+  "js.convert.running": "Converting…",
+  "js.convert.startingOne": "Converting {name} in your browser…",
+  "js.convert.startingMany": "Converting {count} images in your browser…",
+  "js.convert.done": "Done.",
+  "js.convert.convertedCount": "{count} converted",
+  "js.convert.doneHeic": "Done — decoded on your device with the HEIC decoder.",
+  "js.convert.decodedByDecoder": "This HEIC was decoded on your device by the bundled decoder.",
+  "js.convert.encoderNote": "This browser can write {offered}.",
+  "js.convert.encoderNoteSkipped": "This browser can write {offered}. {skipped} is not offered because canvas.toBlob would not produce a real {formats} file here.",
+  "js.convert.largerNote": "The new file is {size} larger ({percent}). Converting an already-optimised image can add bytes — WebP usually gives the smallest result.",
+  "js.convert.noEncoders": "This browser cannot write any of the formats this tool offers, so there is nothing to convert to.",
+  "js.convert.heicNeedsDecoder": "Reading a HEIC file needs a decoder that could not be fetched. Check your connection and try again.",
+  "js.error.ABORTED": "That was cancelled.",
+  "js.error.INTERNAL": "That did not work. Nothing was uploaded; please try again.",
+  "js.error.EMPTY_FILE": "That file appears to be empty.",
+  "js.error.TOO_LARGE": "That file is larger than this page accepts.",
+  "js.error.TOO_MANY_FILES": "That is more files than this page can take.",
+  "js.error.UNSUPPORTED_TYPE": "That file type is not one this tool can read.",
+  "js.error.DECODE_FAILED": "That file could not be decoded as an image.",
+  "js.error.ENCODE_FAILED": "The image could not be written in that format.",
+  "js.error.INVALID_ENCODE": "The image could not be written in that format.",
+  "js.error.INVALID_ENCODER": "This browser cannot write that format.",
+  "js.error.INVALID_PROBE": "The image could not be read well enough to process it.",
+  "js.error.INVALID_DIMENSION": "That size is not a valid image size.",
+  "js.error.INVALID_DIMENSIONS": "Those dimensions are not valid.",
+  "js.error.INVALID_BACKGROUND": "That background colour could not be used.",
+  "js.error.INVALID_MASK": "The area you painted could not be read. Clear the mask and paint over the object again.",
+  "js.error.INVALID_SELECTION": "That selection could not be applied.",
+  "js.error.INVALID_PAGE_SIZE": "That PDF page size is not valid.",
+  "js.error.NO_CANVAS": "This browser could not provide a canvas to draw on.",
+  "js.error.PDF_FAILED": "The PDF could not be built.",
+  "js.error.UNSUPPORTED": "This browser cannot do that locally, and nothing is sent to a server as a fallback.",
+  "js.error.OUT_OF_MEMORY": "This device ran out of memory working on that image. Try a smaller image, or close other tabs and try again.",
+  "js.error.MODEL_UNSUPPORTED": "This browser's runtime cannot run the model this tool needs. Nothing was uploaded; please report it.",
+  "js.error.MODEL_RUNTIME_FAILED": "The on-device model could not run. Nothing was uploaded; try the other mode.",
+  "js.error.MODEL_NOT_READY": "The model this tool needs has not been downloaded yet.",
+  "js.error.MODEL_FETCH_FAILED": "The model could not be downloaded. Check your connection and try again — nothing was uploaded either way.",
+  "js.error.MODEL_TRUNCATED": "The model download was incomplete. Nothing was uploaded; try again.",
+  "js.error.MODEL_HTTP": "The model host refused the request. The model may have moved; nothing was uploaded.",
+  "js.error.MODEL_URL_MISSING": "No model URL is configured for this tool.",
+  "js.error.MODEL_CONTRACT_MISMATCH": "The downloaded model does not match what this tool expects. Nothing was uploaded.",
+  "js.error.ORT_LOAD_FAILED": "The on-device runtime could not be loaded. Reloading the page usually fixes this, and nothing was uploaded.",
+  "js.error.UNKNOWN_MODEL": "This tool asked for a model that does not exist.",
+  "js.error.EMPTY_MASK": "Paint over the object you want removed first.",
+  "js.error.INVALID_INPUT": "No image file was provided.",
+  "js.error.INVALID_JOB": "That job could not be started.",
+  "js.error.IMAGE_TOO_LARGE": "That image has too many pixels for a canvas to hold. Shrink it first, then try again.",
+  "js.error.UNSUPPORTED_FORMAT": "That format is not one this tool can read.",
+  "js.error.INVALID_ENCODE_RESULT": "The encoder returned something that is not an image.",
+  "js.order.moveUp": "Move up",
+  "js.order.moveDown": "Move down",
+  "js.order.moveFirst": "Move to start",
+  "js.order.moveLast": "Move to end",
+  "js.order.remove": "Remove",
+  "js.ratio.free.label": "Free",
+  "js.ratio.free.note": "Drag any rectangle.",
+  "js.ratio.square.label": "1:1",
+  "js.ratio.square.note": "Square — profile pictures and grid posts.",
+  "js.ratio.portrait.label": "4:5",
+  "js.ratio.portrait.note": "Portrait — the tallest the Instagram feed shows.",
+  "js.ratio.classic.label": "3:2",
+  "js.ratio.classic.note": "Classic 35mm photo shape.",
+  "js.ratio.photo.label": "4:3",
+  "js.ratio.photo.note": "Most phone cameras.",
+  "js.ratio.wide.label": "16:9",
+  "js.ratio.wide.note": "Widescreen — thumbnails and slides.",
+  "js.crop.progressLabel": "Applying the crop…",
+  "js.crop.workerStopped": "The encoding worker stopped unexpectedly. Reload the page and try again.",
+  "js.crop.failed": "The crop could not be encoded.",
+  "js.crop.failedUnknown": "The crop could not be encoded, and the browser did not say why.",
+  "js.crop.freeSelection": "Free selection — drag any rectangle.",
+  "js.crop.lockedTo": "Locked to {label}.",
+  "js.crop.wrongCropper": "This build expects the 1.x version of the cropping library. Crop output is unavailable with the installed version.",
+  "js.crop.dragHint": "Drag the box to choose the crop, or pick an aspect ratio.",
+  "js.crop.readBackFailed": "The cropped image could not be read back.",
+  "js.crop.phaseCrop": "Cropping…",
+  "js.crop.phaseEncode": "Encoding…",
+  "js.crop.croppedTo": "Cropped to {width}×{height} at {size}.",
+  "js.crop.largerNote": "The cropped file is not smaller than the original, which is normal: the whole image was re-encoded even though only part of it is kept.",
+  "js.crop.rotated": "Rotated to {degrees}°.",
+  "js.crop.flipAcross": "Flipped across.",
+  "js.crop.flipAcrossOff": "Flip across removed.",
+  "js.crop.flipDown": "Flipped down.",
+  "js.crop.flipDownOff": "Flip down removed.",
+  "js.crop.selectionReset": "Selection reset.",
+  "js.crop.ready": "Ready — drop an image to crop it.",
+  "js.crop.unsupported": "This browser cannot crop images locally.",
+  "js.pdf.pageSize.a4.label": "A4 (210 × 297 mm)",
+  "js.pdf.pageSize.a4.note": "The default almost everywhere except North America.",
+  "js.pdf.pageSize.letter.label": "US Letter (8.5 × 11 in)",
+  "js.pdf.pageSize.letter.note": "US Letter, 612 × 792 points.",
+  "js.pdf.pageSize.match.label": "Match each image",
+  "js.pdf.pageSize.match.note": "Every page is the size of its own image, so nothing is padded or cropped. Margins do not apply.",
+  "js.pdf.margin.none.label": "None",
+  "js.pdf.margin.none.note": "The image fills the printable area.",
+  "js.pdf.margin.small.label": "Small (0.25 in)",
+  "js.pdf.margin.normal.label": "Normal (0.5 in)",
+  "js.pdf.quality.high.label": "High (JPEG 95%)",
+  "js.pdf.quality.balanced.label": "Balanced (JPEG 85%)",
+  "js.pdf.quality.small.label": "Smaller file (JPEG 70%)",
+  "js.pdf.progressLabel": "Building the PDF…",
+  "js.pdf.workerStopped": "The PDF worker stopped unexpectedly. Reload the page and try again.",
+  "js.pdf.failed": "The PDF could not be built.",
+  "js.pdf.failedUnknown": "The PDF could not be built, and the browser did not say why.",
+  "js.pdf.working": "Working…",
+  "js.pdf.phaseProbe": "Reading the image…",
+  "js.pdf.phaseEncode": "Preparing the page…",
+  "js.pdf.pageOne": "page",
+  "js.pdf.pageMany": "pages",
+  "js.pdf.docTitleFallback": "Images",
+  "js.pdf.orderSummary": "{count} {pages} · {size}",
+  "js.pdf.orderTooLong": "{count} {pages} · {size} — that is a lot of pages to hold in memory at once",
+  "js.pdf.starting": "Preparing {count} {images} in your browser…",
+  "js.pdf.prepared": "{done} of {total} prepared",
+  "js.pdf.preparedFailed": "{done} of {total} prepared — {failed} failed",
+  "js.pdf.couldNotPrepareAll": "None of those images could be prepared, so there is no PDF to build.",
+  "js.pdf.nothingToPut": "There is nothing to put in the PDF.",
+  "js.pdf.writing": "Writing the PDF…",
+  "js.pdf.readySummary": "PDF ready — {count} {pages}, {size}.",
+  "js.pdf.transcoded": "{count} of {total} {images} redrawn as JPEG, because PDF stores JPEG and PNG rather than WebP.",
+  "js.pdf.transcodedOne": "1 of {total} images was redrawn as JPEG, because PDF stores JPEG and PNG rather than WebP.",
+  "js.pdf.largeDoc": "That is a large document; it was held in memory while it was written, which is why this can be slow on a phone.",
+  "js.pdf.listCleared": "List cleared.",
+  "js.pdf.ready": "Ready — add images to build a PDF.",
+  "js.pdf.imagesReady": "{count} {images} ready. Drag the arrows to reorder, then build the PDF.",
+  "js.pdf.unsupported": "This browser cannot build a PDF locally.",
+  "js.pdf.downloadSize": "Download PDF ({size})",
+  "js.pdf.startingPages": "{count} {pages}…",
+  "js.crop.invalidSelection": "That selection is too small to produce an image. Drag a larger box."
+}</script>
+</head>
+<body>
+  <!--#include partials/header.html-->
+  <div class="container">
+    <nav class="lang-switch" aria-label="Language">
+      <ul class="lang-switch-list">
+      <li><span class="lang-switch-current" lang="en" aria-current="true">English</span></li>
+      <li><a class="lang-switch-link" href="/ar/targets/compress-image-to-100kb/" hreflang="ar" lang="ar">العربية</a></li>
+      </ul>
+    </nav>
+  </div>
+  <main class="main" id="main">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">All tools</a>
+        <span class="breadcrumb-separator" aria-hidden="true">/</span>
+        <a href="/tools/compress-image/">Compress Image</a>
+        <span class="breadcrumb-separator" aria-hidden="true">/</span>
+        <span aria-current="page">Compress to 100 KB</span>
+      </nav>
+
+      <header class="tool-header">
+        <h1>Compress an image to 100 KB</h1>
+        <!--
+          A target page is one tool page pre-configured, so it carries the same hero and the same
+          problem: the intro pushes the panel past the fold on a phone. Same disclosure, same rules.
+        -->
+        <div class="intro-disclosure" data-collapsible>
+          <details><summary>What this tool does</summary></details>
+          <p class="tool-intro disclosure-body">This page starts with 100 KB already in the target box, so you can drop a file and let the compressor find the best quality that still fits under it.</p>
+        </div>
+        <p class="tool-hint">Pre-set for you: a 100 KB target file size per image. You can change it before you drop a file.</p>
+      </header>
+
+      <section class="tool-panel" data-tool-root data-tool-slug="compress-image">
+        <div class="dropzone" data-dropzone>
+          <label class="dropzone-label" for="tool-file-input">
+            <span class="dropzone-title">Choose images</span>
+            <span class="dropzone-hint">or drag and drop, or paste — JPEG, PNG or WebP up to 50 MB</span>
+            <span class="dropzone-hint">One image or a whole batch — nothing leaves your device either way.</span>
+          </label>
+          <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple data-dropzone-input>
+        </div>
+
+        <p class="notice notice-warning" data-unsupported hidden>
+          This browser cannot run the compressor. It needs Web Workers with <code>OffscreenCanvas</code> support, and we will not fall back to processing on the main thread because that would freeze the page. Please try a current version of Chrome, Edge, Firefox or Safari.
+        </p>
+
+        <div class="tool-controls">
+          <div class="field">
+            <label class="field-label" for="output-format">Output format</label>
+            <select class="field-input" id="output-format" data-output-format></select>
+          </div>
+          <div class="field">
+            <label class="field-label" for="target-size">Target file size (KB, per image)</label>
+            <input class="field-input" id="target-size" type="number" min="1" step="1" inputmode="numeric" placeholder="Best quality" data-target-size>
+          </div>
+          <div class="field">
+            <label class="field-label" for="max-width">Max width (px)</label>
+            <input class="field-input" id="max-width" type="number" min="1" step="1" inputmode="numeric" placeholder="Original" data-max-width>
+          </div>
+          <div class="field">
+            <label class="field-label" for="max-height">Max height (px)</label>
+            <input class="field-input" id="max-height" type="number" min="1" step="1" inputmode="numeric" placeholder="Original" data-max-height>
+          </div>
+        </div>
+
+        <div class="batch" data-batch hidden>
+          <div class="batch-header">
+            <p class="batch-summary" data-batch-summary></p>
+            <div class="batch-actions" data-batch-actions>
+              <button class="button" type="button" data-compress-all data-primary-action data-sticky="off" data-label="Compress all" data-label-done="Re-run all">Compress all</button>
+              <button class="button button-secondary" type="button" data-download-zip hidden>Download all as ZIP</button>
+            </div>
+          </div>
+          <ul class="batch-list" data-file-list></ul>
+        </div>
+
+        <div class="progress-region" data-progress-region hidden>
+          <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Compression progress">
+            <div class="progress-bar" data-progress-bar></div>
+          </div>
+          <p class="progress-text" data-progress-text></p>
+          <button class="button button-secondary" type="button" data-cancel>Cancel</button>
+        </div>
+
+        <div class="result" data-result hidden>
+          <div class="compare-slider" data-compare>
+            <div class="compare-slider-pane compare-slider-before">
+              <img data-compare-before alt="The original image">
+            </div>
+            <div class="compare-slider-pane compare-slider-after">
+              <img data-compare-after alt="The compressed image">
+            </div>
+            <span class="compare-slider-handle" aria-hidden="true"></span>
+            <span class="compare-slider-label compare-slider-label-before">Original</span>
+            <span class="compare-slider-label compare-slider-label-after">Compressed</span>
+            <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="Drag to compare the original and the compressed image">
+          </div>
+          <p class="compare-savings" data-compare-savings></p>
+          <dl class="result-stats">
+            <div class="result-stat">
+              <dt>Saved</dt>
+              <dd data-result-saved>&mdash;</dd>
+            </div>
+            <div class="result-stat">
+              <dt>Dimensions</dt>
+              <dd data-result-dimensions>&mdash;</dd>
+            </div>
+            <div class="result-stat">
+              <dt>Quality</dt>
+              <dd data-result-quality>&mdash;</dd>
+            </div>
+          </dl>
+          <p class="notice notice-warning" data-result-warning hidden></p>
+          <div class="result-actions">
+            <a class="button" data-download download>Download</a>
+            <button class="button button-secondary" type="button" data-start-over>Start over</button>
+          </div>
+        </div>
+
+        <p class="status" data-status role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="secondary-section tool-notes" data-collapsible>
+        <details><summary><h2>How this works</h2></summary></details>
+        <div class="disclosure-body">
+          <p>Your images are decoded and re-encoded inside a Web Worker in this browser tab, so the page stays responsive and the files never reach a server. There is no backend, no queue and no account.</p>
+          <ul>
+            <li>The original files stay on your device from start to finish.</li>
+            <li>A <strong>target file size</strong> searches for the highest quality that fits under it, per image. If an image cannot get that small, you still get the smallest one we could make and a note saying so.</li>
+            <li>Max width and height shrink the pixel dimensions first, which often saves more bytes than quality alone.</li>
+            <li>Drop several images at once and the finished ones come back together in a single ZIP.</li>
+            <li>Nothing is stored: reloading the page discards everything.</li>
+          </ul>
+        </div>
+      </section>
+
+
+  <section class="prose" data-unique-content>
+    <p>A 100 KB request usually comes with a hard ceiling attached: a form that will not accept the upload, a message with an attachment budget, or a page where a hundred small images have to add up to something reasonable. The ceiling is what this page is configured for — 100 is already in the target box, so dropping a file is the whole interaction.</p>
+    <p>What that target size actually does is run a short search. The compressor encodes your image across a range of quality settings and keeps the highest one whose output still lands at or under 100 KB. You are not picking a quality number and hoping; the file size you asked for is the thing being solved for. The setting it settled on is printed in the result panel, so you can see how much room it had.</p>
+    <p>Two outcomes are worth knowing before you start.</p>
+    <ul>
+      <li>It came in under 100 KB. That is the normal case, and it means the search found the last setting that fitted. The file is as close to the ceiling as the encoder could get without crossing it.</li>
+      <li>It could not reach 100 KB. This happens with large or busy images. You still get the smallest file the tool can produce, plus a plain message saying how far over it landed, rather than a quiet overshoot you only discover when the upload fails.</li>
+    </ul>
+    <p>If you land in the second case, the fix is almost never to demand more compression. Quality is one lever, and it stops being useful somewhere around the point where the picture turns to mush. The lever that still works is pixels: set a max width or a max height and you get a genuinely smaller image, which then compresses far further. A photograph that has to sit under 100 KB usually gets there with its long edge cut to somewhere near 1000 to 1200 pixels, and looks much better than the same photo crushed by quality alone.</p>
+    <p>One last thing to check before you send the file: the output format. WebP is the default because it is normally the smaller of the two at the same visual quality. If the place you are uploading to only takes JPEG, choose JPEG in the format selector first and let the search work from there. Every format in that list is one this browser proved it can really write.</p>
+  </section>
+  <section class="secondary-section related-tools" data-guides data-collapsible>
+    <details><summary><h2>More Compress Image guides</h2></summary></details>
+    <div class="disclosure-body">
+      <ul class="tool-grid">
+        <li class="tool-card">
+          <a class="tool-card-link" href="/targets/compress-image-to-200kb/">
+            <span class="tool-card-name">Compress to 200 KB</span>
+            <span class="tool-card-desc">Compress a photo to 200 KB or less without uploading it. The quality search runs locally in your browser, one image or a batch, and you can see the setting it chose.</span>
+          </a>
+        </li>
+        <li class="tool-card">
+          <a class="tool-card-link" href="/targets/compress-image-to-50kb/">
+            <span class="tool-card-name">Compress to 50 KB</span>
+            <span class="tool-card-desc">Get an image down to 50 KB in your browser, or find out honestly that it cannot go that low. No upload, no account, and a batch downloads as one ZIP.</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+  <section class="secondary-section faq" data-faq data-collapsible>
+    <details><summary><h2>Frequently asked questions</h2></summary></details>
+    <div class="disclosure-body">
+      <details class="faq-item" data-faq-item>
+        <summary>What happens if my image cannot get down to 100 KB?</summary>
+        <p>You get the smallest file the encoder can make, plus a message stating how far over the target it finished. The tool never silently hands you something above the size you asked for without saying so.</p>
+      </details>
+      <details class="faq-item" data-faq-item>
+        <summary>Will it always be exactly 100 KB?</summary>
+        <p>No, and it aims to be just under instead. The search keeps the highest quality setting that stays at or below 100 KB, so the result is usually a little smaller — a file that fits is worth more than a file that matches the number exactly.</p>
+      </details>
+      <details class="faq-item" data-faq-item>
+        <summary>Can I compress a whole batch to 100 KB each?</summary>
+        <p>Yes. Every image gets its own 100 KB budget and its own progress bar, and the finished files download together as a single ZIP.</p>
+      </details>
+      <details class="faq-item" data-faq-item>
+        <summary>Does compressing to 100 KB reduce the image dimensions?</summary>
+        <p>Not on its own — the pixel dimensions are untouched unless you set a max width or height. Compression spends bytes, not pixels, which is why the pixel controls are the stronger lever when a target is out of reach.</p>
+      </details>
+    </div>
+  </section>
+
+      <section class="tool-cta" data-parent-tool-cta>
+        <h2>Compress Image with different settings</h2>
+        <p>Drop one image or a whole batch and optionally set a target file size. The work happens inside a Web Worker in this browser tab, so your files never leave your device — and a finished batch downloads as a single ZIP.</p>
+        <p><a class="button" href="/tools/compress-image/">Open Compress Image</a></p>
+      </section>
+    </div>
+  </main>
+
+  <!--#include partials/footer.html-->
+  <script type="module" src="/assets/js/ui/site.js"></script>
+  <script type="module" src="/assets/js/tools/compress-image.js"></script>
+</body>
+</html>

@@ -1,0 +1,534 @@
+[
+  {
+    "slug": "compress-image-to-100kb",
+    "parentToolId": "compress",
+    "status": "live",
+    "navLabel": "Compress to 100 KB",
+    "title": "Compress an Image to 100 KB — Free, No Upload",
+    "description": "Compress a JPEG, PNG or WebP to 100 KB or less in your browser. The target size is searched for you, nothing is uploaded, and a batch downloads as one ZIP.",
+    "h1": "Compress an image to 100 KB",
+    "intro": "This page starts with 100 KB already in the target box, so you can drop a file and let the compressor find the best quality that still fits under it.",
+    "targetKeyword": "compress image to 100kb",
+    "keywords": [
+      "compress image to 100kb",
+      "reduce image to 100 kb",
+      "make image under 100kb",
+      "100kb image compressor",
+      "compress photo to 100kb"
+    ],
+    "defaultOption": { "targetSizeKB": 100 },
+    "uniqueContent": "A 100 KB request usually comes with a hard ceiling attached: a form that will not accept the upload, a message with an attachment budget, or a page where a hundred small images have to add up to something reasonable. The ceiling is what this page is configured for — 100 is already in the target box, so dropping a file is the whole interaction.\n\nWhat that target size actually does is run a short search. The compressor encodes your image across a range of quality settings and keeps the highest one whose output still lands at or under 100 KB. You are not picking a quality number and hoping; the file size you asked for is the thing being solved for. The setting it settled on is printed in the result panel, so you can see how much room it had.\n\nTwo outcomes are worth knowing before you start.\n\n- It came in under 100 KB. That is the normal case, and it means the search found the last setting that fitted. The file is as close to the ceiling as the encoder could get without crossing it.\n- It could not reach 100 KB. This happens with large or busy images. You still get the smallest file the tool can produce, plus a plain message saying how far over it landed, rather than a quiet overshoot you only discover when the upload fails.\n\nIf you land in the second case, the fix is almost never to demand more compression. Quality is one lever, and it stops being useful somewhere around the point where the picture turns to mush. The lever that still works is pixels: set a max width or a max height and you get a genuinely smaller image, which then compresses far further. A photograph that has to sit under 100 KB usually gets there with its long edge cut to somewhere near 1000 to 1200 pixels, and looks much better than the same photo crushed by quality alone.\n\nOne last thing to check before you send the file: the output format. WebP is the default because it is normally the smaller of the two at the same visual quality. If the place you are uploading to only takes JPEG, choose JPEG in the format selector first and let the search work from there. Every format in that list is one this browser proved it can really write.",
+    "faq": [
+      {
+        "q": "What happens if my image cannot get down to 100 KB?",
+        "a": "You get the smallest file the encoder can make, plus a message stating how far over the target it finished. The tool never silently hands you something above the size you asked for without saying so."
+      },
+      {
+        "q": "Will it always be exactly 100 KB?",
+        "a": "No, and it aims to be just under instead. The search keeps the highest quality setting that stays at or below 100 KB, so the result is usually a little smaller — a file that fits is worth more than a file that matches the number exactly."
+      },
+      {
+        "q": "Can I compress a whole batch to 100 KB each?",
+        "a": "Yes. Every image gets its own 100 KB budget and its own progress bar, and the finished files download together as a single ZIP."
+      },
+      {
+        "q": "Does compressing to 100 KB reduce the image dimensions?",
+        "a": "Not on its own — the pixel dimensions are untouched unless you set a max width or height. Compression spends bytes, not pixels, which is why the pixel controls are the stronger lever when a target is out of reach."
+      }
+    ]
+  },
+  {
+    "slug": "compress-image-to-200kb",
+    "parentToolId": "compress",
+    "status": "live",
+    "navLabel": "Compress to 200 KB",
+    "title": "Compress an Image to 200 KB — Free, No Upload",
+    "description": "Compress a photo to 200 KB or less without uploading it. The quality search runs locally in your browser, one image or a batch, and you can see the setting it chose.",
+    "h1": "Compress an image to 200 KB",
+    "intro": "200 KB leaves the encoder enough room to keep fine detail, so this page is set up for photos you still want to look good — not just fit.",
+    "targetKeyword": "compress image to 200kb",
+    "keywords": [
+      "compress image to 200kb",
+      "reduce photo to 200 kb",
+      "200kb image size",
+      "compress jpeg to 200kb",
+      "resize image under 200kb"
+    ],
+    "defaultOption": { "targetSizeKB": 200 },
+    "uniqueContent": "A 200 KB ceiling is the comfortable version of the same request. It leaves enough room for the encoder to keep the things photographs are made of — skin texture, foliage, fabric, fine edges — where a 100 KB budget often has to flatten them, and it still clears most upload limits with space to spare. This page arrives with 200 already in the target box.\n\nThe mechanics match every target size here: the tool searches quality settings and keeps the highest one that produces a file at or under 200 KB, then reports the setting it used. What changes at this budget is where the search tends to end. A typical photograph given 200 KB keeps a quality score in the high range, so the result reads as the original picture rather than as a compressed copy of it.\n\nThat headroom is why 200 KB is often the better choice when the file will be looked at rather than merely stored. Passport and application photos, product shots, profile pictures and anything that will be viewed at a reasonable size all benefit from the extra bytes, and the difference between 100 KB and 200 KB on a modern connection is nothing anyone will notice.\n\nA few situations where the extra budget is wasted, and honesty about it saves you the space:\n\n- Screenshots, diagrams, flat artwork and logos. These compress so well that they rarely approach 200 KB, and if they do, WebP or PNG will beat JPEG by a wide margin.\n- Images that are already heavily optimised. Re-encoding an image that has been through a compressor once can add bytes rather than remove them, and the result panel says so when it happens.\n- Anything you are about to resize anyway. Fewer pixels first, then a target size, is the order that produces the smallest file.\n\nWhen 200 KB still is not enough, the lever with real power is pixel dimensions rather than quality. A 4000 pixel wide photograph will not fit into 200 KB without visible damage at any setting, but the same photograph at 1600 pixels fits easily and looks sharp at the sizes people actually view it. Drop a batch and each image gets its own 200 KB budget, with one ZIP at the end.",
+    "faq": [
+      {
+        "q": "Why choose 200 KB over 100 KB?",
+        "a": "Because the extra budget is spent on detail. At 200 KB the encoder can usually keep a high quality setting, so fine texture survives; at 100 KB it often has to reduce quality enough that soft areas start to look smooth."
+      },
+      {
+        "q": "Is 200 KB still small enough to email?",
+        "a": "Yes for a handful of images. If you are sending a dozen, compressing the batch here and downloading the ZIP keeps the whole attachment well inside typical mail limits."
+      },
+      {
+        "q": "Which format should I pick for 200 KB?",
+        "a": "WebP by default: at the same visual quality it is usually smaller than JPEG, which means more of your 200 KB goes into the picture. Choose JPEG when the destination only accepts it."
+      },
+      {
+        "q": "Can I set a different target on this page?",
+        "a": "The 200 KB figure is only a starting value, not a lock. Type another number in the target box, or clear it to let the compressor use its highest quality setting instead."
+      }
+    ]
+  },
+  {
+    "slug": "compress-image-to-50kb",
+    "parentToolId": "compress",
+    "status": "live",
+    "navLabel": "Compress to 50 KB",
+    "title": "Compress an Image to 50 KB — Free, No Upload",
+    "description": "Get an image down to 50 KB in your browser, or find out honestly that it cannot go that low. No upload, no account, and a batch downloads as one ZIP.",
+    "h1": "Compress an image to 50 KB",
+    "intro": "50 KB is a small budget, so this page is as much about finding out quickly whether your image can get there as it is about shrinking it.",
+    "targetKeyword": "compress image to 50kb",
+    "keywords": [
+      "compress image to 50kb",
+      "reduce image to 50 kb",
+      "50kb photo",
+      "make image smaller than 50kb",
+      "compress picture to 50kb"
+    ],
+    "defaultOption": { "targetSizeKB": 50 },
+    "uniqueContent": "Fifty kilobytes is worth being blunt about: a photograph at 50 KB is a small image, roughly a thumbnail or a preview, not something to print. If a form demands that ceiling, this page starts with 50 in the target box so you can find out straight away whether your file can reach it at all.\n\nThe compressor will try hard. It searches quality settings all the way down to the lowest one that still produces a real image, and hands you the smallest file it can make. If that is still over 50 KB, it says so with the actual number instead of quietly giving you something that will be rejected.\n\nWhere 50 KB works comfortably:\n\n- Flat images. Logos, icons, diagrams, charts and screenshots of text have large areas of a single colour and compress enormously. Many land well under 50 KB even at their original dimensions.\n- Photographs at reduced pixel dimensions. An 800 pixel wide photo reaches 50 KB with mild softness that most people will not notice at the size it gets displayed.\n- Images you are willing to crop. Removing the irrelevant half of a picture spends no bytes on what you were going to delete anyway.\n\nWhere it does not: a detailed photograph at full resolution. No quality setting gets a 4000 pixel landscape into 50 KB without smearing it, and pushing the search lower only trades detail for artefacts.\n\nWhat actually helps, roughly in order of power:\n\n- Cut the pixel dimensions first. Set a max width around 800 and the rest becomes easy.\n- Prefer WebP over JPEG; at this budget the difference is often a third of the file.\n- Crop before compressing if part of the image is not needed.\n\nThere is also a floor to how far encoders will go. Below a certain quality value browsers stop producing anything usable, so the true minimum size depends on the image rather than on how hard you push. Use the before and after slider here: if the compressed side already looks soft at 50 KB, that is the image telling you the budget is too small, and the honest answer is fewer pixels rather than more compression.",
+    "faq": [
+      {
+        "q": "Why is my image still over 50 KB?",
+        "a": "Because quality alone cannot always get there. Below the encoder's useful range the file stops shrinking meaningfully, and the remaining bytes are the picture itself. Reduce the pixel dimensions and the same image will fit."
+      },
+      {
+        "q": "Is 50 KB too small for a photograph?",
+        "a": "For viewing on a screen at moderate size, no. For printing, yes — there is not enough detail left. If the photo is going to be printed, aim for a JPEG in the hundreds of kilobytes instead."
+      },
+      {
+        "q": "Will 50 KB make my image look bad?",
+        "a": "It depends on what is in it. Flat graphics look almost unchanged; detailed photographs start showing softness and blocking. The comparison slider shows both versions side by side so you can judge before you download."
+      },
+      {
+        "q": "Should I resize instead of compressing to 50 KB?",
+        "a": "Usually both, in that order: fewer pixels first, then a target size on the smaller image. That combination reaches 50 KB with far less visible damage than compression alone."
+      }
+    ]
+  },
+  {
+    "slug": "resize-image-to-1080x1080",
+    "parentToolId": "resize",
+    "status": "live",
+    "navLabel": "1080 × 1080",
+    "title": "Resize Image to 1080×1080 — Free, No Upload",
+    "description": "Resize an image to a 1080 by 1080 box in your browser, keeping its proportions. The square preset is already chosen and nothing is uploaded.",
+    "h1": "Resize an image to 1080 × 1080",
+    "intro": "This page opens with the 1080 × 1080 square preset already selected, so a dropped image is fitted to that box with nothing to configure.",
+    "targetKeyword": "resize image to 1080x1080",
+    "keywords": [
+      "resize image to 1080x1080",
+      "1080x1080 image resizer",
+      "make image 1080x1080",
+      "square image size",
+      "scale photo to 1080"
+    ],
+    "defaultOption": { "presetId": "instagram-square" },
+    "uniqueContent": "A 1080 pixel square is the shape most social platforms settle on internally, which makes it a sensible size to hand them: a square that arrives at 1080 × 1080 does not need rescaling before it is served. This page arrives with the Square post preset chosen, so the box is already set.\n\nThe important word there is box. Resizing fits your image inside the box and keeps its own proportions, because the alternative — stretching a 3:2 photo until it is square — makes people wider than they are. A 4000 × 3000 photograph resized here comes out at 1080 × 810: the long edge is reduced to 1080 and the short edge follows. Nothing is cropped, nothing is distorted, and the note beneath the controls states the preset's exact output before you drop anything.\n\nIf what you need is a square image rather than a square container, that is a crop, and it is a different decision: you are choosing which part of the picture survives. Crop to a 1:1 ratio first and the result genuinely is 1080 × 1080, with the edges trimmed away.\n\nTwo details this page handles without being asked:\n\n- Upscaling is off by default. A 600 × 600 source is not blown up to 1080 and softened just to match a number — you can see the size it really produced in the result panel.\n- The format selector defaults to WebP, which at this size usually lands well below the original file. JPEG is one click away and opens everywhere, which matters if the destination is picky.\n\nBecause the preset is already selected, dropping a file is the entire interaction. A batch works too: every image is fitted inside the same 1080 × 1080 box, each keeping its own proportions, and the finished files download together as one ZIP. If you are producing a set of squares from mixed sources, that is the fastest route — the wide ones come out 1080 × 720, the portrait ones 810 × 1080, and all of them are safe to use at full width.",
+    "faq": [
+      {
+        "q": "Why is my result 1080 × 810 instead of 1080 × 1080?",
+        "a": "Because the resize fits your image inside the box rather than distorting or cropping it. A wide photo keeps its shape, so its shorter edge ends up smaller than the box."
+      },
+      {
+        "q": "How do I get a true square?",
+        "a": "Crop to a 1:1 ratio first, then resize if you still need exact pixels. Cropping decides which part of the picture stays; resizing only changes how many pixels represent it."
+      },
+      {
+        "q": "Will a small image be enlarged to 1080?",
+        "a": "Not unless you tick the allow-upscale option. By default the tool leaves anything smaller than the box alone, because interpolation cannot invent detail that was never captured."
+      },
+      {
+        "q": "Can I resize several images to 1080 × 1080 at once?",
+        "a": "Yes. Drop the batch and each image is fitted to the same box independently, then everything downloads as one ZIP."
+      }
+    ]
+  },
+  {
+    "slug": "resize-image-for-instagram",
+    "parentToolId": "resize",
+    "status": "live",
+    "navLabel": "Instagram sizes",
+    "title": "Resize Photos for Instagram — Free, No Upload",
+    "description": "Resize photos to the portrait, square, landscape or story sizes Instagram uses, entirely in your browser. The preset states where its numbers come from.",
+    "h1": "Resize a photo for Instagram",
+    "intro": "This page starts on the portrait post preset, the shape that takes the most vertical space in a feed. The preset list holds the square, landscape and story sizes too.",
+    "targetKeyword": "resize image for instagram",
+    "keywords": [
+      "resize image for instagram",
+      "instagram photo size",
+      "instagram portrait size",
+      "1080x1350 image",
+      "instagram story image size"
+    ],
+    "defaultOption": { "presetId": "instagram-portrait" },
+    "uniqueContent": "Portrait images get more room in a feed than landscape ones do, up to a 4:5 ratio, which is why 1080 × 1350 is the shape most people settle on for a feed post. This page opens with the portrait preset selected, so the box is already 1080 × 1350 before you drop anything. The square, landscape, story and reel presets are one click away in the same list.\n\nAs with every resize here, that is a box rather than a forced shape. Your image is reduced until it fits inside 1080 × 1350 with its proportions intact. A 3:2 camera file lands at 1080 × 720; a 4:3 phone photo lands at 1080 × 810. Nothing is stretched, and nothing is cropped.\n\nWorth knowing before you choose a preset, because these limits are about what survives being shown:\n\n- Landscape wider than about 1.91 to 1 loses its outer edges in the feed, even though the file itself is untouched. The landscape preset stops at that ratio for exactly this reason.\n- Portrait taller than 4:5 gets trimmed at the top and bottom in the feed, which is why the portrait preset stops at 4:5 rather than going all the way to 9:16.\n- Stories and reels are a separate, full-screen format at 9:16, and they have their own preset. Using the feed portrait size for a story leaves bars at the top and bottom.\n\nOn where the numbers come from: the platform publishes aspect-ratio limits rather than a table of pixel sizes, so the preset records that its dimensions are derived from those published ratios instead of being quoted back as official. Pick a preset and the note under the controls prints its exact size, its ratio and that source line, so nothing here is a number you have to take on trust.\n\nIf you need the picture to fill the tallest feed slot exactly, resizing alone will not do it — your photo fits inside the box with room to spare. Crop to 4:5 first so the whole frame is used, then resize to 1080 × 1350 for a file that fills the space with nothing trimmed by the feed.",
+    "faq": [
+      {
+        "q": "Which size should I use for a feed post?",
+        "a": "Portrait at 1080 × 1350 if the photo suits it, because portrait takes the most vertical space. The square preset is the safe choice for anything that has to work in a grid."
+      },
+      {
+        "q": "Will resizing crop my photo to fit?",
+        "a": "No. Resizing fits the image inside the chosen box and keeps its proportions, so nothing is removed. If you want the frame filled completely, crop to the ratio first."
+      },
+      {
+        "q": "Why does the preset say its size is derived?",
+        "a": "Because the platform publishes ratio limits, not pixel tables. The dimensions are arithmetic on those published limits, and the preset says so rather than implying an official figure was quoted."
+      },
+      {
+        "q": "Do these presets cover stories and reels?",
+        "a": "Yes — there is a separate 9:16 preset for full-screen vertical formats, alongside the feed portrait one."
+      }
+    ]
+  },
+  {
+    "slug": "resize-image-to-1280x720",
+    "parentToolId": "resize",
+    "status": "live",
+    "navLabel": "1280 × 720",
+    "title": "Resize Image to 1280×720 — Free, No Upload",
+    "description": "Scale an image to 1280 by 720 pixels in your browser, keeping its aspect ratio. The dimensions are pre-filled and nothing is uploaded anywhere.",
+    "h1": "Resize an image to 1280 × 720",
+    "intro": "1280 × 720 is 16:9 at 720p. This page comes with those two numbers already in the width and height boxes, so a drop is enough.",
+    "targetKeyword": "resize image to 1280x720",
+    "keywords": [
+      "resize image to 1280x720",
+      "1280x720 image",
+      "720p image size",
+      "16:9 image resizer",
+      "scale image to 1280x720"
+    ],
+    "defaultOption": { "width": 1280, "height": 720 },
+    "uniqueContent": "1280 × 720 is the 16:9 frame at 720p, and it turns up in more places than the name suggests: a still pulled from a video for a player's poster frame, a background for a slide deck set to widescreen, a placeholder in a template that expects a fixed box. Both numbers are already in the width and height fields on this page.\n\nBecause those fields are filled in by hand rather than by a preset, they stay editable, and the aspect-ratio lock is what keeps them in proportion. With the lock on, changing the width adjusts the height for you from the image's own shape, so you can type one number and let the tool work out the other.\n\nWhat the resize does with those two values is worth being precise about, since 16:9 is a shape and your photo probably is not one. The image is scaled to fit inside 1280 × 720 with its proportions intact. A 4:3 photo becomes 960 × 720; a tall portrait becomes 405 × 720. Nothing is cropped and nothing is stretched, so if the picture has to fill the full 16:9 frame, crop it to that ratio first and then resize to these exact numbers.\n\nThree practical notes for this particular size:\n\n- Upscaling is off unless you turn it on. A source smaller than 1280 × 720 stays at its own size rather than being enlarged and softened, and the result panel shows the dimensions you actually got.\n- Choose the output format for where the file is going. WebP is the default and is usually the smallest. For a file that has to open in a video editor or an older desktop application, JPEG is the safer choice — some editors still will not read WebP.\n- Transparency only survives in WebP and PNG. If your source is a logo with a transparent background and you pick JPEG, the empty area is flattened onto white, and the result panel tells you when that happened.\n\nBatches work as you would expect: every image is fitted inside the same 1280 × 720 box, each keeping its own proportions, and the results download together as one ZIP.",
+    "faq": [
+      {
+        "q": "Does 1280 × 720 mean my image will be exactly that size?",
+        "a": "Only if its aspect ratio is already 16:9. Otherwise it is scaled to fit inside that box with its proportions kept, so one of the two dimensions ends up smaller."
+      },
+      {
+        "q": "How do I make an image fill the whole 16:9 frame?",
+        "a": "Crop it to 16:9 first, then resize to 1280 × 720. That fills the frame using the part of the picture you chose to keep."
+      },
+      {
+        "q": "Which format is best for a video or slide tool?",
+        "a": "JPEG for the widest compatibility with editors and older software. WebP gives smaller files and works in browsers, so it is the better choice for anything that stays on the web."
+      },
+      {
+        "q": "Are the width and height locked to 1280 × 720 on this page?",
+        "a": "No, they are just filled in. Type over either value, and with the aspect lock on the other one follows automatically."
+      }
+    ]
+  },
+  {
+    "slug": "convert-png-to-jpg",
+    "parentToolId": "convert",
+    "status": "live",
+    "navLabel": "PNG to JPG",
+    "title": "Convert PNG to JPG — Free, Private, No Upload",
+    "description": "Convert PNG images to JPEG in your browser, with transparency flattened onto white. Nothing is uploaded, and a batch converts in one pass as a ZIP.",
+    "h1": "Convert a PNG to JPG",
+    "intro": "This page opens with JPEG selected as the output format, so a dropped PNG comes back as a JPEG without touching a control.",
+    "targetKeyword": "convert png to jpg",
+    "keywords": [
+      "convert png to jpg",
+      "png to jpeg",
+      "png to jpg converter",
+      "turn png into jpg",
+      "batch png to jpg"
+    ],
+    "defaultOption": { "outputMime": "image/jpeg" },
+    "uniqueContent": "PNG and JPEG are good at opposite things. PNG is lossless and stores transparency; JPEG is lossy, has no alpha channel, and is far smaller for photographic content. Converting a PNG to JPEG here uses the browser's own decoder and encoder, and the JPEG is written at 90% quality — high enough that the difference is hard to see on a photo, low enough that the file is a fraction of the original.\n\nThe one thing that genuinely changes, and the reason people are sometimes surprised by the result: JPEG cannot store transparency. Where your PNG had empty space, the JPEG has to put something, so it is filled with white. On a logo with a transparent background that is a visible change — the logo ends up sitting on a white square instead of floating over whatever is behind it. The result panel says when this happened, and WebP or PNG are the formats that keep transparency intact if you need it.\n\nWhen this conversion is the right move:\n\n- A photograph or a screenshot that was saved as PNG by mistake or by a tool that defaults to it. A PNG photo is often several times larger than an equivalent JPEG, and this is the fastest way to find out by how much.\n- Anything going to a place that only accepts JPEG. That is still the most universally accepted image format there is.\n- Photos that are simply too big, where the source is PNG and no quality has been lost yet.\n\nWhen it is the wrong move: text, line art, flat-colour graphics and screenshots of interfaces. Those compress beautifully as PNG and develop soft edges and fringing around high-contrast detail as JPEG. If your image has sharp black text on a plain background, PNG is usually the smaller and cleaner choice.\n\nBecause there is no code running on a server, the conversion happens at whatever speed your machine decodes and encodes. Drop a batch and every PNG is converted in one pass, in the order you dropped them, and the JPEGs download together as a single ZIP with their extensions changed.",
+    "faq": [
+      {
+        "q": "What happens to the transparent areas?",
+        "a": "They are filled with white, because JPEG has no transparency channel at all. If you need to keep the transparency, convert to WebP instead — or leave the file as PNG."
+      },
+      {
+        "q": "Will the JPEG be much smaller?",
+        "a": "Usually, for photographic content it can be several times smaller. For screenshots and flat graphics the difference is smaller or can even go the other way, and the result panel shows the numbers."
+      },
+      {
+        "q": "Is the conversion lossless?",
+        "a": "No. JPEG is a lossy format by design, so this is a one-way trade of quality for size. Keep the original PNG if you might need to edit it again."
+      },
+      {
+        "q": "Can I convert many PNG files at once?",
+        "a": "Yes. Drop them all and each is converted independently, then the JPEGs download as one ZIP."
+      }
+    ]
+  },
+  {
+    "slug": "convert-jpg-to-png",
+    "parentToolId": "convert",
+    "status": "live",
+    "navLabel": "JPG to PNG",
+    "title": "Convert JPG to PNG — Free, Private, No Upload",
+    "description": "Convert JPEG images to PNG in your browser, losslessly and without uploading. Useful when you need a format that supports transparency, or a lossless file to edit.",
+    "h1": "Convert a JPG to PNG",
+    "intro": "This page starts with PNG selected as the output, so a dropped JPEG comes back as a PNG. Expect the file to be bigger, and know that it will not look sharper.",
+    "targetKeyword": "convert jpg to png",
+    "keywords": [
+      "convert jpg to png",
+      "jpeg to png",
+      "jpg to png converter",
+      "turn jpeg into png",
+      "batch jpg to png"
+    ],
+    "defaultOption": { "outputMime": "image/png" },
+    "uniqueContent": "Converting JPEG to PNG is a different kind of conversion from the other way round, and the honest summary is that it costs you file size without giving you better pixels. JPEG is lossy: the compression artefacts are baked into the file the moment it is saved. Decoding it into PNG stores those same pixels exactly and losslessly, but it cannot undo the compression that already happened.\n\nSo why do it? Because PNG has two properties JPEG does not.\n\n- PNG can hold transparency. A JPEG decoded into a PNG gives you a canvas with an alpha channel, so you can cut the subject out afterwards and save it with the background removed. Starting from JPEG is a one-way door for transparency otherwise.\n- PNG stores its pixels without further loss. If you are about to edit and re-save an image, editing a PNG means the only generation loss is the one already in the source, rather than a new one added by every save.\n\nThe cost is real and worth stating plainly: the PNG will usually be several times larger than the JPEG it came from. Lossless storage means exactly that — the detail is kept rather than approximated. For a 2 MB photograph, expect a PNG in the range of five to fifteen megabytes, and that is not a bug or a badly written converter, it is what lossless means.\n\nWith PNG selected here, the format list is driven by what this browser proves it can actually write, so PNG is always on it. Transparency cannot be added to a JPEG, because there was none to begin with — the conversion gives you the possibility of it, not the thing itself.\n\nA batch converts in one pass with the files kept in drop order, then downloads as a single ZIP. That is the sane way to handle a folder of JPEGs you are about to edit, rather than repeating the conversion one file at a time.",
+    "faq": [
+      {
+        "q": "Will a PNG look better than the JPEG it came from?",
+        "a": "No. JPEG compression is already in the source, and a lossless format cannot restore what was discarded. The PNG is a faithful copy of the pixels the JPEG decodes to, nothing more."
+      },
+      {
+        "q": "Why is the PNG so much bigger?",
+        "a": "Because it stores every pixel losslessly instead of approximating detail to save space. A file several times the size of the JPEG is the expected result, not a sign of a problem."
+      },
+      {
+        "q": "Does the PNG have a transparent background?",
+        "a": "No — a JPEG has no transparency to begin with. The PNG simply has an alpha channel ready, which is what you need if you plan to remove the background afterwards."
+      },
+      {
+        "q": "Can I convert a whole folder of JPEGs?",
+        "a": "Yes: drop them as a batch, and they come back as PNGs in the same order, packaged in one ZIP."
+      }
+    ]
+  },
+  {
+    "slug": "convert-webp-to-jpg",
+    "parentToolId": "convert",
+    "status": "live",
+    "navLabel": "WebP to JPG",
+    "title": "Convert WebP to JPG — Free, Private, No Upload",
+    "description": "Convert WebP images to JPEG in your browser for software that cannot read WebP. No upload, no account, and a whole batch converts as one ZIP.",
+    "h1": "Convert a WebP image to JPG",
+    "intro": "This page arrives with JPEG selected, so a dropped WebP comes back as a JPEG that opens in anything.",
+    "targetKeyword": "convert webp to jpg",
+    "keywords": [
+      "convert webp to jpg",
+      "webp to jpeg",
+      "webp converter",
+      "open webp file",
+      "batch webp to jpg"
+    ],
+    "defaultOption": { "outputMime": "image/jpeg" },
+    "uniqueContent": "WebP is a good format that is awkward to live with. Browsers have read it natively for years, which is why almost every image you save from a web page these days arrives as a .webp file — but plenty of desktop programs, document editors, print tools and older devices still cannot open one. Converting to JPEG is the fix, and this page is pre-set to do exactly that.\n\nExpect the JPEG to be larger than the WebP it came from. That is normal and it is not a fault in the conversion: WebP is simply more efficient at the same visual quality, often by a noticeable margin. You are trading those bytes for compatibility, and that is usually a bargain when the alternative is a file that will not open.\n\nWhat happens to the image in the process:\n\n- Transparency is flattened onto white. WebP can store an alpha channel and JPEG cannot, so any transparent area becomes solid white. If you need the transparency, convert to PNG instead — or keep the WebP and use it somewhere that accepts it.\n- Animation is not preserved. An animated WebP is decoded to its first frame, because JPEG has no concept of multiple frames. For animations, leave the file as WebP or convert to a format built for video.\n- Colour and orientation are handled as you would expect. The decoder applies the stored orientation, so a photo that was shot rotated does not come out sideways.\n\nThe JPEG is written at 90% quality. For photographs that is typically indistinguishable from the original at normal viewing sizes, and it keeps the file from ballooning further than necessary.\n\nIf you have a folder of them — a page you saved, a download queue, a client's asset pack — drop the lot. Each file is converted independently in your browser and the JPEGs arrive in a single ZIP with their extensions renamed, so nothing has to be opened and re-saved one at a time.",
+    "faq": [
+      {
+        "q": "Why is the JPEG bigger than the WebP?",
+        "a": "Because WebP compresses more efficiently at the same visual quality. Converting to JPEG buys compatibility with programs that cannot read WebP, and the extra bytes are part of that trade."
+      },
+      {
+        "q": "What happens to a transparent WebP?",
+        "a": "The transparent areas become white, since JPEG cannot store transparency. Convert to PNG instead if the transparency matters."
+      },
+      {
+        "q": "Can I convert an animated WebP?",
+        "a": "Only its first frame — JPEG has no support for animation, so the motion is lost. Keep the original if you need the animation."
+      },
+      {
+        "q": "Is my WebP file uploaded to convert it?",
+        "a": "No. The decoding and re-encoding happen inside this browser tab. There is no server involved, which is also why the tool keeps working with no connection."
+      }
+    ]
+  },
+  {
+    "slug": "convert-heic-to-jpg",
+    "parentToolId": "convert",
+    "status": "live",
+    "navLabel": "HEIC to JPG",
+    "title": "Convert HEIC to JPG — Free, Private, No Upload",
+    "description": "Convert the HEIC photos from an iPhone to JPEG in your browser. Your pictures are never uploaded — even the HEIC decoder runs on your own device.",
+    "h1": "Convert HEIC photos to JPG",
+    "intro": "This page is set to output JPEG, the format that opens everywhere. Drop one HEIC photo or a whole batch copied off a phone.",
+    "targetKeyword": "convert heic to jpg",
+    "keywords": [
+      "convert heic to jpg",
+      "heic to jpeg",
+      "iphone photo to jpg",
+      "heic converter",
+      "make heic open on windows"
+    ],
+    "defaultOption": { "outputMime": "image/jpeg" },
+    "uniqueContent": "Newer iPhones save photos as HEIC by default, which is a better format than JPEG in every technical respect — smaller for the same quality, and able to store depth and transparency — and an inconvenient one the moment you leave Apple's ecosystem. Windows, Android, most web forms and a great many desktop programs still expect a JPEG. This page converts them, with JPEG already selected as the output.\n\nHow the conversion happens depends on which browser you are using, and it is worth knowing which case you are in. Safari can decode HEIC itself, so the conversion is immediate. Chrome, Edge and Firefox cannot, so the first time you drop a HEIC file this page fetches a small decoder — a separate file served from this site, downloaded on demand and then cached — and runs it locally. That is a one-off cost measured in a moment, and the decoder is the only extra download: your photos are never sent anywhere, in either case. Nothing about this tool has a server to send them to.\n\nWhat the conversion does with your photo:\n\n- Orientation is applied from the file's own metadata, so a portrait shot stays portrait instead of arriving rotated.\n- Transparency, when a HEIC has it, is flattened onto white, because JPEG has no alpha channel.\n- Depth data, Live Photos and bursts are not carried across. A JPEG is a single flat image, and that is all it can be.\n\nThe JPEG is encoded at 90% quality, which for a phone photo is a good size-to-fidelity balance and typically produces a file noticeably smaller than the original HEIC while looking the same on screen.\n\nBatch conversion is the reason most people come here: copy fifty photos off a phone, drop the lot in one go, and collect them as a single ZIP with the extensions changed to .jpg. Everything runs in your browser tab, so a large batch takes as long as your machine needs and nothing waits on an upload.",
+    "faq": [
+      {
+        "q": "Are my photos uploaded to convert them?",
+        "a": "No. The file is decoded in your browser tab, and the HEIC decoder itself is a file this site serves and your browser runs locally. There is no upload step in the process."
+      },
+      {
+        "q": "Why does the first HEIC take longer?",
+        "a": "In browsers other than Safari the page has to fetch the HEIC decoder before it can read the format. That download happens once, then the browser caches it."
+      },
+      {
+        "q": "Will the JPEG be lower quality than the HEIC?",
+        "a": "JPEG is a lossy format, so there is a small reduction. At 90% quality it is not visible at normal viewing sizes; keep the originals if you need the full fidelity later."
+      },
+      {
+        "q": "Do Live Photos or portrait-mode depth effects survive?",
+        "a": "The still image does. The motion, the depth map and the ability to re-adjust a portrait-mode blur afterwards do not — those are features of the HEIC file itself and a JPEG cannot carry them."
+      }
+    ]
+  },
+  {
+    "slug": "crop-image-to-square",
+    "parentToolId": "crop",
+    "status": "live",
+    "navLabel": "Square crop",
+    "title": "Crop an Image to a Square — Free, Private",
+    "description": "Crop any photo to a 1:1 square in your browser. The ratio is locked for you, the output keeps full resolution, and the original file is never uploaded or altered.",
+    "h1": "Crop an image to a square",
+    "intro": "This page opens with the 1:1 ratio already locked, so the selection keeps a square shape while you drag it over the part of the photo you want.",
+    "targetKeyword": "crop image to square",
+    "keywords": [
+      "crop image to square",
+      "square crop",
+      "1:1 crop",
+      "make square photo",
+      "crop picture to square"
+    ],
+    "defaultOption": { "ratioId": "square" },
+    "uniqueContent": "A square crop is usually about a destination rather than a preference: a profile picture that will be shown in a circle, a grid where every tile is the same shape, a marketplace listing that only accepts 1:1, a print in a square frame. This page starts with the 1:1 ratio locked, so the selection keeps a square shape while you drag it around the image.\n\nTwo things are worth separating, because they are often confused and only one of them is a crop. Cropping to a square decides which part of the picture survives — you are throwing away everything outside the selection. Resizing to 1080 × 1080 does not remove anything; it fits the whole image into a square box and leaves the extra space empty. If the goal is a file that is actually square, this is the tool you want; if the goal is a smaller version of the whole picture, resize instead.\n\nThe crop is applied to the full-resolution original, not to what you see on screen. The editor scales the photo down to fit the page, but the selection is translated back into original pixels, so cropping a 4000 pixel photograph to a square produces a 4000 pixel square rather than a screen-sized one. You are never limited by your window size.\n\nA few practical notes:\n\n- The rotation buttons work in quarter turns and flip across or down, and the rotation is applied to the full-resolution result. Free-angle straightening is not offered, so a slightly tilted horizon cannot be corrected here.\n- The output format can be changed from WebP to JPEG or PNG. JPEG is the one to pick if the destination is a form that will not accept anything else, and PNG if the square needs transparency.\n- Your original file is never modified. Cropping produces a new file to download, so you can crop differently as many times as you like.\n\nOne image at a time is deliberate: a crop is a judgement about one picture, and a batch that picked the same rectangle for fifty photos would mostly be wrong. Replacing the image is as simple as dropping another file.",
+    "faq": [
+      {
+        "q": "Does cropping to a square reduce the image quality?",
+        "a": "The pixels you keep are untouched — the crop is taken from the full-resolution original. Only the re-encode on save affects the file, and choosing PNG or WebP avoids visible loss."
+      },
+      {
+        "q": "What is the difference between cropping to a square and resizing to 1080 × 1080?",
+        "a": "Cropping removes the parts outside the selection and yields a genuinely square file. Resizing fits the whole image inside a square box, keeping its proportions, so a wide photo stays wide."
+      },
+      {
+        "q": "Can I crop several photos to squares at once?",
+        "a": "Not in one pass, deliberately — each crop is a decision about one picture. For a batch of same-shaped outputs, resizing to a fixed box is the tool for the job."
+      },
+      {
+        "q": "How do I undo a crop?",
+        "a": "Just drop the image again or press start over: the original file was never changed, so a fresh crop starts from the untouched source."
+      }
+    ]
+  },
+  {
+    "slug": "crop-image-to-16-9",
+    "parentToolId": "crop",
+    "status": "live",
+    "navLabel": "16:9 crop",
+    "title": "Crop an Image to 16:9 — Private, No Upload",
+    "description": "Crop a photo to a 16:9 widescreen frame in your browser. The ratio stays locked while you drag, the crop uses full resolution, and nothing is uploaded.",
+    "h1": "Crop an image to 16:9",
+    "intro": "This page opens with the 16:9 ratio locked, so the selection stays widescreen while you position it over the part of the picture you want to keep.",
+    "targetKeyword": "crop image to 16:9",
+    "keywords": [
+      "crop image to 16:9",
+      "widescreen crop",
+      "16:9 image crop",
+      "crop for video thumbnail",
+      "crop landscape"
+    ],
+    "defaultOption": { "ratioId": "wide" },
+    "uniqueContent": "16:9 is the shape of nearly every screen a picture is shown on: video players, slide decks, streaming thumbnails, widescreen monitors. If a photo has to sit in one of those frames without bars down the sides, it needs to be that shape, and the only way to get there from a taller original is to crop. This page starts with the ratio locked at 16:9 so the selection keeps that shape while you drag it.\n\nWith a ratio locked, dragging any corner or edge keeps the widescreen proportion and resizes the whole selection accordingly — you are choosing position and size, not shape. The alternative, freeform mode, lets you draw any rectangle and is the right choice when the destination has no fixed ratio at all.\n\nWhat you are deciding when you crop is what leaves the frame. A 4:3 or 3:2 photograph cropped to 16:9 loses its top and bottom, which is usually the sky and the foreground; a portrait loses much more, since the widescreen frame is far wider than it is tall. If the important subject sits vertically — a standing figure, a tall building — check the preview before you commit, because the frame will not hold the whole thing.\n\nThe crop is taken from the original pixels rather than from the scaled-down preview. The editor fits the photo to your screen so it can be dragged comfortably, but the selection is translated back into source coordinates, so a 16:9 crop of a 4000 pixel image is a full-resolution 16:9 rectangle, not a screen-sized one.\n\nA few things this tool does and one it does not:\n\n- Rotate in quarter turns and flip horizontally or vertically, applied to the full-resolution result.\n- Output as WebP by default, with JPEG and PNG available — JPEG is the safe pick for video editors, which sometimes still will not open WebP.\n- No free-angle straightening, so a horizon that is slightly off level cannot be corrected here.\n\nYour original is never modified, and dropping another image replaces the current one whenever you want to start again.",
+    "faq": [
+      {
+        "q": "Will cropping to 16:9 stretch my photo?",
+        "a": "No. Cropping removes pixels outside the selection rather than distorting what is inside, so the parts you keep look exactly as they did."
+      },
+      {
+        "q": "How do I choose which part of the image to keep?",
+        "a": "Drag the locked selection over the area you want. Because the ratio is fixed, the selection changes size and position but never becomes a different shape."
+      },
+      {
+        "q": "Is the cropped file full resolution?",
+        "a": "Yes. The preview you drag on is scaled to your window, but the crop itself is calculated against the original image, so no detail is lost beyond what the crop removes."
+      },
+      {
+        "q": "Can I straighten a tilted horizon here?",
+        "a": "Not at an arbitrary angle. The tool rotates in 90-degree steps only, so a photo that is slightly off level cannot be corrected in this editor."
+      }
+    ]
+  },
+  {
+    "slug": "image-to-pdf-a4",
+    "parentToolId": "image-to-pdf",
+    "status": "live",
+    "navLabel": "A4 PDF",
+    "title": "Images to PDF in A4 — Free, Private, No Upload",
+    "description": "Combine JPEG, PNG and WebP images into a single A4 PDF in your browser. Reorder the pages, nothing is uploaded, and the file is built on your own device.",
+    "h1": "Turn images into a single A4 PDF",
+    "intro": "This page comes set to A4 with normal margins, so dropped images are fitted to the page and nothing is cropped to make them fit.",
+    "targetKeyword": "image to pdf a4",
+    "keywords": [
+      "image to pdf a4",
+      "jpg to pdf a4",
+      "photos to a4 pdf",
+      "convert images to pdf",
+      "combine images into one pdf"
+    ],
+    "defaultOption": { "pageSizeId": "a4", "marginId": "normal", "qualityId": "balanced" },
+    "uniqueContent": "A4 is the page size almost everywhere outside North America, and it is already selected here along with normal half-inch margins. Drop your images and each one becomes a page in a single PDF, built entirely in your browser.\n\nThe layout rule is simple and worth knowing before you look at the result: each image is scaled to fit inside the printable area — the page minus the margins — with its proportions kept. Nothing is cropped to fill the page, and nothing is stretched to match its shape. A landscape photo on an A4 portrait page appears smaller, centred, with white space above and below. That is the correct behaviour for documents: a PDF is read as pages, and a page that has been sliced to fill a sheet loses content at the edges.\n\nIf you would rather have no white space, you have two options here. Switch the page size to match each image, which makes every page the size of its own picture and ignores margins entirely. Or crop your images to A4's proportions beforehand, which fills the page using the part of each picture you chose.\n\nA few details that decide how good the result looks:\n\n- Page order is the order you drop them in, and you can rearrange it with the move buttons before building the PDF. For a scanned document, getting this right at the start is easier than fixing it afterwards.\n- Mixed orientations are fine. Portrait and landscape pages can sit in the same document, each fitted to the same printable area.\n- The quality setting applies to images that have to be re-encoded — PNG and WebP sources — converting them to JPEG at high, balanced or smaller quality. Photographic sources that are already JPEG are embedded as they are, so nothing is re-compressed twice.\n\nBecause the PDF is assembled locally, there is no upload and no page limit imposed by a server. A file that would be awkward to send anywhere never leaves your machine, and the result downloads straight to your device when it is ready.",
+    "faq": [
+      {
+        "q": "Will my images be cropped to fill the A4 page?",
+        "a": "No. Each image is scaled down to fit inside the printable area and centred, so what you keep is the whole picture. Any space left over stays white."
+      },
+      {
+        "q": "Can I change the margins or the page size?",
+        "a": "Yes, both are in the panel — A4, US Letter or match-each-image for the page, and none, small or normal for the margins. The page arrives on A4 with normal margins as a starting point."
+      },
+      {
+        "q": "Can I reorder the pages before saving?",
+        "a": "Yes. Every dropped image appears in a list with move controls, and the PDF is built in whatever order the list shows when you press the button."
+      },
+      {
+        "q": "Does the quality setting re-compress my JPEGs?",
+        "a": "No. The quality setting applies to images that must be re-encoded to go into the PDF, such as PNG and WebP files. Photos that are already JPEG are embedded as they are."
+      }
+    ]
+  },
+  {
+    "slug": "photos-to-pdf-one-page",
+    "parentToolId": "image-to-pdf",
+    "status": "live",
+    "navLabel": "One page per image",
+    "title": "Photos to PDF, One Page Each — Free, Private",
+    "description": "Build a PDF where every page is exactly the size of its image, with no padding or margins. Runs entirely in your browser, and nothing is uploaded.",
+    "h1": "Make a PDF with one page per photo",
+    "intro": "This page is set to match each image, so every page is the size of its own picture. Use it when you want the images, not a document.",
+    "targetKeyword": "photos to pdf one page per image",
+    "keywords": [
+      "photos to pdf one page each",
+      "image size pdf",
+      "pdf without margins",
+      "screenshots to pdf",
+      "scans to single pdf"
+    ],
+    "defaultOption": { "pageSizeId": "match", "marginId": "none", "qualityId": "balanced" },
+    "uniqueContent": "Most image-to-PDF tools force your pictures onto a fixed sheet of paper, which means every page carries white space that was never part of the image. This page takes the other approach: the page size matches each image, so a 3000 × 2000 photograph becomes a 3000 × 2000 page and nothing is padded, letterboxed or cropped. Margins do not apply in this mode, which is why the margin control has no effect while it is selected.\n\nThat makes it the right choice for a specific kind of job — one where the images are the content rather than illustrations on a page:\n\n- Screenshots. A set of interface screenshots or a scrolling capture split into frames keeps its exact proportions and stays readable at any zoom level.\n- Scans and photographs of documents. Receipts, handwritten notes, drawings and whiteboards come out as one file that can be paged through without paper-shaped gaps between them.\n- Recipes, plans and reference sheets. Anything you would otherwise scroll through one image at a time.\n- A sequence of images that is meant to be viewed full screen, such as slides exported as pictures.\n\nMixed orientations work naturally here, because there is no common page to force them into. A landscape photo is a wide page, the portrait one that follows is a tall page, and neither has been reshaped to match the other.\n\nThe trade-off is printing. Most printers cannot print to the very edge of a sheet, so a page whose content runs to its own boundary will usually be scaled down and given a white border by the printer's own software. If the PDF is going to be printed rather than read on a screen, A4 is the better page size — it has margins built in and the output matches the paper in the tray.\n\nOrdering works as you would expect: pages follow the order you dropped the images in, and the move controls let you rearrange before building. The quality setting only applies to images that have to be re-encoded — PNG and WebP sources — while JPEG files are embedded exactly as they are.",
+    "faq": [
+      {
+        "q": "What does match each image actually do?",
+        "a": "It makes every page the exact dimensions of its own picture. There is no sheet to fit into, so nothing is padded, cropped or letterboxed, and margins do not apply."
+      },
+      {
+        "q": "Why are the margins ignored in this mode?",
+        "a": "Because there is no fixed page for a margin to be measured against — the page is the image. Choose A4 or US Letter if you want margins around your pictures."
+      },
+      {
+        "q": "Will the PDF print properly?",
+        "a": "It will print, but most printers cannot reach the edge of a sheet, so a page that fills its own boundary usually gets scaled down with a white border added. Use A4 for print."
+      },
+      {
+        "q": "Are my photos compressed to build the PDF?",
+        "a": "Only if they have to be re-encoded: PNG and WebP sources are converted to JPEG at the chosen quality, while JPEG files are embedded as they are."
+      }
+    ]
+  }
+]

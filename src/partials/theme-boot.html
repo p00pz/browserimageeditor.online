@@ -1,0 +1,20 @@
+<script>
+  // Applies the stored (or system) colour scheme before first paint so the page never
+  // flashes the wrong theme. Lives in a partial so every generated page shares one copy
+  // instead of repeating it. The class names and storage key must match ui/site.js.
+  (function () {
+    try {
+      // The renamed settings key means existing users will need to choose their theme once again.
+      var stored = localStorage.getItem('browserimageeditor:theme');
+      var theme =
+        stored === 'light' || stored === 'dark'
+          ? stored
+          : window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
+      document.documentElement.classList.add(theme);
+    } catch (error) {
+      // Storage can throw in private browsing; the CSS default is a fine fallback.
+    }
+  })();
+</script>

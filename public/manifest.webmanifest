@@ -1,0 +1,57 @@
+{
+  "id": "/",
+  "name": "Browser Image Editor",
+  "short_name": "BIE",
+  "description": "Free browser-based image tools. Compress, resize and convert images without uploading them anywhere.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0366d6",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": [
+    "photo",
+    "utilities",
+    "productivity"
+  ],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Compress",
+      "url": "/tools/compress-image/"
+    },
+    {
+      "name": "Resize",
+      "url": "/tools/resize-image/"
+    },
+    {
+      "name": "Convert",
+      "url": "/tools/convert-image/"
+    },
+    {
+      "name": "Crop",
+      "url": "/tools/crop-image/"
+    }
+  ]
+}

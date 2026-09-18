@@ -1,0 +1,97 @@
+      <section class="tool-panel" data-tool-root data-tool-slug="{{slug}}">
+        <div class="dropzone" data-dropzone>
+          <label class="dropzone-label" for="tool-file-input">
+            <span class="dropzone-title">{{{t.ui.tool.chooseImage}}}</span>
+            <span class="dropzone-hint">{{{dropzoneHint}}}</span>
+            <span class="dropzone-hint">{{{t.ui.crop.singleHint}}}</span>
+          </label>
+          <input class="dropzone-input" id="tool-file-input" type="file" accept="{{acceptAttr}}" data-dropzone-input>
+        </div>
+
+        <p class="notice notice-warning" data-unsupported hidden>
+          {{{t.ui.crop.unsupported}}}
+        </p>
+
+        <div class="crop-stage" data-crop-stage hidden>
+          <img data-crop-image alt="{{{t.ui.crop.altImage}}}">
+        </div>
+
+        <div class="crop-toolbar" data-crop-toolbar hidden>
+          <div class="crop-ratios" role="group" aria-label="{{{t.ui.crop.ratioGroupLabel}}}">
+            <span class="crop-ratios-label">{{{t.ui.crop.ratioLabel}}}</span>
+            <div class="ratio-list" data-ratio-list></div>
+          </div>
+          <div class="crop-actions">
+            <button class="button button-secondary" type="button" data-rotate-left>{{{t.ui.crop.rotateLeft}}}</button>
+            <button class="button button-secondary" type="button" data-rotate-right>{{{t.ui.crop.rotateRight}}}</button>
+            <button class="button button-secondary" type="button" data-flip-h>{{{t.ui.crop.flipH}}}</button>
+            <button class="button button-secondary" type="button" data-flip-v>{{{t.ui.crop.flipV}}}</button>
+            <button class="button button-secondary" type="button" data-crop-reset>{{{t.ui.crop.reset}}}</button>
+          </div>
+          <div class="field">
+            <label class="field-label" for="crop-format">{{{t.ui.crop.outputFormat}}}</label>
+            <select class="field-input" id="crop-format" data-output-format></select>
+          </div>
+          <div class="crop-apply">
+            <button class="button" type="button" data-crop-apply data-primary-action data-sticky="off">{{{t.ui.crop.apply}}}</button>
+            <button class="button button-secondary" type="button" data-crop-choose-another>{{{t.ui.crop.chooseAnother}}}</button>
+          </div>
+        </div>
+
+        <div class="progress-region" data-progress-region hidden>
+          <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="{{{t.ui.crop.progressLabel}}}">
+            <div class="progress-bar" data-progress-bar></div>
+          </div>
+          <p class="progress-text" data-progress-text></p>
+        </div>
+
+        <div class="result" data-result hidden>
+          <div class="compare-slider" data-compare>
+            <div class="compare-slider-pane compare-slider-before">
+              <img data-compare-before alt="{{{t.ui.tool.altOriginal}}}">
+            </div>
+            <div class="compare-slider-pane compare-slider-after">
+              <img data-compare-after alt="{{{t.ui.crop.compareAlt}}}">
+            </div>
+            <span class="compare-slider-handle" aria-hidden="true"></span>
+            <span class="compare-slider-label compare-slider-label-before">{{{t.ui.tool.original}}}</span>
+            <span class="compare-slider-label compare-slider-label-after">{{{t.ui.crop.compareLabel}}}</span>
+            <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="{{{t.ui.crop.sliderLabel}}}">
+          </div>
+          <p class="compare-savings" data-compare-savings></p>
+          <dl class="result-stats">
+            <div class="result-stat">
+              <dt>{{{t.ui.tool.statDimensions}}}</dt>
+              <dd data-result-dimensions>&mdash;</dd>
+            </div>
+            <div class="result-stat">
+              <dt>{{{t.ui.tool.statFileSize}}}</dt>
+              <dd data-result-size>&mdash;</dd>
+            </div>
+            <div class="result-stat">
+              <dt>{{{t.ui.tool.statFormat}}}</dt>
+              <dd data-result-format>&mdash;</dd>
+            </div>
+          </dl>
+          <p class="notice notice-warning" data-result-warning hidden></p>
+          <div class="result-actions">
+            <a class="button" data-download download>{{{t.ui.tool.download}}}</a>
+            <button class="button button-secondary" type="button" data-start-over>{{{t.ui.tool.startOver}}}</button>
+          </div>
+        </div>
+
+        <p class="status" data-status role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="secondary-section tool-notes" data-collapsible>
+        <details><summary><h2>{{{t.ui.crop.notesHeading}}}</h2></summary></details>
+        <div class="disclosure-body">
+          <p>{{{t.ui.crop.notesIntro}}}</p>
+          <ul>
+            <li>{{{t.ui.crop.notes1}}}</li>
+            <li>{{{t.ui.crop.notes2}}}</li>
+            <li>{{{t.ui.crop.notes3}}}</li>
+            <li>{{{t.ui.crop.notes4}}}</li>
+          </ul>
+        </div>
+      </section>

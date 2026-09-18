@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<!-- GENERATED FILE — do not edit by hand. Rebuilt by scripts/build-pages.mjs from content/tools.json + content/pages.json + content/site.json. Run "npm run gen" instead. -->
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!--#include partials/theme-boot.html-->
+  <title>How It Works — Image Processing Explained | Browser Image Editor</title>
+  <meta name="description" content="The technical version: how Web Workers, Canvas and WebAssembly process your images inside the browser tab, and why nothing is ever uploaded.">
+  <link rel="canonical" href="https://browserimageeditor.online/pages/how-it-works/">
+  <link rel="alternate" hreflang="en" href="https://browserimageeditor.online/pages/how-it-works/">
+  <link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/pages/how-it-works/">
+  <link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/pages/how-it-works/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Browser Image Editor">
+  <meta property="og:title" content="How It Works — Image Processing Explained">
+  <meta property="og:description" content="The technical version: how Web Workers, Canvas and WebAssembly process your images inside the browser tab, and why nothing is ever uploaded.">
+  <meta property="og:url" content="https://browserimageeditor.online/pages/how-it-works/">
+  <meta property="og:image" content="https://browserimageeditor.online/og/page-how-it-works.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="How It Works — Image Processing Explained">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How It Works — Image Processing Explained">
+  <meta name="twitter:description" content="The technical version: how Web Workers, Canvas and WebAssembly process your images inside the browser tab, and why nothing is ever uploaded.">
+  <meta name="twitter:image" content="https://browserimageeditor.online/og/page-how-it-works.png">
+  <meta name="twitter:image:alt" content="How It Works — Image Processing Explained">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://browserimageeditor.online/pages/how-it-works/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "All tools",
+          "item": "https://browserimageeditor.online/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "How it works",
+          "item": "https://browserimageeditor.online/pages/how-it-works/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon-180.png">
+  <meta name="theme-color" content="#0366d6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+
+  <script type="application/json" id="ui-strings">{
+  "js.chrome.menuOpen": "Open menu",
+  "js.chrome.menuClose": "Close menu",
+  "js.enhance.ready": "Ready — drop a photo, or a batch, to enhance it.",
+  "js.enhance.unsupported": "This browser cannot enhance photos locally.",
+  "js.enhance.workerStopped": "The enhancement worker stopped unexpectedly. Reload the page and try again.",
+  "js.enhance.failed": "Enhancement failed.",
+  "js.enhance.failedUnknown": "Enhancement failed for an unknown reason.",
+  "js.enhance.phaseProbe": "Reading the photo…",
+  "js.enhance.phaseAnalyse": "Measuring the histogram…",
+  "js.enhance.phaseGrade": "Applying the style…",
+  "js.enhance.phaseEncode": "Finishing up…",
+  "js.enhance.running": "Enhancing…",
+  "js.enhance.startingOne": "Enhancing {name} in your browser…",
+  "js.enhance.startingMany": "Enhancing {count} photos in your browser…",
+  "js.enhance.previewsLoading": "Rendering previews from your photo…",
+  "js.enhance.previewsProgress": "Rendering previews from your photo — {percent}%",
+  "js.enhance.previewsReady": "Previews ready — pick a style, or use Auto enhance.",
+  "js.enhance.previewsFailed": "The previews could not be rendered on this device. You can still pick a style by name and enhance the full-size photo.",
+  "js.enhance.thumbAlt": "Your photo with the {preset} style applied",
+  "js.enhance.doneStyled": "Done — {preset} at the intensity you chose.",
+  "js.enhance.doneAuto": "Done — auto-corrected, with no style applied.",
+  "js.enhance.correctionApplied": "Auto-correct stretched each channel to the full range: gains {gains} for red, green and blue. The black points were {black} and the white points {white}.",
+  "js.enhance.correctionSkipped": "Auto-correct found nothing worth fixing: this photo already used the full tonal range, so stretching it further would only have amplified noise.",
+  "js.enhance.largerNote": "The enhanced file is {size} larger ({percent}%). Re-encoding does that — the pixel dimensions are unchanged.",
+  "js.enhance.manualPath": "This browser has no GPU filter support, so the style was computed pixel by pixel instead of on the graphics chip. The arithmetic is equivalent — the two paths land within a few code values of each other — but it takes a little longer.",
+  "js.enhance.formatFallback": "Your photo's own format could not be written back on this device, so the result was saved as JPEG.",
+  "js.enhance.zeroIntensity": "The intensity sits at 0%, so this is the auto-corrected photo with no style on it.",
+  "js.enhance.enhancedCount": "{count} enhanced",
+  "js.enhance.zipTail": "Use \"Download all as ZIP\" for the whole batch.",
+  "js.error.INVALID_PRESET": "That enhancement style does not exist.",
+  "js.common.waiting": "Waiting",
+  "js.common.compare": "Compare",
+  "js.common.download": "Download",
+  "js.common.retry": "Retry",
+  "js.common.somethingWrong": "Something went wrong.",
+  "js.common.cancelled": "Cancelled.",
+  "js.common.cancelling": "Cancelling…",
+  "js.common.cancelledBeforeStart": "Cancelled before it started.",
+  "js.common.retrying": "Retrying…",
+  "js.common.nothingToDownload": "There is nothing to download yet.",
+  "js.common.zipFailed": "The ZIP could not be built.",
+  "js.common.done": "Done",
+  "js.common.imageOne": "image",
+  "js.common.imageMany": "images",
+  "js.common.savedFile": "Saved {name} ({size}).",
+  "js.common.packaging": "Packaging {count} images…",
+  "js.common.zipReady": "ZIP ready — {count} {images}, {size}.",
+  "js.common.zipReadyLarge": "ZIP ready ({size}) — large batches are held in memory while the ZIP is built, so leave the tab open until the download starts.",
+  "js.common.batchSummary": "{total} {images}",
+  "js.common.batchReady": "{count} ready",
+  "js.common.batchFailed": "{count} failed",
+  "js.common.batchCancelled": "{count} cancelled",
+  "js.common.batchWaitingCount": "{count} waiting",
+  "js.common.progressDone": "{succeeded} of {total} done.",
+  "js.common.progressDoneFailed": "{succeeded} of {total} done — {failed} failed.",
+  "js.common.progressPercent": "{finished} of {total} done — {percent}%",
+  "js.common.progressFor": "Progress for {name}",
+  "js.common.downloadSize": "Download {size}",
+  "js.common.jpegFlatten": "JPEG cannot store transparency, so transparent areas were flattened onto white.",
+  "js.common.largerThanOriginal": "This file ended up {size} larger than the original — try WebP, or set a target size.",
+  "js.common.largerThanOriginalResize": "The new file is {size} larger than the original — re-encoding to a different format can do that even when the pixel count drops.",
+  "js.common.noResampling": "No resampling",
+  "js.common.scaleOfPixels": "{percent} of the pixels",
+  "js.common.compareSliderValue": "{percent}% original image",
+  "js.common.browserUnsupported": "This browser cannot process images locally.",
+  "js.common.checkingBrowser": "Checking this browser…",
+  "js.common.readyAgain": "Ready for another image.",
+  "js.common.batchQueued": "{count} images ready. Set the options, then press \"{action}\".",
+  "js.common.listOr": "or",
+  "js.common.presetFitsInside": "fits inside the box",
+  "js.common.presetOriginDerived": "derived from the platform's published ratio limits",
+  "js.common.presetOriginPublished": "published by the platform",
+  "js.common.presetNote": "{label}: {width}×{height} px ({ratio}) — {origin}. {note} {source}",
+  "js.common.doneParts": "Done — {parts}.",
+  "js.preset.instagram-square": "Square post",
+  "js.preset.instagram-portrait": "Portrait post",
+  "js.preset.instagram-landscape": "Landscape post",
+  "js.preset.instagram-story": "Story or reel",
+  "js.preset.youtube-thumbnail": "Video thumbnail",
+  "js.preset.youtube-shorts-cover": "Shorts cover",
+  "js.preset.hd-1080p": "Full HD (1080p)",
+  "js.preset.web-1280": "Web image (1280 wide)",
+  "js.dropzone.empty": "{name} appears to be empty.",
+  "js.dropzone.tooLarge": "{name} is {size}. The limit here is {limit}.",
+  "js.dropzone.unsupportedType": "{name} is not a supported type. Accepted formats: {accepted}.",
+  "js.dropzone.tooMany": "{count} files were provided; only {name} can be used here.",
+  "js.pwa.bannerLabel": "Install Browser Image Editor",
+  "js.pwa.bannerText": "Install Browser Image Editor: it opens like an app, and the tools you have visited keep working with no connection at all.",
+  "js.pwa.install": "Install app",
+  "js.pwa.notNow": "Not now",
+  "js.compress.ready": "Ready — drop an image, or a batch, to compress it.",
+  "js.compress.unsupported": "This browser cannot compress images locally.",
+  "js.compress.workerStopped": "The compression worker stopped unexpectedly. Reload the page and try again.",
+  "js.compress.failed": "Compression failed.",
+  "js.compress.failedUnknown": "Compression failed for an unknown reason.",
+  "js.compress.invalidSettings": "Those settings are not valid.",
+  "js.compress.phaseProbe": "Reading the image…",
+  "js.compress.phaseFit": "Resizing…",
+  "js.compress.phaseSearch": "Looking for the best quality…",
+  "js.compress.phaseEncode": "Finishing up…",
+  "js.compress.running": "Compressing…",
+  "js.compress.startingOne": "Compressing {name} in your browser…",
+  "js.compress.startingMany": "Compressing {count} images in your browser…",
+  "js.compress.doneAt": "Done at {percent}% quality.",
+  "js.compress.zipTail": "Use \"Download all as ZIP\" for the whole batch.",
+  "js.compress.compressedCount": "{count} compressed",
+  "js.compress.tryingQuality": "Trying quality {percent}%…",
+  "js.compress.nearTarget": "Close: {over} over your {target} target, and this is the smallest this image gets.",
+  "js.compress.unreachableTarget": "Cannot reach {target}: the smallest this image gets is {smallest}. Lower the max width or height to save more.",
+  "js.resize.ready": "Ready — drop an image, or a batch, to resize it.",
+  "js.resize.unsupported": "This browser cannot resize images locally.",
+  "js.resize.workerStopped": "The resize worker stopped unexpectedly. Reload the page and try again.",
+  "js.resize.failed": "Resizing failed.",
+  "js.resize.failedUnknown": "Resizing failed for an unknown reason.",
+  "js.resize.invalidDimensions": "Those dimensions are not valid.",
+  "js.resize.phaseProbe": "Reading the image…",
+  "js.resize.phaseResize": "Resampling…",
+  "js.resize.phaseEncode": "Finishing up…",
+  "js.resize.running": "Resizing…",
+  "js.resize.startingOne": "Resizing {name} in your browser…",
+  "js.resize.startingMany": "Resizing {count} images in your browser…",
+  "js.resize.doneScaled": "Done — {change}",
+  "js.resize.doneUnchanged": "Done — unchanged size, {change}",
+  "js.resize.upscaleSkipped": "That image was already smaller than the size you asked for, so it was left alone. Tick \"Allow enlarging\" to scale it up.",
+  "js.resize.resizedCount": "{count} resized",
+  "js.convert.ready": "Ready — drop an image, or a batch, to convert it.",
+  "js.convert.unsupported": "This browser cannot convert images locally.",
+  "js.convert.workerStopped": "The conversion worker stopped unexpectedly. Reload the page and try again.",
+  "js.convert.failed": "Conversion failed.",
+  "js.convert.failedUnknown": "Conversion failed for an unknown reason.",
+  "js.convert.phaseProbe": "Reading the image…",
+  "js.convert.phaseEncode": "Writing the new format…",
+  "js.convert.running": "Converting…",
+  "js.convert.startingOne": "Converting {name} in your browser…",
+  "js.convert.startingMany": "Converting {count} images in your browser…",
+  "js.convert.done": "Done.",
+  "js.convert.convertedCount": "{count} converted",
+  "js.convert.doneHeic": "Done — decoded on your device with the HEIC decoder.",
+  "js.convert.decodedByDecoder": "This HEIC was decoded on your device by the bundled decoder.",
+  "js.convert.encoderNote": "This browser can write {offered}.",
+  "js.convert.encoderNoteSkipped": "This browser can write {offered}. {skipped} is not offered because canvas.toBlob would not produce a real {formats} file here.",
+  "js.convert.largerNote": "The new file is {size} larger ({percent}). Converting an already-optimised image can add bytes — WebP usually gives the smallest result.",
+  "js.convert.noEncoders": "This browser cannot write any of the formats this tool offers, so there is nothing to convert to.",
+  "js.convert.heicNeedsDecoder": "Reading a HEIC file needs a decoder that could not be fetched. Check your connection and try again.",
+  "js.error.ABORTED": "That was cancelled.",
+  "js.error.INTERNAL": "That did not work. Nothing was uploaded; please try again.",
+  "js.error.EMPTY_FILE": "That file appears to be empty.",
+  "js.error.TOO_LARGE": "That file is larger than this page accepts.",
+  "js.error.TOO_MANY_FILES": "That is more files than this page can take.",
+  "js.error.UNSUPPORTED_TYPE": "That file type is not one this tool can read.",
+  "js.error.DECODE_FAILED": "That file could not be decoded as an image.",
+  "js.error.ENCODE_FAILED": "The image could not be written in that format.",
+  "js.error.INVALID_ENCODE": "The image could not be written in that format.",
+  "js.error.INVALID_ENCODER": "This browser cannot write that format.",
+  "js.error.INVALID_PROBE": "The image could not be read well enough to process it.",
+  "js.error.INVALID_DIMENSION": "That size is not a valid image size.",
+  "js.error.INVALID_DIMENSIONS": "Those dimensions are not valid.",
+  "js.error.INVALID_BACKGROUND": "That background colour could not be used.",
+  "js.error.INVALID_MASK": "The area you painted could not be read. Clear the mask and paint over the object again.",
+  "js.error.INVALID_SELECTION": "That selection could not be applied.",
+  "js.error.INVALID_PAGE_SIZE": "That PDF page size is not valid.",
+  "js.error.NO_CANVAS": "This browser could not provide a canvas to draw on.",
+  "js.error.PDF_FAILED": "The PDF could not be built.",
+  "js.error.UNSUPPORTED": "This browser cannot do that locally, and nothing is sent to a server as a fallback.",
+  "js.error.OUT_OF_MEMORY": "This device ran out of memory working on that image. Try a smaller image, or close other tabs and try again.",
+  "js.error.MODEL_UNSUPPORTED": "This browser's runtime cannot run the model this tool needs. Nothing was uploaded; please report it.",
+  "js.error.MODEL_RUNTIME_FAILED": "The on-device model could not run. Nothing was uploaded; try the other mode.",
+  "js.error.MODEL_NOT_READY": "The model this tool needs has not been downloaded yet.",
+  "js.error.MODEL_FETCH_FAILED": "The model could not be downloaded. Check your connection and try again — nothing was uploaded either way.",
+  "js.error.MODEL_TRUNCATED": "The model download was incomplete. Nothing was uploaded; try again.",
+  "js.error.MODEL_HTTP": "The model host refused the request. The model may have moved; nothing was uploaded.",
+  "js.error.MODEL_URL_MISSING": "No model URL is configured for this tool.",
+  "js.error.MODEL_CONTRACT_MISMATCH": "The downloaded model does not match what this tool expects. Nothing was uploaded.",
+  "js.error.ORT_LOAD_FAILED": "The on-device runtime could not be loaded. Reloading the page usually fixes this, and nothing was uploaded.",
+  "js.error.UNKNOWN_MODEL": "This tool asked for a model that does not exist.",
+  "js.error.EMPTY_MASK": "Paint over the object you want removed first.",
+  "js.error.INVALID_INPUT": "No image file was provided.",
+  "js.error.INVALID_JOB": "That job could not be started.",
+  "js.error.IMAGE_TOO_LARGE": "That image has too many pixels for a canvas to hold. Shrink it first, then try again.",
+  "js.error.UNSUPPORTED_FORMAT": "That format is not one this tool can read.",
+  "js.error.INVALID_ENCODE_RESULT": "The encoder returned something that is not an image.",
+  "js.order.moveUp": "Move up",
+  "js.order.moveDown": "Move down",
+  "js.order.moveFirst": "Move to start",
+  "js.order.moveLast": "Move to end",
+  "js.order.remove": "Remove",
+  "js.ratio.free.label": "Free",
+  "js.ratio.free.note": "Drag any rectangle.",
+  "js.ratio.square.label": "1:1",
+  "js.ratio.square.note": "Square — profile pictures and grid posts.",
+  "js.ratio.portrait.label": "4:5",
+  "js.ratio.portrait.note": "Portrait — the tallest the Instagram feed shows.",
+  "js.ratio.classic.label": "3:2",
+  "js.ratio.classic.note": "Classic 35mm photo shape.",
+  "js.ratio.photo.label": "4:3",
+  "js.ratio.photo.note": "Most phone cameras.",
+  "js.ratio.wide.label": "16:9",
+  "js.ratio.wide.note": "Widescreen — thumbnails and slides.",
+  "js.crop.progressLabel": "Applying the crop…",
+  "js.crop.workerStopped": "The encoding worker stopped unexpectedly. Reload the page and try again.",
+  "js.crop.failed": "The crop could not be encoded.",
+  "js.crop.failedUnknown": "The crop could not be encoded, and the browser did not say why.",
+  "js.crop.freeSelection": "Free selection — drag any rectangle.",
+  "js.crop.lockedTo": "Locked to {label}.",
+  "js.crop.wrongCropper": "This build expects the 1.x version of the cropping library. Crop output is unavailable with the installed version.",
+  "js.crop.dragHint": "Drag the box to choose the crop, or pick an aspect ratio.",
+  "js.crop.readBackFailed": "The cropped image could not be read back.",
+  "js.crop.phaseCrop": "Cropping…",
+  "js.crop.phaseEncode": "Encoding…",
+  "js.crop.croppedTo": "Cropped to {width}×{height} at {size}.",
+  "js.crop.largerNote": "The cropped file is not smaller than the original, which is normal: the whole image was re-encoded even though only part of it is kept.",
+  "js.crop.rotated": "Rotated to {degrees}°.",
+  "js.crop.flipAcross": "Flipped across.",
+  "js.crop.flipAcrossOff": "Flip across removed.",
+  "js.crop.flipDown": "Flipped down.",
+  "js.crop.flipDownOff": "Flip down removed.",
+  "js.crop.selectionReset": "Selection reset.",
+  "js.crop.ready": "Ready — drop an image to crop it.",
+  "js.crop.unsupported": "This browser cannot crop images locally.",
+  "js.pdf.pageSize.a4.label": "A4 (210 × 297 mm)",
+  "js.pdf.pageSize.a4.note": "The default almost everywhere except North America.",
+  "js.pdf.pageSize.letter.label": "US Letter (8.5 × 11 in)",
+  "js.pdf.pageSize.letter.note": "US Letter, 612 × 792 points.",
+  "js.pdf.pageSize.match.label": "Match each image",
+  "js.pdf.pageSize.match.note": "Every page is the size of its own image, so nothing is padded or cropped. Margins do not apply.",
+  "js.pdf.margin.none.label": "None",
+  "js.pdf.margin.none.note": "The image fills the printable area.",
+  "js.pdf.margin.small.label": "Small (0.25 in)",
+  "js.pdf.margin.normal.label": "Normal (0.5 in)",
+  "js.pdf.quality.high.label": "High (JPEG 95%)",
+  "js.pdf.quality.balanced.label": "Balanced (JPEG 85%)",
+  "js.pdf.quality.small.label": "Smaller file (JPEG 70%)",
+  "js.pdf.progressLabel": "Building the PDF…",
+  "js.pdf.workerStopped": "The PDF worker stopped unexpectedly. Reload the page and try again.",
+  "js.pdf.failed": "The PDF could not be built.",
+  "js.pdf.failedUnknown": "The PDF could not be built, and the browser did not say why.",
+  "js.pdf.working": "Working…",
+  "js.pdf.phaseProbe": "Reading the image…",
+  "js.pdf.phaseEncode": "Preparing the page…",
+  "js.pdf.pageOne": "page",
+  "js.pdf.pageMany": "pages",
+  "js.pdf.docTitleFallback": "Images",
+  "js.pdf.orderSummary": "{count} {pages} · {size}",
+  "js.pdf.orderTooLong": "{count} {pages} · {size} — that is a lot of pages to hold in memory at once",
+  "js.pdf.starting": "Preparing {count} {images} in your browser…",
+  "js.pdf.prepared": "{done} of {total} prepared",
+  "js.pdf.preparedFailed": "{done} of {total} prepared — {failed} failed",
+  "js.pdf.couldNotPrepareAll": "None of those images could be prepared, so there is no PDF to build.",
+  "js.pdf.nothingToPut": "There is nothing to put in the PDF.",
+  "js.pdf.writing": "Writing the PDF…",
+  "js.pdf.readySummary": "PDF ready — {count} {pages}, {size}.",
+  "js.pdf.transcoded": "{count} of {total} {images} redrawn as JPEG, because PDF stores JPEG and PNG rather than WebP.",
+  "js.pdf.transcodedOne": "1 of {total} images was redrawn as JPEG, because PDF stores JPEG and PNG rather than WebP.",
+  "js.pdf.largeDoc": "That is a large document; it was held in memory while it was written, which is why this can be slow on a phone.",
+  "js.pdf.listCleared": "List cleared.",
+  "js.pdf.ready": "Ready — add images to build a PDF.",
+  "js.pdf.imagesReady": "{count} {images} ready. Drag the arrows to reorder, then build the PDF.",
+  "js.pdf.unsupported": "This browser cannot build a PDF locally.",
+  "js.pdf.downloadSize": "Download PDF ({size})",
+  "js.pdf.startingPages": "{count} {pages}…",
+  "js.crop.invalidSelection": "That selection is too small to produce an image. Drag a larger box."
+}</script>
+</head>
+<body>
+  <!--#include partials/header.html-->
+  <div class="container">
+    <nav class="lang-switch" aria-label="Language">
+      <ul class="lang-switch-list">
+      <li><span class="lang-switch-current" lang="en" aria-current="true">English</span></li>
+      <li><a class="lang-switch-link" href="/ar/pages/how-it-works/" hreflang="ar" lang="ar">العربية</a></li>
+      </ul>
+    </nav>
+  </div>
+  <main class="main" id="main">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">All tools</a>
+        <span class="breadcrumb-separator" aria-hidden="true">/</span>
+        <span aria-current="page">How it works</span>
+      </nav>
+
+      <article class="prose" data-page-root data-page-slug="how-it-works">
+        <h1>How it works</h1>
+      <h2>The short version</h2>
+      <p>
+        Your browser is already a capable image processor. Every tool here uses the same three
+        building blocks — decode the image, draw it onto a canvas, encode it again — plus a Web
+        Worker so the page keeps responding while that happens. Nothing is sent anywhere, because
+        there is no code in these pages that sends anything.
+      </p>
+
+      <h2>Step by step</h2>
+      <ol>
+        <li>
+          <strong>The file is read locally.</strong> You choose it, and the browser hands the page a
+          <code>File</code> object that points at it on your disk. The same object never leaves the
+          tab.
+        </li>
+        <li>
+          <strong>A Web Worker does the work.</strong> Decoding a 20&nbsp;megapixel photo and
+          re-encoding it takes real time, and doing that on the main thread is what makes a page
+          freeze mid-scroll. Each tool hands the file to a worker, which runs in its own thread and
+          reports progress back.
+        </li>
+        <li>
+          <strong>The worker draws it onto an <code>OffscreenCanvas</code>.</strong> That is a canvas
+          that exists without being attached to the page, which is what makes it usable off the main
+          thread. It is also the one requirement modern browsers mostly agree on; where it is
+          missing, the tool says so and stops rather than falling back to blocking the page.
+        </li>
+        <li>
+          <strong>It is re-encoded into the format you chose</strong>, and the resulting bytes are
+          offered back to you as a download. The original file on your disk is untouched.
+        </li>
+      </ol>
+
+      <h2>Hitting an exact file size</h2>
+      <p>
+        "Compress this to 100&nbsp;KB" has no formula, because how many bytes an image takes depends
+        on its content. So the compressor searches for the answer: it encodes at the highest quality
+        first, then at the lowest, and then closes in between the two — usually in a handful of
+        attempts. The rule it never breaks is that a result reported as a hit is at or under your
+        target. When the lowest quality still lands above it, you get the smallest file that image
+        will produce plus a note saying how far over the target it was, and lowering the maximum
+        width or height is what usually closes the gap.
+      </p>
+
+      <h2>A few concrete choices</h2>
+      <ul>
+        <li>
+          <strong>WebP by default.</strong> It is typically smaller than JPEG at the same visual
+          quality and it keeps transparency from PNGs. JPEG stays available for maximum
+          compatibility.
+        </li>
+        <li>
+          <strong>The ZIP is stored, not squeezed.</strong> When a batch is packaged, the entries are
+          written as-is. Deflating files that are already compressed would cost seconds of CPU and
+          save almost nothing.
+        </li>
+        <li>
+          <strong>Two images at a time.</strong> Batches run with a small concurrency limit on
+          purpose: one large image can occupy tens of megabytes of memory while it is decoded, and
+          starting fifty at once is a reliable way to crash a phone tab.
+        </li>
+        <li>
+          <strong>Around 100 megapixels is the ceiling.</strong> Beyond that a browser canvas is
+          likely to run out of memory, so the tool refuses early with an explanation instead of
+          failing halfway through.
+        </li>
+      </ul>
+
+      <h2>Checking all of this yourself</h2>
+      <p>
+        Open your browser's developer tools, switch to the Network tab, and run any tool. You should
+        see no requests at all while the image is processed — no upload, no telemetry, no
+        third-party font or script. The page loads its own CSS, JavaScript and icons and that is the
+        complete list.
+      </p>
+
+        <p class="page-meta">Last updated <time datetime="2026-09-17">17 September 2026</time>.</p>
+      </article>
+
+
+    </div>
+  </main>
+  <!--#include partials/footer.html-->
+  <script type="module" src="/assets/js/ui/site.js"></script>
+</body>
+</html>

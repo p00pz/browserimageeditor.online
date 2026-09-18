@@ -1,0 +1,102 @@
+/**
+ * Right-to-left layer.
+ *
+ * Linked only by pages whose locale declares `dir: "rtl"` (see `rtlHeadHtml` in
+ * scripts/lib/tool-page.mjs), so an English visitor downloads none of this and the LTR rendering is
+ * provably untouched — not "untouched by convention" but "the file is not even fetched".
+ *
+ * **Why a separate file rather than logical properties everywhere.** base.css, layout.css and
+ * components.css use physical properties: `left`, `right`, `padding-left`. Converting all of them to
+ * `inline-start`/`inline-end` would be the tidier long-term shape, but it touches every rule on every
+ * page to fix sixteen declarations, and a single missed conversion is a silent layout bug in the
+ * language nobody on this team reads natively. So the fixes live here, in one file whose entire
+ * contents are the RTL delta, and the count is small enough to read in one sitting.
+ *
+ * Three things in here are not mechanical flips:
+ *
+ *   1. **The compare slider stays LTR.** Its handle is positioned by a percentage of the *image*,
+ *      which is not mirrored, and its drag maths is `event.clientX - rect.left` — both physical. In
+ *      RTL, mirroring either one makes the handle move the opposite way to the pointer. So the
+ *      widget's coordinate space is explicitly LTR and only its label text reads right to left.
+ *   2. **Numbers are isolated.** "1.2 MB → 96 KB (−96%)" is Latin digits and symbols; inside an
+ *      Arabic paragraph the bidi algorithm can otherwise reorder the pieces, so numeric readouts get
+ *      `unicode-bidi: isolate`. The digits stay Western, which is what Arabic web readers expect on a
+ *      page like this, rather than Arabic-Indic numerals that would break copy-paste into tools.
+ *   3. **Fonts.** The Latin stack still comes from base.css; the families added here are the ones
+ *      that actually carry Arabic glyphs on Windows, macOS, Android and Linux. No webfont is
+ *      downloaded: a self-hosted Arabic face would be another third-party asset with a licence to
+ *      check, and the system fallbacks are good enough that the trade has not come up.
+ */
+
+/* ---------- physical properties that need a side swap ---------- */
+
+[dir='rtl'] .skip-link {
+  right: var(--space-4);
+  left: auto;
+}
+
+[dir='rtl'] .tool-notes ul {
+  padding-right: var(--space-5);
+  padding-left: 0;
+}
+
+[dir='rtl'] .prose ul,
+[dir='rtl'] .prose ol {
+  padding-right: var(--space-6);
+  padding-left: 0;
+}
+
+/* ---------- the compare slider is a physical coordinate space ---------- */
+
+[dir='rtl'] .compare-slider {
+  direction: ltr;
+}
+
+/*
+ * The labels sit over the left (original) and right (result) halves of a picture that is not
+ * mirrored, so they keep their sides — but their *text* is Arabic and must be laid out as such.
+ */
+[dir='rtl'] .compare-slider-label {
+  direction: rtl;
+}
+
+/* ---------- bidi isolation for numbers and mixed strings ---------- */
+
+[dir='rtl'] .compare-savings,
+[dir='rtl'] .result-stat dd,
+[dir='rtl'] .batch-item-meta,
+[dir='rtl'] .preset-note,
+[dir='rtl'] .progress-text,
+[dir='rtl'] .status,
+[dir='rtl'] .page-meta {
+  unicode-bidi: isolate;
+}
+
+/*
+ * A filename is arbitrary text of unknown direction. `plaintext` lets the first strong character
+ * decide, so `صورة.png` reads correctly and `IMG_1234.jpg` does not get its extension flung to the
+ * other end of the line.
+ */
+[dir='rtl'] .batch-item-name {
+  unicode-bidi: plaintext;
+  text-align: right;
+}
+
+/* The file-size readouts next to each row in a batch, isolated for the same reason as above. */
+[dir='rtl'] .batch-item-meta {
+  text-align: right;
+}
+
+/* ---------- typography ---------- */
+
+[dir='rtl'] body {
+  font-family: 'Segoe UI', Tahoma, 'Noto Sans Arabic', 'Noto Naskh Arabic', 'Geeza Pro', 'Arial',
+    sans-serif;
+}
+
+/*
+ * Latin technical names (WebP, canvas.toBlob, Browser Image Editor) inside Arabic prose: italic already
+ * distinguishes them, and the stack the browser picks for a Latin run inside an RTL paragraph is
+ * adequate. Nothing more is needed here, and inventing a rule nobody asked for would be worse than
+ * this comment.
+ */

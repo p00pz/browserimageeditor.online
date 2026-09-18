@@ -1,0 +1,70 @@
+[
+  {
+    "id": "about",
+    "slug": "about",
+    "navLabel": "About",
+    "status": "live",
+    "title": "About — Why Everything Runs in Your Browser",
+    "description": "What Browser Image Editor is, why every tool runs client-side instead of on a server, and what that means for your files, your privacy and your data usage.",
+    "h1": "About Browser Image Editor",
+    "lastUpdated": "2026-09-17",
+    "priority": 0.6,
+    "nav": ["header", "footer"]
+  },
+  {
+    "id": "how-it-works",
+    "slug": "how-it-works",
+    "navLabel": "How it works",
+    "status": "live",
+    "title": "How It Works — Image Processing Explained",
+    "description": "The technical version: how Web Workers, Canvas and WebAssembly process your images inside the browser tab, and why nothing is ever uploaded.",
+    "h1": "How it works",
+    "lastUpdated": "2026-09-17",
+    "priority": 0.6
+  },
+  {
+    "id": "privacy",
+    "slug": "privacy",
+    "navLabel": "Privacy",
+    "status": "live",
+    "title": "Privacy — No Uploads, No Cookies, No Tracking",
+    "description": "What Browser Image Editor does and does not do with your data: no image uploads, no cookies, no analytics, and one setting stored in your own browser.",
+    "h1": "Privacy policy",
+    "lastUpdated": "2026-09-17",
+    "priority": 0.4
+  },
+  {
+    "id": "terms",
+    "slug": "terms",
+    "navLabel": "Terms",
+    "status": "live",
+    "title": "Terms of Use — What You Agree To",
+    "description": "The terms you agree to by using Browser Image Editor: what you can expect from the tools, what you are responsible for, and the limits of our liability.",
+    "h1": "Terms of use",
+    "lastUpdated": "2026-09-17",
+    "priority": 0.4
+  },
+  {
+    "id": "offline",
+    "slug": "offline",
+    "navLabel": "Offline",
+    "status": "utility",
+    "title": "Offline — Browser Image Editor Still Works",
+    "description": "You are offline. Any tool you have already opened still works here, because your images are processed on your device rather than on a server.",
+    "h1": "You are offline, and your images are still yours",
+    "lastUpdated": "2026-09-18",
+    "priority": 0,
+    "nav": []
+  },
+  {
+    "id": "contact",
+    "slug": "contact",
+    "navLabel": "Contact",
+    "status": "live",
+    "title": "Contact — Questions, Bug Reports and Feedback",
+    "description": "How to reach Browser Image Editor: one email address, what to include, and what we can and cannot help with when everything runs in your own browser.",
+    "h1": "Contact",
+    "lastUpdated": "2026-09-17",
+    "priority": 0.5
+  }
+]

@@ -1,0 +1,119 @@
+      <section class="tool-panel" data-tool-root data-tool-slug="{{slug}}">
+        <div class="dropzone" data-dropzone>
+          <label class="dropzone-label" for="tool-file-input">
+            <span class="dropzone-title">{{{t.ui.tool.chooseImages}}}</span>
+            <span class="dropzone-hint">{{{dropzoneHint}}}</span>
+            <span class="dropzone-hint">{{{t.ui.tool.batchHint}}}</span>
+          </label>
+          <input class="dropzone-input" id="tool-file-input" type="file" accept="{{acceptAttr}}" multiple data-dropzone-input>
+        </div>
+
+        <p class="notice notice-warning" data-unsupported hidden>
+          {{{t.ui.resize.unsupported}}}
+        </p>
+
+        <div class="tool-controls">
+          <div class="field field-wide">
+            <label class="field-label" for="resize-preset">{{{t.ui.resize.presetLabel}}}</label>
+            <select class="field-input" id="resize-preset" data-preset>
+              <option value="">{{{t.ui.resize.customSize}}}</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field-label" for="resize-width">{{{t.ui.resize.width}}}</label>
+            <input class="field-input" id="resize-width" type="number" min="1" step="1" inputmode="numeric" placeholder="{{{t.ui.tool.placeholderOriginal}}}" data-width>
+          </div>
+          <div class="field">
+            <label class="field-label" for="resize-height">{{{t.ui.resize.height}}}</label>
+            <input class="field-input" id="resize-height" type="number" min="1" step="1" inputmode="numeric" placeholder="{{{t.ui.tool.placeholderOriginal}}}" data-height>
+          </div>
+          <div class="field">
+            <label class="field-label" for="resize-format">{{{t.ui.resize.outputFormat}}}</label>
+            <select class="field-input" id="resize-format" data-output-format></select>
+          </div>
+          <div class="field field-check">
+            <label class="check-label" for="lock-aspect">
+              <input type="checkbox" id="lock-aspect" data-lock-aspect checked>
+              <span>{{{t.ui.resize.lockAspect}}}</span>
+            </label>
+          </div>
+          <div class="field field-check">
+            <label class="check-label" for="allow-upscale">
+              <input type="checkbox" id="allow-upscale" data-allow-upscale>
+              <span>{{{t.ui.resize.allowUpscale}}}</span>
+            </label>
+          </div>
+        </div>
+
+        <p class="preset-note" data-preset-note hidden></p>
+
+        <div class="batch" data-batch hidden>
+          <div class="batch-header">
+            <p class="batch-summary" data-batch-summary></p>
+            <div class="batch-actions" data-batch-actions>
+              <button class="button" type="button" data-resize-all data-primary-action data-sticky="off" data-label="{{{t.ui.resize.runAll}}}" data-label-done="{{{t.ui.resize.runAgain}}}">{{{t.ui.resize.runAll}}}</button>
+              <button class="button button-secondary" type="button" data-download-zip hidden>{{{t.ui.tool.downloadZip}}}</button>
+            </div>
+          </div>
+          <ul class="batch-list" data-file-list></ul>
+        </div>
+
+        <div class="progress-region" data-progress-region hidden>
+          <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="{{{t.ui.resize.progressLabel}}}">
+            <div class="progress-bar" data-progress-bar></div>
+          </div>
+          <p class="progress-text" data-progress-text></p>
+          <button class="button button-secondary" type="button" data-cancel>{{{t.ui.tool.cancel}}}</button>
+        </div>
+
+        <div class="result" data-result hidden>
+          <div class="compare-slider" data-compare>
+            <div class="compare-slider-pane compare-slider-before">
+              <img data-compare-before alt="{{{t.ui.tool.altOriginal}}}">
+            </div>
+            <div class="compare-slider-pane compare-slider-after">
+              <img data-compare-after alt="{{{t.ui.resize.compareAlt}}}">
+            </div>
+            <span class="compare-slider-handle" aria-hidden="true"></span>
+            <span class="compare-slider-label compare-slider-label-before">{{{t.ui.tool.original}}}</span>
+            <span class="compare-slider-label compare-slider-label-after">{{{t.ui.resize.compareLabel}}}</span>
+            <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="{{{t.ui.resize.sliderLabel}}}">
+          </div>
+          <p class="compare-savings" data-compare-savings></p>
+          <dl class="result-stats">
+            <div class="result-stat">
+              <dt>{{{t.ui.tool.statDimensions}}}</dt>
+              <dd data-result-dimensions>&mdash;</dd>
+            </div>
+            <div class="result-stat">
+              <dt>{{{t.ui.tool.statFileSize}}}</dt>
+              <dd data-result-size>&mdash;</dd>
+            </div>
+            <div class="result-stat">
+              <dt>{{{t.ui.resize.statScale}}}</dt>
+              <dd data-result-scale>&mdash;</dd>
+            </div>
+          </dl>
+          <p class="notice notice-warning" data-result-warning hidden></p>
+          <div class="result-actions">
+            <a class="button" data-download download>{{{t.ui.tool.download}}}</a>
+            <button class="button button-secondary" type="button" data-start-over>{{{t.ui.tool.startOver}}}</button>
+          </div>
+        </div>
+
+        <p class="status" data-status role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="secondary-section tool-notes" data-collapsible>
+        <details><summary><h2>{{{t.ui.resize.notesHeading}}}</h2></summary></details>
+        <div class="disclosure-body">
+          <p>{{{t.ui.resize.notesIntro}}}</p>
+          <ul>
+            <li>{{{t.ui.resize.notes1}}}</li>
+            <li>{{{t.ui.resize.notes2}}}</li>
+            <li>{{{t.ui.resize.notes3}}}</li>
+            <li>{{{t.ui.resize.notes4}}}</li>
+            <li>{{{t.ui.resize.notes5}}}</li>
+          </ul>
+        </div>
+      </section>

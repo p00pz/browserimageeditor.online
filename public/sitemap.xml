@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GENERATED FILE — do not edit by hand. Rebuilt by scripts/gen-sitemap.mjs from content/tools.json + content/targets.json + content/pages.json. Run "npm run gen" instead. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://browserimageeditor.online/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/"/>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/tools/compress-image/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/tools/compress-image/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/tools/compress-image/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/tools/compress-image/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/tools/resize-image/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/tools/resize-image/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/tools/resize-image/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/tools/resize-image/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/tools/convert-image/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/tools/convert-image/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/tools/convert-image/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/tools/convert-image/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/tools/crop-image/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/tools/crop-image/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/tools/crop-image/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/tools/crop-image/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/tools/image-to-pdf/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/tools/image-to-pdf/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/tools/image-to-pdf/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/tools/image-to-pdf/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/tools/enhance-photo/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/tools/enhance-photo/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/tools/enhance-photo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/tools/enhance-photo/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/targets/compress-image-to-100kb/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/compress-image-to-100kb/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/compress-image-to-100kb/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/compress-image-to-100kb/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/targets/compress-image-to-200kb/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/compress-image-to-200kb/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/compress-image-to-200kb/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/compress-image-to-200kb/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/targets/compress-image-to-50kb/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/compress-image-to-50kb/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/compress-image-to-50kb/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/compress-image-to-50kb/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/targets/resize-image-to-1080x1080/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/resize-image-to-1080x1080/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/resize-image-to-1080x1080/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/resize-image-to-1080x1080/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/targets/resize-image-for-instagram/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/resize-image-for-instagram/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/resize-image-for-instagram/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/resize-image-for-instagram/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/targets/resize-image-to-1280x720/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/resize-image-to-1280x720/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/resize-image-to-1280x720/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/resize-image-to-1280x720/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/targets/convert-png-to-jpg/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/convert-png-to-jpg/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/convert-png-to-jpg/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/convert-png-to-jpg/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/targets/convert-jpg-to-png/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/convert-jpg-to-png/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/convert-jpg-to-png/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/convert-jpg-to-png/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/targets/convert-webp-to-jpg/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/convert-webp-to-jpg/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/convert-webp-to-jpg/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/convert-webp-to-jpg/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/targets/convert-heic-to-jpg/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/convert-heic-to-jpg/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/convert-heic-to-jpg/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/convert-heic-to-jpg/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/targets/crop-image-to-square/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/crop-image-to-square/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/crop-image-to-square/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/crop-image-to-square/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/targets/crop-image-to-16-9/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/crop-image-to-16-9/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/crop-image-to-16-9/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/crop-image-to-16-9/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/targets/image-to-pdf-a4/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/image-to-pdf-a4/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/image-to-pdf-a4/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/image-to-pdf-a4/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/targets/photos-to-pdf-one-page/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/photos-to-pdf-one-page/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/photos-to-pdf-one-page/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/photos-to-pdf-one-page/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/pages/about/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/pages/about/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/pages/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/pages/about/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/pages/how-it-works/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/pages/how-it-works/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/pages/how-it-works/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/pages/how-it-works/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/pages/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/pages/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/pages/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/pages/privacy/"/>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/pages/terms/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/pages/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/pages/terms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/pages/terms/"/>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/pages/contact/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/pages/contact/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/pages/contact/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/pages/contact/"/>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/"/>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/tools/compress-image/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/tools/compress-image/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/tools/compress-image/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/tools/compress-image/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/tools/resize-image/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/tools/resize-image/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/tools/resize-image/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/tools/resize-image/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/tools/convert-image/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/tools/convert-image/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/tools/convert-image/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/tools/convert-image/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/tools/crop-image/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/tools/crop-image/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/tools/crop-image/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/tools/crop-image/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/tools/image-to-pdf/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/tools/image-to-pdf/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/tools/image-to-pdf/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/tools/image-to-pdf/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/tools/enhance-photo/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/tools/enhance-photo/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/tools/enhance-photo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/tools/enhance-photo/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/targets/compress-image-to-100kb/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/compress-image-to-100kb/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/compress-image-to-100kb/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/compress-image-to-100kb/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/targets/compress-image-to-200kb/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/compress-image-to-200kb/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/compress-image-to-200kb/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/compress-image-to-200kb/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/targets/compress-image-to-50kb/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/compress-image-to-50kb/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/compress-image-to-50kb/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/compress-image-to-50kb/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/targets/resize-image-to-1080x1080/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/resize-image-to-1080x1080/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/resize-image-to-1080x1080/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/resize-image-to-1080x1080/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/targets/resize-image-for-instagram/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/resize-image-for-instagram/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/resize-image-for-instagram/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/resize-image-for-instagram/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/targets/resize-image-to-1280x720/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/resize-image-to-1280x720/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/resize-image-to-1280x720/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/resize-image-to-1280x720/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/targets/convert-png-to-jpg/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/convert-png-to-jpg/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/convert-png-to-jpg/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/convert-png-to-jpg/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/targets/convert-jpg-to-png/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/convert-jpg-to-png/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/convert-jpg-to-png/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/convert-jpg-to-png/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/targets/convert-webp-to-jpg/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/convert-webp-to-jpg/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/convert-webp-to-jpg/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/convert-webp-to-jpg/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/targets/convert-heic-to-jpg/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/convert-heic-to-jpg/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/convert-heic-to-jpg/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/convert-heic-to-jpg/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/targets/crop-image-to-square/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/crop-image-to-square/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/crop-image-to-square/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/crop-image-to-square/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/targets/crop-image-to-16-9/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/crop-image-to-16-9/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/crop-image-to-16-9/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/crop-image-to-16-9/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/targets/image-to-pdf-a4/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/image-to-pdf-a4/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/image-to-pdf-a4/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/image-to-pdf-a4/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/targets/photos-to-pdf-one-page/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/targets/photos-to-pdf-one-page/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/targets/photos-to-pdf-one-page/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/targets/photos-to-pdf-one-page/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/pages/about/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/pages/about/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/pages/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/pages/about/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/pages/how-it-works/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/pages/how-it-works/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/pages/how-it-works/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/pages/how-it-works/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/pages/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/pages/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/pages/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/pages/privacy/"/>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/pages/terms/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/pages/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/pages/terms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/pages/terms/"/>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/pages/contact/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/pages/contact/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/pages/contact/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/pages/contact/"/>
+    <priority>0.5</priority>
+  </url>
+</urlset>

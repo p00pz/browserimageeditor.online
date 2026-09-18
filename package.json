@@ -1,0 +1,40 @@
+{
+  "name": "browserimageeditor",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "gen": "npm run gen:pages && npm run gen:targets && npm run gen:sitemap && npm run gen:og && npm run gen:manifest && npm run gen:icons && npm run gen:ort",
+    "gen:pages": "node scripts/build-pages.mjs",
+    "gen:targets": "node scripts/build-targets.mjs",
+    "gen:sitemap": "node scripts/gen-sitemap.mjs",
+    "gen:og": "node scripts/gen-og.mjs",
+    "gen:manifest": "node scripts/gen-manifest.mjs",
+    "gen:icons": "node scripts/gen-icons.mjs",
+    "gen:ort": "node scripts/gen-ort.mjs",
+    "audit:seo": "node scripts/audit-seo.mjs",
+    "audit:pwa": "node scripts/audit-pwa.mjs",
+    "predev": "npm run gen",
+    "dev": "vite",
+    "prebuild": "npm run gen && npm run audit:seo",
+    "build": "vite build",
+    "postbuild": "npm run gen:sw && npm run audit:pwa",
+    "gen:sw": "node scripts/gen-sw.mjs",
+    "preview": "vite preview",
+    "test": "node --test tests/"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "2.6.2",
+    "satori": "0.33.4",
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "browser-image-compression": "^2.0.2",
+    "comlink": "^4.4.2",
+    "cropperjs": "1.6.2",
+    "fflate": "^0.8.2",
+    "heic-to": "1.5.2",
+    "onnxruntime-web": "1.30.0",
+    "pdf-lib": "^1.17.1",
+    "pica": "^10.0.3"
+  }
+}

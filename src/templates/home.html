@@ -1,0 +1,15 @@
+      <section class="hero">
+        <h1>Image tools that never upload your files</h1>
+        <p>Every tool here runs inside your own browser tab. Your images are processed on your device and are never sent to a server, because there is no server to send them to.</p>
+      </section>
+
+      <section class="prose">
+        <h2>What happens when you use a tool</h2>
+        <p>You pick an image straight from your device. The page hands those bytes to a Web Worker — a background thread inside the tab — which does the decoding, resizing and re-encoding there. When it finishes, your browser saves the result back to your device. Nothing is uploaded, nothing is queued, and closing the tab ends the whole thing.</p>
+        <p>That means no sign-up, no file size limit imposed by a server, and no copies of your images sitting on someone else's disk. It also means the tools work offline once the page has loaded, and that a slow connection only affects how fast the page arrives — never how fast your images are processed.</p>
+      </section>
+
+      <section class="tools-section">
+        <h2>All tools</h2>
+        <!--#include partials/tool-grid.html-->
+      </section>

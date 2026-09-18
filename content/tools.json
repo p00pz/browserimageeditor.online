@@ -1,0 +1,357 @@
+[
+  {
+    "id": "compress",
+    "slug": "compress-image",
+    "name": "Compress Image",
+    "navLabel": "Compress",
+    "status": "live",
+    "category": "optimize",
+    "title": "Compress Image Online — Private, No Upload",
+    "description": "Compress JPEG, PNG and WebP images in your browser, one at a time or as a batch. Hit a target file size per image without uploading anything to a server.",
+    "h1": "Compress an image without uploading it",
+    "intro": "Drop one image or a whole batch and optionally set a target file size. The work happens inside a Web Worker in this browser tab, so your files never leave your device — and a finished batch downloads as a single ZIP.",
+    "keywords": [
+      "compress image",
+      "image compressor",
+      "reduce image file size",
+      "compress jpeg",
+      "compress png to webp",
+      "bulk image compressor",
+      "compress image to 100kb"
+    ],
+    "targetKeyword": "compress image",
+    "accepts": ["image/jpeg", "image/png", "image/webp"],
+    "outputs": ["image/webp", "image/jpeg"],
+    "defaultOutput": "image/webp",
+    "maxInputBytes": 52428800,
+    "related": ["resize", "convert", "crop"],
+    "faq": [
+      {
+        "q": "Does my image get uploaded anywhere?",
+        "a": "No. The file is read locally, decoded and re-encoded inside this browser tab. There is no backend to upload to, which also means we never see, store or log your images."
+      },
+      {
+        "q": "What does the target file size actually do?",
+        "a": "It runs a short search for the highest quality setting that still produces a file at or under your target. If even the lowest setting is too large, you still get the smallest file we could make, plus a note saying how far over the target it landed."
+      },
+      {
+        "q": "Can I compress more than one image at a time?",
+        "a": "Yes. Drop a batch and each image is compressed one after another in the same worker, with its own progress bar and its own target size. When they finish you can save them individually or download the whole batch as one ZIP file."
+      },
+      {
+        "q": "Why did my compressed image end up bigger?",
+        "a": "Re-encoding an image that is already heavily optimised can add bytes, especially when converting to a format that handles its content less well. The result panel says so when it happens, and switching the output format or setting a target size usually fixes it."
+      },
+      {
+        "q": "Will compressing reduce the visual quality?",
+        "a": "It can, because the file is being re-encoded. Raise the target size, leave it blank to use the highest quality setting, or lower the max width and height to trade pixels for a smaller file instead."
+      },
+      {
+        "q": "Why is WebP the default output?",
+        "a": "WebP usually produces a smaller file than JPEG at the same visual quality and keeps transparency from PNG sources. JPEG is available in the format selector if you need maximum compatibility."
+      }
+    ]
+  },
+  {
+    "id": "resize",
+    "slug": "resize-image",
+    "name": "Resize Image",
+    "navLabel": "Resize",
+    "status": "live",
+    "category": "transform",
+    "title": "Resize Image Online — Free, Private, No Upload",
+    "description": "Resize JPEG, PNG and WebP images to exact pixel dimensions in your browser, with the aspect ratio locked by default. No upload, no account, no server.",
+    "h1": "Resize an image to the dimensions you need",
+    "intro": "Set a width, a height, or both, and the image is rescaled inside your browser tab. Aspect ratio stays locked unless you unlock it, and the file never leaves your device.",
+    "keywords": [
+      "resize image",
+      "image resizer",
+      "resize image to 800x600",
+      "scale image online",
+      "resize jpeg",
+      "change image dimensions"
+    ],
+    "targetKeyword": "resize image",
+    "accepts": ["image/jpeg", "image/png", "image/webp"],
+    "outputs": ["image/webp", "image/jpeg"],
+    "defaultOutput": "image/webp",
+    "maxInputBytes": 52428800,
+    "related": ["compress", "crop", "convert"],
+    "faq": [
+      {
+        "q": "Will resizing make my image smaller in bytes?",
+        "a": "Usually, yes — fewer pixels generally means fewer bytes. Resizing and compressing are separate steps here, so you can do both: shrink to the dimensions you need, then set a target file size."
+      },
+      {
+        "q": "Does enlarging an image add detail?",
+        "a": "No. Upscaling can only invent pixels by interpolation, so a photo enlarged past its original size looks softer. The tool keeps the original dimensions by default to avoid that."
+      },
+      {
+        "q": "Can I resize a batch of images to the same size?",
+        "a": "Yes. Give one set of dimensions and every image in the batch is scaled to fit inside that same box, each keeping its own aspect ratio, and the finished files download together as a single ZIP."
+      },
+      {
+        "q": "Where do the preset sizes come from?",
+        "a": "Each one records its source. YouTube's own help pages ask for 3840 x 2160 for video thumbnails and 2160 x 3840 for Shorts, so those are the numbers used here rather than the 1280 x 720 figure that gets repeated. The Instagram presets are worked out from the aspect ratios Instagram publishes, and say so."
+      }
+    ]
+  },
+  {
+    "id": "convert",
+    "slug": "convert-image",
+    "name": "Convert Image Format",
+    "navLabel": "Convert",
+    "status": "live",
+    "category": "convert",
+    "title": "Convert Image Online — Private, No Upload",
+    "description": "Convert JPEG, PNG, WebP and AVIF images in your browser. The conversion runs on your own device, so it keeps working offline and nothing is uploaded.",
+    "h1": "Convert an image to another format",
+    "intro": "Pick the format you want out, and the image is decoded and re-encoded in your browser tab. Transparency, colour and orientation are handled for you, and the file never reaches a server.",
+    "keywords": [
+      "convert image",
+      "image converter",
+      "png to webp",
+      "jpeg to png",
+      "webp to jpg",
+      "heic to jpg",
+      "avif to jpg"
+    ],
+    "targetKeyword": "convert image",
+    "accepts": ["image/jpeg", "image/png", "image/webp", "image/avif", "image/heic", "image/heif"],
+    "outputs": ["image/webp", "image/png", "image/jpeg"],
+    "defaultOutput": "image/webp",
+    "maxInputBytes": 52428800,
+    "related": ["compress", "resize"],
+    "faq": [
+      {
+        "q": "Which format should I choose?",
+        "a": "WebP is the best default: small files, wide support and transparency. Choose JPEG for maximum compatibility — it cannot store transparency, so it is flattened onto white — and PNG when you need lossless detail."
+      },
+      {
+        "q": "Why can't I convert to AVIF here?",
+        "a": "Because browsers cannot write AVIF from a canvas: asking for it returns a PNG instead, silently. Rather than hand you a file in the wrong format, the format list only offers what this browser proved it can really write, and AVIF files can still be used as input."
+      },
+      {
+        "q": "What happens to transparency when I convert to JPEG?",
+        "a": "JPEG cannot store an alpha channel, so transparent areas are flattened onto a solid background. The result panel says so when it happens, and WebP or PNG keeps the transparency intact."
+      },
+      {
+        "q": "Can I convert several images at once?",
+        "a": "Yes, as a batch: every image is converted in the same worker, and the converted files download together in one ZIP."
+      },
+      {
+        "q": "Can I convert the HEIC photos from my iPhone?",
+        "a": "Yes. Safari reads them directly; other browsers fetch a small decoder, which runs on your device like everything else here. Nothing is uploaded either way."
+      }
+    ]
+  },
+  {
+    "id": "crop",
+    "slug": "crop-image",
+    "name": "Crop Image",
+    "navLabel": "Crop",
+    "status": "live",
+    "category": "transform",
+    "title": "Crop Image Online — Free, Private, No Upload",
+    "description": "Crop an image to any rectangle, or lock it to a square or a fixed aspect ratio, entirely inside your browser. No upload, no watermark, no account.",
+    "h1": "Crop an image to the part you want",
+    "intro": "Drag a selection over the image, or lock the aspect ratio and let it snap. The crop is applied in your browser tab, so the parts you cut out never leave your device either.",
+    "keywords": [
+      "crop image",
+      "image cropper",
+      "crop to square",
+      "crop photo online",
+      "crop image to aspect ratio",
+      "crop image to square"
+    ],
+    "targetKeyword": "crop image",
+    "accepts": ["image/jpeg", "image/png", "image/webp"],
+    "outputs": ["image/webp", "image/jpeg", "image/png"],
+    "defaultOutput": "image/webp",
+    "maxInputBytes": 52428800,
+    "related": ["resize", "compress", "convert"],
+    "faq": [
+      {
+        "q": "Is cropping destructive?",
+        "a": "Your original file is never modified — it stays exactly where it is on your device. Cropping produces a new file you download, and you can go back and crop differently as many times as you like."
+      },
+      {
+        "q": "Can I crop to a square or a fixed ratio?",
+        "a": "Yes: 1:1, 4:5, 3:2, 4:3 and 16:9 presets, plus a freeform mode. Pick one and the selection keeps that shape while you drag."
+      },
+      {
+        "q": "Can I rotate or straighten the image while cropping?",
+        "a": "You can rotate in 90-degree steps and flip across or down, and the rotation is applied to the full-resolution result. Free-angle straightening is not offered, so a horizon that is slightly off level cannot be corrected here."
+      },
+      {
+        "q": "Can I crop several images at once?",
+        "a": "Not in one pass, and deliberately: a crop is a decision about one picture. The tool takes one image at a time, and drops a second image only when you replace the first. For a whole batch, resizing to a fixed box is the tool you want."
+      }
+    ]
+  },
+  {
+    "id": "image-to-pdf",
+    "slug": "image-to-pdf",
+    "name": "Image to PDF",
+    "navLabel": "Image to PDF",
+    "status": "live",
+    "category": "convert",
+    "title": "Image to PDF — Free, Private, No Upload",
+    "description": "Turn JPEG, PNG and WebP images into a single PDF in your browser. Reorder the pages, choose a page size, and download it without uploading anything.",
+    "h1": "Turn images into a single PDF",
+    "intro": "Add images and they are assembled into one PDF file inside your browser tab, in the order you arrange them. Scanned documents and photos never leave your device.",
+    "keywords": [
+      "image to pdf",
+      "jpg to pdf",
+      "png to pdf",
+      "combine images into pdf",
+      "photos to pdf",
+      "scan to pdf"
+    ],
+    "targetKeyword": "image to pdf",
+    "accepts": ["image/jpeg", "image/png", "image/webp"],
+    "outputs": ["application/pdf"],
+    "defaultOutput": "application/pdf",
+    "maxInputBytes": 52428800,
+    "related": ["compress", "convert"],
+    "faq": [
+      {
+        "q": "What page size will the PDF use?",
+        "a": "A4 by default, or US Letter, or each page sized to its own image so nothing is padded or cropped unexpectedly. A landscape photo gets a landscape page, so it is not shrunk to fit the short side of an upright sheet."
+      },
+      {
+        "q": "Can I choose the order of the pages?",
+        "a": "Yes — images are listed in the order you add them, and the list can be rearranged before the PDF is built."
+      },
+      {
+        "q": "Is there a limit on how many images I can add?",
+        "a": "The practical limit is your device's memory, because the whole PDF is assembled in the browser tab. Very large batches are processed in order so the page stays responsive."
+      }
+    ]
+  },
+  {
+    "id": "enhance-photo",
+    "slug": "enhance-photo",
+    "name": "Enhance Photo",
+    "navLabel": "Enhance",
+    "status": "live",
+    "category": "enhance",
+    "title": "Photo Enhancer — 5 One-Click Styles, No Upload",
+    "description": "Fix a dull or colour-cast photo in one click, then choose from five styles — Natural Pop, Vivid, Warm, Cool and Classic B&W. Nothing is uploaded.",
+    "h1": "Enhance a photo in one click",
+    "intro": "Drop a photo and the tool corrects its exposure and colour cast first, then shows you five styles rendered from your own image. Adjust one slider and download — no layers, no curves, no account, and nothing uploaded.",
+    "keywords": [
+      "photo enhancer",
+      "enhance photo online",
+      "auto enhance image",
+      "fix underexposed photo",
+      "color cast removal",
+      "photo color correction",
+      "black and white converter"
+    ],
+    "targetKeyword": "enhance photo",
+    "accepts": ["image/jpeg", "image/png", "image/webp"],
+    "outputs": ["image/jpeg", "image/png", "image/webp"],
+    "defaultOutput": "image/jpeg",
+    "maxInputBytes": 52428800,
+    "related": ["compress", "convert", "resize"],
+    "faq": [
+      {
+        "q": "Does enhancing a photo reduce its quality?",
+        "a": "The pixel dimensions never change — no resizing, no cropping. The only loss comes from re-encoding the file, which is why the output keeps your photo's own format and a JPEG is re-saved at high quality rather than through a chain of edits."
+      },
+      {
+        "q": "What does the auto-correct actually do?",
+        "a": "It reads the histogram of each colour channel, finds where the darkest and brightest pixels really are — ignoring a small slice of outliers so one hot pixel cannot decide the range — and stretches what is left across the full range. Stretching the three channels independently is what removes a colour cast."
+      },
+      {
+        "q": "Why did the tool say it could not correct my photo?",
+        "a": "Because there was nothing to correct. If a photo already uses the full tonal range, stretching it further would only amplify noise and quantisation, so the tool says so and leaves the pixels alone."
+      },
+      {
+        "q": "What is the intensity slider for?",
+        "a": "It blends between the auto-corrected photo and the fully styled one, so you are never stuck with a look that is too strong. At 0% you get exactly the auto-corrected image, at 100% exactly the style you picked."
+      },
+      {
+        "q": "Can I enhance a whole batch of photos at once?",
+        "a": "Yes. Drop several photos, pick a style, and every one is enhanced with the same settings and returned as a single ZIP. The thumbnails are rendered from the first photo you dropped."
+      },
+      {
+        "q": "Are my photos uploaded to a server?",
+        "a": "No. Decoding, grading and re-encoding all happen in a Web Worker inside this browser tab. There is no backend, no queue and no account, and nothing is stored when you close the page."
+      }
+    ]
+  },
+  {
+    "id": "remove-background",
+    "slug": "remove-background",
+    "name": "Remove Background",
+    "navLabel": "Remove Background",
+    "status": "planned",
+    "category": "ai",
+    "title": "Remove Image Background — Free, No Upload",
+    "description": "Cut the background out of a photo and download a transparent PNG, or brush over an object and erase it — on your own device, no upload and no account.",
+    "h1": "Remove a background, or erase an object",
+    "intro": "Two ways to clean up a photo: cut the subject out onto a transparent background, or paint over something you want gone and let the tool fill it in. The first use downloads the model it needs, once, and then works offline.",
+    "keywords": [
+      "remove background",
+      "background remover",
+      "transparent png",
+      "remove background from photo",
+      "erase object from photo",
+      "magic eraser"
+    ],
+    "targetKeyword": "remove background",
+    "accepts": ["image/jpeg", "image/png", "image/webp"],
+    "outputs": ["image/png", "image/webp"],
+    "defaultOutput": "image/png",
+    "maxInputBytes": 52428800,
+    "related": ["crop", "compress", "convert"],
+    "models": [
+      {
+        "id": "segment",
+        "name": "U-2-Netp (salient object detection)",
+        "purpose": "Finds the subject in a photo and produces the soft matte that becomes the alpha channel.",
+        "url": "https://huggingface.co/BritishWerewolf/U-2-Netp/resolve/main/onnx/model.onnx",
+        "bytes": 4574861,
+        "license": "Apache-2.0",
+        "licenseUrl": "https://huggingface.co/BritishWerewolf/U-2-Netp",
+        "sourceUrl": "https://github.com/xuebinqin/U-2-Net",
+        "sha256": "309c8469258dda742793dce0ebea8e6dd393174f89934733ecc8b14c76f4ddd8"
+      },
+      {
+        "id": "inpaint",
+        "name": "LaMa (large-mask inpainting)",
+        "purpose": "Fills in whatever the eraser brush covered, using the surrounding pixels.",
+        "url": "https://huggingface.co/sapienkit/LaMa-ONNX/resolve/main/lama_fp32.onnx",
+        "bytes": 208044816,
+        "license": "Apache-2.0",
+        "licenseUrl": "https://huggingface.co/sapienkit/LaMa-ONNX",
+        "sourceUrl": "https://github.com/advimman/lama",
+        "sha256": "1faef5301d78db7dda502fe59966957ec4b79dd64e16f03ed96913c7a4eb68d6"
+      }
+    ],
+    "faq": [
+      {
+        "q": "Does removing the background upload my photo anywhere?",
+        "a": "No. The photo is decoded, processed and re-encoded entirely inside your browser tab, and the file you download is built from that same in-memory copy. The only network request the tool makes is a one-time download of the model weights themselves, which contain no information about your image."
+      },
+      {
+        "q": "Why does the first use need to download something?",
+        "a": "Background removal and object erasing both need a trained neural network, and networks are too large to sit in a page you might not use. So the weights are fetched the first time you open this tool — about 4.4 MB for the background matte, and about 198 MB for the object eraser — with a progress bar, and cached afterwards so a repeat visit does not download them again."
+      },
+      {
+        "q": "Does it work offline?",
+        "a": "Yes, after that first download. Once the weights are cached by your browser, the tool works with no connection at all, which is also a useful way to see for yourself that nothing is being sent to a server."
+      },
+      {
+        "q": "How well does it handle hair and fine edges?",
+        "a": "Reasonably, with an edge-cleanup pass that softens the cut-out rather than leaving it jagged. It is a small, fast model rather than a large portrait-specific one, so very wispy flyaway hair and fur will not be perfect. A hard-edged subject — a product, a logo, a person against a plain wall — comes out much more cleanly than a cat on a patterned sofa."
+      },
+      {
+        "q": "What happens to the rest of the photo when I erase an object?",
+        "a": "Nothing. Only the area you painted, plus a small margin around it, is sent through the inpainting model and then blended back at the photo's own resolution. Every pixel outside that region is the original pixel, untouched, so a 3000-pixel-wide photo is still 3000 pixels wide outside the brush stroke."
+      }
+    ]
+  }
+]

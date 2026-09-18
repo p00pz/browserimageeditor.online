@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{{{banner}}}
+<html lang="{{lang}}" dir="{{dir}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!--#include partials/theme-boot.html-->
+  <title>{{title}} | {{siteName}}</title>
+  <meta name="description" content="{{description}}">
+  <link rel="canonical" href="{{canonical}}">
+{{{alternates}}}
+  <!-- Not built yet, so this page is deliberately kept out of search results. The link from
+       the homepage still works, and flipping status to "live" in content/tools.json is what
+       removes this tag, switches the page to the working tool template and adds it to
+       public/sitemap.xml. -->
+  <meta name="robots" content="noindex, follow">
+{{{ogTags}}}
+{{{jsonLd}}}
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+{{{pwaHead}}}
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+{{{rtlHead}}}
+  <script type="application/json" id="ui-strings">{{{uiStrings}}}</script>
+</head>
+<body>
+  <!--#include partials/{{partials}}header.html-->
+{{{langSwitch}}}
+  <main class="main" id="main">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="{{{t.ui.chrome.breadcrumb}}}">
+        <a href="{{homeHref}}">{{{t.ui.chrome.allTools}}}</a>
+        <span class="breadcrumb-separator" aria-hidden="true">/</span>
+        <span aria-current="page">{{name}}</span>
+      </nav>
+
+      <header class="tool-header">
+        <h1>{{h1}}</h1>
+        <div class="intro-disclosure" data-collapsible>
+          <details><summary>{{{t.ui.tool.introSummary}}}</summary></details>
+          <p class="tool-intro disclosure-body">{{intro}}</p>
+        </div>
+      </header>
+
+      <section class="tool-panel">
+        <p class="notice notice-warning">
+          <strong>{{name}} is not built yet.</strong> The page is here so you can see what the tool
+          will do, but there is nothing to run: the engine behind it is still being written. Nothing
+          on this page processes anything, so there is nothing to upload either way.
+        </p>
+
+        <div class="planned-tools">
+          <h2>Tools that do work today</h2>
+{{{liveToolsHtml}}}
+        </div>
+      </section>
+
+{{{adSlots}}}
+{{{faqHtml}}}
+{{{relatedHtml}}}
+    </div>
+  </main>
+  <!--#include partials/{{partials}}footer.html-->
+  <script type="module" src="/assets/js/ui/site.js"></script>
+</body>
+</html>

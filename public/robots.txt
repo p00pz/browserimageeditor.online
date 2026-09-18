@@ -1,0 +1,5 @@
+# GENERATED FILE — do not edit by hand. Rebuilt by scripts/gen-sitemap.mjs from content/tools.json + content/targets.json + content/pages.json. Run "npm run gen" instead.
+User-agent: *
+Allow: /
+
+Sitemap: https://browserimageeditor.online/sitemap.xml

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{{{banner}}}
+<html lang="{{lang}}" dir="{{dir}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!--#include partials/theme-boot.html-->
+  <title>{{title}} | {{siteName}}</title>
+  <meta name="description" content="{{description}}">
+  <link rel="canonical" href="{{canonical}}">
+{{{alternates}}}
+{{{ogTags}}}
+{{{jsonLd}}}
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+{{{pwaHead}}}
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+{{{rtlHead}}}
+  <script type="application/json" id="tool-config">{{{toolConfig}}}</script>
+  <script type="application/json" id="ui-strings">{{{uiStrings}}}</script>
+</head>
+<body>
+  <!--#include partials/{{partials}}header.html-->
+{{{langSwitch}}}
+  <main class="main" id="main">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="{{{t.ui.chrome.breadcrumb}}}">
+        <a href="{{homeHref}}">{{{t.ui.chrome.allTools}}}</a>
+        <span class="breadcrumb-separator" aria-hidden="true">/</span>
+        <a href="{{parentToolPath}}">{{parentToolName}}</a>
+        <span class="breadcrumb-separator" aria-hidden="true">/</span>
+        <span aria-current="page">{{navLabel}}</span>
+      </nav>
+
+      <header class="tool-header">
+        <h1>{{h1}}</h1>
+        <!--
+          A target page is one tool page pre-configured, so it carries the same hero and the same
+          problem: the intro pushes the panel past the fold on a phone. Same disclosure, same rules.
+        -->
+        <div class="intro-disclosure" data-collapsible>
+          <details><summary>{{{t.ui.tool.introSummary}}}</summary></details>
+          <p class="tool-intro disclosure-body">{{intro}}</p>
+        </div>
+        <p class="tool-hint">{{presetHint}}</p>
+      </header>
+
+{{{toolPanel}}}
+{{{adSlots}}}
+{{{uniqueContentHtml}}}
+{{{guidesHtml}}}
+{{{faqHtml}}}
+
+      <section class="tool-cta" data-parent-tool-cta>
+        <h2>{{parentCtaHeading}}</h2>
+        <p>{{parentToolIntro}}</p>
+        <p><a class="button" href="{{parentToolPath}}">{{parentCtaButton}}</a></p>
+      </section>
+    </div>
+  </main>
+{{{translationNotice}}}
+  <!--#include partials/{{partials}}footer.html-->
+  <script type="module" src="/assets/js/ui/site.js"></script>
+  <script type="module" src="{{toolScript}}"></script>
+</body>
+</html>

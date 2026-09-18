@@ -1,0 +1,1684 @@
+/* Component styles: dropzone, progress, results, tool grid, nav, notices.
+   Uses the design tokens from base.css only — no new colours are introduced here. */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: calc(-1 * var(--space-16));
+  z-index: var(--z-tooltip);
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+  top: var(--space-2);
+}
+
+/* ---------- Mobile navigation ---------- */
+
+.nav-link-disabled {
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+@media (max-width: 767px) {
+  .nav.is-open .nav-list {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    gap: 0;
+    padding: var(--space-2) var(--space-4) var(--space-4);
+    background-color: var(--color-surface-elevated);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+  }
+
+  .nav.is-open .nav-link {
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+}
+
+/* ---------- Homepage tool grid ---------- */
+
+.tools-section {
+  margin-top: var(--space-8);
+}
+
+.tools-section h2 {
+  margin: 0 0 var(--space-6);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.tool-card:hover {
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.tool-card-link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  color: inherit;
+}
+
+.tool-card-link:hover {
+  text-decoration: none;
+}
+
+.tool-card-name {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.tool-card-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+.tool-card-planned {
+  gap: var(--space-2);
+  border-style: dashed;
+}
+
+/* A planned card is linked to its "not built yet" page, so the link carries the padding and
+   the card must not add its own on top of it. */
+.tool-card-planned > .tool-card-link {
+  padding: var(--space-5);
+}
+
+.tool-card-badge {
+  align-self: flex-start;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ---------- Breadcrumb and page headers ---------- */
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.breadcrumb-separator {
+  color: var(--color-text-muted);
+}
+
+.tool-header {
+  max-width: 720px;
+  margin-bottom: var(--space-8);
+}
+
+.tool-header h1 {
+  margin: 0 0 var(--space-3);
+  font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl));
+  line-height: var(--leading-tight);
+}
+
+.tool-intro {
+  margin: 0;
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+/**
+ * The "pre-set for you" line on a target landing page. It names the option the page arrived
+ * configured with, so a visitor can tell what this page is for before dropping a file — and can
+ * see that nothing is locked.
+ */
+.tool-hint {
+  margin: var(--space-4) 0 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+/* ---------- Tool panel ---------- */
+
+.tool-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-6);
+  margin-bottom: var(--space-10);
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.dropzone {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+  border: 2px dashed var(--color-border-hover);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  text-align: center;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.dropzone.is-dragging {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-light);
+}
+
+.dropzone.is-disabled {
+  opacity: 0.6;
+}
+
+.dropzone.is-invalid {
+  border-color: var(--color-error);
+  background-color: var(--color-error-light);
+}
+
+.dropzone.has-file {
+  border-style: solid;
+  border-color: var(--color-success);
+}
+
+.dropzone-label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-8) var(--space-4);
+  cursor: pointer;
+  width: 100%;
+}
+
+.dropzone.is-disabled .dropzone-label {
+  cursor: not-allowed;
+}
+
+.dropzone-title {
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.dropzone-hint {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.dropzone-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* The file input is visually hidden but still focusable, so the cue goes on the dropzone
+   itself — that keeps it correct no matter which order the input and label sit in. */
+.dropzone:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+/* ---------- Notices ---------- */
+
+.notice {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+}
+
+.notice code {
+  font-family: var(--font-mono);
+  font-size: 0.95em;
+}
+
+.notice-warning {
+  background-color: var(--color-warning-light);
+  border: 1px solid var(--color-warning);
+  color: var(--color-text);
+}
+
+/* ---------- Controls ---------- */
+
+.tool-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-4);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.field-label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.field-input {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.field-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+  outline: none;
+}
+
+/* ---------- Progress ---------- */
+
+.progress-region {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.progress {
+  width: 100%;
+  height: 8px;
+  overflow: hidden;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-full);
+}
+
+.progress-bar {
+  width: 0;
+  height: 100%;
+  background-color: var(--color-primary);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-normal);
+}
+
+.progress-text {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+/* ---------- Result ---------- */
+
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.result-previews {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+}
+
+.result-preview {
+  margin: 0;
+  padding: var(--space-3);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.result-preview img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+}
+
+.result-preview figcaption {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.result-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: var(--space-4);
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+}
+
+.result-stat dt {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+.result-stat dd {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* ---------- Buttons ---------- */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-5);
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.button:hover {
+  background-color: var(--color-primary-hover);
+  text-decoration: none;
+}
+
+.button-secondary {
+  background-color: transparent;
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+.button-secondary:hover {
+  background-color: var(--color-surface);
+}
+
+/* ---------- Status line ---------- */
+
+.status {
+  margin: 0;
+  min-height: 1.25rem;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.status.is-error {
+  color: var(--color-error);
+  font-weight: 600;
+}
+
+/* ---------- Editorial sections ---------- */
+
+.tool-notes,
+.faq,
+.related-tools {
+  max-width: 760px;
+  margin-bottom: var(--space-10);
+}
+
+.tool-notes h2,
+.faq h2,
+.related-tools h2 {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-xl);
+  font-weight: 600;
+}
+
+.tool-notes ul {
+  margin: 0;
+  padding-left: var(--space-5);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+.tool-notes p {
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+.related-tools .tool-grid {
+  max-width: none;
+}
+
+.faq-item {
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.faq-item summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.faq-item p {
+  margin: var(--space-3) 0 0;
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+.tool-cta {
+  padding: var(--space-6);
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+}
+
+/* ---------- Range slider ---------- */
+
+.slider {
+  width: 100%;
+  height: 20px;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-runnable-track {
+  height: 6px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+.slider::-moz-range-track {
+  height: 6px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -7px;
+  background-color: var(--color-primary);
+  border: 2px solid var(--color-surface-elevated);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+}
+
+.slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background-color: var(--color-primary);
+  border: 2px solid var(--color-surface-elevated);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+}
+
+.slider:hover::-webkit-slider-thumb {
+  background-color: var(--color-primary-hover);
+}
+
+.slider:hover::-moz-range-thumb {
+  background-color: var(--color-primary-hover);
+}
+
+.slider:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 4px;
+  border-radius: var(--radius-full);
+}
+
+.slider:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.slider-value {
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-secondary);
+}
+
+/* ---------- Compare slider (before/after) ----------
+   Visual states only for now — nothing drives the position yet. A component that needs it
+   sets --compare-position (a percentage) and moves it; 50% is the default. */
+
+.compare-slider {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  min-height: 240px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  touch-action: none;
+  user-select: none;
+}
+
+.compare-slider-pane {
+  position: absolute;
+  inset: 0;
+}
+
+.compare-slider-pane img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.compare-slider-after {
+  clip-path: inset(0 0 0 var(--compare-position, 50%));
+}
+
+.compare-slider-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--compare-position, 50%);
+  width: 2px;
+  margin-left: -1px;
+  background-color: var(--color-primary);
+}
+
+.compare-slider-handle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  background-color: var(--color-surface-elevated);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-md);
+}
+
+.compare-slider-label {
+  position: absolute;
+  bottom: var(--space-3);
+  padding: var(--space-1) var(--space-3);
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.compare-slider-label-before {
+  left: var(--space-3);
+}
+
+.compare-slider-label-after {
+  right: var(--space-3);
+}
+
+.compare-slider:focus-within {
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+/* ---------- Batch list (one row per file) ---------- */
+
+.batch {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.batch-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.batch-summary {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.batch-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.batch-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.batch-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-2) var(--space-4);
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.batch-item[data-selected='true'] {
+  border-color: var(--color-primary);
+}
+
+.batch-item[data-status='error'] {
+  border-color: var(--color-error);
+}
+
+.batch-item[data-status='cancelled'] {
+  opacity: 0.75;
+}
+
+.batch-item-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.batch-item-name {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.batch-item-meta {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.batch-item .progress {
+  grid-column: 1 / -1;
+}
+
+.batch-item-status {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+}
+
+.batch-item-status.is-error {
+  color: var(--color-error);
+}
+
+.batch-item-status.is-success {
+  color: var(--color-success);
+}
+
+.batch-item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  justify-content: flex-end;
+}
+
+/* ---------- Compare slider control + readout ---------- */
+
+/* Invisible and pointer-events: none on purpose. The keyboard and screen-reader value lives
+   here; the dragging is handled by the component on the root, which can grab anywhere in the
+   box rather than only on an invisible thumb. */
+.compare-slider-input {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  pointer-events: none;
+}
+
+.compare-savings {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Reserved advertising slots ----------
+   Nothing is rendered while content/site.json has "ads": false, and when that flag is switched on
+   these boxes hold their height before anything loads into them. That is the whole CLS story for
+   ads: a network's script arriving late cannot move the page if the space was already reserved.
+   Heights match the standard units — 728x90 / 320x100 leaderboard and 300x250 rectangle — and
+   `contain: layout paint` keeps a late-loading iframe from affecting anything around it. */
+
+.ad-slot {
+  display: block;
+  margin: 0 auto var(--space-8);
+  max-width: 100%;
+  contain: layout paint;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+}
+
+.ad-slot-leaderboard {
+  min-height: 100px;
+}
+
+@media (min-width: 728px) {
+  .ad-slot-leaderboard {
+    min-height: 90px;
+  }
+}
+
+.ad-slot-rectangle {
+  width: 100%;
+  max-width: 336px;
+  min-height: 250px;
+}
+
+/* ---------- Long-form pages (about, how it works, privacy, terms, contact) ---------- */
+
+.prose {
+  max-width: 72ch;
+  margin: 0 auto;
+}
+
+.prose h1 {
+  margin: 0 0 var(--space-6);
+  font-size: var(--text-4xl);
+  line-height: var(--leading-tight);
+}
+
+.prose h2 {
+  margin: var(--space-10) 0 var(--space-3);
+  font-size: var(--text-2xl);
+  line-height: var(--leading-tight);
+}
+
+.prose p,
+.prose li {
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+.prose p {
+  margin: 0 0 var(--space-4);
+}
+
+.prose ul,
+.prose ol {
+  margin: 0 0 var(--space-5);
+  padding-left: var(--space-6);
+}
+
+.prose li + li {
+  margin-top: var(--space-2);
+}
+
+.prose strong {
+  color: var(--color-text);
+}
+
+.prose a {
+  color: var(--color-primary);
+}
+
+.prose code {
+  padding: 0.1em 0.35em;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.95em;
+}
+
+.page-meta {
+  margin: var(--space-10) 0 0;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* A fact nobody has confirmed yet. Deliberately visible: it must not ship unnoticed. */
+.page-placeholder {
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-warning-light);
+  border: 1px solid var(--color-warning);
+  border-radius: var(--radius-md);
+}
+
+.page-placeholder strong {
+  color: var(--color-text);
+}
+
+.planned-tools {
+  margin-top: var(--space-6);
+}
+
+.planned-tools h2 {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-xl);
+}
+
+/* ---------- Shared additions for resize / convert / crop / image-to-pdf ---------- */
+
+.notice-info {
+  background-color: var(--color-primary-light);
+  border: 1px solid var(--color-primary);
+  color: var(--color-text);
+}
+
+/* A field that takes a whole row of the controls grid. */
+.field-wide {
+  grid-column: 1 / -1;
+}
+
+/* Checkboxes sit at the bottom of the row so they line up with the inputs beside them. */
+.field-check {
+  justify-content: flex-end;
+}
+
+.check-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.check-label input {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--color-primary);
+}
+
+/* Sits under the controls and explains where the selected preset came from. */
+.preset-note {
+  margin: var(--space-3) 0 0;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+/* ---------- Crop ---------- */
+
+.crop-stage {
+  margin: var(--space-5) 0 0;
+  padding: var(--space-3);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.crop-stage img {
+  display: block;
+  max-width: 100%;
+  /* cropperjs measures a block-level image, so a very tall photo is capped rather than being
+     allowed to push the toolbar off the screen. */
+  max-height: 60vh;
+  margin: 0 auto;
+}
+
+.crop-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  align-items: flex-end;
+  margin-top: var(--space-4);
+}
+
+.crop-ratios {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.crop-ratios-label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.ratio-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.ratio-button {
+  padding: var(--space-1) var(--space-3);
+  font: inherit;
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+}
+
+.ratio-button:hover {
+  border-color: var(--color-border-hover);
+}
+
+.ratio-button[aria-pressed='true'] {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.crop-actions,
+.crop-apply {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+/* ---------- Ordered list (PDF page order) ---------- */
+
+.order {
+  margin-top: var(--space-5);
+}
+
+.order-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.order-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.order-position {
+  min-width: 1.5rem;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.order-item-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.order-item-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.order-item-meta {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+}
+
+.order-item-actions {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.order-button {
+  min-width: 2rem;
+  padding: var(--space-1) var(--space-2);
+  font: inherit;
+  font-size: var(--text-sm);
+  line-height: 1;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.order-button:hover:not(:disabled) {
+  border-color: var(--color-border-hover);
+}
+
+.order-button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.order-button-remove:hover {
+  color: var(--color-error);
+  border-color: var(--color-error);
+}
+
+.order-hint {
+  margin: var(--space-3) 0 0;
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+}
+
+/* ---------- install banner ---------- */
+
+/**
+ * The install prompt, pinned to the bottom of the viewport.
+ *
+ * Fixed rather than in the flow on purpose: it appears after an image has been processed, and a box
+ * that pushes the page around at that moment is exactly the layout shift the rest of this site takes
+ * care to avoid. It sits at the toast layer — above the page, below anything modal.
+ */
+.install-banner {
+  position: fixed;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  left: var(--space-4);
+  z-index: var(--z-toast);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-5);
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+/* An author display rule beats the hidden attribute's own, so it has to be restated here. */
+.install-banner[hidden] {
+  display: none;
+}
+
+.install-banner-text {
+  flex: 1 1 16rem;
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.install-banner-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: var(--space-2);
+}
+
+/* ---------- Language switcher ----------
+ * Written with logical properties on purpose: this is the one component whose whole job is to appear
+ * in a language you are not currently reading, and `inset-inline-end` means it sits on the correct
+ * side of both an English and an Arabic page without a second rule in rtl.css.
+ */
+.lang-switch {
+  display: flex;
+  justify-content: flex-end;
+  margin-block-start: var(--space-2);
+}
+
+.lang-switch-list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lang-switch-link,
+.lang-switch-current {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.lang-switch-link {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.lang-switch-link:hover {
+  color: var(--color-text);
+  background-color: var(--color-surface-elevated);
+}
+
+.lang-switch-current {
+  color: var(--color-text);
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+}
+
+/* ---------- Translation notice ----------
+ * The disclosure that a locale's copy is machine-written, rendered by the page generators on every
+ * page of a non-default locale. Deliberately readable rather than apologetic, and never a dialog:
+ * nobody should have to dismiss a statement about the page they are reading.
+ */
+.translation-notice {
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-inline-start: 3px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+}
+
+/* ---------- `hidden` on a region that has its own `display` ----------
+ *
+ * An author `display` rule outranks the UA stylesheet's `[hidden] { display: none }`, whatever the
+ * specificity — which means every region a tool script toggles with `hidden` and also styles with
+ * `display: flex` was laid out from the moment the page loaded. The result panel, its compare
+ * slider and stats, the progress bar and the batch list were all on screen before a single file was
+ * chosen, with `—` placeholders and a Download button. The install banner hit this first and was
+ * fixed on its own (`.install-banner[hidden]`); this is the same fix for the tool panels, in one
+ * rule rather than ten, so a region added later cannot forget it.
+ *
+ * Scoped to `.tool-panel` so nothing outside a tool can be affected.
+ *
+ * One caveat, learned the hard way: this rule ties on specificity with `.tool-panel .button` — a class
+ * and an attribute both count as one — so a `display` rule at that weight wins on source order alone.
+ * The mobile block below sets the centering `display` on the same buttons, which un-hid every button a
+ * script had marked hidden. Any rule of that weight therefore needs the `:not([hidden])` guard the
+ * mobile block carries, or this rule must move after it.
+ */
+.tool-panel [hidden] {
+  display: none;
+}
+
+/* ---------- Photo enhance ----------
+ *
+ * One control row and one slider, which is the whole point of the tool: five styles, a thumbnail of the
+ * visitor's own photo above each one, and an intensity that blends between the corrected photo and the
+ * chosen style. The thumbnails are 160px-wide renders from the worker, so the row is a scroller rather
+ * than a grid that reflows — five fixed-height cards keep the panel's height stable while the images
+ * arrive, which is what stops the drop zone jumping under the visitor's finger.
+ */
+
+.preset-section {
+  margin: var(--space-5) 0 0;
+}
+
+.preset-heading {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.preset-title {
+  margin: 0;
+  font-size: var(--text-lg);
+}
+
+/* The one-click button. Selected state is the same treatment the chips use, so "what is on right now"
+   reads the same way whichever of the two the visitor picked. */
+.preset-auto[data-selected='true'] {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.preset-row {
+  display: flex;
+  gap: var(--space-3);
+  margin: var(--space-3) 0 0;
+  padding-bottom: var(--space-2);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.preset-chip {
+  flex: 0 0 auto;
+  width: 8.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--text-sm);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.preset-chip:hover:not(:disabled) {
+  border-color: var(--color-border-hover);
+}
+
+.preset-chip:focus-visible {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.preset-chip[data-selected='true'] {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-light);
+}
+
+/* Disabled until its own thumbnail exists; the box below keeps the row's height steady either way. */
+.preset-chip:disabled {
+  cursor: progress;
+  opacity: 0.7;
+}
+
+/*
+ * `height: auto` is load-bearing. The markup carries `width="160" height="120"` so the row reserves
+ * space before the thumbnails arrive, but a presentational height is a definite height — which means
+ * `aspect-ratio` has nothing to compute from and the box renders 118×120, squashing the 4:3 image into
+ * a portrait frame. With the height back on `auto`, the attribute still reserves the space and the
+ * aspect ratio decides the shape.
+ */
+.preset-thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg);
+}
+
+/* Previews that could not be rendered are not a reason to block a choice: the chip keeps its name and
+   loses the empty frame. */
+.preset-chip[data-state='unavailable'] .preset-thumb {
+  display: none;
+}
+
+.preset-name {
+  font-weight: 600;
+}
+
+.range-row {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.range-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 1.5rem;
+  accent-color: var(--color-primary);
+}
+
+.range-output {
+  flex: none;
+  min-width: 4rem;
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-secondary);
+  text-align: end;
+}
+
+/* Auto enhance has no Stage B to blend towards, so the slider is disabled rather than inert-looking. */
+.field[data-disabled='true'] {
+  opacity: 0.55;
+}
+
+.advanced-adjust {
+  margin: var(--space-5) 0 0;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.advanced-adjust[data-modified='true'] {
+  border-color: var(--color-primary);
+}
+
+.advanced-adjust > summary {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  min-height: 44px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  list-style: none;
+}
+
+.advanced-adjust > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Drawn with borders rather than the platform triangle, so it points the same way in both directions. */
+.advanced-adjust > summary::after {
+  content: '';
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-inline-start: auto;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform var(--transition-fast);
+}
+
+.advanced-adjust[open] > summary::after {
+  transform: rotate(-135deg);
+}
+
+.advanced-body {
+  display: grid;
+  gap: var(--space-4);
+  padding-top: var(--space-3);
+}
+
+/* The auto-correct readout under the result stats: a measurement, not a claim. */
+.correction-note {
+  margin: var(--space-4) 0 0;
+  font-size: var(--text-xs);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.correction-note:empty {
+  display: none;
+}
+
+/*
+ * Five 136px cards fit side by side from roughly 760px upward, so a wider screen shows the whole row
+ * at once. Below that the row scrolls, which is the right answer on a phone — a wrapped four-plus-one
+ * layout puts the fifth style on its own line where nobody looks for it.
+ */
+@media (min-width: 768px) {
+  .preset-row {
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
+}
+
+/* ---------- Secondary sections: a disclosure on a phone, plain prose on a desktop ----------
+ *
+ * The four long sections a tool page carries below the panel ("How this works", the guides, the
+ * FAQ, related tools) open with a real `<details>` element, closed by default. On a phone that is the
+ * point: the visitor reaches the drop zone and the primary action without scrolling past prose.
+ *
+ * **The disclosure wraps the heading, not the prose.** The body sits next to it, and the mobile rule
+ * below reveals it with `details[open] + .disclosure-body`. The obvious arrangement — prose inside the
+ * disclosure, author CSS to expand it on desktop — was tried first and verified broken: Chrome only
+ * exposes `::details-content` from 131, and every earlier engine hides a closed disclosure's content
+ * in an anonymous box no selector can reach and no author rule can outrank. A desktop rendered it as
+ * a heading with an empty 46px gap beneath. One `display` rule over ordinary siblings works
+ * everywhere instead.
+ *
+ * Nothing here is conditioned on JavaScript, and a visitor without it gets the same page: expanded
+ * sections on a desktop, collapsed ones on a phone.
+ *
+ * The `<section>` keeps the class the block always had (`tool-notes`, `faq`, `related-tools`), so the
+ * existing rules for those still match; only a descendant rule naming the heading's own parent would
+ * need updating, because the `<h2>` now sits inside the `<summary>`.
+ *
+ * **`[data-collapsible]` is the hook, not the section class.** The mechanics here are generic — one
+ * disclosure, one body beside it — and the tool page's intro (`.intro-disclosure` in the hero) uses the
+ * same three rules to fold its 190px of prose away on a phone. `.secondary-section` only adds the rule
+ * line and the padding that make an editorial block read as its own section.
+ */
+@media (min-width: 768px) {
+  /*
+   * On a desktop these are plain sections again, as before the change. The body is laid out by the
+   * user agent — the rule that hides it is scoped to phones — so the only thing left to undo is the
+   * control. It is the heading, so it keeps the heading's own appearance and loses the affordance:
+   * no pointer cursor and no marker, which puts it back to a plain `<h2>` for a mouse user. Its
+   * `open` state means nothing on a wide screen and nothing reads it here.
+   */
+  [data-collapsible] > details > summary {
+    display: block;
+    cursor: auto;
+    list-style: none;
+    pointer-events: none;
+  }
+
+  [data-collapsible] > details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /*
+   * The hero is the one disclosure that disappears on a wide screen rather than staying open. A desktop
+   * has never had a row between the `<h1>` and the intro paragraph, and drawing one would be a visible
+   * change to every tool page; the body below is laid out either way, so nothing is lost by hiding the
+   * control that would only have opened what is already open.
+   */
+  .intro-disclosure > details {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  /*
+   * Safe areas. `viewport-fit=cover` in the viewport meta is what makes `env()` resolve to anything
+   * other than zero on a notched device; without it this padding is inert rather than wrong.
+   * The second rule reserves room for the action bar while it is on screen, so the bar never covers
+   * the last row of the batch list.
+   */
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  body:has([data-primary-action][data-sticky='on']) {
+    /* 44px is the bar's own minimum reach, plus a little breathing room. */
+    padding-bottom: calc(44px + var(--space-3) + env(safe-area-inset-bottom));
+  }
+
+  /*
+   * The collapsible sections. A rule above each one reads as a section break, and the heading itself
+   * is the 44px-tall target — the disclosure marker is drawn with a border rather than the platform
+   * triangle, so it can point the same way in both writing directions.
+   */
+  .secondary-section {
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  /*
+   * The whole collapse, in one rule: the body is hidden until its disclosure is open. It is a
+   * sibling of the `<details>`, not a child, because author CSS cannot reveal a closed disclosure's
+   * content in any engine shipped today — see the note in `tool-page.mjs` where this markup is
+   * generated. Every `.disclosure-body` on the page is covered by these three rules, the hero's intro
+   * included.
+   */
+  [data-collapsible] > .disclosure-body {
+    display: none;
+  }
+
+  [data-collapsible] > details[open] + .disclosure-body {
+    display: block;
+  }
+
+  [data-collapsible] > details > summary {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: 44px;
+    cursor: pointer;
+    list-style: none;
+    pointer-events: auto;
+  }
+
+  [data-collapsible] > details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  [data-collapsible] > details > summary h2 {
+    margin: 0;
+  }
+
+  [data-collapsible] > details > summary::after {
+    content: '';
+    flex: none;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-inline-start: auto;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform var(--transition-fast);
+  }
+
+  [data-collapsible] > details[open] > summary::after {
+    transform: rotate(-135deg);
+  }
+
+  /*
+   * Touch targets. 44px is the smallest comfortable finger target, and on a phone every one of these
+   * is tapped with a thumb. Two inputs are still out of scope and both for a reason: the compare
+   * slider's range input is transparent and laid over the two image panes, so it is sized by them,
+   * and the file input is a 1px proxy for the label above it.
+   *
+   * A *visible* range input is different — it is dragged with a thumb, not tapped — so `.range-input`
+   * (the intensity and advanced sliders) is named explicitly. `height: 1.5rem` on the desktop rule
+   * gives it a 24px box, and `min-height` outranks `height`, so the box grows here and the track is
+   * drawn centred inside it.
+   */
+  .tool-panel button,
+  .tool-panel .button,
+  .tool-panel select,
+  .tool-panel input:not([type='range']):not(.dropzone-input),
+  .tool-panel .range-input,
+  .dropzone-label,
+  .mobile-menu-toggle,
+  .theme-toggle,
+  .logo,
+  .nav-link,
+  .lang-switch-link,
+  .lang-switch-current,
+  .breadcrumb a {
+    min-height: 44px;
+  }
+
+  /*
+   * A tall inline link needs to be a flex box to centre its text, or the padding lands lopsided.
+   * `:not([hidden])` is load-bearing: this selector ties with `.tool-panel [hidden]` above, so without
+   * the guard the source order here wins and every button a script had hidden — ZIP on a single file,
+   * Cancel before a run, Download before a result — is laid out anyway.
+   */
+  .tool-panel .button:not([hidden]),
+  .tool-panel button:not([hidden]),
+  .logo,
+  .lang-switch-link,
+  .lang-switch-current,
+  .breadcrumb a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+  }
+
+  /* The theme toggle is a 40px circle. `min-height` alone would leave it a 40×44 oval, so it gets
+     the other dimension too — still round, and a target a thumb can hit. */
+  .theme-toggle {
+    width: 44px;
+  }
+
+  /* The menu toggle is 40px wide for the same reason the theme toggle is 40px round: the icon and
+     its padding add up to a little less than a finger. `min-height` already made it 44 tall, which
+     is what the criterion measures; this makes it square rather than a 40×44 sliver. */
+  .mobile-menu-toggle {
+    min-width: 44px;
+  }
+
+  /*
+   * The primary action, as a fixed bar. It is the same button, moved — not a second copy — so there
+   * is exactly one "Compress all" on the screen, and it only shows once files are queued (the
+   * attribute is set from the queue's own state, and the batch region is `hidden` until then anyway).
+   * `.batch-actions`, its former home, is a row that now holds only the ZIP button.
+   */
+  [data-primary-action][data-sticky='on'] {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: var(--z-dropdown);
+    margin: 0;
+    border-radius: 0;
+    padding: var(--space-3) var(--space-4);
+    padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--color-border);
+  }
+}

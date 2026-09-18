@@ -1,0 +1,27 @@
+{
+  "name": "Browser Image Editor",
+  "shortName": "BIE",
+  "themeColor": "#0366d6",
+  "themeColorDark": "#0d1117",
+  "backgroundColor": "#ffffff",
+  "tagline": "Free image tools that never upload your files",
+  "url": "https://browserimageeditor.online",
+  "description": "Free browser-based image tools. Compress, resize and convert images without uploading them anywhere.",
+  "ogImage": "/og/home.png",
+  "contactEmail": "hello@browserimageeditor.online",
+  "contactRepo": null,
+  "defaultLocale": "en",
+  "locales": [
+    {
+      "code": "en",
+      "label": "English",
+      "dir": "ltr"
+    },
+    {
+      "code": "ar",
+      "label": "Arabic",
+      "dir": "rtl"
+    }
+  ],
+  "ads": false
+}

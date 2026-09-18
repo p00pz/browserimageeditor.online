@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<!-- GENERATED FILE — do not edit by hand. Rebuilt by scripts/build-pages.mjs from content/tools.json + content/pages.json + content/site.json. Run "npm run gen" instead. -->
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!--#include partials/theme-boot.html-->
+  <title>عن الموقع — لماذا يعمل كل شيء داخل متصفحك | محرر الصور في المتصفح</title>
+  <meta name="description" content="ما هو محرر الصور في المتصفح، ولماذا تُنفَّذ كل أدواته على جهازك بدل خادم، وماذا يعني ذلك لملفاتك وخصوصيتك واستهلاكك للبيانات.">
+  <link rel="canonical" href="https://browserimageeditor.online/ar/pages/about/">
+  <link rel="alternate" hreflang="en" href="https://browserimageeditor.online/pages/about/">
+  <link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/pages/about/">
+  <link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/pages/about/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="محرر الصور في المتصفح">
+  <meta property="og:title" content="عن الموقع — لماذا يعمل كل شيء داخل متصفحك">
+  <meta property="og:description" content="ما هو محرر الصور في المتصفح، ولماذا تُنفَّذ كل أدواته على جهازك بدل خادم، وماذا يعني ذلك لملفاتك وخصوصيتك واستهلاكك للبيانات.">
+  <meta property="og:url" content="https://browserimageeditor.online/ar/pages/about/">
+  <meta property="og:image" content="https://browserimageeditor.online/ar/og/page-about.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="عن الموقع — لماذا يعمل كل شيء داخل متصفحك">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="عن الموقع — لماذا يعمل كل شيء داخل متصفحك">
+  <meta name="twitter:description" content="ما هو محرر الصور في المتصفح، ولماذا تُنفَّذ كل أدواته على جهازك بدل خادم، وماذا يعني ذلك لملفاتك وخصوصيتك واستهلاكك للبيانات.">
+  <meta name="twitter:image" content="https://browserimageeditor.online/ar/og/page-about.png">
+  <meta name="twitter:image:alt" content="عن الموقع — لماذا يعمل كل شيء داخل متصفحك">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://browserimageeditor.online/ar/pages/about/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "كل الأدوات",
+          "item": "https://browserimageeditor.online/ar/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "عن الموقع",
+          "item": "https://browserimageeditor.online/ar/pages/about/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon-180.png">
+  <meta name="theme-color" content="#0366d6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/rtl.css">
+  <script type="application/json" id="ui-strings">{
+  "js.chrome.menuOpen": "افتح القائمة",
+  "js.chrome.menuClose": "أغلق القائمة",
+  "js.enhance.ready": "جاهز — أفلت صورة أو مجموعة صور لتحسينها.",
+  "js.enhance.unsupported": "لا يستطيع هذا المتصفح تحسين الصور على جهازك.",
+  "js.enhance.workerStopped": "توقّف عامل التحسين بشكل غير متوقّع. أعد تحميل الصفحة وحاول مرة أخرى.",
+  "js.enhance.failed": "فشل التحسين.",
+  "js.enhance.failedUnknown": "فشل التحسين لسبب غير معروف.",
+  "js.enhance.phaseProbe": "قراءة الصورة…",
+  "js.enhance.phaseAnalyse": "قياس المدرّج التكراري…",
+  "js.enhance.phaseGrade": "تطبيق النمط…",
+  "js.enhance.phaseEncode": "اللمسات الأخيرة…",
+  "js.enhance.running": "جارٍ التحسين…",
+  "js.enhance.startingOne": "جارٍ تحسين {name} داخل متصفحك…",
+  "js.enhance.startingMany": "جارٍ تحسين {count} صورة داخل متصفحك…",
+  "js.enhance.previewsLoading": "جارٍ توليد المعاينات من صورتك…",
+  "js.enhance.previewsProgress": "جارٍ توليد المعاينات من صورتك — {percent}%",
+  "js.enhance.previewsReady": "المعاينات جاهزة — اختر نمطاً، أو استخدم التحسين التلقائي.",
+  "js.enhance.previewsFailed": "تعذّر توليد المعاينات على هذا الجهاز. يمكنك مع ذلك اختيار نمط بالاسم وتحسين الصورة بالحجم الكامل.",
+  "js.enhance.thumbAlt": "صورتك بعد تطبيق نمط {preset}",
+  "js.enhance.doneStyled": "تم — {preset} بالشدة التي اخترتها.",
+  "js.enhance.doneAuto": "تم — تصحيح تلقائي دون تطبيق أي نمط.",
+  "js.enhance.correctionApplied": "مدّ التصحيح التلقائي كل قناة إلى المدى الكامل: معاملات {gains} للأحمر والأخضر والأزرق. وكانت نقاط الأسود {black} ونقاط الأبيض {white}.",
+  "js.enhance.correctionSkipped": "لم يجد التصحيح التلقائي ما يستحق الإصلاح: هذه الصورة تستخدم المدى الكامل أصلاً، ومدّها أكثر لن يفعل سوى تكبير التشويش.",
+  "js.enhance.largerNote": "الملف المحسَّن أكبر بمقدار {size} ({percent}%). إعادة الترميز تفعل ذلك — وأبعاد البكسلات لم تتغيّر.",
+  "js.enhance.manualPath": "لا يدعم هذا المتصفح مرشّحات وحدة الرسوم، فحُسب النمط بكسل بكسل بدل أن يُحسب على شريحة الرسوم. والحساب مكافئ — لا يفترق المساران إلا ببضع قيم لونية — لكنه يستغرق وقتاً أطول قليلاً.",
+  "js.enhance.formatFallback": "تعذّرت كتابة صيغة صورتك الأصلية على هذا الجهاز، فحُفظ الناتج بصيغة JPEG.",
+  "js.enhance.zeroIntensity": "الشدة على 0%، فهذه الصورة بعد التصحيح التلقائي دون أي نمط.",
+  "js.enhance.enhancedCount": "{count} محسَّنة",
+  "js.enhance.zipTail": "واستخدم زر ZIP لتنزيل الدفعة كاملة.",
+  "js.error.INVALID_PRESET": "نمط التحسين هذا غير موجود.",
+  "js.common.waiting": "في الانتظار",
+  "js.common.compare": "مقارنة",
+  "js.common.download": "تنزيل",
+  "js.common.retry": "إعادة المحاولة",
+  "js.common.somethingWrong": "حدث خطأ ما.",
+  "js.common.cancelled": "أُلغيت العملية.",
+  "js.common.cancelling": "جارٍ الإلغاء…",
+  "js.common.cancelledBeforeStart": "أُلغيت قبل أن تبدأ.",
+  "js.common.retrying": "إعادة المحاولة…",
+  "js.common.nothingToDownload": "لا يوجد شيء لتنزيله بعد.",
+  "js.common.zipFailed": "لم نتمكن من بناء ملف ZIP.",
+  "js.common.done": "تم",
+  "js.common.imageOne": "صورة",
+  "js.common.imageMany": "صور",
+  "js.common.savedFile": "حُفظ {name} ({size}).",
+  "js.common.packaging": "جارٍ تجميع {count} صور…",
+  "js.common.zipReady": "ملف ZIP جاهز — {count} {images}، {size}.",
+  "js.common.zipReadyLarge": "ملف ZIP جاهز ({size}) — الدفعات الكبيرة تُحفظ في الذاكرة أثناء الإنشاء، فاترك التبويب مفتوحاً حتى يبدأ التنزيل.",
+  "js.common.batchSummary": "{total} {images}",
+  "js.common.batchReady": "{count} جاهزة",
+  "js.common.batchFailed": "{count} فشلت",
+  "js.common.batchCancelled": "{count} أُلغيت",
+  "js.common.batchWaitingCount": "{count} في الانتظار",
+  "js.common.progressDone": "{succeeded} من {total} انتهت.",
+  "js.common.progressDoneFailed": "{succeeded} من {total} انتهت — و{failed} فشلت.",
+  "js.common.progressPercent": "{finished} من {total} انتهت — {percent}%",
+  "js.common.progressFor": "تقدّم {name}",
+  "js.common.downloadSize": "تنزيل {size}",
+  "js.common.jpegFlatten": "JPEG لا يستطيع تخزين الشفافية، لذلك سُطّحت المناطق الشفافة على الأبيض.",
+  "js.common.largerThanOriginal": "خرج هذا الملف أكبر من الأصل بمقدار {size} — جرّب WebP أو حدّد حجماً مستهدفاً.",
+  "js.common.largerThanOriginalResize": "الملف الجديد أكبر من الأصل بمقدار {size} — وإعادة الترميز إلى صيغة أخرى قد تفعل ذلك حتى مع انخفاض عدد البكسلات.",
+  "js.common.noResampling": "بلا إعادة معايرة",
+  "js.common.scaleOfPixels": "{percent} من البكسلات",
+  "js.common.compareSliderValue": "{percent}% من الصورة الأصلية",
+  "js.common.browserUnsupported": "هذا المتصفح لا يستطيع معالجة الصور محلياً.",
+  "js.common.checkingBrowser": "جارٍ فحص هذا المتصفح…",
+  "js.common.readyAgain": "جاهز لصورة أخرى.",
+  "js.common.batchQueued": "{count} صور جاهزة. اضبط الخيارات ثم اضغط «{action}».",
+  "js.common.listOr": "أو",
+  "js.common.presetFitsInside": "تدخل داخل الصندوق",
+  "js.common.presetOriginDerived": "محسوب من حدود النِّسب المنشورة لدى المنصّة",
+  "js.common.presetOriginPublished": "منشور لدى المنصّة",
+  "js.common.presetNote": "{label}: {width}×{height} px ({ratio}) — {origin}. {note} {source}",
+  "js.common.doneParts": "تم — {parts}.",
+  "js.preset.instagram-square": "منشور مربّع",
+  "js.preset.instagram-portrait": "منشور طولي",
+  "js.preset.instagram-landscape": "منشور عرضي",
+  "js.preset.instagram-story": "ستوري أو ريلز",
+  "js.preset.youtube-thumbnail": "صورة فيديو مصغّرة",
+  "js.preset.youtube-shorts-cover": "غلاف شورتس",
+  "js.preset.hd-1080p": "دقّة كاملة (1080p)",
+  "js.preset.web-1280": "صورة ويب (عرض 1280)",
+  "js.dropzone.empty": "يبدو أن {name} فارغ.",
+  "js.dropzone.tooLarge": "حجم {name} هو {size}. والحدّ المسموح هنا {limit}.",
+  "js.dropzone.unsupportedType": "{name} ليس من نوع مدعوم. الصيغ المقبولة: {accepted}.",
+  "js.dropzone.tooMany": "تم تمرير {count} ملفات؛ ولا يمكن استخدام سوى {name} هنا.",
+  "js.pwa.bannerLabel": "ثبّت محرر الصور في المتصفح",
+  "js.pwa.bannerText": "ثبّت محرر الصور في المتصفح: يُفتح كتطبيق، وتبقى الأدوات التي زرتها تعمل بلا أي اتصال.",
+  "js.pwa.install": "ثبّت التطبيق",
+  "js.pwa.notNow": "ليس الآن",
+  "js.compress.ready": "جاهز — أفلت صورة أو دفعة لضغطها.",
+  "js.compress.unsupported": "هذا المتصفح لا يستطيع ضغط الصور محلياً.",
+  "js.compress.workerStopped": "توقف عامل الضغط على غير المتوقع. أعد تحميل الصفحة وحاول مرة أخرى.",
+  "js.compress.failed": "فشل الضغط.",
+  "js.compress.failedUnknown": "فشل الضغط لسبب غير معروف.",
+  "js.compress.invalidSettings": "هذه الإعدادات غير صالحة.",
+  "js.compress.phaseProbe": "جارٍ قراءة الصورة…",
+  "js.compress.phaseFit": "جارٍ تغيير المقاس…",
+  "js.compress.phaseSearch": "جارٍ البحث عن أفضل جودة…",
+  "js.compress.phaseEncode": "لمسات أخيرة…",
+  "js.compress.running": "جارٍ الضغط…",
+  "js.compress.startingOne": "جارٍ ضغط {name} داخل متصفحك…",
+  "js.compress.startingMany": "جارٍ ضغط {count} صور داخل متصفحك…",
+  "js.compress.doneAt": "تم بجودة {percent}%.",
+  "js.compress.zipTail": "استخدم «تنزيل الكل في ملف ZIP» للدفعة كاملة.",
+  "js.compress.compressedCount": "{count} مضغوطة",
+  "js.compress.tryingQuality": "جارٍ تجربة جودة {percent}%…",
+  "js.compress.nearTarget": "قريب جداً: أكبر من هدفك ({target}) بمقدار {over}، وهذا أصغر ما تصل إليه هذه الصورة.",
+  "js.compress.unreachableTarget": "لا يمكن الوصول إلى {target}: أصغر ما تصل إليه هذه الصورة هو {smallest}. قلّل أقصى عرض أو ارتفاع لتوفير أكثر.",
+  "js.resize.ready": "جاهز — أفلت صورة أو دفعة لتغيير مقاسها.",
+  "js.resize.unsupported": "هذا المتصفح لا يستطيع تغيير مقاس الصور محلياً.",
+  "js.resize.workerStopped": "توقف عامل تغيير المقاس على غير المتوقع. أعد تحميل الصفحة وحاول مرة أخرى.",
+  "js.resize.failed": "فشل تغيير المقاس.",
+  "js.resize.failedUnknown": "فشل تغيير المقاس لسبب غير معروف.",
+  "js.resize.invalidDimensions": "هذه الأبعاد غير صالحة.",
+  "js.resize.phaseProbe": "جارٍ قراءة الصورة…",
+  "js.resize.phaseResize": "جارٍ إعادة المعايرة…",
+  "js.resize.phaseEncode": "لمسات أخيرة…",
+  "js.resize.running": "جارٍ تغيير المقاس…",
+  "js.resize.startingOne": "جارٍ تغيير مقاس {name} داخل متصفحك…",
+  "js.resize.startingMany": "جارٍ تغيير مقاس {count} صور داخل متصفحك…",
+  "js.resize.doneScaled": "تم — {change}",
+  "js.resize.doneUnchanged": "تم — الحجم كما هو، {change}",
+  "js.resize.upscaleSkipped": "كانت هذه الصورة أصغر من المقاس الذي طلبته، فتُركت كما هي. أشّر على «السماح بالتكبير» لتكبيرها.",
+  "js.resize.resizedCount": "{count} تغيّر مقاسها",
+  "js.convert.ready": "جاهز — أفلت صورة أو دفعة لتحويلها.",
+  "js.convert.unsupported": "هذا المتصفح لا يستطيع تحويل الصور محلياً.",
+  "js.convert.workerStopped": "توقف عامل التحويل على غير المتوقع. أعد تحميل الصفحة وحاول مرة أخرى.",
+  "js.convert.failed": "فشل التحويل.",
+  "js.convert.failedUnknown": "فشل التحويل لسبب غير معروف.",
+  "js.convert.phaseProbe": "جارٍ قراءة الصورة…",
+  "js.convert.phaseEncode": "جارٍ كتابة الصيغة الجديدة…",
+  "js.convert.running": "جارٍ التحويل…",
+  "js.convert.startingOne": "جارٍ تحويل {name} داخل متصفحك…",
+  "js.convert.startingMany": "جارٍ تحويل {count} صور داخل متصفحك…",
+  "js.convert.done": "تم.",
+  "js.convert.convertedCount": "{count} محوَّلة",
+  "js.convert.doneHeic": "تم — وفُكّ ترميزها على جهازك بفاكّ ترميز HEIC.",
+  "js.convert.decodedByDecoder": "فُكّ ترميز ملف HEIC هذا على جهازك بالفاكّ المضمَّن.",
+  "js.convert.encoderNote": "يستطيع هذا المتصفح كتابة {offered}.",
+  "js.convert.encoderNoteSkipped": "يستطيع هذا المتصفح كتابة {offered}. أما {skipped} فلا تُعرض لأن canvas.toBlob لا ينتج ملف {formats} حقيقياً هنا.",
+  "js.convert.largerNote": "الملف الجديد أكبر بمقدار {size} ({percent}). وتحويل صورة مُحسَّنة سلفاً قد يضيف بايتات — وWebP يعطي عادةً أصغر نتيجة.",
+  "js.convert.noEncoders": "لا يستطيع هذا المتصفح كتابة أي من الصيغ التي تعرضها هذه الأداة، فلا توجد صيغة يمكن التحويل إليها.",
+  "js.convert.heicNeedsDecoder": "قراءة ملف HEIC تحتاج إلى فاكّ ترميز لم نتمكن من تنزيله. تحقق من اتصالك وحاول مرة أخرى.",
+  "js.error.ABORTED": "أُلغيت العملية.",
+  "js.error.INTERNAL": "لم ينجح ذلك. لم يُرفع أي شيء؛ حاول مرة أخرى.",
+  "js.error.EMPTY_FILE": "يبدو أن هذا الملف فارغ.",
+  "js.error.TOO_LARGE": "هذا الملف أكبر من الحدّ الذي تقبله الصفحة.",
+  "js.error.TOO_MANY_FILES": "هذا عدد ملفات أكبر مما تستطيع الصفحة التعامل معه.",
+  "js.error.UNSUPPORTED_TYPE": "هذا النوع من الملفات لا تستطيع الأداة قراءته.",
+  "js.error.DECODE_FAILED": "لم نتمكن من فكّ ترميز هذا الملف كصورة.",
+  "js.error.ENCODE_FAILED": "لم نتمكن من كتابة الصورة بتلك الصيغة.",
+  "js.error.INVALID_ENCODE": "لم نتمكن من كتابة الصورة بتلك الصيغة.",
+  "js.error.INVALID_ENCODER": "هذا المتصفح لا يستطيع كتابة تلك الصيغة.",
+  "js.error.INVALID_PROBE": "لم نتمكن من قراءة الصورة بما يكفي لمعالجتها.",
+  "js.error.INVALID_DIMENSION": "هذا المقاس ليس مقاس صورة صالحاً.",
+  "js.error.INVALID_DIMENSIONS": "هذه الأبعاد غير صالحة.",
+  "js.error.INVALID_BACKGROUND": "لم نتمكن من استخدام لون الخلفية هذا.",
+  "js.error.INVALID_MASK": "لم نتمكن من قراءة المنطقة التي رسمتها. امسح القناع وارسم فوق الجسم مرة أخرى.",
+  "js.error.INVALID_SELECTION": "لم نتمكن من تطبيق هذا التحديد.",
+  "js.error.INVALID_PAGE_SIZE": "مقاس صفحة PDF هذا غير صالح.",
+  "js.error.NO_CANVAS": "لم يتمكن هذا المتصفح من توفير لوحة رسم (canvas).",
+  "js.error.PDF_FAILED": "لم نتمكن من بناء ملف PDF.",
+  "js.error.UNSUPPORTED": "هذا المتصفح لا يستطيع فعل ذلك محلياً، ولا نرسل شيئاً إلى خادم كبديل.",
+  "js.error.OUT_OF_MEMORY": "نفدت ذاكرة هذا الجهاز أثناء العمل على الصورة. جرّب صورة أصغر، أو أغلق تبويبات أخرى وأعد المحاولة.",
+  "js.error.MODEL_UNSUPPORTED": "لا يستطيع محرك التشغيل في هذا المتصفح تشغيل الطراز الذي تحتاجه الأداة. لم يُرفع أي شيء؛ نرجو الإبلاغ عن ذلك.",
+  "js.error.MODEL_RUNTIME_FAILED": "لم يعمل الطراز المحلي. لم يُرفع أي شيء؛ جرّب الوضع الآخر.",
+  "js.error.MODEL_NOT_READY": "لم يُنزَّل الطراز الذي تحتاجه الأداة بعد.",
+  "js.error.MODEL_FETCH_FAILED": "لم نتمكن من تنزيل الطراز. تحقق من اتصالك وأعد المحاولة — ولم يُرفع أي شيء في الحالتين.",
+  "js.error.MODEL_TRUNCATED": "لم يكتمل تنزيل الطراز. لم يُرفع أي شيء؛ حاول مرة أخرى.",
+  "js.error.MODEL_HTTP": "رفض مضيف الطراز الطلب. قد يكون الطراز قد نُقل؛ ولم يُرفع أي شيء.",
+  "js.error.MODEL_URL_MISSING": "لا يوجد رابط طراز مضبوط لهذه الأداة.",
+  "js.error.MODEL_CONTRACT_MISMATCH": "الطراز المنزَّل لا يطابق ما تتوقعه هذه الأداة. لم يُرفع أي شيء.",
+  "js.error.ORT_LOAD_FAILED": "لم نتمكن من تحميل محرك التشغيل المحلي. إعادة تحميل الصفحة تحلّ هذا عادةً، ولم يُرفع أي شيء.",
+  "js.error.UNKNOWN_MODEL": "طلبت هذه الأداة طرازاً غير موجود.",
+  "js.error.EMPTY_MASK": "ارسم أولاً فوق الجسم الذي تريد إزالته.",
+  "js.error.INVALID_INPUT": "لم يُمرَّر أي ملف صورة.",
+  "js.error.INVALID_JOB": "لم نتمكن من بدء هذه المهمة.",
+  "js.error.IMAGE_TOO_LARGE": "تحتوي هذه الصورة على بكسلات أكثر مما تستطيع لوحة الرسم استيعابه. صغّرها أولاً ثم أعد المحاولة.",
+  "js.error.UNSUPPORTED_FORMAT": "هذه الصيغة ليست من الصيغ التي تستطيع الأداة قراءتها.",
+  "js.error.INVALID_ENCODE_RESULT": "أعاد المُرمِّز شيئاً ليس صورة.",
+  "js.order.moveUp": "حرّك لأعلى",
+  "js.order.moveDown": "حرّك لأسفل",
+  "js.order.moveFirst": "حرّك إلى البداية",
+  "js.order.moveLast": "حرّك إلى النهاية",
+  "js.order.remove": "أزل",
+  "js.ratio.free.label": "بدون قيد",
+  "js.ratio.free.note": "اسحب أي مستطيل.",
+  "js.ratio.square.label": "1:1",
+  "js.ratio.square.note": "مربّع — صور الملف الشخصي ومشاركات الشبكة.",
+  "js.ratio.portrait.label": "4:5",
+  "js.ratio.portrait.note": "طولي — أطول ما تعرضه شبكة إنستغرام.",
+  "js.ratio.classic.label": "3:2",
+  "js.ratio.classic.note": "شكل الصورة الكلاسيكية 35 مم.",
+  "js.ratio.photo.label": "4:3",
+  "js.ratio.photo.note": "معظم كاميرات الهواتف.",
+  "js.ratio.wide.label": "16:9",
+  "js.ratio.wide.note": "عريض — الصور المصغّرة والشرائح.",
+  "js.crop.progressLabel": "تطبيق القص…",
+  "js.crop.workerStopped": "توقف مسار الترميز بصورة غير متوقعة. أعد تحميل الصفحة وحاول مرة أخرى.",
+  "js.crop.failed": "لم يتمكنّا من ترميز الصورة المقصوصة.",
+  "js.crop.failedUnknown": "لم يتمكنّا من ترميز الصورة المقصوصة، ولم يوضّح المتصفح السبب.",
+  "js.crop.freeSelection": "تحديد بدون قيد — اسحب أي مستطيل.",
+  "js.crop.lockedTo": "مقفل على {label}.",
+  "js.crop.wrongCropper": "هذه النسخة تتوقع الإصدار 1.x من مكتبة القص. وإخراج القص غير متاح مع الإصدار المثبَّت.",
+  "js.crop.dragHint": "اسحب المربع لاختيار القص، أو اختر نسبة أبعاد.",
+  "js.crop.readBackFailed": "لم نتمكن من قراءة الصورة المقصوصة مرة أخرى.",
+  "js.crop.phaseCrop": "جارٍ القص…",
+  "js.crop.phaseEncode": "جارٍ الترميز…",
+  "js.crop.croppedTo": "قُصّت إلى {width}×{height} عند {size}.",
+  "js.crop.largerNote": "الملف المقصوص ليس أصغر من الأصلي، وهذا طبيعي: أُعيد ترميز الصورة كلها مع أن جزءاً منها فقط هو المحتفظ به.",
+  "js.crop.rotated": "دُوّرت إلى {degrees}°",
+  "js.crop.flipAcross": "انعكست عرضياً.",
+  "js.crop.flipAcrossOff": "أُلغي الانعكاس العرضي.",
+  "js.crop.flipDown": "انعكست رأسياً.",
+  "js.crop.flipDownOff": "أُلغي الانعكاس الرأسي.",
+  "js.crop.selectionReset": "أُعيد تعيين التحديد.",
+  "js.crop.ready": "جاهز — أفلت صورة لتقصها.",
+  "js.crop.unsupported": "هذا المتصفح لا يستطيع قص الصور محلياً.",
+  "js.pdf.pageSize.a4.label": "A4 (210 × 297 مم)",
+  "js.pdf.pageSize.a4.note": "المقاس الافتراضي في كل مكان تقريباً عدا أمريكا الشمالية.",
+  "js.pdf.pageSize.letter.label": "US Letter (8.5 × 11 بوصة)",
+  "js.pdf.pageSize.letter.note": "مقاس US Letter، أي 612 × 792 نقطة.",
+  "js.pdf.pageSize.match.label": "مطابقة لكل صورة",
+  "js.pdf.pageSize.match.note": "تأخذ كل صفحة مقاس صورتها، فلا يُضاف هامش ولا يُقتطع شيء. ولا تنطبق الهوامش هنا.",
+  "js.pdf.margin.none.label": "بدون",
+  "js.pdf.margin.none.note": "تملأ الصورة منطقة الطباعة كلها.",
+  "js.pdf.margin.small.label": "صغير (0.25 بوصة)",
+  "js.pdf.margin.normal.label": "عادي (0.5 بوصة)",
+  "js.pdf.quality.high.label": "عالية (JPEG 95%)",
+  "js.pdf.quality.balanced.label": "متوازنة (JPEG 85%)",
+  "js.pdf.quality.small.label": "ملف أصغر (JPEG 70%)",
+  "js.pdf.progressLabel": "بناء ملف PDF…",
+  "js.pdf.workerStopped": "توقف مسار بناء PDF بصورة غير متوقعة. أعد تحميل الصفحة وحاول مرة أخرى.",
+  "js.pdf.failed": "لم نتمكن من بناء ملف PDF.",
+  "js.pdf.failedUnknown": "لم نتمكن من بناء ملف PDF، ولم يوضّح المتصفح السبب.",
+  "js.pdf.working": "جارٍ العمل…",
+  "js.pdf.phaseProbe": "جارٍ قراءة الصورة…",
+  "js.pdf.phaseEncode": "جارٍ تحضير الصفحة…",
+  "js.pdf.pageOne": "صفحة",
+  "js.pdf.pageMany": "صفحات",
+  "js.pdf.docTitleFallback": "صور",
+  "js.pdf.orderSummary": "{count} {pages} · {size}",
+  "js.pdf.orderTooLong": "{count} {pages} · {size} — وهذا عدد كبير من الصفحات ليبقى في الذاكرة مرة واحدة",
+  "js.pdf.starting": "جارٍ تحضير {count} {images} داخل متصفحك…",
+  "js.pdf.prepared": "حُضّرت {done} من {total}",
+  "js.pdf.preparedFailed": "حُضّرت {done} من {total} — وفشلت {failed}",
+  "js.pdf.couldNotPrepareAll": "لم نتمكن من تحضير أي من تلك الصور، فلا يوجد ما نبني منه PDF.",
+  "js.pdf.nothingToPut": "لا يوجد شيء نضعه في ملف PDF.",
+  "js.pdf.writing": "جارٍ كتابة ملف PDF…",
+  "js.pdf.readySummary": "ملف PDF جاهز — {count} {pages}، بحجم {size}.",
+  "js.pdf.transcoded": "أُعيد رسم {count} من {total} {images} بصيغة JPEG، لأن PDF يخزّن JPEG وPNG لا WebP.",
+  "js.pdf.transcodedOne": "أُعيد رسم صورة واحدة من {total} بصيغة JPEG، لأن PDF يخزّن JPEG وPNG لا WebP.",
+  "js.pdf.largeDoc": "هذا مستند كبير؛ وقد بقي في الذاكرة أثناء كتابته، ولهذا قد يكون بطيئاً على الهاتف.",
+  "js.pdf.listCleared": "أُفرغت القائمة.",
+  "js.pdf.ready": "جاهز — أضف صوراً لتبني ملف PDF.",
+  "js.pdf.imagesReady": "{count} {images} جاهزة. اسحب الأسهم لإعادة الترتيب، ثم ابنِ ملف PDF.",
+  "js.pdf.unsupported": "هذا المتصفح لا يستطيع بناء PDF محلياً.",
+  "js.pdf.downloadSize": "حمّل ملف PDF ({size})",
+  "js.pdf.startingPages": "{count} {pages}…",
+  "js.crop.invalidSelection": "هذا التحديد أصغر من أن ينتج صورة. اسحب مربعاً أكبر."
+}</script>
+</head>
+<body>
+  <!--#include partials/ar/header.html-->
+  <div class="container">
+    <nav class="lang-switch" aria-label="اللغة">
+      <ul class="lang-switch-list">
+      <li><a class="lang-switch-link" href="/pages/about/" hreflang="en" lang="en">English</a></li>
+      <li><span class="lang-switch-current" lang="ar" aria-current="true">العربية</span></li>
+      </ul>
+    </nav>
+  </div>
+  <main class="main" id="main">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="مسار التنقل">
+        <a href="/ar/">كل الأدوات</a>
+        <span class="breadcrumb-separator" aria-hidden="true">/</span>
+        <span aria-current="page">عن الموقع</span>
+      </nav>
+
+      <article class="prose" data-page-root data-page-slug="about">
+        <h1>عن محرر الصور في المتصفح</h1>
+      <h2>ما هذا الموقع</h2>
+      <p>
+        محرر الصور في المتصفح مجموعة صغيرة من أدوات الصور — ضغط، تغيير المقاس، تحويل، قص — تعمل كلها داخل متصفحك
+        أنت. لا حساب تنشئه، ولا ملف ترفعه، ولا قائمة انتظار تقف فيها. تُفلت صورة، ويجري العمل على جهازك،
+        وتأخذ النتيجة معك.
+      </p>
+
+      <h2>لماذا تعمل داخل متصفحك</h2>
+      <p>
+        السبب المعتاد لوجود أداة صور على الإنترنت هو جمع شيء ما: بريد إلكتروني، أو اشتراك، أو الصور
+        نفسها. وتنفيذ العمل على جهازك يزيل هذا الإغراء. فحين لا توجد نسخة من ملفك على خادم، لا يوجد شيء
+        يمكن أن يتسرّب، ولا شيء يُباع، ولا شيء يُحتجَز خلف جدار دفع. ويعني ذلك أيضاً أن الأدوات تظل تعمل
+        ما دامت الصفحة مفتوحة حتى لو انقطع اتصالك، وأن صورة بحجم 40 ميجابايت لا تحتاج أن تعبر اتصال
+        الجوال مرتين.
+      </p>
+      <p>
+        والمقابل صريح ويستحق الذكر: جهازك هو الذي يعمل، لذا ستبدو دفعة كبيرة على هاتف قديم أبطأ مما لو
+        نفّذها خادم، وقد تتجاوز الصور الضخمة ما يُسمح لتبويب المتصفح بحجزه من الذاكرة. وتفصّل صفحة
+        <a href="/ar/pages/how-it-works/">كيف يعمل</a> هذه النقاط.
+      </p>
+
+      <h2>من يديره</h2>
+      <p>
+        هذا الموقع يديره القائم عليه — لا شركة خلفه ولا كيان قانوني مذكور في صفحاته. إنه مشروع صغير،
+        يُبنى ويُصلَح على المكشوف، وله متتبع أخطاء بدل قسم دعم. وإذا كان شيء معطلاً أو غير واضح،
+        <a href="/ar/pages/contact/">تواصل معنا</a>؛ فالتقارير عن ناتج خاطئ أو نص مضلّل مفيدة فعلاً.
+      </p>
+
+      <h2>كيف يُموَّل</h2>
+      <p>
+        لا يُموَّل. لا إعلانات، ولا محتوى مدفوع، ولا روابط تابعة، ولا تحليلات، ولا أدوات تتبّع من جهات
+        أخرى — ويمكنك التأكد من ذلك بمراقبة لوحة الشبكة في أدوات المطوّر داخل متصفحك، وسترى طلبات لملفات
+        هذا الموقع ولا شيء غيرها. وتكلفة التشغيل هي تقديم حفنة من الملفات الثابتة.
+      </p>
+
+      <h2>ما ليس هنا بعد</h2>
+      <p>
+        بعض الأدوات في الصفحة الرئيسية معلَّمة <em>قريباً</em>، وهذا يعني ذلك حرفياً: مخطط لها لا موعود
+        بها، وصفحاتها تقول ذلك. وقد أُدرجت مبكراً لترى إلى أين يتجه المشروع، وصفحاتها تُبقى عمداً خارج
+        نتائج البحث إلى أن تعمل فعلاً.
+      </p>
+
+        <p class="page-meta">آخر تحديث <time datetime="2026-09-17">17 سبتمبر 2026</time>.</p>
+      </article>
+  <p class="translation-notice" role="note" lang="ar">هذه النسخة العربية مترجمة آلياً ولم يراجعها متحدث أصلي بعد. وإذا بدت عبارة ما غير مألوفة، فالصفحة الإنجليزية هي الأصل.</p>
+
+    </div>
+  </main>
+  <!--#include partials/ar/footer.html-->
+  <script type="module" src="/assets/js/ui/site.js"></script>
+</body>
+</html>

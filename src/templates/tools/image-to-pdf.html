@@ -1,0 +1,87 @@
+      <section class="tool-panel" data-tool-root data-tool-slug="{{slug}}">
+        <div class="dropzone" data-dropzone>
+          <label class="dropzone-label" for="tool-file-input">
+            <span class="dropzone-title">{{{t.ui.tool.chooseImages}}}</span>
+            <span class="dropzone-hint">{{{dropzoneHint}}}</span>
+            <span class="dropzone-hint">{{{t.ui.pdf.multiHint}}}</span>
+          </label>
+          <input class="dropzone-input" id="tool-file-input" type="file" accept="{{acceptAttr}}" multiple data-dropzone-input>
+        </div>
+
+        <p class="notice notice-warning" data-unsupported hidden>
+          {{{t.ui.pdf.unsupported}}}
+        </p>
+
+        <div class="tool-controls">
+          <div class="field">
+            <label class="field-label" for="pdf-page-size">{{{t.ui.pdf.pageSize}}}</label>
+            <select class="field-input" id="pdf-page-size" data-page-size></select>
+          </div>
+          <div class="field">
+            <label class="field-label" for="pdf-margin">{{{t.ui.pdf.margin}}}</label>
+            <select class="field-input" id="pdf-margin" data-margin></select>
+          </div>
+          <div class="field">
+            <label class="field-label" for="pdf-quality">{{{t.ui.pdf.quality}}}</label>
+            <select class="field-input" id="pdf-quality" data-quality></select>
+          </div>
+        </div>
+
+        <div class="order" data-order hidden>
+          <div class="batch-header">
+            <p class="batch-summary" data-order-summary></p>
+            <div class="batch-actions">
+              <button class="button" type="button" data-build-pdf data-primary-action data-sticky="off">{{{t.ui.pdf.build}}}</button>
+              <button class="button button-secondary" type="button" data-clear-list>{{{t.ui.pdf.clearList}}}</button>
+            </div>
+          </div>
+          <ol class="order-list" data-order-list></ol>
+          <p class="order-hint">{{{t.ui.pdf.orderHint}}}</p>
+        </div>
+
+        <div class="progress-region" data-progress-region hidden>
+          <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="{{{t.ui.pdf.progressLabel}}}">
+            <div class="progress-bar" data-progress-bar></div>
+          </div>
+          <p class="progress-text" data-progress-text></p>
+          <button class="button button-secondary" type="button" data-cancel>{{{t.ui.tool.cancel}}}</button>
+        </div>
+
+        <div class="result" data-result hidden>
+          <dl class="result-stats">
+            <div class="result-stat">
+              <dt>{{{t.ui.pdf.statPages}}}</dt>
+              <dd data-result-pages>&mdash;</dd>
+            </div>
+            <div class="result-stat">
+              <dt>{{{t.ui.pdf.pageSize}}}</dt>
+              <dd data-result-page-size>&mdash;</dd>
+            </div>
+            <div class="result-stat">
+              <dt>{{{t.ui.tool.statFileSize}}}</dt>
+              <dd data-result-size>&mdash;</dd>
+            </div>
+          </dl>
+          <p class="notice notice-warning" data-result-warning hidden></p>
+          <div class="result-actions">
+            <a class="button" data-download download>{{{t.ui.pdf.download}}}</a>
+            <button class="button button-secondary" type="button" data-start-over>{{{t.ui.tool.startOver}}}</button>
+          </div>
+        </div>
+
+        <p class="status" data-status role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="secondary-section tool-notes" data-collapsible>
+        <details><summary><h2>{{{t.ui.pdf.notesHeading}}}</h2></summary></details>
+        <div class="disclosure-body">
+          <p>{{{t.ui.pdf.notesIntro}}}</p>
+          <ul>
+            <li>{{{t.ui.pdf.notes1}}}</li>
+            <li>{{{t.ui.pdf.notes2}}}</li>
+            <li>{{{t.ui.pdf.notes3}}}</li>
+            <li>{{{t.ui.pdf.notes4}}}</li>
+            <li>{{{t.ui.pdf.notes5}}}</li>
+          </ul>
+        </div>
+      </section>

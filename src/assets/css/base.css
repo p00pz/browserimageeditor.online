@@ -1,0 +1,195 @@
+:root {
+  --color-bg: #ffffff;
+  --color-surface: #f8f9fa;
+  --color-surface-elevated: #ffffff;
+  --color-border: #e1e4e8;
+  --color-border-hover: #d1d5da;
+  --color-text: #24292e;
+  --color-text-secondary: #586069;
+  --color-text-muted: #8b949e;
+  --color-primary: #0366d6;
+  --color-primary-hover: #0256c7;
+  --color-primary-active: #0248a3;
+  --color-primary-light: #e8f0fe;
+  --color-focus: #0366d6;
+  --color-focus-ring: rgba(3, 102, 214, 0.3);
+  --color-error: #cb2431;
+  --color-error-light: #ffeef0;
+  --color-success: #28a745;
+  --color-success-light: #e6ffed;
+  --color-warning: #f97583;
+  --color-warning-light: #fff5f5;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  --font-mono: 'SF Mono', 'Fira Code', 'Fira Mono', Menlo, Consolas, monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 2px rgba(27, 31, 35, 0.04), 0 1px 1px rgba(27, 31, 35, 0.06);
+  --shadow-md: 0 4px 6px rgba(27, 31, 35, 0.07), 0 2px 4px rgba(27, 31, 35, 0.06);
+  --shadow-lg: 0 10px 15px rgba(27, 31, 35, 0.1), 0 4px 6px rgba(27, 31, 35, 0.05);
+  --shadow-xl: 0 20px 25px rgba(27, 31, 35, 0.1), 0 10px 10px rgba(27, 31, 35, 0.04);
+
+  --transition-fast: 120ms ease;
+  --transition-normal: 200ms ease;
+  --transition-slow: 300ms ease;
+
+  --z-dropdown: 100;
+  --z-modal: 200;
+  --z-toast: 300;
+  --z-tooltip: 400;
+
+  --container-max: 1200px;
+  --header-height: 64px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --color-bg: #0d1117;
+    --color-surface: #161b22;
+    --color-surface-elevated: #21262d;
+    --color-border: #30363d;
+    --color-border-hover: #484f58;
+    --color-text: #e6edf3;
+    --color-text-secondary: #8b949e;
+    --color-text-muted: #6e7681;
+    --color-primary: #58a6ff;
+    --color-primary-hover: #79b8ff;
+    --color-primary-active: #388bfd;
+    --color-primary-light: #1f3a5f;
+    --color-focus: #58a6ff;
+    --color-focus-ring: rgba(88, 166, 255, 0.3);
+    --color-error: #f85149;
+    --color-error-light: #4d1a1a;
+    --color-success: #3fb950;
+    --color-success-light: #11371e;
+    --color-warning: #f97583;
+    --color-warning-light: #4d1a1a;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4), 0 4px 6px rgba(0, 0, 0, 0.3);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.5), 0 10px 10px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* Explicit dark mode. The media query above covers "the system is dark and no choice was
+   made"; this block covers a visitor who chose dark on a light system. The token values are
+   duplicated because CSS cannot share one declaration block between a media query and a
+   class selector — keep the two blocks in sync. ui/site.js sets this class. */
+:root.dark {
+  --color-bg: #0d1117;
+  --color-surface: #161b22;
+  --color-surface-elevated: #21262d;
+  --color-border: #30363d;
+  --color-border-hover: #484f58;
+  --color-text: #e6edf3;
+  --color-text-secondary: #8b949e;
+  --color-text-muted: #6e7681;
+  --color-primary: #58a6ff;
+  --color-primary-hover: #79b8ff;
+  --color-primary-active: #388bfd;
+  --color-primary-light: #1f3a5f;
+  --color-focus: #58a6ff;
+  --color-focus-ring: rgba(88, 166, 255, 0.3);
+  --color-error: #f85149;
+  --color-error-light: #4d1a1a;
+  --color-success: #3fb950;
+  --color-success-light: #11371e;
+  --color-warning: #f97583;
+  --color-warning-light: #4d1a1a;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4), 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.5), 0 10px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Element defaults and the shared page container.
+   The header and footer partials already rely on .container, and body is the flex column
+   that lets the footer sit at the bottom of short pages (layout.css gives .main flex: 1). */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}

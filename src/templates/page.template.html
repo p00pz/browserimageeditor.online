@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{{{banner}}}
+<html lang="{{lang}}" dir="{{dir}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!--#include partials/theme-boot.html-->
+  <title>{{title}} | {{siteName}}</title>
+  <meta name="description" content="{{description}}">
+  <link rel="canonical" href="{{canonical}}">
+{{{alternates}}}
+{{{robots}}}
+{{{ogTags}}}
+{{{jsonLd}}}
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+{{{pwaHead}}}
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+{{{rtlHead}}}
+  <script type="application/json" id="ui-strings">{{{uiStrings}}}</script>
+</head>
+<body>
+  <!--#include partials/{{partials}}header.html-->
+{{{langSwitch}}}
+  <main class="main" id="main">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="{{{t.ui.chrome.breadcrumb}}}">
+        <a href="{{homeHref}}">{{{t.ui.chrome.allTools}}}</a>
+        <span class="breadcrumb-separator" aria-hidden="true">/</span>
+        <span aria-current="page">{{navLabel}}</span>
+      </nav>
+
+      <article class="prose" data-page-root data-page-slug="{{slug}}">
+        <h1>{{h1}}</h1>
+{{{body}}}
+        <p class="page-meta">{{{t.ui.shell.lastUpdated}}} <time datetime="{{lastUpdated}}">{{lastUpdatedLabel}}</time>.</p>
+      </article>
+{{{translationNotice}}}
+{{{adSlots}}}
+    </div>
+  </main>
+  <!--#include partials/{{partials}}footer.html-->
+  <script type="module" src="/assets/js/ui/site.js"></script>
+</body>
+</html>

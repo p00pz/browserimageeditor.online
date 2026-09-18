@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.freebuff/
+# Generated from the pinned onnxruntime-web dependency by scripts/gen-ort.mjs. 14 MB of third-party
+# binary, reproducible from package.json — the same reason node_modules is not committed.
+public/ort/
+.env
+.env.*
+*.log
+.DS_Store
+*.local
