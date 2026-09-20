@@ -2108,24 +2108,32 @@
 /* ---------- save-photo fallback viewer ----------
  *
  * The one path that cannot hand the visitor a file: an in-app webview, where `navigator.share` is
- * refused and `<a download>` is ignored. The module renders this DOM; this block styles it. The
- * contract is `[hidden]` — the attribute the module sets — and the `:not([hidden])` guard below, so
- * the display rule never outranks the hidden state.
+ * refused and `<a download>` is ignored, and an iOS Safari whose share did not succeed. The module
+ * renders this DOM; this block styles it. The contract is `[hidden]` — the attribute the module
+ * sets — and the `:not([hidden])` guard below, so the display rule never outranks the hidden state.
  *
- * Fixed and full-viewport by design: this is a viewer for one image, not a page, so it owns the
- * layer above the header for as long as it is open and gives the image the whole screen.
+ * Two rules here are load-bearing and must not regress:
+ *  - the image keeps the browser's own callout (`-webkit-touch-callout: auto`, `user-select: auto`,
+ *    `-webkit-user-drag: auto`). The whole point of this view is the press-and-hold menu that saves
+ *    to Photos, so suppressing it — as the compare slider legitimately does — is the bug. No overlay
+ *    and no pointer/touch handler may sit on the image either.
+ *  - it starts below the header, not over it: the header always stays visible, so the viewer owns
+ *    the stage area the way the nav sheet does, never the whole viewport.
  */
 .save-viewer {
   position: fixed;
-  inset: 0;
+  top: calc(var(--header-height) + env(safe-area-inset-top, 0px));
+  inset-inline: 0;
+  bottom: 0;
   z-index: var(--z-viewer);
   display: none;
   flex-direction: column;
   min-height: 100vh;
   min-height: 100dvh;
-  padding: var(--safe-area-top) var(--space-4) calc(var(--space-4) + var(--safe-area-bottom));
+  padding: var(--space-3) var(--space-3) calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
   background-color: var(--color-stage);
   color: var(--color-stage-text);
+  overscroll-behavior: contain;
 }
 
 .save-viewer[hidden] {
@@ -2136,17 +2144,53 @@
   display: flex;
 }
 
-.save-viewer-bar {
+/* One image per screen. A single image fills this stage exactly; a batch becomes a horizontal
+   filmstrip the visitor swipes through, with the counter in the footer keeping the place. */
+.save-viewer-stage {
+  flex: 1 1 auto;
+  min-height: 0;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.save-viewer-stage::-webkit-scrollbar {
+  display: none;
+}
+
+/* Contain, never crop, and keep the platform's own long-press menu: this image is meant to be
+   held and saved. The only background is the stage itself, so a portrait photo letterboxes into
+   the well instead of into a hard black bar. */
+.save-viewer-img {
+  flex: 0 0 100%;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  -webkit-touch-callout: auto;
+  -webkit-user-select: auto;
+  user-select: auto;
+  -webkit-user-drag: auto;
+  scroll-snap-align: center;
+}
+
+.save-viewer-foot {
   flex: none;
-  padding: var(--space-3) var(--space-4);
-  margin-bottom: var(--space-3);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2) var(--space-3);
+  margin-top: var(--space-3);
+  padding: var(--space-3);
   background-color: var(--color-stage-fill);
   border: 1px solid var(--color-stage-separator);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   -webkit-backdrop-filter: var(--blur-chip);
   backdrop-filter: var(--blur-chip);
 }
@@ -2157,7 +2201,7 @@
   justify-content: center;
   min-width: 44px;
   min-height: 44px;
-  padding: 0 var(--space-4);
+  padding: 0 var(--space-5);
   color: var(--color-stage-text);
   background-color: var(--color-stage-fill);
   border: 1px solid var(--color-stage-separator);
@@ -2174,28 +2218,9 @@
   transform: scale(0.94);
 }
 
-/* The image takes what is left and nothing else: contain, never crop, and no callout or selection
-   — the long-press the hint describes has to land on the pixels, not on a menu the browser draws
-   over them. */
-.save-viewer-img {
-  flex: 1 1 auto;
-  min-height: 0;
-  width: 100%;
-  object-fit: contain;
-  border-radius: var(--radius-md);
-  background-color: #000000;
-  -webkit-touch-callout: none;
-  user-select: none;
-  -webkit-user-drag: none;
-}
-
 .save-viewer-hint {
-  flex: none;
-  margin: var(--space-3) 0 0;
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-md);
-  background-color: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--color-stage-separator);
+  flex: 1 1 100%;
+  margin: 0;
   font-size: var(--text-sm);
   font-weight: 600;
   line-height: var(--leading-relaxed);
@@ -2203,10 +2228,60 @@
   text-align: center;
 }
 
+.save-viewer-counter {
+  flex: none;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  unicode-bidi: isolate;
+  color: var(--color-stage-text);
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-stage-separator);
+  border-radius: var(--radius-full);
+}
+
 .save-viewer-open {
   flex: none;
+  min-width: 44px;
   min-height: 44px;
-  margin-top: var(--space-3);
+  padding: 0 var(--space-5);
   background-color: var(--color-primary-solid);
   color: #ffffff;
+  border-radius: var(--radius-full);
+}
+
+.save-viewer-open[hidden] {
+  display: none;
+}
+
+/* ---------- ?debug=1 diagnostics ----------
+ *
+ * Pinned to the page only when the visitor asks (`save-photo.js` appends it under `?debug=1`), so
+ * the shipped UI carries none of it. Small, fixed, out of the way of the controls. */
+.save-debug {
+  position: fixed;
+  inset-block-end: env(safe-area-inset-bottom, 0px);
+  inset-inline: var(--space-3);
+  z-index: var(--z-tooltip);
+  max-height: 38vh;
+  max-height: 38dvh;
+  overflow: auto;
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  background-color: rgba(0, 0, 0, 0.86);
+  color: #e6e6e6;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: var(--radius-md);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  direction: ltr;
+  pointer-events: auto;
 }

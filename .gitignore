@@ -11,6 +11,10 @@ public/ort/
 Thumbs.db
 Desktop.ini
 *.local
+# The Thmanyah font archive stays outside the repo permanently: its license forbids hosting it,
+# so it must never be committed (see BLOCKED.md B1).
+Thmanyah-Font-Family.zip
+thmanyah/
 # Regenerable screenshots from the visual QA harness (qa/visual-qa.mjs).
 qa/shots/
 qa/visual-report.json

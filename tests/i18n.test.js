@@ -66,6 +66,8 @@ const LATIN_ALLOWLIST = new Set([
   'Edge',
   'English',
   'Firefox',
+  // An operating-system name, same class as the browsers above: «iOS» stays Latin in Arabic too.
+  'iOS',
   'HEIC',
   'HEIF',
   'ImageTools',

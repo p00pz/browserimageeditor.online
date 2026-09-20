@@ -27,7 +27,7 @@ import { openEngine } from '../core/worker-or-main.js';
 import { normaliseRotation } from '../core/engine-crop.js';
 import { CROP_RATIOS } from '../core/presets.js';
 import { flattenForFormat } from '../core/formats.js';
-import { wireDownloadAnchor } from '../core/save-photo.js';
+import { primePhotosVariant, wireDownloadAnchor } from '../core/save-photo.js';
 import { createCompareSlider } from '../ui/compare-slider.js';
 import { createDropzone } from '../ui/dropzone.js';
 import { formatBytes } from '../ui/format.js';
@@ -313,6 +313,9 @@ function init() {
       result.download.download = lastResult?.filename ?? 'cropped.png';
       result.download.textContent = t('js.common.downloadSize', { size: formatBytes(meta.bytes) });
     }
+    // Baked now, while the result is merely being shown: an iOS save tap needs a ready file inside
+    // its own activation window, so the Photos-friendly copy must not be encoded on that tap.
+    void primePhotosVariant({ blob: lastResult?.blob, filename: lastResult?.filename ?? 'cropped.png' });
     if (result.warning) {
       const notes = [];
       if (meta.bytes >= (sourceFile?.size ?? 0)) {
