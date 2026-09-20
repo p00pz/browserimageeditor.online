@@ -69,6 +69,26 @@ or share refused → full-screen blob: viewer with "اضغط مطولاً على
 pagehide (not a 1s timer). Always show the REAL output size + format. Never `alert()`.
 
 ## 6. Known defects to FIX (from Phase 1 audit) — do not reproduce
+### The one the owner reported (iOS save to Photos) — root cause CONFIRMED
+- `.save-viewer-img` carries `-webkit-touch-callout:none; user-select:none;
+  -webkit-user-drag:none` (copied from the compare slider). Those three declarations
+  are exactly what removes "Save to Photos" from the iOS press-and-hold sheet. They
+  belong ONLY on `.compare-slider`. The viewer keeps a plain real `<img>` with native
+  callout. (Fixed 2026-09-21 — see DECISIONS D-002.)
+- The viewer is `position:fixed; inset:0` and covers the header (breaks §4.7 style):
+  it must sit below the header, `inset: var(--header-height) 0 0 0`, like the sheet.
+- "Open in Safari" is shown while already in Safari: show it ONLY when
+  `isInAppBrowser()` is true; `needsFallbackViewer` must not treat every iOS agent
+  as a viewer case.
+- No JPEG/PNG pre-render for the Photos path (4 of 5 tools default to WebP; iOS 13
+  offers no "Save to Photos" for WebP). Pre-render JPEG (PNG if transparency
+  matters) for the share, keep the original for Files, always name the real format.
+- `saveFiles()` exists but no tool calls it: batches share all files in one call when
+  `canShare` allows, else a swipeable viewer (one long-pressable image per screen) +
+  ZIP to Files.
+- `?debug=1` diagnostics overlay: path taken, canShare result, error name/message,
+  blob type + size, filename, UA, webview/ios flags.
+### Older list
 - crop `fillColor:'#ffffff'` destroys PNG transparency → conditional per output format.
 - compress `probeSize()` missing `imageOrientation:'from-image'` → wrong portrait dims.
 - convert worker has no pixel-budget check; global 100 MP budget is not iPhone-safe →
@@ -85,3 +105,43 @@ pagehide (not a 1s timer). Always show the REAL output size + format. Never `ale
 ## 7. Verification every agent runs before finishing
 `npm run gen` (must succeed) → `npm test` (must pass) → `npm run audit:seo` (must exit 0) →
 `npm run build` + `npm run audit:pwa` (must exit 0). Report any rule you could not satisfy.
+
+## 8. Font — Thmanyah is BLOCKED by license (DECISIONS D-001, BLOCKED B1)
+The Thmanyah ZIP is real (3 families × 5 weights, OTF+WOFF2, one family covers
+Arabic + Latin + Western digits), but its license expressly prohibits hosting the
+font on a website for download, prohibits web embedding outside a
+"compiled/packaged/obfuscated product", and prohibits modification and derivative
+works (so no subsetting). A self-hosted `@font-face` WOFF2 fails all three.
+**Do not copy any Thmanyah file into the repo and never commit the ZIP.** The
+system-font stack stays; typography polish happens through the token type scale,
+Arabic-first font ordering, `letter-spacing` and display optical settings. Unblocking
+requires a written exception from `ask@thmanyah.com` or an owner-approved OFL family.
+
+## 9. Studio Shell (Workstream C) — the contract for every tool page
+One shared shell, six tools; only the inspector differs. All `data-*` hooks in the
+Repo Map stay identical — a control may change element (`<select>` → segmented
+control) as long as the hook attribute and its value space are unchanged.
+- No forms: no "اختر الصور" heading, no `<select>`, no bare number field, no
+  card-in-card, no dashed drop box. A single full-width glass drop surface; the page
+  itself accepts drop and paste; one elegant "choose" control; the default operation
+  runs the instant an image lands.
+- Controls are direct and visual: segmented controls/chips for format and presets;
+  sliders with big readouts; dimension presets as real selected chips ("الأصلي" is a
+  selected chip, never a placeholder) plus custom entry with `inputmode="numeric"`,
+  steppers and a ratio lock; target size as a slider with preset chips.
+- Editing state: desktop = stage + slim inspector rail; mobile = stage + fixed
+  compact control tray with one sticky primary "حفظ" (safe-area aware). Before/after
+  with REAL sizes and % saved, batch filmstrip, per-image status.
+- Any new numeric readout needs a `unicode-bidi: isolate` entry in `rtl.css`.
+- `remove-background` is planned/unimplemented — out of scope.
+
+## 10. Copy (Workstream A) — COPY.md is the single source of truth
+Final naming set (nav + cards only): تخفيف / الأبعاد / الصيغة / الإطار / ملف PDF /
+لمسة, each with its one-line subtitle; EN: Compress / Resize / Convert / Crop / PDF /
+Enhance. Delivered via new `cardName`/`cardSubtitle` keys; `name`/`title`/`h1`/
+`description` keep the descriptive SEO terms (ضغط الصور … تحسين الصور). Verbs:
+تنزيل (file leaves the page), حفظ (file on device / stored preference), تصدير banned.
+No Latin script inside Arabic prose except format names (JPEG, PNG, WebP, PDF, HEIC,
+AVIF, ZIP), size units (KB, MB, px) and bracketed proper names (Lanczos, Safari, A4).
+Workers are «مسار خلفي», never "Web Worker" in Arabic prose. `js.*` strings are
+`textContent`-injected → no markup, no `<bdi>`; `ui.*` may carry `<bdi dir="ltr">`.
