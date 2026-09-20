@@ -62,7 +62,10 @@ function initTheme() {
 
 function initMobileMenu() {
   const toggle = document.querySelector('[data-mobile-menu-toggle]');
-  const nav = document.querySelector('.nav');
+  // `.nav-sheet`, not `.nav`: the sheet is the body-level copy, outside the header, because a
+  // `backdrop-filter` on an ancestor makes it the containing block for fixed descendants and the
+  // sheet would be pinned to the header's box instead of the viewport. See layout.css.
+  const nav = document.querySelector('.nav-sheet');
   if (!toggle || !nav) return;
 
   function setOpen(open) {

@@ -162,6 +162,15 @@
   }
 }</script>
   <script type="application/json" id="ui-strings">{
+  "js.save.shareTitle": "Photos from the browser image editor",
+  "js.save.shareText": "Processed entirely in my browser — nothing was uploaded.",
+  "js.save.saved": "Saved {name} ({size}, {format}).",
+  "js.save.savedMany": "Shared {count} {images} ({size}).",
+  "js.save.failed": "The image could not be saved on this device.",
+  "js.webview.hint": "Saving is limited in this in-app browser, so the image is shown full-screen instead.",
+  "js.webview.viewerHint": "Press and hold the image, then choose “Save to Photos”.",
+  "js.webview.close": "Close",
+  "js.webview.openInSafari": "Open in Safari",
   "js.chrome.menuOpen": "Open menu",
   "js.chrome.menuClose": "Close menu",
   "js.enhance.ready": "Ready — drop a photo, or a batch, to enhance it.",
@@ -220,6 +229,7 @@
   "js.common.progressPercent": "{finished} of {total} done — {percent}%",
   "js.common.progressFor": "Progress for {name}",
   "js.common.downloadSize": "Download {size}",
+  "js.common.downscaled": "This photo was larger than this device’s canvas limit, so it was downscaled to {w} × {h}.",
   "js.common.jpegFlatten": "JPEG cannot store transparency, so transparent areas were flattened onto white.",
   "js.common.largerThanOriginal": "This file ended up {size} larger than the original — try WebP, or set a target size.",
   "js.common.largerThanOriginalResize": "The new file is {size} larger than the original — re-encoding to a different format can do that even when the pixel count drops.",
@@ -468,7 +478,7 @@
         </div>
 
         <p class="notice notice-warning" data-unsupported hidden>
-          This browser cannot enhance photos locally. It needs Web Workers with <code>OffscreenCanvas</code> support, and we will not fall back to processing on the main thread because that would freeze the page. Please try a current version of Chrome, Edge, Firefox or Safari.
+          This browser cannot enhance photos locally — it is missing the image-decoding API these tools are built on. Nothing is uploaded either way. Please try a current version of Chrome, Edge, Firefox or Safari.
         </p>
 
         <div class="preset-section">
@@ -618,7 +628,7 @@
       <section class="secondary-section tool-notes" data-collapsible>
         <details><summary><h2>How this works</h2></summary></details>
         <div class="disclosure-body">
-          <p>The photo is decoded, corrected, graded and re-encoded inside a Web Worker in this browser tab. Nothing is uploaded, there is no queue on a server, and closing the page discards everything.</p>
+          <p>The photo is decoded, corrected, graded and re-encoded right here in this browser tab — on a background Web Worker, where this browser offers one. Nothing is uploaded, there is no queue on a server, and closing the page discards everything.</p>
           <ul>
             <li><strong>First, a histogram correction.</strong> The tool finds the real black and white point of each colour channel, ignoring a small slice of outlier pixels so that one reflected highlight cannot set the range, then stretches what is left across the full range. Stretching the three channels independently is what removes a colour cast; the amount of stretch is capped, because amplifying a nearly black photo mostly amplifies its noise.</li>
             <li><strong>Then a style.</strong> The five styles are applied on top of the corrected photo, and the intensity slider blends between the two — so a look that is too strong can always be dialled back to the corrected photo rather than to the original.</li>

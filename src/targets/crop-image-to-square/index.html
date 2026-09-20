@@ -133,6 +133,15 @@
   }
 }</script>
   <script type="application/json" id="ui-strings">{
+  "js.save.shareTitle": "Photos from the browser image editor",
+  "js.save.shareText": "Processed entirely in my browser — nothing was uploaded.",
+  "js.save.saved": "Saved {name} ({size}, {format}).",
+  "js.save.savedMany": "Shared {count} {images} ({size}).",
+  "js.save.failed": "The image could not be saved on this device.",
+  "js.webview.hint": "Saving is limited in this in-app browser, so the image is shown full-screen instead.",
+  "js.webview.viewerHint": "Press and hold the image, then choose “Save to Photos”.",
+  "js.webview.close": "Close",
+  "js.webview.openInSafari": "Open in Safari",
   "js.chrome.menuOpen": "Open menu",
   "js.chrome.menuClose": "Close menu",
   "js.enhance.ready": "Ready — drop a photo, or a batch, to enhance it.",
@@ -191,6 +200,7 @@
   "js.common.progressPercent": "{finished} of {total} done — {percent}%",
   "js.common.progressFor": "Progress for {name}",
   "js.common.downloadSize": "Download {size}",
+  "js.common.downscaled": "This photo was larger than this device’s canvas limit, so it was downscaled to {w} × {h}.",
   "js.common.jpegFlatten": "JPEG cannot store transparency, so transparent areas were flattened onto white.",
   "js.common.largerThanOriginal": "This file ended up {size} larger than the original — try WebP, or set a target size.",
   "js.common.largerThanOriginalResize": "The new file is {size} larger than the original — re-encoding to a different format can do that even when the pixel count drops.",
@@ -440,10 +450,7 @@
         </div>
 
         <p class="notice notice-warning" data-unsupported hidden>
-          This browser cannot crop images locally. It needs Web Workers with
-          <code>OffscreenCanvas</code> support, and we will not fall back to encoding on the
-          main thread because that would freeze the page. Please try a current version of
-          Chrome, Edge, Firefox or Safari.
+          This browser cannot crop images locally — it is missing the image-decoding API these tools are built on. Nothing is uploaded either way. Please try a current version of Chrome, Edge, Firefox or Safari.
         </p>
 
         <div class="crop-stage" data-crop-stage hidden>
@@ -520,7 +527,7 @@
       <section class="secondary-section tool-notes" data-collapsible>
         <details><summary><h2>How this works</h2></summary></details>
         <div class="disclosure-body">
-          <p>You drag the selection over the image, then the crop is drawn and re-encoded inside a Web Worker in this browser tab. The original file is never modified and never uploaded &mdash; cropping produces a new file for you to download.</p>
+          <p>You drag the selection over the image, then the crop is drawn and re-encoded right here in this browser tab — on a background Web Worker, where this browser offers one. The original file is never modified and never uploaded &mdash; cropping produces a new file for you to download.</p>
           <ul>
             <li>Pick an <strong>aspect ratio</strong> to keep the selection to a fixed shape, or leave it free and drag any rectangle.</li>
             <li>Rotate in 90&deg; steps and flip across or down if the photo is the wrong way round. Rotating by a quarter turn swaps the output's width and height.</li>

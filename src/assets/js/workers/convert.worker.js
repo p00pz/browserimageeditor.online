@@ -28,7 +28,7 @@
  */
 import * as Comlink from 'comlink';
 
-import { CompressError } from '../core/engine-compress.js';
+import { CompressError, assertPixelBudget, safeMaxPixels } from '../core/engine-compress.js';
 import { CANVAS_OUTPUT_FORMATS, isHeicFile } from '../core/formats.js';
 import { encodeOptions, needsOpaqueBackdrop, planConversion } from '../core/engine-convert.js';
 
@@ -143,11 +143,15 @@ async function convert(payload = {}, onProgress) {
     const { bitmap, route } = await decodeToBitmap(file);
     if (signal.aborted) throw { code: 'ABORTED', message: 'Conversion was cancelled.' };
 
-    onProgress?.({ jobId, phase: 'encode', ratio: 0.6 });
-
     // Captured before close(): a closed ImageBitmap is detached and reports 0 for width/height,
     // so reading it afterwards would fill the result readout with "0×0".
     const size = { width: bitmap.width, height: bitmap.height };
+
+    // Checked before the output canvas is allocated, because allocating it *is* the thing that
+    // runs the device out of memory on a huge photo. The budget is the platform's own canvas limit.
+    assertPixelBudget(size.width, size.height, safeMaxPixels(options.maxPixels, navigator.userAgent));
+
+    onProgress?.({ jobId, phase: 'encode', ratio: 0.6 });
 
     const canvas = new OffscreenCanvas(size.width, size.height);
     const context = canvas.getContext('2d');

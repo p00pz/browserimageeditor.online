@@ -1,22 +1,35 @@
+<div class="mesh" aria-hidden="true"></div>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="header">
   <div class="container header-inner">
     <a href="/" class="logo" aria-label="Browser Image Editor Home">
-      <svg class="logo-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-        <circle cx="8.5" cy="8.5" r="1.5"></circle>
-        <polyline points="21 15 16 10 5 21"></polyline>
+      <!-- An aperture: six blades around a hexagonal hole on an accent tile. Inline SVG only —
+           no icon font, no remote image — and the stops are CSS-driven so the mark follows the
+           theme's accent like everything else. -->
+      <svg class="logo-icon" width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+        <defs>
+          <linearGradient id="logo-mark" x1="1" y1="1" x2="29" y2="29" gradientUnits="userSpaceOnUse">
+            <stop class="logo-stop-a" offset="0"></stop>
+            <stop class="logo-stop-b" offset="1"></stop>
+          </linearGradient>
+        </defs>
+        <rect x="1" y="1" width="28" height="28" rx="9" fill="url(#logo-mark)"></rect>
+        <g fill="none" stroke="#ffffff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="15" cy="15" r="7.5"></circle>
+          <path d="M15 11.5 18.03 13.25 18.03 16.75 15 18.5 11.97 16.75 11.97 13.25Z"></path>
+          <path d="M15 11.5 15 7.5M18.03 13.25 21.5 11.25M18.03 16.75 21.5 18.75M15 18.5 15 22.5M11.97 16.75 8.5 18.75M11.97 13.25 8.5 11.25"></path>
+        </g>
       </svg>
       <span class="logo-text">Browser Image Editor</span>
     </a>
-    <nav class="nav" aria-label="Main navigation">
+    <nav class="nav nav-inline" aria-label="Main navigation">
       <ul class="nav-list">
         <!--#include partials/nav-tools.html-->
         <!--#include partials/nav-header-pages.html-->
       </ul>
     </nav>
     <button class="theme-toggle" aria-label="Toggle dark mode" data-theme-toggle type="button">
-      <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
         <circle cx="12" cy="12" r="5"></circle>
         <line x1="12" y1="1" x2="12" y2="3"></line>
         <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -27,16 +40,30 @@
         <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
       </svg>
-      <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
       </svg>
     </button>
     <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false" data-mobile-menu-toggle type="button">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-        <line x1="3" y1="12" x2="21" y2="12"></line>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
         <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
         <line x1="3" y1="18" x2="21" y2="18"></line>
       </svg>
     </button>
   </div>
 </header>
+<!--
+  The same generated includes, rendered a second time at body level. The inline nav above lives
+  inside .header, and .header carries backdrop-filter, which makes it the containing block for any
+  fixed descendant — so a sheet pinned with `inset: auto 0 0 0` inside it resolves against the 60px
+  header instead of the viewport and never reaches the bottom of the screen. This copy has no
+  backdrop-filter ancestor, so the same rule pins it to the real viewport bottom. Both copies read
+  the same generated files, so the two can never drift apart.
+-->
+<nav class="nav nav-sheet" aria-label="Menu">
+  <ul class="nav-list">
+    <!--#include partials/nav-tools.html-->
+    <!--#include partials/nav-header-pages.html-->
+  </ul>
+</nav>

@@ -263,9 +263,15 @@ export function buildAutoLut(histograms, { clipPercent = AUTO_CLIP_PERCENT, maxG
   };
 }
 
-/** Applies the correction in place. Returns the stats, so the caller can report the numbers. */
-export function autoCorrectPixels(pixels, options = {}) {
-  const { lut, stats } = buildAutoLut(histogramChannels(pixels), options);
+/**
+ * Applies a prebuilt correction LUT in place.
+ *
+ * Split out of `autoCorrectPixels()` so a caller that has to build the LUT from a *banded* read of
+ * the pixels — the main-thread engine, which accumulates histograms row band by row band instead of
+ * holding one decoded frame twice — can apply the correction to each band without rebuilding it.
+ * `stats.channels` reports which channels actually moved; the others are left alone.
+ */
+export function applyAutoLut(pixels, lut, stats) {
   for (const channel of [0, 1, 2]) {
     if (!stats.channels[channel]) continue;
     const offset = channel * 256;
@@ -273,6 +279,12 @@ export function autoCorrectPixels(pixels, options = {}) {
       pixels[index] = lut[offset + pixels[index]];
     }
   }
+}
+
+/** Applies the correction in place. Returns the stats, so the caller can report the numbers. */
+export function autoCorrectPixels(pixels, options = {}) {
+  const { lut, stats } = buildAutoLut(histogramChannels(pixels), options);
+  applyAutoLut(pixels, lut, stats);
   return stats;
 }
 
@@ -440,6 +452,39 @@ export function applyManualAdjustments(input, adjustments = {}) {
  * inferred: guessing it from the buffer length is only right for a square image, and would blur
  * across row boundaries of everything else.
  */
+/**
+ * Luminance plane of an RGBA buffer, one byte per pixel.
+ *
+ * The same extraction `sharpenPixels()` does internally, split out so a caller that already owns
+ * the pixels can hand the plane to a banded blur instead of recomputing it.
+ */
+export function extractLuma(pixels) {
+  const luma = new Uint8Array(pixels.length / 4);
+  for (let pixel = 0; pixel < luma.length; pixel += 1) {
+    const index = pixel * 4;
+    luma[pixel] = 0.2126 * pixels[index] + 0.7152 * pixels[index + 1] + 0.0722 * pixels[index + 2];
+  }
+  return luma;
+}
+
+/**
+ * Adds a blurred-plane delta back into the colour channels: `out += amount * (luma - blurred)`.
+ *
+ * Separated from `sharpenPixels()` for the same reason `extractLuma` is: the main-thread engine
+ * runs the three steps over row bands, and the delta step is the only one that writes the pixels
+ * it was given.
+ */
+export function applySharpenDelta(pixels, luma, blurred, amount) {
+  for (let pixel = 0; pixel < luma.length; pixel += 1) {
+    const delta = amount * (luma[pixel] - blurred[pixel]);
+    if (delta === 0) continue;
+    const index = pixel * 4;
+    pixels[index] = clamp255(pixels[index] + delta);
+    pixels[index + 1] = clamp255(pixels[index + 1] + delta);
+    pixels[index + 2] = clamp255(pixels[index + 2] + delta);
+  }
+}
+
 export function sharpenPixels(pixels, { amount = 0, radius = 1, width } = {}) {
   if (!(amount > 0) || pixels.length === 0) return pixels;
 
@@ -449,21 +494,9 @@ export function sharpenPixels(pixels, { amount = 0, radius = 1, width } = {}) {
     throw new CompressError('INVALID_INPUT', 'Sharpening needs the image width. It was missing or wrong for this pixel buffer.');
   }
 
-  const luma = new Uint8Array(count);
-  for (let pixel = 0; pixel < count; pixel += 1) {
-    const index = pixel * 4;
-    luma[pixel] = 0.2126 * pixels[index] + 0.7152 * pixels[index + 1] + 0.0722 * pixels[index + 2];
-  }
-
+  const luma = extractLuma(pixels);
   const blurred = boxBlur(luma, columns, Math.max(1, Math.round(radius)));
-  for (let pixel = 0; pixel < count; pixel += 1) {
-    const delta = amount * (luma[pixel] - blurred[pixel]);
-    if (delta === 0) continue;
-    const index = pixel * 4;
-    pixels[index] = clamp255(pixels[index] + delta);
-    pixels[index + 1] = clamp255(pixels[index + 1] + delta);
-    pixels[index + 2] = clamp255(pixels[index + 2] + delta);
-  }
+  applySharpenDelta(pixels, luma, blurred, amount);
   return pixels;
 }
 
@@ -473,8 +506,19 @@ export function sharpenPixels(pixels, { amount = 0, radius = 1, width } = {}) {
  * Stays on plain arrays and integer width so it is testable in Node with no canvas involved — the
  * only thing it needs to know is where a row ends. The intermediate pass rounds rather than truncates:
  * truncating every intermediate sample biases a blur down by up to a code value.
+ *
+ * The two passes are exported separately (`boxBlurRows`, `boxBlurCols`) because a box blur is only
+ * separable *between* the passes: the horizontal one is a per-row map and the vertical one is a
+ * per-column map, so each can run over a band of rows on its own. That is what the main-thread
+ * engine needs to stay responsive on a photograph too large to blur synchronously, and `boxBlur`
+ * remains the two-pass composition so nothing that calls it changes.
  */
 export function boxBlur(source, width, radius) {
+  return boxBlurCols(boxBlurRows(source, width, radius), width, radius);
+}
+
+/** The horizontal pass: each output row depends only on its own input row. */
+export function boxBlurRows(source, width, radius) {
   const height = Math.max(1, Math.round(source.length / width));
   const horizontal = new Uint8Array(source.length);
 
@@ -492,8 +536,13 @@ export function boxBlur(source, width, radius) {
       horizontal[row + x] = Math.round(sum / hits);
     }
   }
+  return horizontal;
+}
 
-  const out = new Uint8Array(source.length);
+/** The vertical pass: each output row depends on `radius` rows above and below it. */
+export function boxBlurCols(horizontal, width, radius) {
+  const height = Math.max(1, Math.round(horizontal.length / width));
+  const out = new Uint8Array(horizontal.length);
   for (let x = 0; x < width; x += 1) {
     for (let y = 0; y < height; y += 1) {
       let sum = 0;

@@ -10,13 +10,13 @@
  * the width/height inputs and then disable them, so a preset cannot be half-applied by editing one
  * box afterwards; "Custom size" hands the boxes back to you.
  */
-import * as Comlink from 'comlink';
-
 import { CompressError } from '../core/engine-compress.js';
+import { openEngine } from '../core/worker-or-main.js';
 import { scalePercent } from '../core/engine-resize.js';
 import { findResizePreset, groupedResizePresets } from '../core/presets.js';
 import { createQueue } from '../core/queue.js';
-import { downloadBlob, downloadZip, toBytes, totalBytes, zipNameFor } from '../core/file-io.js';
+import { downloadZip, toBytes, totalBytes, zipNameFor } from '../core/file-io.js';
+import { saveBlob, wireDownloadAnchor } from '../core/save-photo.js';
 import { createCompareSlider } from '../ui/compare-slider.js';
 import { createDropzone } from '../ui/dropzone.js';
 import { formatBytes, formatSignedPercent } from '../ui/format.js';
@@ -176,12 +176,12 @@ function init() {
 
   function ensureWorker() {
     if (api) return api;
+    // See compress-image.js: the worker is constructed here so the bundler can resolve it.
     worker = new Worker(new URL('../workers/resize.worker.js', import.meta.url), { type: 'module' });
-    worker.addEventListener('error', () => {
-      announce(t('js.resize.workerStopped'), 'error');
+    api = openEngine('resize', worker, {
+      onError: () => announce(t('js.resize.workerStopped'), 'error'),
     });
-    api = Comlink.wrap(worker);
-    progressProxy = Comlink.proxy(handleProgress);
+    progressProxy = handleProgress;
     return api;
   }
 
@@ -524,8 +524,7 @@ function init() {
     const item = byIdLatest.get(id);
     if (!item?.result?.blob) return;
     const filename = nameFor(item);
-    downloadBlob(item.result.blob, filename);
-    announce(t('js.common.savedFile', { name: filename, size: formatBytes(item.result.meta.bytes) }));
+    void saveBlob({ blob: item.result.blob, filename, statusEl: statusLine });
   }
 
   async function downloadAllAsZip() {
@@ -597,8 +596,8 @@ function init() {
     dropzone.disable();
     announce(
       currentFiles.length === 1
-        ? `Resizing ${currentFiles[0].name} in your browser…`
-        : `Resizing ${currentFiles.length} images in your browser…`,
+        ? t('js.resize.startingOne', { name: currentFiles[0].name })
+        : t('js.resize.startingMany', { count: currentFiles.length }),
     );
     void finishWhenIdle(queue.start());
   }
@@ -727,6 +726,14 @@ function init() {
     void downloadAllAsZip();
   });
 
+  // The result panel's save control: the anchor keeps its `href` for the no-JavaScript path, and
+  // the tap itself goes through the shared save module so it can share or show the viewer instead.
+  wireDownloadAnchor(result.download, {
+    getBlob: () => byIdLatest.get(selectedId)?.result?.blob ?? null,
+    getFilename: () => nameFor(byIdLatest.get(selectedId)),
+    statusEl: statusLine,
+  });
+
   resultPanel.querySelector('[data-start-over]')?.addEventListener('click', startOver);
   presetSelect?.addEventListener('change', () => {
     applyPreset();
@@ -780,8 +787,7 @@ function init() {
   window.addEventListener('pagehide', () => {
     disposeQueue();
     clearPreview();
-    worker?.terminate();
-    worker = null;
+    api?.dispose();
     api = null;
   });
 

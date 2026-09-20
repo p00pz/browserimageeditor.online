@@ -5,14 +5,11 @@
  * scripts/lib/tool-page.mjs), so an English visitor downloads none of this and the LTR rendering is
  * provably untouched — not "untouched by convention" but "the file is not even fetched".
  *
- * **Why a separate file rather than logical properties everywhere.** base.css, layout.css and
- * components.css use physical properties: `left`, `right`, `padding-left`. Converting all of them to
- * `inline-start`/`inline-end` would be the tidier long-term shape, but it touches every rule on every
- * page to fix sixteen declarations, and a single missed conversion is a silent layout bug in the
- * language nobody on this team reads natively. So the fixes live here, in one file whose entire
- * contents are the RTL delta, and the count is small enough to read in one sitting.
- *
- * Three things in here are not mechanical flips:
+ * **This is the delta, not the direction.** base.css, layout.css and components.css use logical
+ * properties throughout — `inset-inline-start`, `padding-inline-start`, `margin-inline-start:
+ * auto` — so the bulk of the RTL work is done by the browser's own mapping and this file stays
+ * small enough to read in one sitting. What is left is the handful of things a logical property
+ * genuinely cannot express:
  *
  *   1. **The compare slider stays LTR.** Its handle is positioned by a percentage of the *image*,
  *      which is not mirrored, and its drag maths is `event.clientX - rect.left` — both physical. In
@@ -22,29 +19,15 @@
  *      Arabic paragraph the bidi algorithm can otherwise reorder the pieces, so numeric readouts get
  *      `unicode-bidi: isolate`. The digits stay Western, which is what Arabic web readers expect on a
  *      page like this, rather than Arabic-Indic numerals that would break copy-paste into tools.
- *   3. **Fonts.** The Latin stack still comes from base.css; the families added here are the ones
+ *   3. **Directional glyphs mirror.** The order list's "to start" and "to end" arrows and any
+ *      chevron that points somewhere flip, because in Arabic they point the other way. Chevrons
+ *      drawn with borders inside a bidirectional container already mirror themselves and are left
+ *      alone.
+ *   4. **Fonts.** The Latin stack still comes from base.css; the families added here are the ones
  *      that actually carry Arabic glyphs on Windows, macOS, Android and Linux. No webfont is
  *      downloaded: a self-hosted Arabic face would be another third-party asset with a licence to
  *      check, and the system fallbacks are good enough that the trade has not come up.
  */
-
-/* ---------- physical properties that need a side swap ---------- */
-
-[dir='rtl'] .skip-link {
-  right: var(--space-4);
-  left: auto;
-}
-
-[dir='rtl'] .tool-notes ul {
-  padding-right: var(--space-5);
-  padding-left: 0;
-}
-
-[dir='rtl'] .prose ul,
-[dir='rtl'] .prose ol {
-  padding-right: var(--space-6);
-  padding-left: 0;
-}
 
 /* ---------- the compare slider is a physical coordinate space ---------- */
 
@@ -53,20 +36,31 @@
 }
 
 /*
- * The labels sit over the left (original) and right (result) halves of a picture that is not
+ * The labels sit over the start (original) and end (result) halves of a picture that is not
  * mirrored, so they keep their sides — but their *text* is Arabic and must be laid out as such.
  */
 [dir='rtl'] .compare-slider-label {
   direction: rtl;
 }
 
+/* ---------- directional glyphs ---------- */
+
+/* The PDF page-order list points at the first and last page. Its glyphs are literal arrows, so
+   they are mirrored; `up`/`down`/`remove` are symmetric or non-directional and stay as they are. */
+[dir='rtl'] .order-button[data-action='first'],
+[dir='rtl'] .order-button[data-action='last'] {
+  transform: scaleX(-1);
+}
+
 /* ---------- bidi isolation for numbers and mixed strings ---------- */
 
 [dir='rtl'] .compare-savings,
+[dir='rtl'] .range-output,
 [dir='rtl'] .result-stat dd,
 [dir='rtl'] .batch-item-meta,
 [dir='rtl'] .preset-note,
 [dir='rtl'] .progress-text,
+[dir='rtl'] .order-position,
 [dir='rtl'] .status,
 [dir='rtl'] .page-meta {
   unicode-bidi: isolate;
@@ -75,23 +69,19 @@
 /*
  * A filename is arbitrary text of unknown direction. `plaintext` lets the first strong character
  * decide, so `صورة.png` reads correctly and `IMG_1234.jpg` does not get its extension flung to the
- * other end of the line.
+ * other end of the line. It lives here rather than in components.css so an English page's
+ * filenames are laid out by the LTR paragraph they sit in, unchanged.
  */
-[dir='rtl'] .batch-item-name {
+[dir='rtl'] .batch-item-name,
+[dir='rtl'] .order-item-name {
   unicode-bidi: plaintext;
-  text-align: right;
-}
-
-/* The file-size readouts next to each row in a batch, isolated for the same reason as above. */
-[dir='rtl'] .batch-item-meta {
-  text-align: right;
 }
 
 /* ---------- typography ---------- */
 
 [dir='rtl'] body {
-  font-family: 'Segoe UI', Tahoma, 'Noto Sans Arabic', 'Noto Naskh Arabic', 'Geeza Pro', 'Arial',
-    sans-serif;
+  font-family: 'SF Arabic', 'Segoe UI', Tahoma, 'Noto Sans Arabic', 'Noto Naskh Arabic', 'Geeza Pro',
+    'Arial', sans-serif;
 }
 
 /*

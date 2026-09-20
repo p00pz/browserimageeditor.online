@@ -136,6 +136,15 @@
   }
 }</script>
   <script type="application/json" id="ui-strings">{
+  "js.save.shareTitle": "Photos from the browser image editor",
+  "js.save.shareText": "Processed entirely in my browser — nothing was uploaded.",
+  "js.save.saved": "Saved {name} ({size}, {format}).",
+  "js.save.savedMany": "Shared {count} {images} ({size}).",
+  "js.save.failed": "The image could not be saved on this device.",
+  "js.webview.hint": "Saving is limited in this in-app browser, so the image is shown full-screen instead.",
+  "js.webview.viewerHint": "Press and hold the image, then choose “Save to Photos”.",
+  "js.webview.close": "Close",
+  "js.webview.openInSafari": "Open in Safari",
   "js.chrome.menuOpen": "Open menu",
   "js.chrome.menuClose": "Close menu",
   "js.enhance.ready": "Ready — drop a photo, or a batch, to enhance it.",
@@ -194,6 +203,7 @@
   "js.common.progressPercent": "{finished} of {total} done — {percent}%",
   "js.common.progressFor": "Progress for {name}",
   "js.common.downloadSize": "Download {size}",
+  "js.common.downscaled": "This photo was larger than this device’s canvas limit, so it was downscaled to {w} × {h}.",
   "js.common.jpegFlatten": "JPEG cannot store transparency, so transparent areas were flattened onto white.",
   "js.common.largerThanOriginal": "This file ended up {size} larger than the original — try WebP, or set a target size.",
   "js.common.largerThanOriginalResize": "The new file is {size} larger than the original — re-encoding to a different format can do that even when the pixel count drops.",
@@ -443,7 +453,7 @@
         </div>
 
         <p class="notice notice-warning" data-unsupported hidden>
-          This browser cannot convert images locally. It needs Web Workers with <code>OffscreenCanvas</code> support, and we will not fall back to converting on the main thread because that would freeze the page. Please try a current version of Chrome, Edge, Firefox or Safari.
+          This browser cannot convert images locally — it is missing the image-decoding API these tools are built on. Nothing is uploaded either way. Please try a current version of Chrome, Edge, Firefox or Safari.
         </p>
 
         <p class="notice notice-info" data-heic-note hidden>
@@ -519,7 +529,7 @@
       <section class="secondary-section tool-notes" data-collapsible>
         <details><summary><h2>How this works</h2></summary></details>
         <div class="disclosure-body">
-          <p>The image is decoded, redrawn and re-encoded inside a Web Worker in this browser tab. Nothing is uploaded, and there is no file-size limit imposed by a server because there is no server.</p>
+          <p>The image is decoded, redrawn and re-encoded right here in this browser tab — on a background Web Worker, where this browser offers one. Nothing is uploaded, and there is no file-size limit imposed by a server because there is no server.</p>
           <ul>
             <li>The format list is built from what <em>your</em> browser can actually encode, tested at load time. A format the browser cannot write is not offered, rather than silently producing something else.</li>
             <li>Converting to JPEG flattens transparency onto white, because JPEG has no alpha channel. The result panel says so when it happens.</li>

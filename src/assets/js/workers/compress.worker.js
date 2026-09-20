@@ -45,9 +45,15 @@ function detectCapabilities() {
   return { supported: missing.length === 0, missing };
 }
 
-/** Source dimensions, and the only decode the engine does outside the encoder. */
+/**
+ * Source dimensions, and the only decode the engine does outside the encoder.
+ *
+ * `imageOrientation: 'from-image'` is the same correction every other worker applies: a phone
+ * photo stored sideways decodes upright, so the pixel budget and the reported dimensions describe
+ * the image the visitor actually sees.
+ */
 async function probeSize(file) {
-  const bitmap = await createImageBitmap(file);
+  const bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
   try {
     return { width: bitmap.width, height: bitmap.height };
   } finally {
@@ -85,6 +91,9 @@ async function compress(payload = {}, onProgress) {
         ...options,
         signal: controller.signal,
         onProgress: (update) => onProgress?.({ jobId, ...update }),
+        // The canvas area a browser can actually allocate is decided by the platform, and the
+        // engine's pixel budget has to match it. The worker is where the user agent is visible.
+        userAgent: navigator.userAgent,
       },
       { imageCompression, probeSize },
     );

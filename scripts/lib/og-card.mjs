@@ -13,12 +13,12 @@
  * bitmap cannot read a CSS variable — tests/seo.test.js asserts they still match base.css.
  */
 export const PALETTE = {
-  background: '#0d1117',
-  surface: '#161b22',
-  border: '#30363d',
-  text: '#e6edf3',
-  muted: '#6e7681',
-  accent: '#58a6ff',
+  background: '#000000',
+  surface: '#1c1c1e',
+  border: 'rgba(84, 84, 88, 0.5)',
+  text: '#ffffff',
+  muted: '#86868e',
+  accent: '#0a84ff',
 };
 
 export const OG_WIDTH = 1200;

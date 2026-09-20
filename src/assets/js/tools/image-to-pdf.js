@@ -10,12 +10,11 @@
  * Order is the page order, so the list is the interface: ui/order-list.js renders it and this file
  * owns the array.
  */
-import * as Comlink from 'comlink';
-
 import { CompressError } from '../core/engine-compress.js';
+import { openEngine } from '../core/worker-or-main.js';
 import { MARGINS, PAGE_SIZES, PDF_PAGE_WARNING, QUALITIES, findPageSize } from '../core/engine-pdf.js';
 import { createQueue } from '../core/queue.js';
-import { downloadBlob } from '../core/file-io.js';
+import { wireDownloadAnchor } from '../core/save-photo.js';
 import { createOrderList, applyMove } from '../ui/order-list.js';
 import { createDropzone } from '../ui/dropzone.js';
 import { formatBytes } from '../ui/format.js';
@@ -117,6 +116,8 @@ function init() {
   let busy = false;
   let ready = false;
   let resultUrl = null;
+  /** The finished document, cached so a save tap is a share call, not a rebuild. */
+  let lastPdf = null;
 
   const orderList = createOrderList(orderListRoot, {
     labels: {
@@ -140,12 +141,12 @@ function init() {
 
   function ensureWorker() {
     if (api) return api;
+    // See compress-image.js: the worker is constructed here so the bundler can resolve it.
     worker = new Worker(new URL('../workers/pdf.worker.js', import.meta.url), { type: 'module' });
-    worker.addEventListener('error', () => {
-      announce(t('js.pdf.workerStopped'), 'error');
+    api = openEngine('pdf', worker, {
+      onError: () => announce(t('js.pdf.workerStopped'), 'error'),
     });
-    api = Comlink.wrap(worker);
-    progressProxy = Comlink.proxy(handleProgress);
+    progressProxy = handleProgress;
     return api;
   }
 
@@ -284,6 +285,7 @@ function init() {
 
       if (resultUrl) URL.revokeObjectURL(resultUrl);
       resultUrl = URL.createObjectURL(blob);
+      lastPdf = { blob, filename: PDF_NAME };
       showResult(meta, pages);
       progress.finish(t('js.common.done'));
       announce(
@@ -341,6 +343,7 @@ function init() {
     resultPanel.hidden = true;
     if (resultUrl) URL.revokeObjectURL(resultUrl);
     resultUrl = null;
+    lastPdf = null;
   }
 
   function clearAll() {
@@ -372,6 +375,15 @@ function init() {
     queue.cancel();
   });
   resultPanel.querySelector('[data-start-over]')?.addEventListener('click', startOver);
+
+  // The document's own save control. The anchor keeps its `href` for a browser with no JavaScript;
+  // the tap goes through the shared save module, which offers the share sheet where a PDF can be
+  // saved to Files and downloads everywhere else.
+  wireDownloadAnchor(result.download, {
+    getBlob: () => lastPdf?.blob ?? null,
+    getFilename: () => lastPdf?.filename ?? PDF_NAME,
+    statusEl: statusLine,
+  });
 
   for (const select of [pageSizeSelect, marginSelect, qualitySelect]) {
     select?.addEventListener('change', renderOrder);
@@ -421,8 +433,7 @@ function init() {
   window.addEventListener('pagehide', () => {
     queue?.dispose();
     clearResult();
-    worker?.terminate();
-    worker = null;
+    api?.dispose();
     api = null;
   });
 

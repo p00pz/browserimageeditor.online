@@ -15,19 +15,18 @@
  *   - a batch of two or more waits for the explicit "Compress all" button, because a stray
  *     settings tweak must not silently restart fifty jobs.
  */
-import * as Comlink from 'comlink';
-
 import { CompressError, estimateSavings, parseDimension, parseTargetBytes } from '../core/engine-compress.js';
+import { openEngine } from '../core/worker-or-main.js';
 import { createQueue } from '../core/queue.js';
 import {
   DEFAULT_ZIP_NAME,
   ZIP_SIZE_WARNING_BYTES,
-  downloadBlob,
   downloadZip,
   toBytes,
   totalBytes,
   zipNameFor,
 } from '../core/file-io.js';
+import { saveBlob, wireDownloadAnchor } from '../core/save-photo.js';
 import { createCompareSlider } from '../ui/compare-slider.js';
 import { createDropzone } from '../ui/dropzone.js';
 import { formatBytes, formatSignedPercent } from '../ui/format.js';
@@ -150,16 +149,18 @@ function init() {
 
   function ensureWorker() {
     if (api) return api;
+    // Constructed here rather than inside `openEngine` because this exact shape —
+    // `new Worker(new URL(<literal>, import.meta.url))` — is what the bundler recognises; moving
+    // it behind a variable would leave the worker's own imports unresolved in the built output.
     worker = new Worker(new URL('../workers/compress.worker.js', import.meta.url), { type: 'module' });
-    worker.addEventListener('error', () => {
-      announce(t('js.compress.workerStopped'), 'error');
+    api = openEngine('compress', worker, {
+      onError: () => announce(t('js.compress.workerStopped'), 'error'),
     });
-    api = Comlink.wrap(worker);
-    // One proxied callback for the whole page, dispatched by job id, rather than a new proxy
-    // per file — those would have to be released one by one to avoid leaking. It must be passed
-    // as a separate top-level argument: comlink only wires top-level arguments, so nesting it in
-    // the payload object would attempt to clone a function and fail.
-    progressProxy = Comlink.proxy(handleProgress);
+    // The callback is handed over as a plain function and `openEngine` wraps it in a Comlink proxy
+    // only when the call is actually forwarded to a worker. That keeps one proxy per page — one per
+    // job would have to be released one by one to avoid leaking — and lets the same callback serve
+    // the main-thread engine, which it reaches as a direct call.
+    progressProxy = handleProgress;
     return api;
   }
 
@@ -500,6 +501,9 @@ function init() {
     }
     if (result.warning) {
       const notes = [outcomeNote(meta)];
+      if (meta.downscaled) {
+        notes.push(t('js.common.downscaled', { w: meta.width, h: meta.height }));
+      }
       if (savings.percent < 0) {
         notes.push(t('js.common.largerThanOriginal', { size: formatBytes(Math.abs(savings.bytes)) }));
       }
@@ -529,10 +533,9 @@ function init() {
     const item = byIdLatest.get(id);
     if (!item?.result?.blob) return;
     const filename = nameFor(item);
-    downloadBlob(item.result.blob, filename);
-    announce(
-      t('js.common.savedFile', { name: filename, size: formatBytes(item.result.meta.bytes) }),
-    );
+    // The blob is already built; saveBlob takes it straight to the platform's own save route,
+    // which is what reaches the Photos app on iOS, and reports the real size and format.
+    void saveBlob({ blob: item.result.blob, filename, statusEl: statusLine });
   }
 
   async function downloadAllAsZip() {
@@ -716,6 +719,15 @@ function init() {
     void downloadAllAsZip();
   });
 
+  // The result panel's own save control. Its `href` stays set — that is the path a browser with no
+  // JavaScript takes — while the tap itself goes through the shared save module, which is what
+  // reaches the Photos app on iOS and offers the viewer inside an in-app browser.
+  wireDownloadAnchor(result.download, {
+    getBlob: () => byIdLatest.get(selectedId)?.result?.blob ?? null,
+    getFilename: () => nameFor(byIdLatest.get(selectedId)),
+    statusEl: statusLine,
+  });
+
   resultPanel.querySelector('[data-start-over]')?.addEventListener('click', startOver);
 
   for (const element of [formatSelect, targetInput, widthInput, heightInput]) {
@@ -736,8 +748,7 @@ function init() {
   window.addEventListener('pagehide', () => {
     disposeQueue();
     clearPreview();
-    worker?.terminate();
-    worker = null;
+    api?.dispose();
     api = null;
   });
 

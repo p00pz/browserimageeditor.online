@@ -130,6 +130,15 @@
   }
 }</script>
   <script type="application/json" id="ui-strings">{
+  "js.save.shareTitle": "صور من محرر الصور في المتصفح",
+  "js.save.shareText": "تمت معالجتها بالكامل في متصفحي — لم يتم رفع أي شيء.",
+  "js.save.saved": "تم حفظ {name} ({size}، {format}).",
+  "js.save.savedMany": "تمت مشاركة {count} {images} ({size}).",
+  "js.save.failed": "تعذّر حفظ الصورة على هذا الجهاز.",
+  "js.webview.hint": "الحفظ محدود في هذا المتصفح المدمج، لذا تُعرض الصورة بملء الشاشة بدلاً من ذلك.",
+  "js.webview.viewerHint": "اضغط مطولاً على الصورة ثم اختر «حفظ في الصور».",
+  "js.webview.close": "إغلاق",
+  "js.webview.openInSafari": "فتح في سفاري",
   "js.chrome.menuOpen": "افتح القائمة",
   "js.chrome.menuClose": "أغلق القائمة",
   "js.enhance.ready": "جاهز — أفلت صورة أو مجموعة صور لتحسينها.",
@@ -188,6 +197,7 @@
   "js.common.progressPercent": "{finished} من {total} انتهت — {percent}%",
   "js.common.progressFor": "تقدّم {name}",
   "js.common.downloadSize": "تنزيل {size}",
+  "js.common.downscaled": "تم تصغير الصورة إلى {w} × {h} لأنها أكبر من الحد الأقصى للوح الرسوم في هذا الجهاز.",
   "js.common.jpegFlatten": "JPEG لا يستطيع تخزين الشفافية، لذلك سُطّحت المناطق الشفافة على الأبيض.",
   "js.common.largerThanOriginal": "خرج هذا الملف أكبر من الأصل بمقدار {size} — جرّب WebP أو حدّد حجماً مستهدفاً.",
   "js.common.largerThanOriginalResize": "الملف الجديد أكبر من الأصل بمقدار {size} — وإعادة الترميز إلى صيغة أخرى قد تفعل ذلك حتى مع انخفاض عدد البكسلات.",
@@ -437,7 +447,7 @@
         </div>
 
         <p class="notice notice-warning" data-unsupported hidden>
-          هذا المتصفح لا يستطيع تشغيل أداة الضغط. فهي تحتاج إلى «عوامل ويب» تدعم <code>OffscreenCanvas</code>، ولن نلجأ إلى المعالجة على المسار الرئيسي لأن ذلك سُجمّد الصفحة. جرّب نسخة حديثة من Chrome أو Edge أو Firefox أو Safari.
+          هذا المتصفح لا يستطيع ضغط الصور محلياً — ينقصه واجهة فك ترميز الصور التي بُنيت عليها هذه الأدوات. ولا يُرفع أي شيء في كلتا الحالتين. جرّب نسخة حديثة من Chrome أو Edge أو Firefox أو Safari.
         </p>
 
         <div class="tool-controls">
@@ -519,7 +529,7 @@
       <section class="secondary-section tool-notes" data-collapsible>
         <details><summary><h2>كيف تعمل الأداة</h2></summary></details>
         <div class="disclosure-body">
-          <p>تُفكّ ترميز صورك وتُعاد ترميزها داخل «عامل ويب» في هذا التبويب، فتبقى الصفحة مستجيبة ولا تصل الملفات إلى أي خادم. لا يوجد نظام خلفي ولا قائمة انتظار ولا حساب.</p>
+          <p>تُفكّ ترميز صورك وتُعاد ترميزها داخل هذا التبويب نفسه — على «عامل ويب» مسارٍ خلفيٍّ حيثما يوفّر متصفحك ذلك، لتبقى الصفحة مستجيبة — ولا تصل الملفات إلى أي خادم. لا يوجد نظام خلفي ولا قائمة انتظار ولا حساب.</p>
           <ul>
             <li>تبقى الملفات الأصلية على جهازك من البداية إلى النهاية.</li>
             <li>يبحث <strong>الحجم المستهدف للملف</strong> عن أعلى جودة تدخل تحته، لكل صورة على حدة. وإن لم تستطع صورة الوصول إلى ذلك الحجم، فستحصل على أصغر ملف استطعنا إنشاءه مع ملاحظة تبيّن ذلك.</li>

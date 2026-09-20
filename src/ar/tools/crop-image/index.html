@@ -146,6 +146,15 @@
   }
 }</script>
   <script type="application/json" id="ui-strings">{
+  "js.save.shareTitle": "صور من محرر الصور في المتصفح",
+  "js.save.shareText": "تمت معالجتها بالكامل في متصفحي — لم يتم رفع أي شيء.",
+  "js.save.saved": "تم حفظ {name} ({size}، {format}).",
+  "js.save.savedMany": "تمت مشاركة {count} {images} ({size}).",
+  "js.save.failed": "تعذّر حفظ الصورة على هذا الجهاز.",
+  "js.webview.hint": "الحفظ محدود في هذا المتصفح المدمج، لذا تُعرض الصورة بملء الشاشة بدلاً من ذلك.",
+  "js.webview.viewerHint": "اضغط مطولاً على الصورة ثم اختر «حفظ في الصور».",
+  "js.webview.close": "إغلاق",
+  "js.webview.openInSafari": "فتح في سفاري",
   "js.chrome.menuOpen": "افتح القائمة",
   "js.chrome.menuClose": "أغلق القائمة",
   "js.enhance.ready": "جاهز — أفلت صورة أو مجموعة صور لتحسينها.",
@@ -204,6 +213,7 @@
   "js.common.progressPercent": "{finished} من {total} انتهت — {percent}%",
   "js.common.progressFor": "تقدّم {name}",
   "js.common.downloadSize": "تنزيل {size}",
+  "js.common.downscaled": "تم تصغير الصورة إلى {w} × {h} لأنها أكبر من الحد الأقصى للوح الرسوم في هذا الجهاز.",
   "js.common.jpegFlatten": "JPEG لا يستطيع تخزين الشفافية، لذلك سُطّحت المناطق الشفافة على الأبيض.",
   "js.common.largerThanOriginal": "خرج هذا الملف أكبر من الأصل بمقدار {size} — جرّب WebP أو حدّد حجماً مستهدفاً.",
   "js.common.largerThanOriginalResize": "الملف الجديد أكبر من الأصل بمقدار {size} — وإعادة الترميز إلى صيغة أخرى قد تفعل ذلك حتى مع انخفاض عدد البكسلات.",
@@ -452,9 +462,7 @@
         </div>
 
         <p class="notice notice-warning" data-unsupported hidden>
-          لا يستطيع هذا المتصفح قص الصور محلياً. فهو يحتاج إلى Web Worker مع دعم
-          <code>OffscreenCanvas</code>، ولن نعود إلى الترميز على المسار الرئيسي
-          لأن ذلك يجمّد الصفحة. جرّب نسخة حديثة من Chrome أو Edge أو Firefox أو Safari.
+          لا يستطيع هذا المتصفح قص الصور محلياً — ينقصه واجهة فك ترميز الصور التي بُنيت عليها هذه الأدوات. ولا يُرفع أي شيء في كلتا الحالتين. جرّب نسخة حديثة من Chrome أو Edge أو Firefox أو Safari.
         </p>
 
         <div class="crop-stage" data-crop-stage hidden>
@@ -531,7 +539,7 @@
       <section class="secondary-section tool-notes" data-collapsible>
         <details><summary><h2>كيف يعمل هذا</h2></summary></details>
         <div class="disclosure-body">
-          <p>تسحب التحديد فوق الصورة، ثم يُرسم القص ويُعاد ترميزه داخل مسار خلفي في هذا التبويب. الملف الأصلي لا يُعدَّل ولا يُرفع أبداً &mdash; والقص ينتج ملفاً جديداً تُحمّله أنت.</p>
+          <p>تسحب التحديد فوق الصورة، ثم يُرسم القص ويُعاد ترميزه داخل هذا التبويب — على «عامل ويب» مسارٍ خلفيٍّ حيثما يوفّر متصفحك ذلك. الملف الأصلي لا يُعدَّل ولا يُرفع أبداً &mdash; والقص ينتج ملفاً جديداً تُحمّله أنت.</p>
           <ul>
             <li>اختر <strong>نسبة أبعاد</strong> ليظل التحديد على شكل ثابت، أو اتركه بدون قيد واسحب أي مستطيل.</li>
             <li>دوّر بخطوات 90&deg; واعكس عرضياً أو رأسياً إن كانت الصورة في الاتجاه الخطأ. ودورة الربع تغيّر عرض الناتج وارتفاعه.</li>

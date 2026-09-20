@@ -1,5 +1,10 @@
-/* Component styles: dropzone, progress, results, tool grid, nav, notices.
-   Uses the design tokens from base.css only — no new colours are introduced here. */
+/**
+ * Every component, styled with the Studio Glass tokens from base.css only — no new colours are
+ * introduced here, and no direction: rtl.css is the whole of the RTL layer, so every offset in
+ * this file is a logical property.
+ */
+
+/* ---------- visually hidden, and the skip link ---------- */
 
 .visually-hidden {
   position: absolute;
@@ -16,14 +21,17 @@
 
 .skip-link {
   position: absolute;
-  left: var(--space-4);
+  inset-inline-start: var(--space-4);
   top: calc(-1 * var(--space-16));
   z-index: var(--z-tooltip);
   padding: var(--space-2) var(--space-4);
   background-color: var(--color-surface-elevated);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-full);
   box-shadow: var(--shadow-md);
+  color: var(--color-link);
+  font-size: var(--text-sm);
+  font-weight: 600;
   transition: top var(--transition-fast);
 }
 
@@ -31,44 +39,18 @@
   top: var(--space-2);
 }
 
-/* ---------- Mobile navigation ---------- */
-
-.nav-link-disabled {
-  color: var(--color-text-muted);
-  cursor: not-allowed;
-}
-
-@media (max-width: 767px) {
-  .nav.is-open .nav-list {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    gap: 0;
-    padding: var(--space-2) var(--space-4) var(--space-4);
-    background-color: var(--color-surface-elevated);
-    border-bottom: 1px solid var(--color-border);
-    box-shadow: var(--shadow-md);
-  }
-
-  .nav.is-open .nav-link {
-    padding: var(--space-3) 0;
-    border-bottom: 1px solid var(--color-border);
-  }
-}
-
 /* ---------- Homepage tool grid ---------- */
 
 .tools-section {
-  margin-top: var(--space-8);
+  margin-top: var(--space-12);
 }
 
 .tools-section h2 {
   margin: 0 0 var(--space-6);
   font-size: var(--text-2xl);
   font-weight: 600;
+  letter-spacing: var(--tracking-display);
+  color: var(--color-text);
 }
 
 .tool-grid {
@@ -83,22 +65,30 @@
 .tool-card {
   display: flex;
   flex-direction: column;
-  background-color: var(--color-surface-elevated);
+  background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal),
+    border-color var(--transition-normal);
 }
 
 .tool-card:hover {
   border-color: var(--color-border-hover);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+}
+
+.tool-card:active {
+  transform: scale(0.98);
 }
 
 .tool-card-link {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  padding: var(--space-5);
+  gap: var(--space-3);
+  flex: 1;
+  padding: var(--space-6);
   color: inherit;
 }
 
@@ -109,6 +99,7 @@
 .tool-card-name {
   font-size: var(--text-lg);
   font-weight: 600;
+  letter-spacing: -0.02em;
   color: var(--color-text);
 }
 
@@ -119,22 +110,28 @@
 }
 
 .tool-card-planned {
-  gap: var(--space-2);
   border-style: dashed;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.tool-card-planned:hover {
+  background-color: var(--color-surface);
 }
 
 /* A planned card is linked to its "not built yet" page, so the link carries the padding and
    the card must not add its own on top of it. */
 .tool-card-planned > .tool-card-link {
-  padding: var(--space-5);
+  padding: var(--space-6);
 }
 
 .tool-card-badge {
   align-self: flex-start;
-  padding: var(--space-1) var(--space-2);
+  margin-top: auto;
+  padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-full);
-  background-color: var(--color-surface);
-  color: var(--color-text-muted);
+  background-color: var(--color-fill);
+  color: var(--color-text-secondary);
   font-size: var(--text-xs);
   font-weight: 600;
   text-transform: uppercase;
@@ -152,18 +149,32 @@
   color: var(--color-text-secondary);
 }
 
+.breadcrumb a {
+  padding: var(--space-1) var(--space-2);
+  margin-inline: calc(-1 * var(--space-2));
+  border-radius: var(--radius-sm);
+  color: var(--color-link);
+}
+
+.breadcrumb a:hover {
+  background-color: var(--color-fill);
+  text-decoration: none;
+}
+
 .breadcrumb-separator {
   color: var(--color-text-muted);
 }
 
 .tool-header {
-  max-width: 720px;
+  max-width: 760px;
   margin-bottom: var(--space-8);
 }
 
 .tool-header h1 {
   margin: 0 0 var(--space-3);
-  font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl));
+  font-size: clamp(26px, 4vw, 40px);
+  font-weight: 700;
+  letter-spacing: var(--tracking-display);
   line-height: var(--leading-tight);
 }
 
@@ -190,14 +201,34 @@
 .tool-panel {
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
+  gap: var(--space-6);
   padding: var(--space-6);
   margin-bottom: var(--space-10);
-  background-color: var(--color-surface-elevated);
+  background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
 }
+
+/* ---------- `hidden` on a region that has its own `display` ----------
+ *
+ * An author `display` rule outranks the UA stylesheet's `[hidden] { display: none }`, whatever the
+ * specificity — which means every region a tool script toggles with `hidden` and also styles with
+ * `display: flex` was laid out from the moment the page loaded. The result panel, its compare
+ * slider and stats, the progress bar and the batch list were all on screen before a single file was
+ * chosen, with `—` placeholders and a Download button. The install banner hit this first and was
+ * fixed on its own (`.install-banner[hidden]`); this is the same fix for the tool panels, in one
+ * rule rather than ten, so a region added later cannot forget it.
+ *
+ * Scoped to `.tool-panel` so nothing outside a tool can be affected, and kept *above* the mobile
+ * block below: that block sets `display` on buttons at the same specificity, so it carries the
+ * `:not([hidden])` guard or it would un-hide every button a script had hidden.
+ */
+.tool-panel [hidden] {
+  display: none;
+}
+
+/* ---------- Dropzone ---------- */
 
 .dropzone {
   position: relative;
@@ -205,20 +236,22 @@
   align-items: center;
   justify-content: center;
   min-height: 220px;
-  border: 2px dashed var(--color-border-hover);
+  border: 1.5px dashed var(--color-separator-strong);
   border-radius: var(--radius-lg);
-  background-color: var(--color-surface);
+  background-color: var(--color-fill);
   text-align: center;
-  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
 .dropzone.is-dragging {
   border-color: var(--color-primary);
   background-color: var(--color-primary-light);
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
 }
 
 .dropzone.is-disabled {
-  opacity: 0.6;
+  opacity: 0.55;
 }
 
 .dropzone.is-invalid {
@@ -229,15 +262,16 @@
 .dropzone.has-file {
   border-style: solid;
   border-color: var(--color-success);
+  background-color: var(--color-success-light);
 }
 
 .dropzone-label {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+  width: 100%;
   padding: var(--space-8) var(--space-4);
   cursor: pointer;
-  width: 100%;
 }
 
 .dropzone.is-disabled .dropzone-label {
@@ -245,8 +279,10 @@
 }
 
 .dropzone-title {
-  font-size: var(--text-lg);
+  font-size: var(--text-xl);
   font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
 }
 
 .dropzone-hint {
@@ -274,6 +310,7 @@
 .notice {
   margin: 0;
   padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   font-size: var(--text-sm);
   line-height: var(--leading-relaxed);
@@ -281,12 +318,20 @@
 
 .notice code {
   font-family: var(--font-mono);
-  font-size: 0.95em;
+  font-size: 0.9em;
 }
 
 .notice-warning {
   background-color: var(--color-warning-light);
-  border: 1px solid var(--color-warning);
+  border-color: color-mix(in srgb, var(--color-warning) 45%, transparent);
+  border-inline-start: 3px solid var(--color-warning);
+  color: var(--color-text);
+}
+
+.notice-info {
+  background-color: var(--color-primary-light);
+  border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
+  border-inline-start: 3px solid var(--color-primary);
   color: var(--color-text);
 }
 
@@ -294,7 +339,7 @@
 
 .tool-controls {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: var(--space-4);
 }
 
@@ -310,20 +355,67 @@
   color: var(--color-text-secondary);
 }
 
+.field-hint {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: var(--leading-relaxed);
+}
+
+/* 17px: Safari refuses to zoom a focused input smaller than the page's body text, and a form
+   control that grows on focus is a layout shift nobody asked for. */
 .field-input {
   width: 100%;
-  padding: var(--space-2) var(--space-3);
-  background-color: var(--color-bg);
+  min-height: 48px;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-fill);
   color: var(--color-text);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-separator);
   border-radius: var(--radius-md);
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  font-size: var(--text-base);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.field-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.field-input:hover {
+  background-color: var(--color-fill-hover);
 }
 
 .field-input:focus {
   border-color: var(--color-primary);
+  background-color: var(--color-surface);
   box-shadow: 0 0 0 3px var(--color-focus-ring);
   outline: none;
+}
+
+/* A field that takes a whole row of the controls grid. */
+.field-wide {
+  grid-column: 1 / -1;
+}
+
+/* Checkboxes sit at the bottom of the row so they line up with the inputs beside them. */
+.field-check {
+  justify-content: flex-end;
+}
+
+.check-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 48px;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.check-label input {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  accent-color: var(--color-primary);
 }
 
 /* ---------- Progress ---------- */
@@ -337,16 +429,16 @@
 
 .progress {
   width: 100%;
-  height: 8px;
+  height: 6px;
   overflow: hidden;
-  background-color: var(--color-surface);
+  background-color: var(--color-fill);
   border-radius: var(--radius-full);
 }
 
 .progress-bar {
   width: 0;
   height: 100%;
-  background-color: var(--color-primary);
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-active));
   border-radius: var(--radius-full);
   transition: width var(--transition-normal);
 }
@@ -362,7 +454,7 @@
 .result {
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
+  gap: var(--space-6);
 }
 
 .result-previews {
@@ -374,9 +466,9 @@
 .result-preview {
   margin: 0;
   padding: var(--space-3);
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
+  background-color: var(--color-stage);
+  border: 1px solid var(--color-stage-separator);
+  border-radius: var(--radius-md);
 }
 
 .result-preview img {
@@ -388,18 +480,34 @@
 .result-preview figcaption {
   margin-top: var(--space-2);
   font-size: var(--text-xs);
-  color: var(--color-text-secondary);
+  color: var(--color-stage-secondary);
   text-align: center;
 }
 
+/* A glass strip: one surface for four measurements, divided by hairlines rather than by boxes. */
 .result-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: var(--space-4);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
   margin: 0;
   padding: var(--space-4);
-  background-color: var(--color-surface);
-  border-radius: var(--radius-lg);
+  background-color: var(--color-glass);
+  -webkit-backdrop-filter: var(--blur-chip);
+  backdrop-filter: var(--blur-chip);
+  border: 1px solid var(--color-separator);
+  border-radius: var(--radius-md);
+}
+
+.result-stat {
+  flex: 1 1 140px;
+  padding-block: var(--space-1);
+  padding-inline: var(--space-4);
+  border-inline-start: 1px solid var(--color-separator);
+}
+
+.result-stat:first-child {
+  border-inline-start: 0;
+  padding-inline-start: 0;
 }
 
 .result-stat dt {
@@ -411,8 +519,9 @@
 
 .result-stat dd {
   margin: var(--space-1) 0 0;
-  font-size: var(--text-base);
+  font-size: var(--text-lg);
   font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 .result-actions {
@@ -427,43 +536,77 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-3) var(--space-5);
-  background-color: var(--color-primary);
+  gap: var(--space-2);
+  min-height: 48px;
+  padding: 0 var(--space-6);
+  background-color: var(--color-primary-solid);
   color: #ffffff;
-  border: 1px solid transparent;
-  border-radius: var(--radius-md);
-  font-size: var(--text-sm);
+  border: 0;
+  border-radius: var(--radius-full);
+  font-size: var(--text-base);
   font-weight: 600;
+  letter-spacing: var(--tracking-body);
   cursor: pointer;
-  transition: background-color var(--transition-fast);
+  box-shadow: 0 8px 20px var(--color-primary-shadow);
+  transition: transform var(--transition-fast), background-color var(--transition-fast),
+    box-shadow var(--transition-fast), color var(--transition-fast);
 }
 
 .button:hover {
-  background-color: var(--color-primary-hover);
+  background-color: var(--color-primary-solid-hover);
+  color: #ffffff;
   text-decoration: none;
+  box-shadow: 0 10px 26px var(--color-primary-shadow);
+}
+
+.button:active {
+  transform: scale(0.96);
+}
+
+.button:focus-visible {
+  outline: 2.5px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.button:disabled,
+.button[aria-disabled='true'] {
+  opacity: 0.45;
+  cursor: default;
+  box-shadow: none;
+  transform: none;
 }
 
 .button-secondary {
-  background-color: transparent;
+  background-color: var(--color-fill);
   color: var(--color-text);
-  border-color: var(--color-border);
+  border: 1px solid var(--color-separator);
+  box-shadow: none;
+  -webkit-backdrop-filter: var(--blur-chip);
+  backdrop-filter: var(--blur-chip);
 }
 
 .button-secondary:hover {
-  background-color: var(--color-surface);
+  background-color: var(--color-fill-hover);
+  color: var(--color-text);
+  box-shadow: none;
 }
 
 /* ---------- Status line ---------- */
 
 .status {
   margin: 0;
-  min-height: 1.25rem;
+  min-height: 1.5rem;
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
 }
 
 .status.is-error {
   color: var(--color-error);
+  font-weight: 600;
+}
+
+.status.is-success {
+  color: var(--color-success);
   font-weight: 600;
 }
 
@@ -482,11 +625,13 @@
   margin: 0 0 var(--space-4);
   font-size: var(--text-xl);
   font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
 }
 
 .tool-notes ul {
   margin: 0;
-  padding-left: var(--space-5);
+  padding-inline-start: var(--space-5);
   color: var(--color-text-secondary);
   line-height: var(--leading-relaxed);
 }
@@ -502,12 +647,18 @@
 
 .faq-item {
   padding: var(--space-3) 0;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-separator);
 }
 
 .faq-item summary {
   cursor: pointer;
   font-weight: 600;
+  color: var(--color-text);
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
 }
 
 .faq-item p {
@@ -517,76 +668,110 @@
 }
 
 .tool-cta {
-  padding: var(--space-6);
-  background-color: var(--color-surface-elevated);
+  padding: var(--space-8);
+  background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
 }
 
-/* ---------- Range slider ---------- */
+/* ---------- Range sliders ----------
+ *
+ * The platform's own thumb, unstyled, is what the site had — `accent-color` alone — and on Safari
+ * that is a small circle a thumb has to find. So the pseudo-elements are drawn: a 6px track inside
+ * a 28px touch box, and a 28px thumb.
+ *
+ * Vertical centring: WebKit lays the runnable track across the middle of the input box whatever the
+ * box's height, so a 6px track plus a thumb whose negative margin is exactly (track - thumb) / 2
+ * lands the thumb on the track in a 28px desktop box and a 44px mobile one alike. Firefox centres
+ * its own thumb on its own track, so it needs no margin. */
 
-.slider {
+.slider,
+.range-input,
+.field-input[type='range'] {
   width: 100%;
-  height: 20px;
+  height: 28px;
+  min-height: 0;
   margin: 0;
-  background: transparent;
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  accent-color: var(--color-primary);
   appearance: none;
   -webkit-appearance: none;
   cursor: pointer;
 }
 
-.slider::-webkit-slider-runnable-track {
+.slider::-webkit-slider-runnable-track,
+.range-input::-webkit-slider-runnable-track,
+.field-input[type='range']::-webkit-slider-runnable-track {
   height: 6px;
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
+  background-color: var(--color-fill-hover);
 }
 
-.slider::-moz-range-track {
+.slider::-moz-range-track,
+.range-input::-moz-range-track,
+.field-input[type='range']::-moz-range-track {
   height: 6px;
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
+  background-color: var(--color-fill-hover);
 }
 
-.slider::-webkit-slider-thumb {
+.slider::-moz-range-progress,
+.range-input::-moz-range-progress,
+.field-input[type='range']::-moz-range-progress {
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary);
+}
+
+.slider::-webkit-slider-thumb,
+.range-input::-webkit-slider-thumb,
+.field-input[type='range']::-webkit-slider-thumb {
   appearance: none;
   -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
-  margin-top: -7px;
-  background-color: var(--color-primary);
-  border: 2px solid var(--color-surface-elevated);
+  width: 28px;
+  height: 28px;
+  /* (6px track - 28px thumb) / 2 — see the note above. */
+  margin-top: -11px;
   border-radius: var(--radius-full);
-  box-shadow: var(--shadow-sm);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transition: transform var(--transition-fast);
 }
 
-.slider::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  background-color: var(--color-primary);
-  border: 2px solid var(--color-surface-elevated);
+.slider::-moz-range-thumb,
+.range-input::-moz-range-thumb,
+.field-input[type='range']::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  border: 0;
   border-radius: var(--radius-full);
-  box-shadow: var(--shadow-sm);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.28);
 }
 
-.slider:hover::-webkit-slider-thumb {
-  background-color: var(--color-primary-hover);
+.slider:active::-webkit-slider-thumb,
+.range-input:active::-webkit-slider-thumb,
+.field-input[type='range']:active::-webkit-slider-thumb {
+  transform: scale(1.1);
 }
 
-.slider:hover::-moz-range-thumb {
-  background-color: var(--color-primary-hover);
-}
-
-.slider:focus-visible {
-  outline: 2px solid var(--color-focus);
+.slider:focus-visible,
+.range-input:focus-visible,
+.field-input[type='range']:focus-visible {
+  outline: 2.5px solid var(--color-focus);
   outline-offset: 4px;
   border-radius: var(--radius-full);
 }
 
-.slider:disabled {
+.slider:disabled,
+.range-input:disabled,
+.field-input[type='range']:disabled {
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: 0.45;
 }
 
 .slider-value {
@@ -596,19 +781,24 @@
 }
 
 /* ---------- Compare slider (before/after) ----------
-   Visual states only for now — nothing drives the position yet. A component that needs it
-   sets --compare-position (a percentage) and moves it; 50% is the default. */
+ *
+ * The dark well is deliberate in both themes: a photograph is judged against a photograph, and a
+ * white well behind a transparent PNG invents a background the file does not have. `--compare-position`
+ * is set on the root by ui/compare-slider.js as a percentage; 50% is the default. */
 
 .compare-slider {
   position: relative;
   display: block;
   overflow: hidden;
   min-height: 240px;
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background-color: var(--color-stage);
+  border: 1px solid var(--color-stage-separator);
   border-radius: var(--radius-lg);
   touch-action: none;
   user-select: none;
+  /* Long-press on iOS would offer to save the image being compared; it is not ours to save from
+     here, and the gesture belongs to the handle. */
+  -webkit-touch-callout: none;
 }
 
 .compare-slider-pane {
@@ -620,6 +810,7 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+  -webkit-user-drag: none;
 }
 
 .compare-slider-after {
@@ -630,43 +821,59 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  left: var(--compare-position, 50%);
+  inset-inline-start: var(--compare-position, 50%);
   width: 2px;
-  margin-left: -1px;
-  background-color: var(--color-primary);
+  margin-inline-start: -1px;
+  background-color: rgba(255, 255, 255, 0.65);
 }
 
 .compare-slider-handle::after {
   content: '';
   position: absolute;
   top: 50%;
-  left: 50%;
-  width: 32px;
-  height: 32px;
-  margin: -16px 0 0 -16px;
-  background-color: var(--color-surface-elevated);
-  border: 2px solid var(--color-primary);
+  inset-inline-start: 50%;
+  /* `translate` rather than negative margins: a transform is not affected by writing direction,
+     so the knob centres itself on the line in an LTR and an RTL page alike. */
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-glass);
+  -webkit-backdrop-filter: var(--blur-chip);
+  backdrop-filter: var(--blur-chip);
+  border: 1px solid rgba(255, 255, 255, 0.45);
   border-radius: var(--radius-full);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg);
+  /* The knob's own instruction: two bars, pointing at both halves, drawn with gradients so
+     nothing in the markup has to know about it. */
+  background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+    linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9));
+  background-repeat: no-repeat;
+  background-position: calc(50% - 5px) center, calc(50% + 5px) center;
+  background-size: 2px 9px, 2px 9px;
 }
 
 .compare-slider-label {
   position: absolute;
   bottom: var(--space-3);
   padding: var(--space-1) var(--space-3);
-  background-color: var(--color-surface-elevated);
-  border: 1px solid var(--color-border);
+  /* Dark enough to hold white 13px semibold over a bright photograph: .65 alpha over a white
+     image composites to #595959, which is 7:1. */
+  background-color: rgba(0, 0, 0, 0.65);
+  -webkit-backdrop-filter: var(--blur-chip);
+  backdrop-filter: var(--blur-chip);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: var(--radius-full);
   font-size: var(--text-xs);
   font-weight: 600;
+  color: #ffffff;
 }
 
 .compare-slider-label-before {
-  left: var(--space-3);
+  inset-inline-start: var(--space-3);
 }
 
 .compare-slider-label-after {
-  right: var(--space-3);
+  inset-inline-end: var(--space-3);
 }
 
 .compare-slider:focus-within {
@@ -716,21 +923,24 @@
   gap: var(--space-2) var(--space-4);
   align-items: center;
   padding: var(--space-3) var(--space-4);
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
+  background-color: var(--color-fill);
+  border: 1px solid var(--color-separator);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
 }
 
 .batch-item[data-selected='true'] {
   border-color: var(--color-primary);
+  background-color: var(--color-primary-light);
 }
 
 .batch-item[data-status='error'] {
   border-color: var(--color-error);
+  background-color: var(--color-error-light);
 }
 
 .batch-item[data-status='cancelled'] {
-  opacity: 0.75;
+  opacity: 0.7;
 }
 
 .batch-item-main {
@@ -804,18 +1014,19 @@
 }
 
 /* ---------- Reserved advertising slots ----------
-   Nothing is rendered while content/site.json has "ads": false, and when that flag is switched on
-   these boxes hold their height before anything loads into them. That is the whole CLS story for
-   ads: a network's script arriving late cannot move the page if the space was already reserved.
-   Heights match the standard units — 728x90 / 320x100 leaderboard and 300x250 rectangle — and
-   `contain: layout paint` keeps a late-loading iframe from affecting anything around it. */
+    Nothing is rendered while content/site.json has "ads": false, and when that flag is switched on
+    these boxes hold their height before anything loads into them. That is the whole CLS story for
+    ads: a network's script arriving late cannot move the page if the space was already reserved.
+    Heights match the standard units — 728x90 / 320x100 leaderboard and 300x250 rectangle — and
+    `contain: layout paint` keeps a late-loading iframe from affecting anything around it. */
 
 .ad-slot {
   display: block;
   margin: 0 auto var(--space-8);
   max-width: 100%;
   contain: layout paint;
-  background-color: var(--color-surface);
+  background-color: var(--color-fill);
+  border: 1px dashed var(--color-separator-strong);
   border-radius: var(--radius-lg);
 }
 
@@ -845,12 +1056,16 @@
 .prose h1 {
   margin: 0 0 var(--space-6);
   font-size: var(--text-4xl);
+  font-weight: 700;
+  letter-spacing: var(--tracking-display);
   line-height: var(--leading-tight);
 }
 
 .prose h2 {
   margin: var(--space-10) 0 var(--space-3);
   font-size: var(--text-2xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
   line-height: var(--leading-tight);
 }
 
@@ -867,7 +1082,7 @@
 .prose ul,
 .prose ol {
   margin: 0 0 var(--space-5);
-  padding-left: var(--space-6);
+  padding-inline-start: var(--space-6);
 }
 
 .prose li + li {
@@ -879,22 +1094,22 @@
 }
 
 .prose a {
-  color: var(--color-primary);
+  color: var(--color-link);
 }
 
 .prose code {
   padding: 0.1em 0.35em;
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
+  background-color: var(--color-fill);
+  border: 1px solid var(--color-separator);
+  border-radius: var(--radius-xs);
   font-family: var(--font-mono);
-  font-size: 0.95em;
+  font-size: 0.9em;
 }
 
 .page-meta {
   margin: var(--space-10) 0 0;
   padding-top: var(--space-4);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-separator);
   font-size: var(--text-sm);
   color: var(--color-text-muted);
 }
@@ -903,7 +1118,8 @@
 .page-placeholder {
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-warning-light);
-  border: 1px solid var(--color-warning);
+  border: 1px solid var(--color-border);
+  border-inline-start: 3px solid var(--color-warning);
   border-radius: var(--radius-md);
 }
 
@@ -920,58 +1136,13 @@
   font-size: var(--text-xl);
 }
 
-/* ---------- Shared additions for resize / convert / crop / image-to-pdf ---------- */
-
-.notice-info {
-  background-color: var(--color-primary-light);
-  border: 1px solid var(--color-primary);
-  color: var(--color-text);
-}
-
-/* A field that takes a whole row of the controls grid. */
-.field-wide {
-  grid-column: 1 / -1;
-}
-
-/* Checkboxes sit at the bottom of the row so they line up with the inputs beside them. */
-.field-check {
-  justify-content: flex-end;
-}
-
-.check-label {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: var(--text-sm);
-  cursor: pointer;
-}
-
-.check-label input {
-  flex: none;
-  width: 1rem;
-  height: 1rem;
-  accent-color: var(--color-primary);
-}
-
-/* Sits under the controls and explains where the selected preset came from. */
-.preset-note {
-  margin: var(--space-3) 0 0;
-  padding: var(--space-3) var(--space-4);
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  font-size: var(--text-xs);
-  line-height: var(--leading-relaxed);
-  color: var(--color-text-secondary);
-}
-
 /* ---------- Crop ---------- */
 
 .crop-stage {
   margin: var(--space-5) 0 0;
   padding: var(--space-3);
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background-color: var(--color-stage);
+  border: 1px solid var(--color-stage-separator);
   border-radius: var(--radius-lg);
 }
 
@@ -979,8 +1150,9 @@
   display: block;
   max-width: 100%;
   /* cropperjs measures a block-level image, so a very tall photo is capped rather than being
-     allowed to push the toolbar off the screen. */
+     allowed to push the toolbar off the screen. `dvh` first, `vh` where it is unknown. */
   max-height: 60vh;
+  max-height: 60dvh;
   margin: 0 auto;
 }
 
@@ -1001,6 +1173,7 @@
 .crop-ratios-label {
   font-size: var(--text-sm);
   font-weight: 600;
+  color: var(--color-text-secondary);
 }
 
 .ratio-list {
@@ -1010,23 +1183,27 @@
 }
 
 .ratio-button {
-  padding: var(--space-1) var(--space-3);
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
   font: inherit;
   font-size: var(--text-sm);
   color: var(--color-text);
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background-color: var(--color-fill);
+  border: 1px solid var(--color-separator);
   border-radius: var(--radius-full);
   cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast),
+    border-color var(--transition-fast);
 }
 
 .ratio-button:hover {
+  background-color: var(--color-fill-hover);
   border-color: var(--color-border-hover);
 }
 
 .ratio-button[aria-pressed='true'] {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
+  background-color: var(--color-primary-solid);
+  border-color: var(--color-primary-solid);
   color: #ffffff;
 }
 
@@ -1059,18 +1236,24 @@
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-2) var(--space-3);
-  background-color: var(--color-surface-elevated);
-  border: 1px solid var(--color-border);
+  background-color: var(--color-fill);
+  border: 1px solid var(--color-separator);
   border-radius: var(--radius-md);
 }
 
 .order-position {
-  min-width: 1.5rem;
+  min-width: 1.75rem;
+  min-height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-xs);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-separator);
   font-size: var(--text-sm);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   color: var(--color-text-muted);
-  text-align: center;
 }
 
 .order-item-main {
@@ -1084,6 +1267,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-weight: 600;
 }
 
 .order-item-meta {
@@ -1097,19 +1281,23 @@
 }
 
 .order-button {
-  min-width: 2rem;
+  min-width: 2.25rem;
+  min-height: 2.25rem;
   padding: var(--space-1) var(--space-2);
   font: inherit;
   font-size: var(--text-sm);
   line-height: 1;
   color: var(--color-text);
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-separator);
   border-radius: var(--radius-sm);
   cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast),
+    border-color var(--transition-fast);
 }
 
 .order-button:hover:not(:disabled) {
+  background-color: var(--color-fill-hover);
   border-color: var(--color-border-hover);
 }
 
@@ -1136,13 +1324,14 @@
  *
  * Fixed rather than in the flow on purpose: it appears after an image has been processed, and a box
  * that pushes the page around at that moment is exactly the layout shift the rest of this site takes
- * care to avoid. It sits at the toast layer — above the page, below anything modal.
+ * care to avoid. It sits at the toast layer — above the page, below anything modal — and above the
+ * mobile sheet, so the two never fight for the same thumb.
  */
 .install-banner {
   position: fixed;
-  right: var(--space-4);
-  bottom: var(--space-4);
-  left: var(--space-4);
+  inset-inline: var(--space-4);
+  /* The home indicator, not the viewport's edge. */
+  bottom: calc(var(--space-4) + var(--safe-area-bottom));
   z-index: var(--z-toast);
   display: flex;
   flex-wrap: wrap;
@@ -1152,10 +1341,12 @@
   max-width: 34rem;
   margin: 0 auto;
   padding: var(--space-4) var(--space-5);
-  background-color: var(--color-surface-elevated);
-  border: 1px solid var(--color-border);
+  background-color: var(--color-glass);
+  -webkit-backdrop-filter: var(--blur-glass);
+  backdrop-filter: var(--blur-glass);
+  border: 1px solid var(--color-glass-border);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-xl);
 }
 
 /* An author display rule beats the hidden attribute's own, so it has to be restated here. */
@@ -1192,34 +1383,40 @@
   align-items: center;
   gap: var(--space-1);
   margin: 0;
-  padding: 0;
+  padding: var(--space-1);
   list-style: none;
+  background-color: var(--color-fill);
+  border: 1px solid var(--color-separator);
+  border-radius: var(--radius-full);
 }
 
 .lang-switch-link,
 .lang-switch-current {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
   padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-full);
   font-size: var(--text-xs);
   font-weight: 600;
-  line-height: 1.6;
 }
 
 .lang-switch-link {
   color: var(--color-text-secondary);
   text-decoration: none;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
 }
 
 .lang-switch-link:hover {
   color: var(--color-text);
-  background-color: var(--color-surface-elevated);
+  background-color: var(--color-fill-hover);
+  text-decoration: none;
 }
 
 .lang-switch-current {
   color: var(--color-text);
   background-color: var(--color-surface-elevated);
-  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ---------- Translation notice ----------
@@ -1230,47 +1427,26 @@
 .translation-notice {
   margin: 0 0 var(--space-4);
   padding: var(--space-3) var(--space-4);
-  background-color: var(--color-surface-elevated);
-  border: 1px solid var(--color-border);
+  background-color: var(--color-glass);
+  -webkit-backdrop-filter: var(--blur-chip);
+  backdrop-filter: var(--blur-chip);
+  border: 1px solid var(--color-separator);
   border-inline-start: 3px solid var(--color-primary);
   border-radius: var(--radius-md);
   font-size: var(--text-xs);
+  line-height: var(--leading-relaxed);
   color: var(--color-text-secondary);
-}
-
-/* ---------- `hidden` on a region that has its own `display` ----------
- *
- * An author `display` rule outranks the UA stylesheet's `[hidden] { display: none }`, whatever the
- * specificity — which means every region a tool script toggles with `hidden` and also styles with
- * `display: flex` was laid out from the moment the page loaded. The result panel, its compare
- * slider and stats, the progress bar and the batch list were all on screen before a single file was
- * chosen, with `—` placeholders and a Download button. The install banner hit this first and was
- * fixed on its own (`.install-banner[hidden]`); this is the same fix for the tool panels, in one
- * rule rather than ten, so a region added later cannot forget it.
- *
- * Scoped to `.tool-panel` so nothing outside a tool can be affected.
- *
- * One caveat, learned the hard way: this rule ties on specificity with `.tool-panel .button` — a class
- * and an attribute both count as one — so a `display` rule at that weight wins on source order alone.
- * The mobile block below sets the centering `display` on the same buttons, which un-hid every button a
- * script had marked hidden. Any rule of that weight therefore needs the `:not([hidden])` guard the
- * mobile block carries, or this rule must move after it.
- */
-.tool-panel [hidden] {
-  display: none;
 }
 
 /* ---------- Photo enhance ----------
  *
- * One control row and one slider, which is the whole point of the tool: five styles, a thumbnail of the
- * visitor's own photo above each one, and an intensity that blends between the corrected photo and the
- * chosen style. The thumbnails are 160px-wide renders from the worker, so the row is a scroller rather
- * than a grid that reflows — five fixed-height cards keep the panel's height stable while the images
- * arrive, which is what stops the drop zone jumping under the visitor's finger.
+ * The flagship. Five styles as live circular thumbnails of the visitor's own photo, an intensity
+ * that blends between the corrected photo and the chosen style, and a result that lives inside a
+ * dark stage. See the flagship block below for the stage itself.
  */
 
 .preset-section {
-  margin: var(--space-5) 0 0;
+  margin: var(--space-2) 0 0;
 }
 
 .preset-heading {
@@ -1284,111 +1460,167 @@
 .preset-title {
   margin: 0;
   font-size: var(--text-lg);
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
-/* The one-click button. Selected state is the same treatment the chips use, so "what is on right now"
-   reads the same way whichever of the two the visitor picked. */
+/* The one-click button. Its selected state is the solid accent, which is what a chip's selection
+   reads as, so "what is on right now" means the same whichever of the two the visitor picked. */
 .preset-auto[data-selected='true'] {
-  border-color: var(--color-primary);
-  background-color: var(--color-primary-light);
-  color: var(--color-primary);
+  background-color: var(--color-primary-solid);
+  border-color: var(--color-primary-solid);
+  color: #ffffff;
+  box-shadow: 0 6px 18px var(--color-primary-shadow);
 }
 
 .preset-row {
   display: flex;
   gap: var(--space-3);
-  margin: var(--space-3) 0 0;
+  margin: var(--space-4) 0 0;
   padding-bottom: var(--space-2);
   overflow-x: auto;
   overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
+.preset-row::-webkit-scrollbar {
+  display: none;
+}
+
+/*
+ * The chips are circles, not cards: a style is a look, and a look is shown, not described. The
+ * thumbnail is the photo's own pixels through the preset, so the choice is made on evidence.
+ */
 .preset-chip {
   flex: 0 0 auto;
-  width: 8.5rem;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  justify-items: center;
   gap: var(--space-2);
-  padding: var(--space-2);
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  width: 6rem;
+  padding: 0;
+  background: none;
+  border: 0;
   color: var(--color-text);
   font: inherit;
-  font-size: var(--text-sm);
   text-align: center;
   cursor: pointer;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transition: transform var(--transition-normal);
 }
 
-.preset-chip:hover:not(:disabled) {
-  border-color: var(--color-border-hover);
+.preset-chip:active {
+  transform: scale(0.94);
 }
 
 .preset-chip:focus-visible {
   outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px var(--color-focus-ring);
-}
-
-.preset-chip[data-selected='true'] {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px var(--color-primary-light);
-}
-
-/* Disabled until its own thumbnail exists; the box below keeps the row's height steady either way. */
-.preset-chip:disabled {
-  cursor: progress;
-  opacity: 0.7;
 }
 
 /*
- * `height: auto` is load-bearing. The markup carries `width="160" height="120"` so the row reserves
- * space before the thumbnails arrive, but a presentational height is a definite height — which means
- * `aspect-ratio` has nothing to compute from and the box renders 118×120, squashing the 4:3 image into
- * a portrait frame. With the height back on `auto`, the attribute still reserves the space and the
- * aspect ratio decides the shape.
+ * The ring is a separate layer so the thumbnail inside it keeps its own geometry: a 3px gradient
+ * ring with a 2px gap of page between it and the photo, which is how a selected aperture reads.
  */
-.preset-thumb {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border-radius: var(--radius-sm);
-  background-color: var(--color-bg);
+.preset-chip::before {
+  content: '';
+  grid-area: 1 / 1;
+  width: 5rem;
+  aspect-ratio: 1;
+  padding: 3px;
+  border-radius: 50%;
+  background: var(--color-separator);
+  transition: background var(--transition-normal);
 }
 
-/* Previews that could not be rendered are not a reason to block a choice: the chip keeps its name and
-   loses the empty frame. */
+.preset-chip[data-selected='true']::before {
+  background: linear-gradient(140deg, var(--color-primary), var(--color-accent-violet));
+}
+
+.preset-chip[data-selected='true']:focus-visible::before {
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.preset-chip:focus-visible .preset-thumb {
+  outline: none;
+}
+
+/*
+ * `height: auto` was load-bearing for the card-shaped chip; the circle sets both dimensions
+ * explicitly, which the width/height attributes in the markup cannot override on their own.
+ */
+.preset-thumb {
+  grid-area: 1 / 1;
+  display: block;
+  width: calc(5rem - 6px);
+  height: calc(5rem - 6px);
+  object-fit: cover;
+  border-radius: 50%;
+  background-color: var(--color-stage);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Previews that could not be rendered are not a reason to block a choice: the chip keeps its name
+   and loses the empty frame. */
 .preset-chip[data-state='unavailable'] .preset-thumb {
   display: none;
 }
 
 .preset-name {
+  grid-area: 2 / 1;
+  font-size: var(--text-xs);
   font-weight: 600;
+  color: var(--color-text-secondary);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.preset-chip[data-selected='true'] .preset-name {
+  color: var(--color-text);
+}
+
+/* Disabled until its own thumbnail exists; the ring keeps the row's height steady either way. */
+.preset-chip:disabled {
+  cursor: progress;
+  opacity: 0.7;
 }
 
 .range-row {
   display: flex;
-  gap: var(--space-3);
+  gap: var(--space-4);
   align-items: center;
 }
 
 .range-input {
   flex: 1 1 auto;
   min-width: 0;
-  height: 1.5rem;
-  accent-color: var(--color-primary);
 }
 
 .range-output {
   flex: none;
   min-width: 4rem;
-  font-size: var(--text-sm);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
-  color: var(--color-text-secondary);
+  color: var(--color-text);
   text-align: end;
+}
+
+/* Sits under the controls and explains where the selected preset came from. */
+.preset-note {
+  margin: var(--space-4) 0 0;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-fill);
+  border: 1px solid var(--color-separator);
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.preset-note.is-error {
+  color: var(--color-error);
+  font-weight: 600;
 }
 
 /* Auto enhance has no Stage B to blend towards, so the slider is disabled rather than inert-looking. */
@@ -1397,10 +1629,10 @@
 }
 
 .advanced-adjust {
-  margin: var(--space-5) 0 0;
-  padding: var(--space-3) var(--space-4);
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
+  margin: var(--space-2) 0 0;
+  padding: 0 var(--space-4);
+  background-color: var(--color-fill);
+  border: 1px solid var(--color-separator);
   border-radius: var(--radius-md);
 }
 
@@ -1412,10 +1644,10 @@
   display: flex;
   gap: var(--space-3);
   align-items: center;
-  min-height: 44px;
+  min-height: 48px;
   font-size: var(--text-sm);
   font-weight: 600;
-  color: var(--color-text-secondary);
+  color: var(--color-text);
   cursor: pointer;
   list-style: none;
 }
@@ -1424,7 +1656,8 @@
   display: none;
 }
 
-/* Drawn with borders rather than the platform triangle, so it points the same way in both directions. */
+/* Drawn with borders rather than the platform triangle, so it points the same way in both
+   directions. */
 .advanced-adjust > summary::after {
   content: '';
   flex: none;
@@ -1433,18 +1666,18 @@
   margin-inline-start: auto;
   border-right: 2px solid currentColor;
   border-bottom: 2px solid currentColor;
-  transform: rotate(45deg);
+  transform: rotate(45deg) translateY(-1px);
   transition: transform var(--transition-fast);
 }
 
 .advanced-adjust[open] > summary::after {
-  transform: rotate(-135deg);
+  transform: rotate(-135deg) translateY(-1px);
 }
 
 .advanced-body {
   display: grid;
   gap: var(--space-4);
-  padding-top: var(--space-3);
+  padding-block: 0 var(--space-4);
 }
 
 /* The auto-correct readout under the result stats: a measurement, not a claim. */
@@ -1460,14 +1693,131 @@
 }
 
 /*
- * Five 136px cards fit side by side from roughly 760px upward, so a wider screen shows the whole row
- * at once. Below that the row scrolls, which is the right answer on a phone — a wrapped four-plus-one
- * layout puts the fifth style on its own line where nobody looks for it.
+ * Five circular chips fit side by side from roughly 760px upward, so a wider screen shows the whole
+ * row at once. Below that the row scrolls, which is the right answer on a phone — a wrapped
+ * four-plus-one layout puts the fifth style on its own line where nobody looks for it.
  */
 @media (min-width: 768px) {
   .preset-row {
     flex-wrap: wrap;
     overflow-x: visible;
+  }
+}
+
+/* ---------- the flagship stage ----------
+ *
+ * enhance-photo's result is framed rather than listed: the compare slider, the stats strip and the
+ * save actions all sit inside one dark well, which is how a photo is judged. Scoped to the tool's
+ * own panel because the markup it wraps is generated, not hand-written — the `.stage` class is the
+ * reusable name, the attribute selector is what reaches it without a template change.
+ *
+ * Everything inside reads light in *both* themes, because the well is dark in both themes; the
+ * stage tokens in base.css carry that, and they are not in the dark blocks for the same reason.
+ */
+.stage,
+.tool-panel[data-tool-slug='enhance-photo'] .result {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-5);
+  background-color: var(--color-stage);
+  border: 1px solid var(--color-stage-separator);
+  border-radius: var(--radius-lg);
+  color: var(--color-stage-text);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), var(--shadow-lg);
+}
+
+.stage .compare-slider,
+.tool-panel[data-tool-slug='enhance-photo'] .result .compare-slider {
+  border-color: var(--color-stage-separator);
+}
+
+/* The glass strip over a dark well picks up the well's own light. */
+.stage .result-stats,
+.tool-panel[data-tool-slug='enhance-photo'] .result-stats {
+  background-color: rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: var(--blur-chip);
+  backdrop-filter: var(--blur-chip);
+  border-color: var(--color-stage-separator);
+}
+
+.stage .result-stat,
+.tool-panel[data-tool-slug='enhance-photo'] .result-stat {
+  border-inline-start-color: var(--color-stage-separator);
+}
+
+.stage .result-stat dt,
+.tool-panel[data-tool-slug='enhance-photo'] .result-stat dt {
+  color: var(--color-stage-muted);
+}
+
+.stage .compare-savings,
+.stage .correction-note,
+.tool-panel[data-tool-slug='enhance-photo'] .result .compare-savings,
+.tool-panel[data-tool-slug='enhance-photo'] .result .correction-note {
+  color: var(--color-stage-secondary);
+}
+
+/* A secondary button over a dark well is a dark chip, not a light one: the fill token is a gray
+   over the page's own background and would be near-invisible here. */
+.stage .button-secondary,
+.tool-panel[data-tool-slug='enhance-photo'] .result .button-secondary {
+  background-color: var(--color-stage-fill);
+  color: var(--color-stage-text);
+  border-color: var(--color-stage-separator);
+}
+
+.stage .button-secondary:hover,
+.tool-panel[data-tool-slug='enhance-photo'] .result .button-secondary:hover {
+  background-color: var(--color-stage-fill-hover);
+  color: var(--color-stage-text);
+}
+
+.stage .notice-warning,
+.tool-panel[data-tool-slug='enhance-photo'] .result .notice-warning {
+  background-color: rgba(255, 159, 10, 0.16);
+  border-color: rgba(255, 159, 10, 0.5);
+  color: var(--color-stage-text);
+}
+
+/*
+ * The two-column flagship: the stage and its result on the left, the controls on the right. The
+ * panel's children are placed by name — the drop zone and the result own the left rail, the style
+ * row, the intensity, the advanced disclosure, the batch and the progress own the right one — so
+ * the flow of the tool is unchanged and only its arrangement widens.
+ */
+@media (min-width: 768px) {
+  .tool-panel[data-tool-slug='enhance-photo'] {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    align-items: start;
+    gap: var(--space-6);
+  }
+
+  .tool-panel[data-tool-slug='enhance-photo'] > .dropzone {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .tool-panel[data-tool-slug='enhance-photo'] > .notice {
+    grid-column: 2;
+  }
+
+  .tool-panel[data-tool-slug='enhance-photo'] > .preset-section,
+  .tool-panel[data-tool-slug='enhance-photo'] > .tool-controls,
+  .tool-panel[data-tool-slug='enhance-photo'] > .advanced-adjust,
+  .tool-panel[data-tool-slug='enhance-photo'] > .batch,
+  .tool-panel[data-tool-slug='enhance-photo'] > .progress-region {
+    grid-column: 2;
+  }
+
+  .tool-panel[data-tool-slug='enhance-photo'] > .result {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .tool-panel[data-tool-slug='enhance-photo'] > .status {
+    grid-column: 1 / -1;
   }
 }
 
@@ -1494,7 +1844,7 @@
  *
  * **`[data-collapsible]` is the hook, not the section class.** The mechanics here are generic — one
  * disclosure, one body beside it — and the tool page's intro (`.intro-disclosure` in the hero) uses the
- * same three rules to fold its 190px of prose away on a phone. `.secondary-section` only adds the rule
+ * same three rules to fold its prose away on a phone. `.secondary-section` only adds the rule
  * line and the padding that make an editorial block read as its own section.
  */
 @media (min-width: 768px) {
@@ -1535,12 +1885,12 @@
    * the last row of the batch list.
    */
   body {
-    padding-bottom: env(safe-area-inset-bottom);
+    padding-bottom: var(--safe-area-bottom);
   }
 
   body:has([data-primary-action][data-sticky='on']) {
-    /* 44px is the bar's own minimum reach, plus a little breathing room. */
-    padding-bottom: calc(44px + var(--space-3) + env(safe-area-inset-bottom));
+    /* The bar's own height: 12px padding either side of a 48px target, plus the safe-area inset. */
+    padding-bottom: calc(76px + var(--safe-area-bottom));
   }
 
   /*
@@ -1550,7 +1900,7 @@
    */
   .secondary-section {
     padding-top: var(--space-4);
-    border-top: 1px solid var(--color-border);
+    border-top: 1px solid var(--color-separator);
   }
 
   /*
@@ -1594,12 +1944,12 @@
     margin-inline-start: auto;
     border-right: 2px solid currentColor;
     border-bottom: 2px solid currentColor;
-    transform: rotate(45deg);
+    transform: rotate(45deg) translateY(-1px);
     transition: transform var(--transition-fast);
   }
 
   [data-collapsible] > details[open] > summary::after {
-    transform: rotate(-135deg);
+    transform: rotate(-135deg) translateY(-1px);
   }
 
   /*
@@ -1609,9 +1959,8 @@
    * and the file input is a 1px proxy for the label above it.
    *
    * A *visible* range input is different — it is dragged with a thumb, not tapped — so `.range-input`
-   * (the intensity and advanced sliders) is named explicitly. `height: 1.5rem` on the desktop rule
-   * gives it a 24px box, and `min-height` outranks `height`, so the box grows here and the track is
-   * drawn centred inside it.
+   * (the intensity and advanced sliders) is named explicitly. Its touch box is the 28px track area,
+   * which is what the styled thumb inside it lands in.
    */
   .tool-panel button,
   .tool-panel .button,
@@ -1625,8 +1974,33 @@
   .nav-link,
   .lang-switch-link,
   .lang-switch-current,
+  .order-button,
   .breadcrumb a {
     min-height: 44px;
+  }
+
+  /* The order list's arrows are 44px squares on a phone: a glyph that small with a 36px box is a
+      target a thumb misses. */
+  .order-button {
+    min-width: 44px;
+  }
+
+  /*
+   * The three targets the list above cannot reach, because none of them is a box the min-height
+   * above would land on: the skip link and the prose link are inline, and a link inside a paragraph
+   * cannot be made a flex box without breaking the paragraph's wrapping. Vertical padding is what
+   * closes the gap on both — padding-block on an inline element paints a taller hit box without
+   * contributing to the line box, so the sentence keeps its leading, its wrapping and its place in
+   * the paragraph, and the link keeps its own text centred in a 44px band. Neither has a
+   * background, so the extra band is invisible. */
+  .skip-link {
+    padding-block: var(--space-3);
+  }
+
+  .prose a {
+    /* 12px either side of a 22px line of text is 46px — a finger's worth of target, and still
+     * inside the 27px of leading between the lines around it. */
+    padding-block: 12px;
   }
 
   /*
@@ -1655,6 +2029,8 @@
      the other dimension too — still round, and a target a thumb can hit. */
   .theme-toggle {
     width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full);
   }
 
   /* The menu toggle is 40px wide for the same reason the theme toggle is 40px round: the icon and
@@ -1662,6 +2038,23 @@
      is what the criterion measures; this makes it square rather than a 40×44 sliver. */
   .mobile-menu-toggle {
     min-width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full);
+  }
+
+  /* The panels go near-full-bleed: the radius is for the corner it still rounds, and the padding
+     keeps a thumb's worth of inset. */
+  .tool-panel {
+    padding: var(--space-5);
+    border-radius: var(--radius-lg);
+  }
+
+  .tool-card-link {
+    padding: var(--space-5);
+  }
+
+  .tool-card-planned > .tool-card-link {
+    padding: var(--space-5);
   }
 
   /*
@@ -1669,6 +2062,9 @@
    * is exactly one "Compress all" on the screen, and it only shows once files are queued (the
    * attribute is set from the queue's own state, and the batch region is `hidden` until then anyway).
    * `.batch-actions`, its former home, is a row that now holds only the ZIP button.
+   *
+   * The bar is glass and the pill inside it is the accent, drawn on a pseudo-element: the button is
+   * both, and neither half of it can be a second element without a second copy of the action.
    */
   [data-primary-action][data-sticky='on'] {
     position: fixed;
@@ -1676,9 +2072,140 @@
     bottom: 0;
     z-index: var(--z-dropdown);
     margin: 0;
+    padding: var(--space-3) var(--space-4) calc(var(--space-3) + var(--safe-area-bottom));
+    background-color: var(--color-glass);
+    -webkit-backdrop-filter: var(--blur-glass);
+    backdrop-filter: var(--blur-glass);
+    border-top: 1px solid var(--color-glass-border);
     border-radius: 0;
-    padding: var(--space-3) var(--space-4);
-    padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
-    border-top: 1px solid var(--color-border);
+    box-shadow: var(--shadow-lg);
+    color: #ffffff;
   }
+
+  /* The pill: inset from the bar's own edges so the glass reads around it, and painted behind the
+     label, which stays centred by the button's own flex. */
+  [data-primary-action][data-sticky='on']::before {
+    content: '';
+    position: absolute;
+    inset-block: var(--space-2) calc(var(--space-2) + var(--safe-area-bottom));
+    inset-inline: var(--space-4);
+    z-index: -1;
+    border-radius: var(--radius-full);
+    background-color: var(--color-primary-solid);
+    box-shadow: var(--shadow-md);
+  }
+
+  [data-primary-action][data-sticky='on']:hover {
+    background-color: var(--color-glass);
+    box-shadow: var(--shadow-lg);
+  }
+
+  [data-primary-action][data-sticky='on']:hover::before {
+    background-color: var(--color-primary-solid-hover);
+  }
+}
+
+/* ---------- save-photo fallback viewer ----------
+ *
+ * The one path that cannot hand the visitor a file: an in-app webview, where `navigator.share` is
+ * refused and `<a download>` is ignored. The module renders this DOM; this block styles it. The
+ * contract is `[hidden]` — the attribute the module sets — and the `:not([hidden])` guard below, so
+ * the display rule never outranks the hidden state.
+ *
+ * Fixed and full-viewport by design: this is a viewer for one image, not a page, so it owns the
+ * layer above the header for as long as it is open and gives the image the whole screen.
+ */
+.save-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-viewer);
+  display: none;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: var(--safe-area-top) var(--space-4) calc(var(--space-4) + var(--safe-area-bottom));
+  background-color: var(--color-stage);
+  color: var(--color-stage-text);
+}
+
+.save-viewer[hidden] {
+  display: none;
+}
+
+.save-viewer:not([hidden]) {
+  display: flex;
+}
+
+.save-viewer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex: none;
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-3);
+  background-color: var(--color-stage-fill);
+  border: 1px solid var(--color-stage-separator);
+  border-radius: var(--radius-md);
+  -webkit-backdrop-filter: var(--blur-chip);
+  backdrop-filter: var(--blur-chip);
+}
+
+.save-viewer-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  color: var(--color-stage-text);
+  background-color: var(--color-stage-fill);
+  border: 1px solid var(--color-stage-separator);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.save-viewer-close:hover {
+  background-color: var(--color-stage-fill-hover);
+}
+
+.save-viewer-close:active {
+  transform: scale(0.94);
+}
+
+/* The image takes what is left and nothing else: contain, never crop, and no callout or selection
+   — the long-press the hint describes has to land on the pixels, not on a menu the browser draws
+   over them. */
+.save-viewer-img {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  background-color: #000000;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.save-viewer-hint {
+  flex: none;
+  margin: var(--space-3) 0 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-stage-separator);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: var(--leading-relaxed);
+  color: #ffffff;
+  text-align: center;
+}
+
+.save-viewer-open {
+  flex: none;
+  margin-top: var(--space-3);
+  background-color: var(--color-primary-solid);
+  color: #ffffff;
 }

@@ -61,6 +61,15 @@
   <link rel="stylesheet" href="/assets/css/components.css">
   <link rel="stylesheet" href="/assets/css/rtl.css">
   <script type="application/json" id="ui-strings">{
+  "js.save.shareTitle": "صور من محرر الصور في المتصفح",
+  "js.save.shareText": "تمت معالجتها بالكامل في متصفحي — لم يتم رفع أي شيء.",
+  "js.save.saved": "تم حفظ {name} ({size}، {format}).",
+  "js.save.savedMany": "تمت مشاركة {count} {images} ({size}).",
+  "js.save.failed": "تعذّر حفظ الصورة على هذا الجهاز.",
+  "js.webview.hint": "الحفظ محدود في هذا المتصفح المدمج، لذا تُعرض الصورة بملء الشاشة بدلاً من ذلك.",
+  "js.webview.viewerHint": "اضغط مطولاً على الصورة ثم اختر «حفظ في الصور».",
+  "js.webview.close": "إغلاق",
+  "js.webview.openInSafari": "فتح في سفاري",
   "js.chrome.menuOpen": "افتح القائمة",
   "js.chrome.menuClose": "أغلق القائمة",
   "js.enhance.ready": "جاهز — أفلت صورة أو مجموعة صور لتحسينها.",
@@ -119,6 +128,7 @@
   "js.common.progressPercent": "{finished} من {total} انتهت — {percent}%",
   "js.common.progressFor": "تقدّم {name}",
   "js.common.downloadSize": "تنزيل {size}",
+  "js.common.downscaled": "تم تصغير الصورة إلى {w} × {h} لأنها أكبر من الحد الأقصى للوح الرسوم في هذا الجهاز.",
   "js.common.jpegFlatten": "JPEG لا يستطيع تخزين الشفافية، لذلك سُطّحت المناطق الشفافة على الأبيض.",
   "js.common.largerThanOriginal": "خرج هذا الملف أكبر من الأصل بمقدار {size} — جرّب WebP أو حدّد حجماً مستهدفاً.",
   "js.common.largerThanOriginalResize": "الملف الجديد أكبر من الأصل بمقدار {size} — وإعادة الترميز إلى صيغة أخرى قد تفعل ذلك حتى مع انخفاض عدد البكسلات.",
@@ -337,8 +347,19 @@
   <main class="main" id="main">
     <div class="container">
       <section class="hero">
+        <p class="hero-eyebrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="11" width="18" height="11" rx="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          بلا رفع ملفات. بلا خوادم. 100% على جهازك.
+        </p>
         <h1>أدوات صور لا ترفع ملفاتك أبداً</h1>
-        <p>كل أداة هنا تعمل داخل تبويب متصفحك أنت. تُعالَج صورك على جهازك ولا تُرسَل إلى أي خادم، لأنه لا يوجد خادم أصلاً.</p>
+        <p class="hero-sub">كل أداة هنا تعمل داخل تبويب متصفحك أنت. تُعالَج صورك على جهازك ولا تُرسَل إلى أي خادم، لأنه لا يوجد خادم أصلاً.</p>
+        <div class="hero-actions">
+          <a class="button" href="#tools">تصفّح الأدوات</a>
+          <a class="button button-secondary" href="/ar/pages/how-it-works/">كيف يعمل الموقع</a>
+        </div>
       </section>
 
       <section class="prose">
@@ -347,7 +368,7 @@
         <p>وهذا يعني: بلا تسجيل، وبلا حدّ لحجم الملف يفرضه خادم، وبلا نسخ من صورك على قرص أحد غيرك. ويعني أيضاً أن الأدوات تعمل بلا اتصال بعد تحميل الصفحة، وأن بطء الاتصال يؤثر فقط في سرعة وصول الصفحة — لا في سرعة معالجة صورك إطلاقاً.</p>
       </section>
 
-      <section class="tools-section">
+      <section class="tools-section" id="tools">
         <h2>كل الأدوات</h2>
         <!--#include partials/ar/tool-grid.html-->
       </section>

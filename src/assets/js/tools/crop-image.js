@@ -17,16 +17,17 @@
  * turned into a PNG blob (a browser API that has no worker equivalent for a DOM canvas) and the
  * real encoding happens in convert.worker.js, which the convert tool uses too. One encoder, not two.
  */
-import * as Comlink from 'comlink';
 import Cropper from 'cropperjs';
 
 // Bundled by Vite from the package, so there is no separate stylesheet request to keep in step.
 import 'cropperjs/dist/cropper.css';
 
 import { CompressError } from '../core/engine-compress.js';
+import { openEngine } from '../core/worker-or-main.js';
 import { normaliseRotation } from '../core/engine-crop.js';
 import { CROP_RATIOS } from '../core/presets.js';
-import { downloadBlob } from '../core/file-io.js';
+import { flattenForFormat } from '../core/formats.js';
+import { wireDownloadAnchor } from '../core/save-photo.js';
 import { createCompareSlider } from '../ui/compare-slider.js';
 import { createDropzone } from '../ui/dropzone.js';
 import { formatBytes } from '../ui/format.js';
@@ -100,6 +101,8 @@ function init() {
   let sourceUrl = null;
   let sourceFile = null;
   let resultUrl = null;
+  /** `{ blob, filename }` — the finished crop, cached so a save tap never has to encode anything. */
+  let lastResult = null;
   let rotation = 0;
   let flipH = false;
   let flipV = false;
@@ -112,13 +115,17 @@ function init() {
     statusLine.classList.toggle('is-error', tone === 'error');
   }
 
+  /**
+   * The crop tool uses the convert engine for its re-encode, so there is one encoder in the project
+   * rather than two — on a browser without a worker canvas it is the same engine on the main thread.
+   */
   function ensureWorker() {
     if (api) return api;
+    // See compress-image.js: the worker is constructed here so the bundler can resolve it.
     worker = new Worker(new URL('../workers/convert.worker.js', import.meta.url), { type: 'module' });
-    worker.addEventListener('error', () => {
-      announce(t('js.crop.workerStopped'), 'error');
+    api = openEngine('convert', worker, {
+      onError: () => announce(t('js.crop.workerStopped'), 'error'),
     });
-    api = Comlink.wrap(worker);
     return api;
   }
 
@@ -235,12 +242,17 @@ function init() {
     updateSticky();
     progress.start(t('js.crop.phaseCrop'));
     try {
+      const outputMime = formatSelect?.value || config.defaultOutput;
       // Natural resolution: no width/height are requested, so cropperjs returns the selected
       // region at its own pixel size with the rotation and flips already applied.
+      //
+      // `fillColor` is conditional because a white fill is baked into the pixels: it rescues a
+      // JPEG (which cannot store alpha) and destroys a PNG or WebP (which can). Only the formats
+      // that drop transparency get one.
       const canvas = cropper.getCroppedCanvas({
         imageSmoothingEnabled: true,
         imageSmoothingQuality: 'high',
-        fillColor: '#ffffff',
+        ...(flattenForFormat(outputMime) ? { fillColor: '#ffffff' } : {}),
       });
       if (!canvas || canvas.width < 1 || canvas.height < 1) {
         throw new CompressError('INVALID_SELECTION', t('js.crop.invalidSelection'));
@@ -248,7 +260,10 @@ function init() {
 
       progress.set(0.4, t('js.crop.phaseEncode'));
       const png = await canvasToBlob(canvas);
-      const outputMime = formatSelect?.value || config.defaultOutput;
+      // Dropping the canvas's pixels here is the earliest moment it is safe: the blob holds its own
+      // copy, and a natural-resolution crop of a large photo is a large canvas to keep around.
+      canvas.width = 0;
+      canvas.height = 0;
       const client = ensureWorker();
       const { blob, meta } = await client.convert({
         jobId: `crop-${Date.now()}`,
@@ -258,7 +273,10 @@ function init() {
 
       if (resultUrl) URL.revokeObjectURL(resultUrl);
       resultUrl = URL.createObjectURL(blob);
-      showResult(meta, canvas);
+      const extension = config.outputExtensions?.[meta.outputMime] ?? 'png';
+      const stem = (sourceFile?.name ?? 'image').replace(/\.[^./\\]+$/, '');
+      lastResult = { blob, filename: `${stem}-cropped.${extension}` };
+      showResult(meta, meta.width, meta.height);
       progress.finish(t('js.common.done'));
       announce(
         t('js.crop.croppedTo', {
@@ -277,7 +295,7 @@ function init() {
     }
   }
 
-  function showResult(meta, canvas) {
+  function showResult(meta, width, height) {
     // See compress-image.js: this is the signal the install banner waits for.
     markProcessed();
     resultPanel.hidden = false;
@@ -286,15 +304,13 @@ function init() {
     compare.setSavings(sourceFile?.size ?? 0, meta.bytes);
 
     if (result.dimensions) {
-      result.dimensions.textContent = `${canvas.width}×${canvas.height}`;
+      result.dimensions.textContent = `${width}×${height}`;
     }
     if (result.size) result.size.textContent = formatBytes(meta.bytes);
     if (result.format) result.format.textContent = config.outputLabels?.[meta.outputMime] ?? meta.outputMime;
     if (result.download) {
-      const extension = config.outputExtensions?.[meta.outputMime] ?? 'png';
-      const stem = (sourceFile?.name ?? 'image').replace(/\.[^./\\]+$/, '');
       result.download.href = resultUrl ?? '';
-      result.download.download = `${stem}-cropped.${extension}`;
+      result.download.download = lastResult?.filename ?? 'cropped.png';
       result.download.textContent = t('js.common.downloadSize', { size: formatBytes(meta.bytes) });
     }
     if (result.warning) {
@@ -314,6 +330,7 @@ function init() {
     resultPanel.hidden = true;
     if (resultUrl) URL.revokeObjectURL(resultUrl);
     resultUrl = null;
+    lastResult = null;
     compare.reset();
   }
 
@@ -375,6 +392,15 @@ function init() {
   root.querySelector('[data-crop-choose-another]')?.addEventListener('click', startOver);
   resultPanel.querySelector('[data-start-over]')?.addEventListener('click', startOver);
 
+  // The result panel's save control. Its `href` stays set — a browser with no JavaScript still
+  // downloads through it — while the tap goes through the shared save module, which shares on iOS
+  // and opens the press-and-hold viewer inside an in-app browser instead of leaving the page.
+  wireDownloadAnchor(result.download, {
+    getBlob: () => lastResult?.blob ?? null,
+    getFilename: () => lastResult?.filename,
+    statusEl: statusLine,
+  });
+
   const dropzone = createDropzone(dropzoneRoot, {
     accept: config.accepts ?? [],
     maxBytes: config.maxInputBytes ?? 50 * 1024 * 1024,
@@ -412,8 +438,7 @@ function init() {
   window.addEventListener('pagehide', () => {
     destroyCropper();
     clearResult();
-    worker?.terminate();
-    worker = null;
+    api?.dispose();
     api = null;
   });
 

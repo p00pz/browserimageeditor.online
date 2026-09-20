@@ -15,7 +15,7 @@
  * `x' = a*x + c*y + e`, `y' = b*x + d*y + f`, and it maps *source image* pixels to output pixels.
  */
 import { CompressError } from './errors.js';
-import { assertPixelBudget } from './engine-compress.js';
+import { assertPixelBudget, safeMaxPixels } from './engine-compress.js';
 
 const QUARTER_TURNS = [0, 90, 180, 270];
 

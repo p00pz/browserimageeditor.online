@@ -33,7 +33,7 @@
  */
 import * as Comlink from 'comlink';
 
-import { CompressError } from '../core/engine-compress.js';
+import { CompressError, safeMaxPixels } from '../core/engine-compress.js';
 import { encodeOptions, needsOpaqueBackdrop } from '../core/engine-convert.js';
 import {
   applyFilterEquivalents,
@@ -316,7 +316,9 @@ async function enhance(payload = {}, onProgress) {
     bitmap = await decode(file);
     throwIfAborted(signal);
 
-    const budget = assertEnhanceBudget(bitmap.width, bitmap.height, options.maxPixels);
+    // The budget is the platform's own canvas limit: an iPhone photo past it cannot be held on a
+    // canvas here at all, so it is refused with a reason rather than crashing mid-pipeline.
+    const budget = assertEnhanceBudget(bitmap.width, bitmap.height, safeMaxPixels(options.maxPixels, navigator.userAgent));
     const { width, height } = budget;
 
     onProgress?.({ jobId, phase: 'analyse', ratio: 0.2 });

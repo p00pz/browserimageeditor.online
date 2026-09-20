@@ -33,7 +33,7 @@
 import * as Comlink from 'comlink';
 import pica from 'pica';
 
-import { CompressError } from '../core/engine-compress.js';
+import { CompressError, safeMaxPixels } from '../core/engine-compress.js';
 import { encodeOptions, needsOpaqueBackdrop } from '../core/engine-convert.js';
 import { assertResizeBudget, planResize } from '../core/engine-resize.js';
 
@@ -127,6 +127,11 @@ async function resize(payload = {}, onProgress) {
     const bitmap = await decode(file);
     throwIfAborted(signal);
 
+    // The budget is the platform's own canvas limit, and it applies to the source as well as the
+    // result: reading the pixels back for the resampler allocates a canvas at the full source size.
+    const budget = safeMaxPixels(options.maxPixels, navigator.userAgent);
+    assertResizeBudget(bitmap.width, bitmap.height, budget);
+
     const plan = planResize({
       sourceWidth: bitmap.width,
       sourceHeight: bitmap.height,
@@ -138,7 +143,7 @@ async function resize(payload = {}, onProgress) {
 
     const outputMime = options.outputMime || 'image/webp';
     const backdrop = needsOpaqueBackdrop(outputMime);
-    assertResizeBudget(plan.width, plan.height, options.maxPixels);
+    assertResizeBudget(plan.width, plan.height, budget);
 
     onProgress?.({ jobId, phase: 'resize', ratio: 0.55 });
 

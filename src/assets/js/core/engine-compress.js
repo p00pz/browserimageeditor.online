@@ -30,6 +30,61 @@ export { flattenForFormat, formatLabel } from './formats.js';
 export const DEFAULT_MAX_PIXELS = 100_000_000;
 
 /**
+ * WebKit — every browser on iOS, and Safari on macOS — caps the total *area* of a canvas well
+ * below the general budget. Allocating past the cap fails outright instead of swapping to disk, so
+ * on those browsers the usable budget is the smaller number. ~16.7 megapixels is the observed
+ * ceiling for a single canvas on iOS.
+ */
+export const WEBKIT_SAFE_MAX_PIXELS = 16_700_000;
+
+/**
+ * Detects a WebKit-based browser from its user agent.
+ *
+ * There is no capability probe for "can a canvas this large exist" — the only way to ask is to try,
+ * and trying is the crash — so the user agent decides it. Every browser on iOS is WebKit under the
+ * hood regardless of its own brand, so the whole family shares the limit. On macOS the other
+ * vendors' tokens are what rule them out: Chrome, Edge, Opera, Firefox and every Android browser
+ * carry one even when their UA also says "Safari".
+ */
+export function isWebKitAgent(userAgent = '') {
+  const ua = String(userAgent ?? '').toLowerCase();
+  if (/(?:iphone|ipad|ipod)/.test(ua)) return true;
+  return ua.includes('safari') && !/(?:chrom|android|firefox|edg|opr)/.test(ua);
+}
+
+/**
+ * The pixel budget that applies on this device: the configured budget, or the WebKit canvas cap,
+ * whichever is smaller. The user agent is a parameter rather than read here because the pure
+ * engines are tested in Node, where there is no navigator; the workers that call them pass theirs.
+ */
+export function safeMaxPixels(maxPixels = DEFAULT_MAX_PIXELS, userAgent = '') {
+  const configured = Number.isFinite(maxPixels) && maxPixels > 0 ? maxPixels : DEFAULT_MAX_PIXELS;
+  if (!isWebKitAgent(userAgent)) return configured;
+  return Math.min(configured, WEBKIT_SAFE_MAX_PIXELS);
+}
+
+/**
+ * Scales a pair of dimensions down until the pixel count fits a budget, keeping the aspect ratio.
+ *
+ * Used when a photo is larger than this device can hold on a canvas at all: rather than refusing a
+ * photo the visitor can see, the compress engine shrinks the source to something that fits and
+ * reports the real numbers, so the page can say exactly what happened and why.
+ */
+export function fitToPixelBudget(width, height, maxPixels) {
+  const w = Math.max(1, Math.round(width));
+  const h = Math.max(1, Math.round(height));
+  if (w * h <= maxPixels) return { width: w, height: h, scaled: false };
+  // The square root of the area ratio is the linear scale, and flooring both axes keeps the
+  // product on the safe side of the budget.
+  const ratio = Math.sqrt(maxPixels / (w * h));
+  return {
+    width: Math.max(1, Math.floor(w * ratio)),
+    height: Math.max(1, Math.floor(h * ratio)),
+    scaled: true,
+  };
+}
+
+/**
  * The two typed-number parsers now live in ./inputs.js because resize, convert and crop all
  * need them. They are re-exported here so every existing import keeps working unchanged.
  */
@@ -70,7 +125,23 @@ export function fitWithin({ width, height, maxWidth = null, maxHeight = null, no
   };
 }
 
-export function assertPixelBudget(width, height, maxPixels = DEFAULT_MAX_PIXELS) {
+/**
+ * The user agent of the current document, or '' where there is none (a plain Node test). Used as
+ * the default so a call site that passes nothing still gets the platform's real canvas limit in a
+ * browser, while the pure engine tests keep their deterministic desktop budget.
+ */
+function liveUserAgent() {
+  if (typeof navigator === 'undefined') return '';
+  return navigator.userAgent ?? '';
+}
+
+/**
+ * Refuses dimensions whose pixel count no canvas on this device can hold.
+ *
+ * Without an explicit budget the safe one for the platform is used, which is what guards the
+ * engines that never see a user agent of their own.
+ */
+export function assertPixelBudget(width, height, maxPixels = safeMaxPixels(liveUserAgent())) {
   const pixels = width * height;
   if (pixels > maxPixels) {
     throw new CompressError(
@@ -163,6 +234,7 @@ export async function compressFile(file, options = {}, deps = {}) {
     maxHeight = null,
     toleranceBytes = null,
     maxPixels = DEFAULT_MAX_PIXELS,
+    userAgent = '',
     signal,
     onProgress,
   } = options;
@@ -179,9 +251,23 @@ export async function compressFile(file, options = {}, deps = {}) {
     throw new CompressError('DECODE_FAILED', 'That file could not be decoded as an image.');
   }
 
-  assertPixelBudget(source.width, source.height, maxPixels);
+  const budget = safeMaxPixels(maxPixels, userAgent);
 
-  const fitted = fitWithin({ width: source.width, height: source.height, maxWidth, maxHeight });
+  /*
+   * A photo bigger than the platform's canvas limit cannot be encoded at its own size — WebKit
+   * fails the allocation rather than swapping. On those browsers the source is scaled down to fit
+   * first, and the fact is carried back in `meta.downscaled` with the real numbers, because a
+   * silent resize of someone's photo is exactly the thing this tool says it does not do. Elsewhere
+   * the configured budget is policy rather than physics, and an image past it is still refused.
+   */
+  const capped = isWebKitAgent(userAgent)
+    ? fitToPixelBudget(source.width, source.height, budget)
+    : { width: source.width, height: source.height, scaled: false };
+  assertPixelBudget(capped.width, capped.height, budget);
+
+  const fitted = fitWithin({ width: capped.width, height: capped.height, maxWidth, maxHeight });
+  // `fitWithin` reports scaling relative to the dimensions it was handed; a budget cap is a scale too.
+  const plan = { ...fitted, scaled: fitted.scaled || capped.scaled };
   onProgress?.({ phase: 'fit', ratio: 0.15 });
 
   const search = await searchTargetBytes({
@@ -198,7 +284,7 @@ export async function compressFile(file, options = {}, deps = {}) {
       });
     },
     encode: async (quality) => {
-      const encoded = await imageCompression(file, libraryOptions({ outputMime, fitted, quality, signal }));
+      const encoded = await imageCompression(file, libraryOptions({ outputMime, fitted: plan, quality, signal }));
       if (!encoded || !Number.isFinite(encoded.size)) {
         throw new CompressError('ENCODE_FAILED', 'The encoder did not return a usable image.');
       }
@@ -216,9 +302,11 @@ export async function compressFile(file, options = {}, deps = {}) {
       sourceBytes: file.size,
       sourceWidth: source.width,
       sourceHeight: source.height,
-      width: fitted.width,
-      height: fitted.height,
-      scaled: fitted.scaled,
+      width: plan.width,
+      height: plan.height,
+      scaled: plan.scaled,
+      downscaled: capped.scaled,
+      budgetPixels: budget,
       bytes: search.bytes,
       quality: search.quality,
       attempts: search.attempts.length,

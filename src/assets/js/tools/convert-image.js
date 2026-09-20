@@ -7,13 +7,13 @@
  * write is simply not offered here, and if that leaves nothing, the tool says so instead of
  * producing files in the wrong format.
  */
-import * as Comlink from 'comlink';
-
 import { CompressError } from '../core/engine-compress.js';
+import { openEngine } from '../core/worker-or-main.js';
 import { availableFormats, isHeicFile } from '../core/engine-convert.js';
 import { formatLabel } from '../core/formats.js';
 import { createQueue } from '../core/queue.js';
-import { downloadBlob, downloadZip, toBytes, zipNameFor } from '../core/file-io.js';
+import { downloadZip, toBytes, zipNameFor } from '../core/file-io.js';
+import { saveBlob, wireDownloadAnchor } from '../core/save-photo.js';
 import { createCompareSlider } from '../ui/compare-slider.js';
 import { createDropzone } from '../ui/dropzone.js';
 import { formatBytes, formatSignedPercent } from '../ui/format.js';
@@ -118,12 +118,12 @@ function init() {
 
   function ensureWorker() {
     if (api) return api;
+    // See compress-image.js: the worker is constructed here so the bundler can resolve it.
     worker = new Worker(new URL('../workers/convert.worker.js', import.meta.url), { type: 'module' });
-    worker.addEventListener('error', () => {
-      announce(t('js.convert.workerStopped'), 'error');
+    api = openEngine('convert', worker, {
+      onError: () => announce(t('js.convert.workerStopped'), 'error'),
     });
-    api = Comlink.wrap(worker);
-    progressProxy = Comlink.proxy(handleProgress);
+    progressProxy = handleProgress;
     return api;
   }
 
@@ -435,8 +435,7 @@ function init() {
     const item = byIdLatest.get(id);
     if (!item?.result?.blob) return;
     const filename = nameFor(item);
-    downloadBlob(item.result.blob, filename);
-    announce(t('js.common.savedFile', { name: filename, size: formatBytes(item.result.meta.bytes) }));
+    void saveBlob({ blob: item.result.blob, filename, statusEl: statusLine });
   }
 
   async function downloadAllAsZip() {
@@ -636,6 +635,14 @@ function init() {
     void downloadAllAsZip();
   });
 
+  // The result panel's save control: the anchor's `href` remains the no-JavaScript path, and the
+  // tap goes through the shared save module so a share sheet or the fallback viewer can take over.
+  wireDownloadAnchor(result.download, {
+    getBlob: () => byIdLatest.get(selectedId)?.result?.blob ?? null,
+    getFilename: () => nameFor(byIdLatest.get(selectedId)),
+    statusEl: statusLine,
+  });
+
   resultPanel.querySelector('[data-start-over]')?.addEventListener('click', startOver);
 
   formatSelect.addEventListener('change', () => {
@@ -654,8 +661,7 @@ function init() {
   window.addEventListener('pagehide', () => {
     disposeQueue();
     clearPreview();
-    worker?.terminate();
-    worker = null;
+    api?.dispose();
     api = null;
   });
 

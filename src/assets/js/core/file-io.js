@@ -88,11 +88,41 @@ export function buildZip(results) {
 }
 
 /**
- * Triggers a download through a temporary anchor. Object URLs are revoked on the next tick,
- * which is long enough for every browser we target to have started the download.
+ * Every object URL this module has handed out. They are revoked together when the page is hidden
+ * rather than on a fixed timer: a download that is still in flight when a short timer fires is a
+ * download that fails, and `pagehide` is the moment the document's blob URLs stop being useful to
+ * anyone. One listener is added lazily, the first time a URL is tracked.
+ */
+const liveUrls = new Set();
+let pagehideWired = false;
+
+function revokeAllUrls() {
+  for (const url of liveUrls) {
+    try {
+      URL.revokeObjectURL(url);
+    } catch {
+      // A URL already gone is not a problem, and it must not stop the rest being revoked.
+    }
+  }
+  liveUrls.clear();
+}
+
+/** Remembers an object URL so it is revoked when the page is hidden. */
+export function trackObjectUrl(url) {
+  if (!url) return;
+  liveUrls.add(url);
+  if (pagehideWired || typeof window === 'undefined') return;
+  pagehideWired = true;
+  window.addEventListener('pagehide', revokeAllUrls);
+}
+
+/**
+ * Triggers a download through a temporary anchor. The object URL is tracked rather than revoked on
+ * a timer, so a slow download (a large batch, a paused connection) still finds its bytes.
  */
 export function downloadBlob(blob, filename) {
   const url = URL.createObjectURL(blob);
+  trackObjectUrl(url);
   const anchor = document.createElement('a');
   anchor.href = url;
   anchor.download = filename || 'download';
@@ -101,7 +131,6 @@ export function downloadBlob(blob, filename) {
   document.body.append(anchor);
   anchor.click();
   anchor.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 /** Zips `[{ name, bytes }]` and downloads it. */

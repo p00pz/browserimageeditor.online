@@ -27,6 +27,7 @@
  */
 import { formatBytes } from './format.js';
 import { t } from './strings.js';
+import { HEIC_TYPES } from '../core/formats.js';
 
 // Re-exported so callers that already imported it from this component keep working.
 export { formatBytes };
@@ -39,6 +40,15 @@ const EXTENSION_TYPES = {
   avif: 'image/avif',
   gif: 'image/gif',
 };
+
+// A HEIC file often arrives with an empty `file.type` — iPhones hand them over that way — and the
+// convert tool advertises HEIC, so the extension fallback has to resolve it. The mime types come
+// from core/formats.js so there is one HEIC table for the whole site; the sequence variants share
+// an extension with their still variants and are not separate entries.
+for (const mime of HEIC_TYPES) {
+  if (mime.includes('-sequence')) continue;
+  EXTENSION_TYPES[mime.replace('image/', '')] = mime;
+}
 
 /** How long the is-invalid state stays on screen after a rejection. */
 const INVALID_STATE_MS = 2400;
