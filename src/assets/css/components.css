@@ -1535,7 +1535,7 @@
   background: linear-gradient(140deg, var(--color-primary), var(--color-accent-violet));
 }
 
-.preset-chip[data-selected='true']:focus-visible::before {
+.preset-chip:focus-visible::before {
   box-shadow: 0 0 0 3px var(--color-focus-ring);
 }
 
@@ -1715,7 +1715,7 @@
  * stage tokens in base.css carry that, and they are not in the dark blocks for the same reason.
  */
 .stage,
-.tool-panel[data-tool-slug='enhance-photo'] .result {
+.tool-panel[data-tool-slug='enhance-photo'] .result:not([hidden]) {
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
@@ -2205,6 +2205,7 @@
 
 .save-viewer-open {
   flex: none;
+  min-height: 44px;
   margin-top: var(--space-3);
   background-color: var(--color-primary-solid);
   color: #ffffff;
