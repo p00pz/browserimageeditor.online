@@ -8,4 +8,9 @@ public/ort/
 .env.*
 *.log
 .DS_Store
+Thumbs.db
+Desktop.ini
 *.local
+# Regenerable screenshots from the visual QA harness (qa/visual-qa.mjs).
+qa/shots/
+qa/visual-report.json

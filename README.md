@@ -20,7 +20,8 @@ No upload, no server, no account. Images are processed in the browser on the vis
 
 ## Screenshots
 
-<!-- Add screenshots here before publishing. -->
+See [`qa/visual-qa.mjs`](qa/visual-qa.mjs) — it captures every page kind at 390, 768 and 1440 px,
+in both themes and both locales, and writes PNGs to `qa/shots/`.
 
 ## Tech stack
 
@@ -58,7 +59,7 @@ tests/     Node test suite
 ## Testing
 
 ```sh
-bun test
+bun run test
 ```
 
 ## Deployment
