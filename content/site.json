@@ -1,9 +1,9 @@
 {
   "name": "Browser Image Editor",
   "shortName": "BIE",
-  "themeColor": "#0366d6",
-  "themeColorDark": "#0d1117",
-  "backgroundColor": "#ffffff",
+  "themeColor": "#f2f2f7",
+  "themeColorDark": "#000000",
+  "backgroundColor": "#f2f2f7",
   "tagline": "Free image tools that never upload your files",
   "url": "https://browserimageeditor.online",
   "description": "Free browser-based image tools. Compress, resize and convert images without uploading them anywhere.",
