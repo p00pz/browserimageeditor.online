@@ -583,6 +583,9 @@
   </div>
   <!--#include partials/ar/footer.html-->
   <script type="module" src="/assets/js/ui/site.js"></script>
+  <!-- The Studio Shell presents the tool's own controls as chips and sliders. It loads before the
+       tool script and never touches a value: the tool's hooked controls stay the source of truth. -->
+  <script type="module" src="/assets/js/ui/studio.js"></script>
   <script type="module" src="/assets/js/tools/image-to-pdf.js"></script>
 </body>
 </html>

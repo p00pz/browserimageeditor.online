@@ -365,6 +365,14 @@
 
   "ui.tool.chooseImage": "Choose an image",
   "ui.tool.statFormat": "Format",
+  "ui.studio.dropTitle": "Drop an image to begin",
+  "ui.studio.dropMore": "Add more images",
+  "ui.studio.targetAuto": "Auto",
+  "ui.studio.targetLabel": "File size",
+  "ui.studio.maxDims": "Max dimensions",
+  "ui.studio.lockRatio": "Lock ratio",
+  "ui.studio.stepUp": "Increase",
+  "ui.studio.stepDown": "Decrease",
   "ui.page.repoLink": "The code behind this site lives at <a href=\"{url}\" rel=\"noopener\">{label}</a> — bug reports and fixes are welcome there.",
   "ui.page.repoMissing": "<span class=\"page-placeholder\"><strong>TO CONFIRM:</strong> no repository link is published yet, because no URL is set in content/site.json.</span>",
 

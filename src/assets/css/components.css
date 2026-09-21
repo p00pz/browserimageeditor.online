@@ -199,15 +199,231 @@
 /* ---------- Tool panel ---------- */
 
 .tool-panel {
+  display: grid;
+  gap: var(--space-5);
+  margin-bottom: var(--space-10);
+  /* The page is the studio. A card around a stage that already holds a surface would be a frame
+   * inside a frame, so the panel itself carries no background, border or shadow: the stage and the
+   * inspector are the two visible things. */
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* ---------- Studio Shell: a stage and an inspector ----------
+ *
+ * One shared shell for the six tools; only the inspector's contents differ. The stage is where the
+ * picture lives (the drop surface while empty, the compare slider and the batch filmstrip once
+ * work has happened); the inspector is a slim rail of direct, visual controls. On a phone the
+ * stage stays on top and the inspector follows, with the primary action already pinned by
+ * [data-primary-action][data-sticky='on'] in the mobile block below.
+ */
+
+.studio-stage {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
-  padding: var(--space-6);
-  margin-bottom: var(--space-10);
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.studio-inspector {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  min-width: 0;
+  padding: var(--space-5);
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
+}
+
+/* A control: a label, the presenter (chips, slider, entry), and nothing else. */
+.ctl {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ctl-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-text-secondary);
+}
+
+.ctl-readout {
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text);
+  unicode-bidi: isolate;
+}
+
+/* ---------- Chips: the segmented control that replaces every <select> ----------
+ *
+ * A chip row is a radiogroup of real buttons: 44px on a phone, pill, and the accent marks the
+ * selected one. The <select> it presents stays in the DOM as `.shell-host` — it holds the value a
+ * tool script reads — but it leaves the accessibility tree so the choice is met once, here. */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.chips-group-label {
+  flex-basis: 100%;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.chip {
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-fill);
+  color: var(--color-text);
+  border: 1px solid var(--color-separator);
+  border-radius: var(--radius-full);
+  font-size: var(--text-base);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: transform var(--transition-fast), background-color var(--transition-fast),
+    border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.chip:hover {
+  background-color: var(--color-fill-hover);
+  border-color: var(--color-separator-strong);
+}
+
+.chip:active {
+  transform: scale(0.96);
+}
+
+.chip:focus-visible {
+  outline: 2.5px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.chip[aria-checked='true'],
+.chip[aria-pressed='true'] {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+  box-shadow: var(--shadow-sm);
+}
+
+.chip:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.shell-host {
+  display: none;
+}
+
+/* A dimension pair and its ratio lock, as one row. */
+.dim-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.dim-row .field-input {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.dim-row .dim-times {
+  flex: none;
+  color: var(--color-text-muted);
+  unicode-bidi: isolate;
+}
+
+.lock-button {
+  flex: none;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-3);
+  background-color: var(--color-fill);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-separator);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.lock-button[data-on] {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.lock-button:focus-visible {
+  outline: 2.5px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* A slider and its live readout, as one row: the thumb on the start side, the value on the end. */
+.shell-slider-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.shell-slider-row .slider {
+  flex: 1 1 0;
+}
+
+.shell-slider-row .ctl-readout {
+  flex: none;
+  min-width: 4.5em;
+  text-align: inline-end;
+}
+
+.stepper-button {
+  flex: none;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-fill);
+  color: var(--color-text);
+  border: 1px solid var(--color-separator);
+  border-radius: var(--radius-md);
+  font-size: var(--text-lg);
+  cursor: pointer;
+}
+
+.stepper-button:focus-visible {
+  outline: 2.5px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.stepper-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+@media (min-width: 768px) {
+  .tool-panel {
+    grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.85fr);
+    align-items: start;
+  }
+
+  .shell-slider {
+    height: 32px;
+  }
 }
 
 /* ---------- `hidden` on a region that has its own `display` ----------
@@ -228,26 +444,66 @@
   display: none;
 }
 
-/* ---------- Dropzone ---------- */
+/* ---------- Dropzone ----------
+ *
+ * The studio's empty state is one continuous glass surface — not a dashed box, not a card inside a
+ * card — so the whole stage reads as the place a picture goes. It stays generous while it is
+ * waiting and collapses to a slim "add more" strip once a file has landed, because the stage is
+ * then showing the result and the surface's job is only to say the door is still open.
+ */
 
 .dropzone {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 220px;
-  border: 1.5px dashed var(--color-separator-strong);
-  border-radius: var(--radius-lg);
-  background-color: var(--color-fill);
+  min-height: 300px;
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius-xl);
+  background-color: var(--color-glass);
+  -webkit-backdrop-filter: var(--blur-chip);
+  backdrop-filter: var(--blur-chip);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), var(--shadow-sm);
   text-align: center;
+  overflow: hidden;
   transition: border-color var(--transition-fast), background-color var(--transition-fast),
-    box-shadow var(--transition-fast);
+    box-shadow var(--transition-fast), min-height var(--transition-normal);
+}
+
+/* A soft ambient glow that drifts while the surface is empty, so the calm state still has a
+   pulse. `prefers-reduced-motion` zeroes every duration in base.css, so this is still for them. */
+.dropzone::before {
+  content: '';
+  position: absolute;
+  inset-inline: -20%;
+  inset-block: -40%;
+  background: radial-gradient(
+      circle at 30% 30%,
+      color-mix(in srgb, var(--color-primary) 14%, transparent),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 70% 70%,
+      color-mix(in srgb, var(--color-accent-violet) 10%, transparent),
+      transparent 45%
+    );
+  animation: dropzone-drift 14s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes dropzone-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(2%, -2%, 0);
+  }
 }
 
 .dropzone.is-dragging {
   border-color: var(--color-primary);
-  background-color: var(--color-primary-light);
-  box-shadow: 0 0 0 3px var(--color-focus-ring);
+  background-color: color-mix(in srgb, var(--color-primary) 12%, var(--color-surface));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 0 0 3px var(--color-focus-ring);
 }
 
 .dropzone.is-disabled {
@@ -260,17 +516,25 @@
 }
 
 .dropzone.has-file {
-  border-style: solid;
-  border-color: var(--color-success);
-  background-color: var(--color-success-light);
+  min-height: 0;
+  border-color: var(--color-separator);
+  background-color: var(--color-glass);
+  box-shadow: none;
+}
+
+.dropzone.has-file::before {
+  display: none;
 }
 
 .dropzone-label {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: var(--space-2);
   width: 100%;
-  padding: var(--space-8) var(--space-4);
+  padding: var(--space-10) var(--space-4);
   cursor: pointer;
 }
 
@@ -283,6 +547,31 @@
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--color-text);
+}
+
+.dropzone-more {
+  display: none;
+  font-size: var(--text-base);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-primary);
+}
+
+/* Once a file is in, the surface's job is a slim "add more" strip, so the empty-state copy leaves
+   and the compact copy takes its place. */
+.dropzone.has-file .dropzone-title,
+.dropzone.has-file .dropzone-hint {
+  display: none;
+}
+
+.dropzone.has-file .dropzone-more {
+  display: block;
+}
+
+.dropzone.has-file .dropzone-label {
+  flex-direction: row;
+  justify-content: center;
+  padding: var(--space-3) var(--space-4);
 }
 
 .dropzone-hint {

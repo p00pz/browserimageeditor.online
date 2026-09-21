@@ -365,6 +365,14 @@
 
   "ui.tool.chooseImage": "اختر صورة",
   "ui.tool.statFormat": "الصيغة",
+  "ui.studio.dropTitle": "أفلت صورة لتبدأ",
+  "ui.studio.dropMore": "أضف المزيد من الصور",
+  "ui.studio.targetAuto": "تلقائي",
+  "ui.studio.targetLabel": "حجم الملف",
+  "ui.studio.maxDims": "أقصى أبعاد",
+  "ui.studio.lockRatio": "قفل النسبة",
+  "ui.studio.stepUp": "زيادة",
+  "ui.studio.stepDown": "تقليل",
   "ui.page.repoLink": "الشيفرة التي يقوم عليها هذا الموقع على <a href=\"{url}\" rel=\"noopener\">{label}</a> — وتقارير الأخطاء والإصلاحات مرحّب بها هناك.",
   "ui.page.repoMissing": "<span class=\"page-placeholder\"><strong>يجب التأكيد:</strong> لم يُنشر رابط المستودع بعد، لأنه لا يوجد عنوان مضبوط في إعدادات الموقع.</span>",
 
