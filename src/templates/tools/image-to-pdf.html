@@ -1,4 +1,4 @@
-      <section class="tool-panel" data-tool-root data-tool-slug="{{slug}}">
+﻿      <section class="tool-panel" data-tool-root data-tool-slug="{{slug}}">
         <div class="studio-stage">
           <!--
             The stage's empty state is one glass surface: not a dashed box, not a card inside a
@@ -23,8 +23,9 @@
               <span class="dropzone-hint">{{{dropzoneHint}}}</span>
               <span class="dropzone-hint">{{{t.ui.pdf.multiHint}}}</span>
               <button class="dropzone-sample" type="button" data-sample-image>{{{t.ui.studio.dropSample}}}</button>
+              <span class="dropzone-more" aria-hidden="false">{{{t.ui.studio.dropMore}}}</span>
             </label>
-            <input class="dropzone-input" id="tool-file-input" type="file" accept="{{acceptAttr}}" multiple data-dropzone-input>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="{{acceptAttr}}" multiple aria-label="{{{t.ui.studio.dropBrowse}}}" data-dropzone-input>
           </div>
 
           <p class="notice notice-warning" data-unsupported hidden>
@@ -64,7 +65,7 @@
           <!--
             The page order is the interface, not a control: this region is the list of pages the
             document will be built from, with the build action beside its summary. It is a stage
-            citizen for the same reason the batch filmstrip is — it is the work in progress, and it
+            citizen for the same reason the batch filmstrip is â€” it is the work in progress, and it
             stays under the drop zone so a page added late lands where a visitor is already looking.
           -->
           <div class="order" data-order hidden>
@@ -82,7 +83,7 @@
 
         <!--
           The inspector: direct, visual controls. Every one of them presents a hooked control the
-          tool script already owns — the <select> stays as the value holder behind the chips — so
+          tool script already owns â€” the <select> stays as the value holder behind the chips â€” so
           nothing here is a second source of truth, and a tool script that has never heard of the
           shell still reads the same values and the same change events.
         -->

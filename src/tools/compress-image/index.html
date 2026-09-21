@@ -437,7 +437,7 @@
 </head>
 <body>
   <!--#include partials/header.html-->
-  <main class="main" id="main">
+  <main class="main" id="main" tabindex="-1">
     <div class="container">
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="/">All tools</a>
@@ -459,7 +459,7 @@
         </div>
       </header>
 
-      <section class="tool-panel" data-tool-root data-tool-slug="compress-image">
+﻿      <section class="tool-panel" data-tool-root data-tool-slug="compress-image">
         <div class="studio-stage">
           <!--
             The stage's empty state is one glass surface: not a dashed box, not a card inside a
@@ -484,8 +484,9 @@
               <span class="dropzone-hint">or drag and drop, or paste — JPEG, PNG or WebP up to 50 MB</span>
               <span class="dropzone-hint">One image or a whole batch — nothing leaves your device either way.</span>
               <button class="dropzone-sample" type="button" data-sample-image>Try a sample image</button>
+              <span class="dropzone-more" aria-hidden="false">Add more images</span>
             </label>
-            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple data-dropzone-input>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-label="Browse images" data-dropzone-input>
           </div>
 
           <p class="notice notice-warning" data-unsupported hidden>
@@ -549,8 +550,8 @@
 
         <!--
           The inspector: direct, visual controls. Every one of them presents a hooked control the
-          tool script already owns — the <select> stays as the value holder behind the chips, and
-          the number inputs stay as the value holders behind the slider and the dimension row — so
+          tool script already owns â€” the <select> stays as the value holder behind the chips, and
+          the number inputs stay as the value holders behind the slider and the dimension row â€” so
           nothing here is a second source of truth, and a tool script that has never heard of the
           shell still reads the same values and the same change events.
         -->
@@ -568,7 +569,7 @@
             <!--
               Target size: preset chips including the "auto" choice, plus a slider for the range
               between them. Both write into the same hooked number input, whose blank value is the
-              "best quality" the placeholder used to pretend to be — now a real, selected chip.
+              "best quality" the placeholder used to pretend to be â€” now a real, selected chip.
             -->
             <div class="chips" data-shell-chips-for="target-size" role="group" aria-labelledby="ctl-target-label">
               <button type="button" class="chip" data-shell-value="">Auto</button>
@@ -586,14 +587,14 @@
           <div class="ctl">
             <span class="ctl-label" id="ctl-dims-label">Max dimensions</span>
             <!--
-              Max dimensions: real preset chips (الأصلي clears both inputs, which the tool reads as
-              "keep the original size"), a W × H pair with steppers, and a ratio lock that keeps
+              Max dimensions: real preset chips (Ø§Ù„Ø£ØµÙ„ÙŠ clears both inputs, which the tool reads as
+              "keep the original size"), a W Ã— H pair with steppers, and a ratio lock that keeps
               whatever is typed proportional.
             -->
             <div class="chips" role="group" aria-labelledby="ctl-dims-label">
               <button type="button" class="chip" data-shell-dual data-w="" data-h="" data-width="#max-width" data-height="#max-height">Original</button>
               <button type="button" class="chip" data-shell-dual data-w="1080" data-h="1080" data-width="#max-width" data-height="#max-height">1080 px</button>
-              <button type="button" class="chip" data-shell-dual data-w="1920" data-h="1080" data-width="#max-width" data-height="#max-height">1920 × 1080</button>
+              <button type="button" class="chip" data-shell-dual data-w="1920" data-h="1080" data-width="#max-width" data-height="#max-height">1920 Ã— 1080</button>
               <button type="button" class="chip" data-shell-dual data-w="4096" data-h="4096" data-width="#max-width" data-height="#max-height">4096 px</button>
             </div>
             <div class="dim-row">

@@ -440,7 +440,7 @@
 </head>
 <body>
   <!--#include partials/header.html-->
-  <main class="main" id="main">
+  <main class="main" id="main" tabindex="-1">
     <div class="container">
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="/">All tools</a>
@@ -462,7 +462,7 @@
         </div>
       </header>
 
-      <section class="tool-panel" data-tool-root data-tool-slug="enhance-photo">
+﻿      <section class="tool-panel" data-tool-root data-tool-slug="enhance-photo">
         <div class="studio-stage">
           <!--
             The flagship's stage: one glass surface while it is empty, then the dark well that frames
@@ -486,8 +486,9 @@
               <span class="dropzone-hint">or drag and drop, or paste — JPEG, PNG or WebP up to 50 MB</span>
               <span class="dropzone-hint">One image or a whole batch — nothing leaves your device either way.</span>
               <button class="dropzone-sample" type="button" data-sample-image>Try a sample image</button>
+              <span class="dropzone-more" aria-hidden="false">Add more images</span>
             </label>
-            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple data-dropzone-input>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-label="Browse images" data-dropzone-input>
           </div>
 
           <p class="notice notice-warning" data-unsupported hidden>
@@ -558,7 +559,7 @@
           The inspector: the flagship's controls, which are already visual. The five styles are live
           thumbnails of the visitor's own photo rather than named chips, the intensity is a real slider
           and the manual overrides stay behind a disclosure, because none of them is a second source of
-          truth — every one of them is a hooked control the tool script already owns.
+          truth â€” every one of them is a hooked control the tool script already owns.
         -->
         <aside class="studio-inspector">
           <div class="ctl">

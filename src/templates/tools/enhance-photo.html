@@ -1,4 +1,4 @@
-      <section class="tool-panel" data-tool-root data-tool-slug="{{slug}}">
+﻿      <section class="tool-panel" data-tool-root data-tool-slug="{{slug}}">
         <div class="studio-stage">
           <!--
             The flagship's stage: one glass surface while it is empty, then the dark well that frames
@@ -22,8 +22,9 @@
               <span class="dropzone-hint">{{{dropzoneHint}}}</span>
               <span class="dropzone-hint">{{{t.ui.tool.batchHint}}}</span>
               <button class="dropzone-sample" type="button" data-sample-image>{{{t.ui.studio.dropSample}}}</button>
+              <span class="dropzone-more" aria-hidden="false">{{{t.ui.studio.dropMore}}}</span>
             </label>
-            <input class="dropzone-input" id="tool-file-input" type="file" accept="{{acceptAttr}}" multiple data-dropzone-input>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="{{acceptAttr}}" multiple aria-label="{{{t.ui.studio.dropBrowse}}}" data-dropzone-input>
           </div>
 
           <p class="notice notice-warning" data-unsupported hidden>
@@ -94,7 +95,7 @@
           The inspector: the flagship's controls, which are already visual. The five styles are live
           thumbnails of the visitor's own photo rather than named chips, the intensity is a real slider
           and the manual overrides stay behind a disclosure, because none of them is a second source of
-          truth — every one of them is a hooked control the tool script already owns.
+          truth â€” every one of them is a hooked control the tool script already owns.
         -->
         <aside class="studio-inspector">
           <div class="ctl">

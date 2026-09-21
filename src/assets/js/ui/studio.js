@@ -61,15 +61,23 @@ function presentSelect(select) {
   if (select.dataset.shellChips === 'done') return;
   select.dataset.shellChips = 'done';
 
+  // `aria-labelledby` is the hook the shell's own markup uses (each control points at its
+  // .ctl-label), so it has to be resolved here or the radiogroup is announced with no name.
+  const labelledBy = select.getAttribute('aria-labelledby');
   const label =
     select.closest('.field')?.querySelector('.field-label')?.textContent?.trim() ||
     select.getAttribute('aria-label') ||
+    (labelledBy ? document.getElementById(labelledBy)?.textContent?.trim() : null) ||
     '';
 
   const group = document.createElement('div');
   group.className = 'chips shell-chips';
   group.setAttribute('role', 'radiogroup');
-  if (label) group.setAttribute('aria-label', label);
+  if (label) {
+    group.setAttribute('aria-label', label);
+  } else if (labelledBy) {
+    group.setAttribute('aria-labelledby', labelledBy);
+  }
   select.after(group);
 
   // The select stays as the value holder and leaves the accessibility tree: the radiogroup is the

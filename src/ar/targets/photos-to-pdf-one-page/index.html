@@ -407,7 +407,7 @@
 </head>
 <body>
   <!--#include partials/ar/header.html-->
-  <main class="main" id="main">
+  <main class="main" id="main" tabindex="-1">
     <div class="container">
       <nav class="breadcrumb" aria-label="مسار التنقل">
         <a href="/ar/">كل الأدوات</a>
@@ -430,7 +430,7 @@
         <p class="tool-hint">مهيّأة لك مسبقاً: مقاس صفحة مطابقة لكل صورة، بلا هوامش، جودة متوازنة (JPEG 85%). ويمكنك تغييرها قبل إسقاط الملف.</p>
       </header>
 
-      <section class="tool-panel" data-tool-root data-tool-slug="image-to-pdf">
+﻿      <section class="tool-panel" data-tool-root data-tool-slug="image-to-pdf">
         <div class="studio-stage">
           <!--
             The stage's empty state is one glass surface: not a dashed box, not a card inside a
@@ -455,8 +455,9 @@
               <span class="dropzone-hint">أو اسحبها وأفلتها، أو الصقها — JPEG، PNG أو WebP حتى <bdi dir="ltr">50 MB</bdi></span>
               <span class="dropzone-hint">كل صورة تصبح صفحة. ولا شيء يغادر جهازك.</span>
               <button class="dropzone-sample" type="button" data-sample-image>جرّب بصورة تجريبية</button>
+              <span class="dropzone-more" aria-hidden="false">أضف المزيد من الصور</span>
             </label>
-            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple data-dropzone-input>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-label="تصفّح الصور" data-dropzone-input>
           </div>
 
           <p class="notice notice-warning" data-unsupported hidden>
@@ -496,7 +497,7 @@
           <!--
             The page order is the interface, not a control: this region is the list of pages the
             document will be built from, with the build action beside its summary. It is a stage
-            citizen for the same reason the batch filmstrip is — it is the work in progress, and it
+            citizen for the same reason the batch filmstrip is â€” it is the work in progress, and it
             stays under the drop zone so a page added late lands where a visitor is already looking.
           -->
           <div class="order" data-order hidden>
@@ -514,7 +515,7 @@
 
         <!--
           The inspector: direct, visual controls. Every one of them presents a hooked control the
-          tool script already owns — the <select> stays as the value holder behind the chips — so
+          tool script already owns â€” the <select> stays as the value holder behind the chips â€” so
           nothing here is a second source of truth, and a tool script that has never heard of the
           shell still reads the same values and the same change events.
         -->

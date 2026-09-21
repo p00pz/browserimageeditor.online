@@ -507,6 +507,21 @@ html.dark .theme-toggle .icon-sun {
   }
 }
 
+/* ---------- very small screens ----------
+ * Below 360px the header's own items sum to a few pixels more than the viewport, and
+ * html{overflow-x:clip} silently eats them — the menu toggle would sit half offscreen with no
+ * scrollbar to reveal it. Tightening the two paddings that do not matter at this width buys it
+ * back, so every header control stays fully reachable at 320px. */
+@media (max-width: 360px) {
+  .container {
+    padding-inline: var(--space-3);
+  }
+
+  .header-inner {
+    gap: var(--space-2);
+  }
+}
+
 /* ---------- the demo block on the homepage ---------- */
 
 .demo {

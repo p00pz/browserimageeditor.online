@@ -414,7 +414,7 @@
 </head>
 <body>
   <!--#include partials/header.html-->
-  <main class="main" id="main">
+  <main class="main" id="main" tabindex="-1">
     <div class="container">
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="/">All tools</a>
@@ -437,7 +437,7 @@
         <p class="tool-hint">Pre-set for you: JPEG output. You can change it before you drop a file.</p>
       </header>
 
-      <section class="tool-panel" data-tool-root data-tool-slug="convert-image">
+﻿      <section class="tool-panel" data-tool-root data-tool-slug="convert-image">
         <div class="studio-stage">
           <div class="dropzone" data-dropzone>
             <label class="dropzone-label" for="tool-file-input">
@@ -455,9 +455,10 @@
               <span class="dropzone-browse" aria-hidden="true">Browse images</span>
               <span class="dropzone-hint">or drag and drop, or paste — JPEG, PNG, WebP, AVIF, HEIC or HEIF up to 50 MB</span>
               <span class="dropzone-hint">One image or a whole batch — nothing leaves your device either way.</span>
-              <button class="dropzone-sample" type="button" data-sample-image>Try a sample image</button>
-            </label>
-            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp,image/avif,image/heic,image/heif" multiple data-dropzone-input>
+<button class="dropzone-sample" type="button" data-sample-image>Try a sample image</button>
+               <span class="dropzone-more" aria-hidden="false">Add more images</span>
+             </label>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp,image/avif,image/heic,image/heif" multiple aria-label="Browse images" data-dropzone-input>
           </div>
 
           <p class="notice notice-warning" data-unsupported hidden>
@@ -477,7 +478,7 @@
           </div>
 
           <div class="result" data-result hidden>
-            <div class="compareSlider" data-compare>
+            <div class="compare-slider" data-compare>
               <div class="compare-slider-pane compare-slider-before">
                 <img data-compare-before alt="The original image">
               </div>

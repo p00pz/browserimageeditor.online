@@ -408,7 +408,7 @@
 </head>
 <body>
   <!--#include partials/ar/header.html-->
-  <main class="main" id="main">
+  <main class="main" id="main" tabindex="-1">
     <div class="container">
       <nav class="breadcrumb" aria-label="مسار التنقل">
         <a href="/ar/">كل الأدوات</a>
@@ -431,7 +431,7 @@
         <p class="tool-hint">مهيّأة لك مسبقاً: نمط منشور مربّع (1080 × 1080 px). ويمكنك تغييرها قبل إسقاط الملف.</p>
       </header>
 
-      <section class="tool-panel" data-tool-root data-tool-slug="resize-image">
+﻿      <section class="tool-panel" data-tool-root data-tool-slug="resize-image">
         <div class="studio-stage">
           <!--
             The stage's empty state is one glass surface: not a dashed box, not a card inside a
@@ -456,8 +456,9 @@
               <span class="dropzone-hint">أو اسحبها وأفلتها، أو الصقها — JPEG، PNG أو WebP حتى <bdi dir="ltr">50 MB</bdi></span>
               <span class="dropzone-hint">صورة واحدة أو دفعة كاملة — لا شيء يغادر جهازك في الحالتين.</span>
               <button class="dropzone-sample" type="button" data-sample-image>جرّب بصورة تجريبية</button>
+              <span class="dropzone-more" aria-hidden="false">أضف المزيد من الصور</span>
             </label>
-            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple data-dropzone-input>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-label="تصفّح الصور" data-dropzone-input>
           </div>
 
           <p class="notice notice-warning" data-unsupported hidden>

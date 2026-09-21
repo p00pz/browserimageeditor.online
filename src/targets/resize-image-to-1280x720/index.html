@@ -409,7 +409,7 @@
 </head>
 <body>
   <!--#include partials/header.html-->
-  <main class="main" id="main">
+  <main class="main" id="main" tabindex="-1">
     <div class="container">
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="/">All tools</a>
@@ -432,7 +432,7 @@
         <p class="tool-hint">Pre-set for you: 1280 × 720 pixels. You can change it before you drop a file.</p>
       </header>
 
-      <section class="tool-panel" data-tool-root data-tool-slug="resize-image">
+﻿      <section class="tool-panel" data-tool-root data-tool-slug="resize-image">
         <div class="studio-stage">
           <!--
             The stage's empty state is one glass surface: not a dashed box, not a card inside a
@@ -457,8 +457,9 @@
               <span class="dropzone-hint">or drag and drop, or paste — JPEG, PNG or WebP up to 50 MB</span>
               <span class="dropzone-hint">One image or a whole batch — nothing leaves your device either way.</span>
               <button class="dropzone-sample" type="button" data-sample-image>Try a sample image</button>
+              <span class="dropzone-more" aria-hidden="false">Add more images</span>
             </label>
-            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple data-dropzone-input>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-label="Browse images" data-dropzone-input>
           </div>
 
           <p class="notice notice-warning" data-unsupported hidden>

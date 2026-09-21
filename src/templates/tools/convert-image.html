@@ -1,4 +1,4 @@
-      <section class="tool-panel" data-tool-root data-tool-slug="{{slug}}">
+﻿      <section class="tool-panel" data-tool-root data-tool-slug="{{slug}}">
         <div class="studio-stage">
           <div class="dropzone" data-dropzone>
             <label class="dropzone-label" for="tool-file-input">
@@ -16,9 +16,10 @@
               <span class="dropzone-browse" aria-hidden="true">{{{t.ui.studio.dropBrowse}}}</span>
               <span class="dropzone-hint">{{{dropzoneHint}}}</span>
               <span class="dropzone-hint">{{{t.ui.tool.batchHint}}}</span>
-              <button class="dropzone-sample" type="button" data-sample-image>{{{t.ui.studio.dropSample}}}</button>
-            </label>
-            <input class="dropzone-input" id="tool-file-input" type="file" accept="{{acceptAttr}}" multiple data-dropzone-input>
+<button class="dropzone-sample" type="button" data-sample-image>{{{t.ui.studio.dropSample}}}</button>
+               <span class="dropzone-more" aria-hidden="false">{{{t.ui.studio.dropMore}}}</span>
+             </label>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="{{acceptAttr}}" multiple aria-label="{{{t.ui.studio.dropBrowse}}}" data-dropzone-input>
           </div>
 
           <p class="notice notice-warning" data-unsupported hidden>
@@ -38,7 +39,7 @@
           </div>
 
           <div class="result" data-result hidden>
-            <div class="compareSlider" data-compare>
+            <div class="compare-slider" data-compare>
               <div class="compare-slider-pane compare-slider-before">
                 <img data-compare-before alt="{{{t.ui.tool.altOriginal}}}">
               </div>

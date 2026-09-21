@@ -61,7 +61,11 @@ const measure = () => {
     selectsVisible: count('select').length,
     resultOn: !!vis(document.querySelector('[data-result]'))?.on,
     batchOn: !!vis(document.querySelector('[data-batch]'))?.on,
-    dashed: Array.from(document.querySelectorAll('*')).filter((el) => getComputedStyle(el).borderStyle === 'dashed').length,
+    // cropperjs draws its own rule-of-thirds guides as dashed spans inside .cropper-container;
+    // they are the crop tool's selection UI, not the dashed upload box this check hunts for.
+    dashed: Array.from(document.querySelectorAll('*'))
+      .filter((el) => getComputedStyle(el).borderStyle === 'dashed')
+      .filter((el) => !el.closest('.cropper-container')).length,
   };
 };
 

@@ -62,8 +62,11 @@ function init() {
   const defaults = config.defaults ?? {};
   const dropzoneRoot = root.querySelector('[data-dropzone]');
   const presetSelect = root.querySelector('[data-preset]');
-  const widthInput = root.querySelector('[data-width]');
-  const heightInput = root.querySelector('[data-height]');
+  // Scoped to `input`: the "original" chip that clears these boxes also carries a data-width /
+  // data-height pair, but as a *selector reference* (data-width="#resize-width") pointing at them,
+  // so a bare [data-width] matches that button first and the engine reads its empty value.
+  const widthInput = root.querySelector('input[data-width]');
+  const heightInput = root.querySelector('input[data-height]');
   const formatSelect = root.querySelector('[data-output-format]');
   const lockInput = root.querySelector('[data-lock-aspect]');
   const upscaleInput = root.querySelector('[data-allow-upscale]');

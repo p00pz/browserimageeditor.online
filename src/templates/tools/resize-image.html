@@ -1,4 +1,4 @@
-      <section class="tool-panel" data-tool-root data-tool-slug="{{slug}}">
+﻿      <section class="tool-panel" data-tool-root data-tool-slug="{{slug}}">
         <div class="studio-stage">
           <!--
             The stage's empty state is one glass surface: not a dashed box, not a card inside a
@@ -23,8 +23,9 @@
               <span class="dropzone-hint">{{{dropzoneHint}}}</span>
               <span class="dropzone-hint">{{{t.ui.tool.batchHint}}}</span>
               <button class="dropzone-sample" type="button" data-sample-image>{{{t.ui.studio.dropSample}}}</button>
+              <span class="dropzone-more" aria-hidden="false">{{{t.ui.studio.dropMore}}}</span>
             </label>
-            <input class="dropzone-input" id="tool-file-input" type="file" accept="{{acceptAttr}}" multiple data-dropzone-input>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="{{acceptAttr}}" multiple aria-label="{{{t.ui.studio.dropBrowse}}}" data-dropzone-input>
           </div>
 
           <p class="notice notice-warning" data-unsupported hidden>

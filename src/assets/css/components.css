@@ -326,8 +326,10 @@
 
 .chip[aria-checked='true'],
 .chip[aria-pressed='true'] {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
+  /* The solid ramp, not the bright one: white on --color-primary is 4.02:1 (light) / 3.65:1
+   * (dark) at 17px and fails 1.4.3; white on the solid ramp is 5.61:1 / 4.81:1 and passes. */
+  background-color: var(--color-primary-solid);
+  border-color: var(--color-primary-solid);
   color: #ffffff;
   box-shadow: var(--shadow-sm);
 }
@@ -613,8 +615,10 @@
   font-size: var(--text-base);
   font-weight: 600;
   letter-spacing: -0.01em;
-  color: var(--color-primary-solid);
-  background-color: var(--color-primary);
+  /* White on the solid ramp, never on the bright one: white on --color-primary is 4.02:1 and
+   * this is the surface's primary affordance, so it has to read at a glance. 5.61:1 here. */
+  color: #ffffff;
+  background-color: var(--color-primary-solid);
   border-radius: var(--radius-full);
   box-shadow: 0 6px 18px color-mix(in srgb, var(--color-primary) 32%, transparent);
   transition: transform var(--transition-fast), background-color var(--transition-fast),
@@ -622,12 +626,13 @@
 }
 
 .dropzone:hover .dropzone-browse {
-  background-color: var(--color-primary-hover);
+  background-color: var(--color-primary-solid-hover);
   transform: translateY(-1px);
   box-shadow: 0 9px 22px color-mix(in srgb, var(--color-primary) 38%, transparent);
 }
 
 .dropzone:active .dropzone-browse {
+  background-color: var(--color-primary-solid-active);
   transform: translateY(0) scale(0.985);
 }
 

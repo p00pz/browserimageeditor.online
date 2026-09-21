@@ -435,7 +435,7 @@
 </head>
 <body>
   <!--#include partials/ar/header.html-->
-  <main class="main" id="main">
+  <main class="main" id="main" tabindex="-1">
     <div class="container">
       <nav class="breadcrumb" aria-label="مسار التنقل">
         <a href="/ar/">كل الأدوات</a>
@@ -457,7 +457,7 @@
         </div>
       </header>
 
-      <section class="tool-panel" data-tool-root data-tool-slug="convert-image">
+﻿      <section class="tool-panel" data-tool-root data-tool-slug="convert-image">
         <div class="studio-stage">
           <div class="dropzone" data-dropzone>
             <label class="dropzone-label" for="tool-file-input">
@@ -475,9 +475,10 @@
               <span class="dropzone-browse" aria-hidden="true">تصفّح الصور</span>
               <span class="dropzone-hint">أو اسحبها وأفلتها، أو الصقها — JPEG، PNG، WebP، AVIF، HEIC أو HEIF حتى <bdi dir="ltr">50 MB</bdi></span>
               <span class="dropzone-hint">صورة واحدة أو دفعة كاملة — لا شيء يغادر جهازك في الحالتين.</span>
-              <button class="dropzone-sample" type="button" data-sample-image>جرّب بصورة تجريبية</button>
-            </label>
-            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp,image/avif,image/heic,image/heif" multiple data-dropzone-input>
+<button class="dropzone-sample" type="button" data-sample-image>جرّب بصورة تجريبية</button>
+               <span class="dropzone-more" aria-hidden="false">أضف المزيد من الصور</span>
+             </label>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp,image/avif,image/heic,image/heif" multiple aria-label="تصفّح الصور" data-dropzone-input>
           </div>
 
           <p class="notice notice-warning" data-unsupported hidden>
@@ -497,7 +498,7 @@
           </div>
 
           <div class="result" data-result hidden>
-            <div class="compareSlider" data-compare>
+            <div class="compare-slider" data-compare>
               <div class="compare-slider-pane compare-slider-before">
                 <img data-compare-before alt="الصورة الأصلية">
               </div>

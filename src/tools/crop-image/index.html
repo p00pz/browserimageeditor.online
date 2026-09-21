@@ -424,7 +424,7 @@
 </head>
 <body>
   <!--#include partials/header.html-->
-  <main class="main" id="main">
+  <main class="main" id="main" tabindex="-1">
     <div class="container">
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="/">All tools</a>
@@ -446,13 +446,13 @@
         </div>
       </header>
 
-      <section class="tool-panel" data-tool-root data-tool-slug="crop-image">
+﻿      <section class="tool-panel" data-tool-root data-tool-slug="crop-image">
         <!--
           The stage is the picture. The cropperjs canvas lives here rather than in the inspector,
           because it is the thing being worked on rather than a control over it: the drop surface
           gives way to the canvas the moment an image lands, and the compare slider takes the
-          surface back once a crop is applied. One image at a time — a crop is a decision about one
-          picture — so there is no batch region and no `multiple` on the input.
+          surface back once a crop is applied. One image at a time â€” a crop is a decision about one
+          picture â€” so there is no batch region and no `multiple` on the input.
         -->
         <div class="studio-stage">
           <div class="dropzone" data-dropzone>
@@ -472,8 +472,9 @@
               <span class="dropzone-hint">or drag and drop, or paste — JPEG, PNG or WebP up to 50 MB</span>
               <span class="dropzone-hint">One image at a time, because you choose the crop yourself.</span>
               <button class="dropzone-sample" type="button" data-sample-image>Try a sample image</button>
+              <span class="dropzone-more" aria-hidden="false">Add more images</span>
             </label>
-            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" data-dropzone-input>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" aria-label="Browse images" data-dropzone-input>
           </div>
 
           <p class="notice notice-warning" data-unsupported hidden>
@@ -533,8 +534,8 @@
 
         <!--
           The inspector: direct, visual controls over one picture. Every one of them presents a
-          hooked control the tool script already owns — the <select> stays as the value holder
-          behind the chips, and the ratio list is built at runtime from the tool's own presets — so
+          hooked control the tool script already owns â€” the <select> stays as the value holder
+          behind the chips, and the ratio list is built at runtime from the tool's own presets â€” so
           nothing here is a second source of truth, and a tool script that has never heard of the
           shell still reads the same values and the same change events.
 
