@@ -3,13 +3,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "gen": "npm run gen:pages && npm run gen:targets && npm run gen:sitemap && npm run gen:og && npm run gen:manifest && npm run gen:icons && npm run gen:ort",
+    "gen": "npm run gen:pages && npm run gen:targets && npm run gen:sitemap && npm run gen:og && npm run gen:manifest && npm run gen:icons && npm run gen:fonts && npm run gen:ort",
     "gen:pages": "node scripts/build-pages.mjs",
     "gen:targets": "node scripts/build-targets.mjs",
     "gen:sitemap": "node scripts/gen-sitemap.mjs",
     "gen:og": "node scripts/gen-og.mjs",
     "gen:manifest": "node scripts/gen-manifest.mjs",
     "gen:icons": "node scripts/gen-icons.mjs",
+    "gen:fonts": "node scripts/gen-fonts.mjs",
     "gen:ort": "node scripts/gen-ort.mjs",
     "audit:seo": "node scripts/audit-seo.mjs",
     "audit:pwa": "node scripts/audit-pwa.mjs",
@@ -23,6 +24,7 @@
     "test": "node --test tests/*.test.js"
   },
   "devDependencies": {
+    "@fontsource/ibm-plex-sans-arabic": "^5.3.0",
     "@playwright/test": "^1.49.0",
     "@resvg/resvg-js": "2.6.2",
     "playwright": "^1.49.0",
