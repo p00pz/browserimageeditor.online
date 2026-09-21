@@ -15,7 +15,7 @@
   /* The notch. Inert without `viewport-fit=cover`, which every page's viewport meta already
      carries; the right number on an iPhone with a Dynamic Island. */
   padding-top: var(--safe-area-top);
-  background-color: var(--color-glass);
+  background-color: var(--color-glass-strong);
   -webkit-backdrop-filter: var(--blur-glass);
   backdrop-filter: var(--blur-glass);
   border-bottom: 1px solid var(--color-separator);
@@ -363,6 +363,9 @@ html.dark .theme-toggle .icon-sun {
 
 .hero h1 {
   margin: 0 0 var(--space-4);
+  /* `balance` folds the last line up so a headline never ends on one orphan word; `pretty` does
+     the same for paragraphs without breaking mid-phrase. Both are no-ops where unsupported. */
+  text-wrap: balance;
   font-size: clamp(32px, 9vw, 48px);
   font-weight: 700;
   letter-spacing: var(--tracking-display);
@@ -373,6 +376,7 @@ html.dark .theme-toggle .icon-sun {
 .hero p,
 .hero-sub {
   margin: 0;
+  text-wrap: pretty;
   font-size: var(--text-lg);
   color: var(--color-text-secondary);
   line-height: var(--leading-relaxed);
@@ -388,10 +392,9 @@ html.dark .theme-toggle .icon-sun {
 
 /* ---------- the mobile menu: a glass bottom sheet ----------
  *
- * No new JavaScript. `ui/site.js` already toggles `.is-open` on `.nav-sheet` from the hamburger,
- * from a link tap and from Escape; the shape of the thing is entirely CSS, and it is a bottom sheet
- * because a phone is held at the bottom. The sheet is fixed and the header stays sticky above it,
- * so the page's chrome is never traded away for the menu.
+ * `ui/site.js` toggles `.is-open` on `.nav-sheet` from the hamburger, closes it on a link tap, on
+ * Escape, on a tap anywhere outside it, locks the page behind it and keeps focus inside it; the
+ * shape of the thing is entirely CSS, and it is a bottom sheet
  *
  * The sheet lives at body level rather than inside the header for one reason: `.header` has
  * `backdrop-filter`, and an element with a backdrop-filter is the containing block for its fixed
@@ -399,12 +402,14 @@ html.dark .theme-toggle .icon-sun {
  * and renders as a 60px strip at the top of the screen. Out here it has no such ancestor, so the
  * same declaration pins it to the real viewport bottom.
  *
- * A scrim would need its own click handler to close, and site.js closes on link tap and Escape
- * only, so there is no scrim: the sheet is a floating surface, not a modal trap. */
+ * No scrim is drawn: the sheet is heavily frosted and the page behind it is inert while it is open,
+ * so a separate darkening layer would double the cost for nothing. */
 @media (max-width: 767px) {
   /* The inline copy is a desktop's row of links; on a phone it would be an empty flex item
-   * between the logo and the toggles, so it leaves the layout entirely. */
-  .nav-inline {
+   * between the logo and the toggles, so it leaves the layout entirely. The language switch lives
+   * in the sheet on a phone, so it leaves the header with it. */
+  .nav-inline,
+  .header-inner > .lang-switch {
     display: none;
   }
 
@@ -425,10 +430,12 @@ html.dark .theme-toggle .icon-sun {
     display: flex;
     flex-direction: column;
     /* The sheet's own height is capped so a long list scrolls inside it rather than running off
-       the viewport it is pinned to. */
-    max-height: 62vh;
+       the viewport it is pinned to. `dvh` is preferred and `vh` stays as its fallback, in that
+       order, so a browser with a dynamic toolbar measures the toolbar the sheet is pinned above. */
+    max-height: 100vh;
+    max-height: 100dvh;
     padding: var(--space-2) var(--space-5) calc(var(--space-5) + var(--safe-area-bottom));
-    background-color: var(--color-glass);
+    background-color: var(--color-glass-strong);
     -webkit-backdrop-filter: var(--blur-glass);
     backdrop-filter: var(--blur-glass);
     border-top: 1px solid var(--color-glass-border);
@@ -478,6 +485,25 @@ html.dark .theme-toggle .icon-sun {
   .nav-sheet.is-open .nav-link:hover,
   .nav-sheet.is-open .nav-link:focus {
     background-color: var(--color-fill);
+  }
+
+  /* The language switch is a row at the foot of the sheet, under the list: a phone's header copy
+     is gone, so this is where the switch lives instead. */
+  .nav-sheet.is-open > .lang-switch {
+    flex: none;
+    justify-content: flex-start;
+    margin-block-start: var(--space-3);
+    padding-block-start: var(--space-3);
+    border-top: 1px solid var(--color-separator);
+  }
+
+  .nav-sheet.is-open > .lang-switch-list {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .nav-sheet.is-open > .lang-switch-list > li {
+    flex: 1 1 0;
   }
 }
 

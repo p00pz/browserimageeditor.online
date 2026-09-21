@@ -76,6 +76,10 @@
   /* ---------- glass ---------- */
   --color-glass: rgba(255, 255, 255, 0.72);
   --color-glass-border: rgba(255, 255, 255, 0.7);
+  /* The header and the menu sheet: legible even where a browser will not composite the blur.
+     0.72 frosted is beautiful until text scrolls through it, so the chrome that must stay readable
+     over scrolling content carries enough pigment to stand on its own. */
+  --color-glass-strong: rgba(255, 255, 255, 0.92);
   --blur-glass: blur(44px) saturate(180%);
   --blur-chip: blur(24px) saturate(180%);
 
@@ -265,6 +269,7 @@
 
   --color-glass: rgba(28, 28, 30, 0.72);
   --color-glass-border: rgba(255, 255, 255, 0.08);
+  --color-glass-strong: rgba(20, 20, 22, 0.92);
 
   --mesh-1: rgba(10, 132, 255, 0.24);
   --mesh-2: rgba(255, 45, 85, 0.14);

@@ -1369,13 +1369,14 @@
 
 /* ---------- Language switcher ----------
  * Written with logical properties on purpose: this is the one component whose whole job is to appear
- * in a language you are not currently reading, and `inset-inline-end` means it sits on the correct
- * side of both an English and an Arabic page without a second rule in rtl.css.
+ * in a language you are not currently reading. It sits in the header on a desktop and at the foot of
+ * the menu sheet on a phone (layout.css places both), so a visitor is never asked to read the other
+ * language's name to find it, and it is never a full-width row of its own.
  */
 .lang-switch {
   display: flex;
-  justify-content: flex-end;
-  margin-block-start: var(--space-2);
+  align-items: center;
+  flex: none;
 }
 
 .lang-switch-list {

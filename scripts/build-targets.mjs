@@ -57,7 +57,6 @@ import {
   optionStrings,
   faqHtml,
   guidesHtml,
-  langSwitchHtml,
   rtlHeadHtml,
   targetOgTags,
   toolConfig,
@@ -188,7 +187,6 @@ for (const locale of site.locales) {
         description: target.description,
         canonical: url,
         alternates: alternatesHtml(localeSite, path),
-        langSwitch: langSwitchHtml(localeSite, code, path, catalog),
         ogTags: targetOgTags(target, localeSite, code),
         jsonLd: jsonLdScript([
           target.faq.length > 0 ? faqPage({ url, faq: target.faq }) : null,
