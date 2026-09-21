@@ -36,4 +36,5 @@ SIL Open Font License 1.1 — permissive, allows embedding and redistribution, r
 licence travel with the font (it does) and that a modified version not use the reserved name
 "Plex" (nothing here is modified).
 
-If this font is ever replaced, update the checksums above and the table in `PROGRESS_LOG.md`.
+If this font is ever replaced, update the checksums above and the manifest written by
+`scripts/gen-fonts.mjs` (which is what ships the woff2 visitors actually load).

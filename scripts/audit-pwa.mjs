@@ -14,7 +14,7 @@
  * a visitor's cache, and that the offline page is reachable but not indexable.
  *
  * It cannot check the two things that need a browser — that the worker actually activates, and that
- * a page loads with the network switched off. Those are in the manual procedure in PROGRESS_LOG.md.
+ * a page loads with the network switched off. qa/strike-proof.mjs covers those against a build.
  *
  * Exit code is 1 when any error is found, so `npm run audit:pwa` can gate a deploy. Warnings do not
  * fail the build unless `--strict` is passed.

@@ -168,8 +168,8 @@ export function compositeMasked(base, fill, alpha, width, height) {
  *
  * Returns the worst per-channel difference found outside the region, which must be 0. This exists
  * because "the rest of the photo is untouched" is the kind of claim that is easy to make and easy to
- * quietly break — one stray `drawImage` of the whole frame, one resample, and it is false. The
- * verification in PROGRESS_LOG.md quotes this number.
+ * quietly break — one stray `drawImage` of the whole frame, one resample, and it is false. Any
+ * change here has to keep the number this returns at 0.
  */
 export function measureOutsideRegion(before, after, width, height, region) {
   let worst = 0;

@@ -9,8 +9,8 @@
  *
  * The font is vendored (`scripts/assets/fonts/`, SIL OFL-1.1) rather than taken from the host:
  * satori needs the actual font data to outline glyphs, and reading Segoe UI on Windows and DejaVu
- * on Linux would make the same run produce different bytes on different machines. See
- * PROGRESS_LOG.md for the licence lines.
+ * on Linux would make the same run produce different bytes on different machines. The licence is
+ * SIL OFL-1.1 and is recorded in `scripts/assets/fonts/LICENSE.txt` and LICENSES-THIRD-PARTY.md.
  *
  * Three artifacts:
  *   public/og/<key>.png          what og:image points at (crawlers ignore SVG)

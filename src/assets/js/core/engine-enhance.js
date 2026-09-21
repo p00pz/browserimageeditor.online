@@ -64,8 +64,8 @@ export const MIN_GAIN = 1.01;
  *
  * Read this as a grading recipe: exposure, then contrast, then the curve, then white balance, then
  * saturation, then the tonal split, then sharpening last — which is the order a colourist works in and
- * the order `applyAdjustments()` applies them. Every value was chosen and then measured; see
- * PROGRESS_LOG.md for what each one does to a low-key and a high-key frame.
+ * the order `applyAdjustments()` applies them. Every value was chosen and then measured against a
+ * low-key and a high-key frame.
  *
  * `sharpen.radius` is in pixels of the box blur the unsharp mask subtracts; 1 is a 3×3 neighbourhood.
  */

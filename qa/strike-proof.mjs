@@ -6,7 +6,7 @@
  *                request that leaves the origin and any font request at all.
  *  2. shots()  — empty + loaded states of all six tool pages at 1440 and 390, the header at 1440
  *                and the mobile menu at 390, both themes on one tool.
- *  3. It writes a JSON blob the REPORT.md table is built from, so no number is hand-copied.
+ *  3. It writes a JSON blob the QA report is built from, so no number is hand-copied.
  *
  * Run against the preview server:  node qa/strike-proof.mjs [base] [job]
  */
