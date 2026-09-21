@@ -99,11 +99,44 @@
   /* ---------- type ----------
    * Root at 17px so the scale lands on the pixel values the brief names; the rem units below are
    * 13/15/17/19/22/26/32/40. Nothing in the UI is smaller than 13px, and 12px is reserved for
-   * aria-hidden chrome. */
-  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Arabic', 'Segoe UI', Tahoma,
-    'Noto Sans Arabic', 'Noto Naskh Arabic', 'Geeza Pro', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji';
-  --font-mono: 'SF Mono', 'Fira Code', 'Fira Mono', ui-monospace, Menlo, Consolas, monospace;
+   * aria-hidden chrome.
+   *
+   * Two faces, one family chain. --font-body is the working face: the *text* cut where the
+   * platform splits its cuts, open tracking, tabular figures. --font-display is the same chain
+   * tuned for large sizes: the *display* cut, and the tight tracking comes with it via
+   * --tracking-display. Every face after the system defaults covers U+0600–06FF plus the
+   * presentation forms, so an Arabic page never falls through to a face that drops the dots or
+   * the harakat, and Western digits stay on the chain in both directions.
+   *
+   * Thmanyah is deliberately NOT in this file. Its licence (read in full from LICENSE.pdf in the
+   * source archive) permits web embedding only "as part of a compiled, packaged, or obfuscated
+   * product", and separately forbids hosting the files for download, making them extractable
+   * "independently as font files, including through web embedding", and building derivative works
+   * — which bars subsetting. This open-source repo and its public build fail all three. Shipping
+   * it would expose the owner to a Saudi-court copyright claim. The drop-in slot below is where a
+   * *licensed* font lands: with written permission committed beside the files, uncomment the
+   * @font-face block, put the files in /fonts, and prepend the family name to both stacks. */
+  --font-body: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Arabic', 'Segoe UI', Tahoma,
+    'Noto Sans Arabic', 'Noto Naskh Arabic', 'Geeza Pro', Helvetica, Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji';
+  --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Arabic', 'Segoe UI', Tahoma,
+    'Noto Sans Arabic', 'Noto Naskh Arabic', 'Geeza Pro', Helvetica, Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji';
+  --font-mono: 'SF Mono', 'SF Arabic', 'Fira Code', 'Fira Mono', ui-monospace, Menlo, Consolas,
+    monospace;
+
+  /* The drop-in slot for a *licensed* self-hosted family. Commented out because no such licence
+   * is on file: nothing here is loaded, and there is no external request of any kind. The day one
+   * is, uncomment this block, put the files in /fonts, and prepend 'Brand' to the two stacks
+   * above — font-display: swap keeps the swap invisible and the stacks below it stay as the
+   * metric fallback. */
+  /* @font-face {
+    font-family: 'Brand';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/fonts/brand.woff2') format('woff2');
+  } */
 
   --text-xs: 0.7647rem;
   --text-sm: 0.8824rem;
@@ -310,7 +343,7 @@ body {
   margin: 0;
   background-color: var(--color-bg);
   color: var(--color-text);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: var(--text-base);
   line-height: var(--leading-normal);
   letter-spacing: var(--tracking-body);
@@ -320,6 +353,20 @@ body {
   overflow-x: hidden;
   overflow-x: clip;
   transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* Headings take the display cut and its tight tracking. A base rule rather than a per-component
+ * one, so a heading anywhere — a tool card, a sheet, an FAQ — reads as display type without each
+ * component having to say so. Sizes still come from the component classes. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-tight);
 }
 
 img,
@@ -342,7 +389,10 @@ button,
 input,
 select,
 textarea {
+  /* `font` does not cover letter-spacing, so it needs its own line or a form control quietly
+   * loses the body tracking and reads tighter than the label above it. */
   font: inherit;
+  letter-spacing: inherit;
   color: inherit;
 }
 

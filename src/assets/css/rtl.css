@@ -79,9 +79,27 @@
 
 /* ---------- typography ---------- */
 
+/* An Arabic page leads with the Arabic-capable faces. The token already carries every one of
+ * them in the chain, so this is not an override of the stack — it is a reordering, putting the
+ * faces that draw U+0600–06FF natively ahead of the Latin-only system defaults so an Arabic
+ * paragraph never rounds a Latin fallback first. 'SF Arabic' is the platform's Arabic cut and
+ * shares metrics with the body chain, so the swap costs nothing in layout shift. */
 [dir='rtl'] body {
-  font-family: 'SF Arabic', 'Segoe UI', Tahoma, 'Noto Sans Arabic', 'Noto Naskh Arabic', 'Geeza Pro',
-    'Arial', sans-serif;
+  font-family: 'SF Arabic', 'Noto Sans Arabic', 'Noto Naskh Arabic', 'Geeza Pro', 'Segoe UI',
+    Tahoma, -apple-system, BlinkMacSystemFont, 'SF Pro Text', Helvetica, Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji';
+}
+
+/* The display chain gets the same Arabic-first reordering for headings. */
+[dir='rtl'] h1,
+[dir='rtl'] h2,
+[dir='rtl'] h3,
+[dir='rtl'] h4,
+[dir='rtl'] h5,
+[dir='rtl'] h6 {
+  font-family: 'SF Arabic', 'Noto Sans Arabic', 'Noto Naskh Arabic', 'Geeza Pro', 'Segoe UI',
+    Tahoma, -apple-system, BlinkMacSystemFont, 'SF Pro Display', Helvetica, Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji';
 }
 
 /*
