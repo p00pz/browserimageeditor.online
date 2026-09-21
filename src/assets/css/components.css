@@ -199,15 +199,246 @@
 /* ---------- Tool panel ---------- */
 
 .tool-panel {
+  display: grid;
+  gap: var(--space-5);
+  margin-bottom: var(--space-10);
+  /* The page is the studio. A card around a stage that already holds a surface would be a frame
+   * inside a frame, so the panel itself carries no background, border or shadow: the stage and the
+   * inspector are the two visible things. */
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* The empty state is the surface and nothing else. Until a picture lands, the inspector is chrome
+ * for a picture that does not exist yet — controls with nothing to control, which is exactly the
+ * "reads like a form" failure the brief rules out — so it leaves the page entirely and the stage
+ * takes the whole column. `:has()` resolves at first paint, so the inspector never flashes on
+ * load; `has-file` is toggled by the shared dropzone the moment a file is accepted or reset. */
+.tool-panel:has(.dropzone:not(.has-file)) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.tool-panel:has(.dropzone:not(.has-file)) .studio-inspector {
+  display: none;
+}
+
+/* ---------- Studio Shell: a stage and an inspector ----------
+ *
+ * One shared shell for the six tools; only the inspector's contents differ. The stage is where the
+ * picture lives (the drop surface while empty, the compare slider and the batch filmstrip once
+ * work has happened); the inspector is a slim rail of direct, visual controls. On a phone the
+ * stage stays on top and the inspector follows, with the primary action already pinned by
+ * [data-primary-action][data-sticky='on'] in the mobile block below.
+ */
+
+.studio-stage {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
-  padding: var(--space-6);
-  margin-bottom: var(--space-10);
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.studio-inspector {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  min-width: 0;
+  padding: var(--space-5);
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
+}
+
+/* A control: a label, the presenter (chips, slider, entry), and nothing else. */
+.ctl {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ctl-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-text-secondary);
+}
+
+.ctl-readout {
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text);
+  unicode-bidi: isolate;
+}
+
+/* ---------- Chips: the segmented control that replaces every <select> ----------
+ *
+ * A chip row is a radiogroup of real buttons: 44px on a phone, pill, and the accent marks the
+ * selected one. The <select> it presents stays in the DOM as `.shell-host` — it holds the value a
+ * tool script reads — but it leaves the accessibility tree so the choice is met once, here. */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.chips-group-label {
+  flex-basis: 100%;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.chip {
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-fill);
+  color: var(--color-text);
+  border: 1px solid var(--color-separator);
+  border-radius: var(--radius-full);
+  font-size: var(--text-base);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: transform var(--transition-fast), background-color var(--transition-fast),
+    border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.chip:hover {
+  background-color: var(--color-fill-hover);
+  border-color: var(--color-separator-strong);
+}
+
+.chip:active {
+  transform: scale(0.96);
+}
+
+.chip:focus-visible {
+  outline: 2.5px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.chip[aria-checked='true'],
+.chip[aria-pressed='true'] {
+  /* The solid ramp, not the bright one: white on --color-primary is 4.02:1 (light) / 3.65:1
+   * (dark) at 17px and fails 1.4.3; white on the solid ramp is 5.61:1 / 4.81:1 and passes. */
+  background-color: var(--color-primary-solid);
+  border-color: var(--color-primary-solid);
+  color: #ffffff;
+  box-shadow: var(--shadow-sm);
+}
+
+.chip:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.shell-host {
+  display: none;
+}
+
+/* A dimension pair and its ratio lock, as one row. */
+.dim-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.dim-row .field-input {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.dim-row .dim-times {
+  flex: none;
+  color: var(--color-text-muted);
+  unicode-bidi: isolate;
+}
+
+.lock-button {
+  flex: none;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-3);
+  background-color: var(--color-fill);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-separator);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.lock-button[data-on] {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.lock-button:focus-visible {
+  outline: 2.5px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* A slider and its live readout, as one row: the thumb on the start side, the value on the end. */
+.shell-slider-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.shell-slider-row .slider {
+  flex: 1 1 0;
+}
+
+.shell-slider-row .ctl-readout {
+  flex: none;
+  min-width: 4.5em;
+  text-align: inline-end;
+}
+
+.stepper-button {
+  flex: none;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-fill);
+  color: var(--color-text);
+  border: 1px solid var(--color-separator);
+  border-radius: var(--radius-md);
+  font-size: var(--text-lg);
+  cursor: pointer;
+}
+
+.stepper-button:focus-visible {
+  outline: 2.5px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.stepper-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+@media (min-width: 768px) {
+  .tool-panel {
+    grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.85fr);
+    align-items: start;
+  }
+
+  .shell-slider {
+    height: 32px;
+  }
 }
 
 /* ---------- `hidden` on a region that has its own `display` ----------
@@ -228,26 +459,66 @@
   display: none;
 }
 
-/* ---------- Dropzone ---------- */
+/* ---------- Dropzone ----------
+ *
+ * The studio's empty state is one continuous glass surface — not a dashed box, not a card inside a
+ * card — so the whole stage reads as the place a picture goes. It stays generous while it is
+ * waiting and collapses to a slim "add more" strip once a file has landed, because the stage is
+ * then showing the result and the surface's job is only to say the door is still open.
+ */
 
 .dropzone {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 220px;
-  border: 1.5px dashed var(--color-separator-strong);
-  border-radius: var(--radius-lg);
-  background-color: var(--color-fill);
+  min-height: 300px;
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius-xl);
+  background-color: var(--color-glass);
+  -webkit-backdrop-filter: var(--blur-chip);
+  backdrop-filter: var(--blur-chip);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), var(--shadow-sm);
   text-align: center;
+  overflow: hidden;
   transition: border-color var(--transition-fast), background-color var(--transition-fast),
-    box-shadow var(--transition-fast);
+    box-shadow var(--transition-fast), min-height var(--transition-normal);
+}
+
+/* A soft ambient glow that drifts while the surface is empty, so the calm state still has a
+   pulse. `prefers-reduced-motion` zeroes every duration in base.css, so this is still for them. */
+.dropzone::before {
+  content: '';
+  position: absolute;
+  inset-inline: -20%;
+  inset-block: -40%;
+  background: radial-gradient(
+      circle at 30% 30%,
+      color-mix(in srgb, var(--color-primary) 14%, transparent),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 70% 70%,
+      color-mix(in srgb, var(--color-accent-violet) 10%, transparent),
+      transparent 45%
+    );
+  animation: dropzone-drift 14s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes dropzone-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(2%, -2%, 0);
+  }
 }
 
 .dropzone.is-dragging {
   border-color: var(--color-primary);
-  background-color: var(--color-primary-light);
-  box-shadow: 0 0 0 3px var(--color-focus-ring);
+  background-color: color-mix(in srgb, var(--color-primary) 12%, var(--color-surface));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 0 0 3px var(--color-focus-ring);
 }
 
 .dropzone.is-disabled {
@@ -260,17 +531,25 @@
 }
 
 .dropzone.has-file {
-  border-style: solid;
-  border-color: var(--color-success);
-  background-color: var(--color-success-light);
+  min-height: 0;
+  border-color: var(--color-separator);
+  background-color: var(--color-glass);
+  box-shadow: none;
+}
+
+.dropzone.has-file::before {
+  display: none;
 }
 
 .dropzone-label {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: var(--space-2);
   width: 100%;
-  padding: var(--space-8) var(--space-4);
+  padding: var(--space-10) var(--space-4);
   cursor: pointer;
 }
 
@@ -283,6 +562,127 @@
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--color-text);
+}
+
+/* The calm icon above the headline. The arrow breathes: a slow, small drop that never stops the
+ * surface feeling alive. `prefers-reduced-motion` zeroes every duration in base.css. */
+.dropzone-icon {
+  display: flex;
+  color: var(--color-primary);
+  filter: drop-shadow(0 6px 14px color-mix(in srgb, var(--color-primary) 22%, transparent));
+  animation: dropzone-breathe 4.2s ease-in-out infinite alternate;
+}
+
+@keyframes dropzone-breathe {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-5px);
+  }
+}
+
+.dropzone-icon-drop {
+  animation: dropzone-fall 2.6s ease-in-out infinite alternate;
+}
+
+@keyframes dropzone-fall {
+  from {
+    transform: translateY(-3px);
+    opacity: 0.65;
+  }
+  to {
+    transform: translateY(2px);
+    opacity: 1;
+  }
+}
+
+.dropzone-sub {
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+}
+
+/* The one primary affordance, drawn as a button so the surface reads as actionable at a glance
+ * even though the whole label is the real hit target. aria-hidden: the accessible control is the
+ * focusable file input beside it, and a visitor should never meet the same action twice. */
+.dropzone-browse {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-6);
+  margin-top: var(--space-2);
+  font-size: var(--text-base);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  /* White on the solid ramp, never on the bright one: white on --color-primary is 4.02:1 and
+   * this is the surface's primary affordance, so it has to read at a glance. 5.61:1 here. */
+  color: #ffffff;
+  background-color: var(--color-primary-solid);
+  border-radius: var(--radius-full);
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--color-primary) 32%, transparent);
+  transition: transform var(--transition-fast), background-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.dropzone:hover .dropzone-browse {
+  background-color: var(--color-primary-solid-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 9px 22px color-mix(in srgb, var(--color-primary) 38%, transparent);
+}
+
+.dropzone:active .dropzone-browse {
+  background-color: var(--color-primary-solid-active);
+  transform: translateY(0) scale(0.985);
+}
+
+/* The quiet "try a sample" door, sitting under everything: a real button so it does not fire the
+ * label's file picker — it draws its own picture locally instead. */
+.dropzone-sample {
+  margin-top: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background-color: transparent;
+  border: 0;
+  border-radius: var(--radius-full);
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.dropzone-sample:hover {
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
+}
+
+.dropzone-more {
+  display: none;
+  font-size: var(--text-base);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-primary);
+}
+
+/* Once a file is in, the surface's job is a slim "add more" strip, so the empty-state copy leaves
+ * and the compact copy takes its place. The sample door leaves with it: a picture exists now, so
+ * there is nothing left to demo. */
+.dropzone.has-file .dropzone-title,
+.dropzone.has-file .dropzone-sub,
+.dropzone.has-file .dropzone-browse,
+.dropzone.has-file .dropzone-icon,
+.dropzone.has-file .dropzone-sample,
+.dropzone.has-file .dropzone-hint {
+  display: none;
+}
+
+.dropzone.has-file .dropzone-more {
+  display: block;
+}
+
+.dropzone.has-file .dropzone-label {
+  flex-direction: row;
+  justify-content: center;
+  padding: var(--space-3) var(--space-4);
 }
 
 .dropzone-hint {
@@ -337,11 +737,6 @@
 
 /* ---------- Controls ---------- */
 
-.tool-controls {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--space-4);
-}
 
 .field {
   display: flex;
@@ -1369,13 +1764,14 @@
 
 /* ---------- Language switcher ----------
  * Written with logical properties on purpose: this is the one component whose whole job is to appear
- * in a language you are not currently reading, and `inset-inline-end` means it sits on the correct
- * side of both an English and an Arabic page without a second rule in rtl.css.
+ * in a language you are not currently reading. It sits in the header on a desktop and at the foot of
+ * the menu sheet on a phone (layout.css places both), so a visitor is never asked to read the other
+ * language's name to find it, and it is never a full-width row of its own.
  */
 .lang-switch {
   display: flex;
-  justify-content: flex-end;
-  margin-block-start: var(--space-2);
+  align-items: center;
+  flex: none;
 }
 
 .lang-switch-list {
@@ -1445,9 +1841,6 @@
  * dark stage. See the flagship block below for the stage itself.
  */
 
-.preset-section {
-  margin: var(--space-2) 0 0;
-}
 
 .preset-heading {
   display: flex;
@@ -1780,46 +2173,6 @@
   color: var(--color-stage-text);
 }
 
-/*
- * The two-column flagship: the stage and its result on the left, the controls on the right. The
- * panel's children are placed by name — the drop zone and the result own the left rail, the style
- * row, the intensity, the advanced disclosure, the batch and the progress own the right one — so
- * the flow of the tool is unchanged and only its arrangement widens.
- */
-@media (min-width: 768px) {
-  .tool-panel[data-tool-slug='enhance-photo'] {
-    display: grid;
-    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-    align-items: start;
-    gap: var(--space-6);
-  }
-
-  .tool-panel[data-tool-slug='enhance-photo'] > .dropzone {
-    grid-column: 1;
-    grid-row: 1;
-  }
-
-  .tool-panel[data-tool-slug='enhance-photo'] > .notice {
-    grid-column: 2;
-  }
-
-  .tool-panel[data-tool-slug='enhance-photo'] > .preset-section,
-  .tool-panel[data-tool-slug='enhance-photo'] > .tool-controls,
-  .tool-panel[data-tool-slug='enhance-photo'] > .advanced-adjust,
-  .tool-panel[data-tool-slug='enhance-photo'] > .batch,
-  .tool-panel[data-tool-slug='enhance-photo'] > .progress-region {
-    grid-column: 2;
-  }
-
-  .tool-panel[data-tool-slug='enhance-photo'] > .result {
-    grid-column: 1;
-    grid-row: 2;
-  }
-
-  .tool-panel[data-tool-slug='enhance-photo'] > .status {
-    grid-column: 1 / -1;
-  }
-}
 
 /* ---------- Secondary sections: a disclosure on a phone, plain prose on a desktop ----------
  *
@@ -2108,24 +2461,32 @@
 /* ---------- save-photo fallback viewer ----------
  *
  * The one path that cannot hand the visitor a file: an in-app webview, where `navigator.share` is
- * refused and `<a download>` is ignored. The module renders this DOM; this block styles it. The
- * contract is `[hidden]` — the attribute the module sets — and the `:not([hidden])` guard below, so
- * the display rule never outranks the hidden state.
+ * refused and `<a download>` is ignored, and an iOS Safari whose share did not succeed. The module
+ * renders this DOM; this block styles it. The contract is `[hidden]` — the attribute the module
+ * sets — and the `:not([hidden])` guard below, so the display rule never outranks the hidden state.
  *
- * Fixed and full-viewport by design: this is a viewer for one image, not a page, so it owns the
- * layer above the header for as long as it is open and gives the image the whole screen.
+ * Two rules here are load-bearing and must not regress:
+ *  - the image keeps the browser's own callout (`-webkit-touch-callout: auto`, `user-select: auto`,
+ *    `-webkit-user-drag: auto`). The whole point of this view is the press-and-hold menu that saves
+ *    to Photos, so suppressing it — as the compare slider legitimately does — is the bug. No overlay
+ *    and no pointer/touch handler may sit on the image either.
+ *  - it starts below the header, not over it: the header always stays visible, so the viewer owns
+ *    the stage area the way the nav sheet does, never the whole viewport.
  */
 .save-viewer {
   position: fixed;
-  inset: 0;
+  top: calc(var(--header-height) + env(safe-area-inset-top, 0px));
+  inset-inline: 0;
+  bottom: 0;
   z-index: var(--z-viewer);
   display: none;
   flex-direction: column;
   min-height: 100vh;
   min-height: 100dvh;
-  padding: var(--safe-area-top) var(--space-4) calc(var(--space-4) + var(--safe-area-bottom));
+  padding: var(--space-3) var(--space-3) calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
   background-color: var(--color-stage);
   color: var(--color-stage-text);
+  overscroll-behavior: contain;
 }
 
 .save-viewer[hidden] {
@@ -2136,17 +2497,53 @@
   display: flex;
 }
 
-.save-viewer-bar {
+/* One image per screen. A single image fills this stage exactly; a batch becomes a horizontal
+   filmstrip the visitor swipes through, with the counter in the footer keeping the place. */
+.save-viewer-stage {
+  flex: 1 1 auto;
+  min-height: 0;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.save-viewer-stage::-webkit-scrollbar {
+  display: none;
+}
+
+/* Contain, never crop, and keep the platform's own long-press menu: this image is meant to be
+   held and saved. The only background is the stage itself, so a portrait photo letterboxes into
+   the well instead of into a hard black bar. */
+.save-viewer-img {
+  flex: 0 0 100%;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  -webkit-touch-callout: auto;
+  -webkit-user-select: auto;
+  user-select: auto;
+  -webkit-user-drag: auto;
+  scroll-snap-align: center;
+}
+
+.save-viewer-foot {
   flex: none;
-  padding: var(--space-3) var(--space-4);
-  margin-bottom: var(--space-3);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2) var(--space-3);
+  margin-top: var(--space-3);
+  padding: var(--space-3);
   background-color: var(--color-stage-fill);
   border: 1px solid var(--color-stage-separator);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   -webkit-backdrop-filter: var(--blur-chip);
   backdrop-filter: var(--blur-chip);
 }
@@ -2157,7 +2554,7 @@
   justify-content: center;
   min-width: 44px;
   min-height: 44px;
-  padding: 0 var(--space-4);
+  padding: 0 var(--space-5);
   color: var(--color-stage-text);
   background-color: var(--color-stage-fill);
   border: 1px solid var(--color-stage-separator);
@@ -2174,28 +2571,9 @@
   transform: scale(0.94);
 }
 
-/* The image takes what is left and nothing else: contain, never crop, and no callout or selection
-   — the long-press the hint describes has to land on the pixels, not on a menu the browser draws
-   over them. */
-.save-viewer-img {
-  flex: 1 1 auto;
-  min-height: 0;
-  width: 100%;
-  object-fit: contain;
-  border-radius: var(--radius-md);
-  background-color: #000000;
-  -webkit-touch-callout: none;
-  user-select: none;
-  -webkit-user-drag: none;
-}
-
 .save-viewer-hint {
-  flex: none;
-  margin: var(--space-3) 0 0;
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-md);
-  background-color: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--color-stage-separator);
+  flex: 1 1 100%;
+  margin: 0;
   font-size: var(--text-sm);
   font-weight: 600;
   line-height: var(--leading-relaxed);
@@ -2203,10 +2581,60 @@
   text-align: center;
 }
 
+.save-viewer-counter {
+  flex: none;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  unicode-bidi: isolate;
+  color: var(--color-stage-text);
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-stage-separator);
+  border-radius: var(--radius-full);
+}
+
 .save-viewer-open {
   flex: none;
+  min-width: 44px;
   min-height: 44px;
-  margin-top: var(--space-3);
+  padding: 0 var(--space-5);
   background-color: var(--color-primary-solid);
   color: #ffffff;
+  border-radius: var(--radius-full);
+}
+
+.save-viewer-open[hidden] {
+  display: none;
+}
+
+/* ---------- ?debug=1 diagnostics ----------
+ *
+ * Pinned to the page only when the visitor asks (`save-photo.js` appends it under `?debug=1`), so
+ * the shipped UI carries none of it. Small, fixed, out of the way of the controls. */
+.save-debug {
+  position: fixed;
+  inset-block-end: env(safe-area-inset-bottom, 0px);
+  inset-inline: var(--space-3);
+  z-index: var(--z-tooltip);
+  max-height: 38vh;
+  max-height: 38dvh;
+  overflow: auto;
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  background-color: rgba(0, 0, 0, 0.86);
+  color: #e6e6e6;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  direction: ltr;
+  pointer-events: auto;
 }

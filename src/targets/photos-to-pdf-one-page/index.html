@@ -133,11 +133,14 @@
   "js.save.shareText": "Processed entirely in my browser — nothing was uploaded.",
   "js.save.saved": "Saved {name} ({size}, {format}).",
   "js.save.savedMany": "Shared {count} {images} ({size}).",
+  "js.save.photosCopy": "Saved {name} ({size}, {format}) to Photos. It is a copy of your file, because iOS does not accept every image format in Photos; the original is still here to download.",
   "js.save.failed": "The image could not be saved on this device.",
   "js.webview.hint": "Saving is limited in this in-app browser, so the image is shown full-screen instead.",
   "js.webview.viewerHint": "Press and hold the image, then choose “Save to Photos”.",
   "js.webview.close": "Close",
   "js.webview.openInSafari": "Open in Safari",
+  "js.webview.viewerHintMany": "Press and hold an image, then choose “Save to Photos”. Swipe sideways for the next one.",
+  "js.webview.counter": "{n} / {total}",
   "js.chrome.menuOpen": "Open menu",
   "js.chrome.menuClose": "Close menu",
   "js.enhance.ready": "Ready — drop a photo, or a batch, to enhance it.",
@@ -404,15 +407,7 @@
 </head>
 <body>
   <!--#include partials/header.html-->
-  <div class="container">
-    <nav class="lang-switch" aria-label="Language">
-      <ul class="lang-switch-list">
-      <li><span class="lang-switch-current" lang="en" aria-current="true">English</span></li>
-      <li><a class="lang-switch-link" href="/ar/targets/photos-to-pdf-one-page/" hreflang="ar" lang="ar">العربية</a></li>
-      </ul>
-    </nav>
-  </div>
-  <main class="main" id="main">
+  <main class="main" id="main" tabindex="-1">
     <div class="container">
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="/">All tools</a>
@@ -435,76 +430,112 @@
         <p class="tool-hint">Pre-set for you: Match each image page size, no page margins, Balanced (JPEG 85%). You can change it before you drop a file.</p>
       </header>
 
-      <section class="tool-panel" data-tool-root data-tool-slug="image-to-pdf">
-        <div class="dropzone" data-dropzone>
-          <label class="dropzone-label" for="tool-file-input">
-            <span class="dropzone-title">Choose images</span>
-            <span class="dropzone-hint">or drag and drop, or paste — JPEG, PNG or WebP up to 50 MB</span>
-            <span class="dropzone-hint">Each image becomes one page. Nothing leaves your device.</span>
-          </label>
-          <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple data-dropzone-input>
-        </div>
-
-        <p class="notice notice-warning" data-unsupported hidden>
-          This browser cannot build a PDF locally — it is missing the image-decoding API these tools are built on. Nothing is uploaded either way. Please try a current version of Chrome, Edge, Firefox or Safari.
-        </p>
-
-        <div class="tool-controls">
-          <div class="field">
-            <label class="field-label" for="pdf-page-size">Page size</label>
-            <select class="field-input" id="pdf-page-size" data-page-size></select>
+﻿      <section class="tool-panel" data-tool-root data-tool-slug="image-to-pdf">
+        <div class="studio-stage">
+          <!--
+            The stage's empty state is one glass surface: not a dashed box, not a card inside a
+            card. It accepts a click, a drop and a paste, and the images accumulate into a document
+            rather than replacing each other, so the hint below stays visible after every drop:
+            "add more" is a standing invitation here, not a setting.
+          -->
+          <div class="dropzone" data-dropzone>
+            <label class="dropzone-label" for="tool-file-input">
+              <span class="dropzone-icon" aria-hidden="true">
+                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="6" width="44" height="44" rx="12"></rect>
+                  <circle cx="21" cy="21" r="5"></circle>
+                  <path d="M6 39l12-11 9 8 7-6 10 9"></path>
+                  <path class="dropzone-icon-drop" d="M28 10v10m-5-5l5 5 5-5"></path>
+                </svg>
+              </span>
+              <span class="dropzone-title">Drop your images here</span>
+              <span class="dropzone-sub">or paste from the clipboard</span>
+              <span class="dropzone-browse" aria-hidden="true">Browse images</span>
+              <span class="dropzone-hint">or drag and drop, or paste — JPEG, PNG or WebP up to 50 MB</span>
+              <span class="dropzone-hint">Each image becomes one page. Nothing leaves your device.</span>
+              <button class="dropzone-sample" type="button" data-sample-image>Try a sample image</button>
+              <span class="dropzone-more" aria-hidden="false">Add more images</span>
+            </label>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-label="Browse images" data-dropzone-input>
           </div>
-          <div class="field">
-            <label class="field-label" for="pdf-margin">Margin</label>
-            <select class="field-input" id="pdf-margin" data-margin></select>
-          </div>
-          <div class="field">
-            <label class="field-label" for="pdf-quality">Image quality</label>
-            <select class="field-input" id="pdf-quality" data-quality></select>
-          </div>
-        </div>
 
-        <div class="order" data-order hidden>
-          <div class="batch-header">
-            <p class="batch-summary" data-order-summary></p>
-            <div class="batch-actions">
-              <button class="button" type="button" data-build-pdf data-primary-action data-sticky="off">Build PDF</button>
-              <button class="button button-secondary" type="button" data-clear-list>Clear list</button>
+          <p class="notice notice-warning" data-unsupported hidden>
+            This browser cannot build a PDF locally — it is missing the image-decoding API these tools are built on. Nothing is uploaded either way. Please try a current version of Chrome, Edge, Firefox or Safari.
+          </p>
+
+          <div class="progress-region" data-progress-region hidden>
+            <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Building the PDF">
+              <div class="progress-bar" data-progress-bar></div>
+            </div>
+            <p class="progress-text" data-progress-text></p>
+            <button class="button button-secondary" type="button" data-cancel>Cancel</button>
+          </div>
+
+          <div class="result" data-result hidden>
+            <dl class="result-stats">
+              <div class="result-stat">
+                <dt>Pages</dt>
+                <dd data-result-pages>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>Page size</dt>
+                <dd data-result-page-size>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>File size</dt>
+                <dd data-result-size>&mdash;</dd>
+              </div>
+            </dl>
+            <p class="notice notice-warning" data-result-warning hidden></p>
+            <div class="result-actions">
+              <a class="button" data-download download>Download PDF</a>
+              <button class="button button-secondary" type="button" data-start-over>Start over</button>
             </div>
           </div>
-          <ol class="order-list" data-order-list></ol>
-          <p class="order-hint">Use the arrows to reorder &mdash; the list order becomes the page order.</p>
-        </div>
 
-        <div class="progress-region" data-progress-region hidden>
-          <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Building the PDF">
-            <div class="progress-bar" data-progress-bar></div>
-          </div>
-          <p class="progress-text" data-progress-text></p>
-          <button class="button button-secondary" type="button" data-cancel>Cancel</button>
-        </div>
-
-        <div class="result" data-result hidden>
-          <dl class="result-stats">
-            <div class="result-stat">
-              <dt>Pages</dt>
-              <dd data-result-pages>&mdash;</dd>
+          <!--
+            The page order is the interface, not a control: this region is the list of pages the
+            document will be built from, with the build action beside its summary. It is a stage
+            citizen for the same reason the batch filmstrip is â€” it is the work in progress, and it
+            stays under the drop zone so a page added late lands where a visitor is already looking.
+          -->
+          <div class="order" data-order hidden>
+            <div class="batch-header">
+              <p class="batch-summary" data-order-summary></p>
+              <div class="batch-actions">
+                <button class="button" type="button" data-build-pdf data-primary-action data-sticky="off">Build PDF</button>
+                <button class="button button-secondary" type="button" data-clear-list>Clear list</button>
+              </div>
             </div>
-            <div class="result-stat">
-              <dt>Page size</dt>
-              <dd data-result-page-size>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>File size</dt>
-              <dd data-result-size>&mdash;</dd>
-            </div>
-          </dl>
-          <p class="notice notice-warning" data-result-warning hidden></p>
-          <div class="result-actions">
-            <a class="button" data-download download>Download PDF</a>
-            <button class="button button-secondary" type="button" data-start-over>Start over</button>
+            <ol class="order-list" data-order-list></ol>
+            <p class="order-hint">Use the arrows to reorder &mdash; the list order becomes the page order.</p>
           </div>
         </div>
+
+        <!--
+          The inspector: direct, visual controls. Every one of them presents a hooked control the
+          tool script already owns â€” the <select> stays as the value holder behind the chips â€” so
+          nothing here is a second source of truth, and a tool script that has never heard of the
+          shell still reads the same values and the same change events.
+        -->
+        <aside class="studio-inspector">
+          <div class="ctl">
+            <span class="ctl-label" id="ctl-page-size-label">Page size</span>
+            <!-- data-shell-chips: the segmented control that replaces the native select. -->
+            <select class="field-input" id="pdf-page-size" data-page-size data-shell-chips aria-labelledby="ctl-page-size-label"></select>
+          </div>
+
+          <div class="ctl">
+            <span class="ctl-label" id="ctl-margin-label">Margin</span>
+            <select class="field-input" id="pdf-margin" data-margin data-shell-chips aria-labelledby="ctl-margin-label"></select>
+          </div>
+
+          <div class="ctl">
+            <span class="ctl-label" id="ctl-quality-label">Image quality</span>
+            <select class="field-input" id="pdf-quality" data-quality data-shell-chips aria-labelledby="ctl-quality-label"></select>
+          </div>
+        </aside>
 
         <p class="status" data-status role="status" aria-live="polite"></p>
       </section>

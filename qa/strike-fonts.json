@@ -1,0 +1,160 @@
+{
+ "rows": [
+  {
+   "locale": "ar",
+   "page": "home",
+   "body": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "h1": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Display\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "nav a": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "button": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "input": null,
+   "select": null,
+   "docFontsReady": "loaded"
+  },
+  {
+   "locale": "ar",
+   "page": "compress-image",
+   "body": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "h1": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Display\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "nav a": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "button": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "input": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "select": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "docFontsReady": "loaded"
+  },
+  {
+   "locale": "ar",
+   "page": "resize-image",
+   "body": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "h1": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Display\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "nav a": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "button": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "input": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "select": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "docFontsReady": "loaded"
+  },
+  {
+   "locale": "ar",
+   "page": "convert-image",
+   "body": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "h1": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Display\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "nav a": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "button": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "input": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "select": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "docFontsReady": "loaded"
+  },
+  {
+   "locale": "ar",
+   "page": "crop-image",
+   "body": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "h1": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Display\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "nav a": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "button": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "input": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "select": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "docFontsReady": "loaded"
+  },
+  {
+   "locale": "ar",
+   "page": "image-to-pdf",
+   "body": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "h1": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Display\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "nav a": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "button": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "input": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "select": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "docFontsReady": "loaded"
+  },
+  {
+   "locale": "ar",
+   "page": "enhance-photo",
+   "body": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "h1": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Display\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "nav a": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "button": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "input": "\"IBM Plex Sans Arabic\", \"SF Arabic\", \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", \"Segoe UI\", Tahoma, -apple-system, BlinkMacSystemFont, \"SF Pro Text\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "select": null,
+   "docFontsReady": "loaded"
+  },
+  {
+   "locale": "en",
+   "page": "home",
+   "body": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "h1": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "nav a": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "button": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "input": null,
+   "select": null,
+   "docFontsReady": "loaded"
+  },
+  {
+   "locale": "en",
+   "page": "compress-image",
+   "body": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "h1": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "nav a": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "button": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "input": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "select": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "docFontsReady": "loaded"
+  },
+  {
+   "locale": "en",
+   "page": "resize-image",
+   "body": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "h1": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "nav a": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "button": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "input": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "select": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "docFontsReady": "loaded"
+  },
+  {
+   "locale": "en",
+   "page": "convert-image",
+   "body": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "h1": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "nav a": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "button": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "input": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "select": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "docFontsReady": "loaded"
+  },
+  {
+   "locale": "en",
+   "page": "crop-image",
+   "body": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "h1": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "nav a": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "button": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "input": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "select": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "docFontsReady": "loaded"
+  },
+  {
+   "locale": "en",
+   "page": "image-to-pdf",
+   "body": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "h1": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "nav a": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "button": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "input": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "select": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "docFontsReady": "loaded"
+  },
+  {
+   "locale": "en",
+   "page": "enhance-photo",
+   "body": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "h1": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "nav a": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "button": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "input": "\"IBM Plex Sans Arabic\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Arabic\", \"Segoe UI\", Tahoma, \"Noto Sans Arabic\", \"Noto Naskh Arabic\", \"Geeza Pro\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "select": null,
+   "docFontsReady": "loaded"
+  }
+ ],
+ "externalAll": [],
+ "fontRequests": []
+}

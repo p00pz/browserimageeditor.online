@@ -134,11 +134,14 @@
   "js.save.shareText": "تمت معالجتها بالكامل في متصفحي — لم يتم رفع أي شيء.",
   "js.save.saved": "تم حفظ {name} ({size}، {format}).",
   "js.save.savedMany": "تمت مشاركة {count} {images} ({size}).",
+  "js.save.photosCopy": "حُفظ {name} ({size}، {format}) في الصور. هي نسخة من ملفك، لأن iOS لا يقبل كل صيغ الصور في تطبيق الصور؛ أما الملف الأصلي فما زال هنا لتنزيله.",
   "js.save.failed": "تعذّر حفظ الصورة على هذا الجهاز.",
   "js.webview.hint": "الحفظ محدود في هذا المتصفح المدمج، لذا تُعرض الصورة بملء الشاشة بدلاً من ذلك.",
   "js.webview.viewerHint": "اضغط مطولاً على الصورة ثم اختر «حفظ في الصور».",
   "js.webview.close": "إغلاق",
   "js.webview.openInSafari": "فتح في سفاري",
+  "js.webview.viewerHintMany": "اضغط مطولاً على إحدى الصور ثم اختر «حفظ في الصور»، وامسح جانبيًا للانتقال إلى التالية.",
+  "js.webview.counter": "{n} / {total}",
   "js.chrome.menuOpen": "افتح القائمة",
   "js.chrome.menuClose": "أغلق القائمة",
   "js.enhance.ready": "جاهز — أفلت صورة أو مجموعة صور لتحسينها.",
@@ -160,14 +163,14 @@
   "js.enhance.thumbAlt": "صورتك بعد تطبيق نمط {preset}",
   "js.enhance.doneStyled": "تم — {preset} بالشدة التي اخترتها.",
   "js.enhance.doneAuto": "تم — تصحيح تلقائي دون تطبيق أي نمط.",
-  "js.enhance.correctionApplied": "مدّ التصحيح التلقائي كل قناة إلى المدى الكامل: معاملات {gains} للأحمر والأخضر والأزرق. وكانت نقاط الأسود {black} ونقاط الأبيض {white}.",
+  "js.enhance.correctionApplied": "صحّحنا كل قناة لونية على حدة (معاملات {gains} للأحمر والأخضر والأزرق)، وكانت نقطتا الأسود {black} والأبيض {white}.",
   "js.enhance.correctionSkipped": "لم يجد التصحيح التلقائي ما يستحق الإصلاح: هذه الصورة تستخدم المدى الكامل أصلاً، ومدّها أكثر لن يفعل سوى تكبير التشويش.",
   "js.enhance.largerNote": "الملف المحسَّن أكبر بمقدار {size} ({percent}%). إعادة الترميز تفعل ذلك — وأبعاد البكسلات لم تتغيّر.",
-  "js.enhance.manualPath": "لا يدعم هذا المتصفح مرشّحات وحدة الرسوم، فحُسب النمط بكسل بكسل بدل أن يُحسب على شريحة الرسوم. والحساب مكافئ — لا يفترق المساران إلا ببضع قيم لونية — لكنه يستغرق وقتاً أطول قليلاً.",
+  "js.enhance.manualPath": "هذا المتصفح لا يدعم مرشّحات الرسوم، فحُسب النمط بكسلاً بكسلاً بدل حسابه على شريحة الرسوم. الحساب مكافئ — لا يفترق المساران إلا ببضع قيم لونية — لكنه يستغرق وقتاً أطول قليلاً.",
   "js.enhance.formatFallback": "تعذّرت كتابة صيغة صورتك الأصلية على هذا الجهاز، فحُفظ الناتج بصيغة JPEG.",
   "js.enhance.zeroIntensity": "الشدة على 0%، فهذه الصورة بعد التصحيح التلقائي دون أي نمط.",
   "js.enhance.enhancedCount": "{count} محسَّنة",
-  "js.enhance.zipTail": "واستخدم زر ZIP لتنزيل الدفعة كاملة.",
+  "js.enhance.zipTail": "واستخدم «تنزيل الكل في ملف ZIP» للدفعة الكاملة.",
   "js.error.INVALID_PRESET": "نمط التحسين هذا غير موجود.",
   "js.common.waiting": "في الانتظار",
   "js.common.compare": "مقارنة",
@@ -199,7 +202,7 @@
   "js.common.downloadSize": "تنزيل {size}",
   "js.common.downscaled": "تم تصغير الصورة إلى {w} × {h} لأنها أكبر من الحد الأقصى للوح الرسوم في هذا الجهاز.",
   "js.common.jpegFlatten": "JPEG لا يستطيع تخزين الشفافية، لذلك سُطّحت المناطق الشفافة على الأبيض.",
-  "js.common.largerThanOriginal": "خرج هذا الملف أكبر من الأصل بمقدار {size} — جرّب WebP أو حدّد حجماً مستهدفاً.",
+  "js.common.largerThanOriginal": "الناتج أكبر من الأصل بمقدار {size} — جرّب WebP أو حدّد حجماً مستهدفاً.",
   "js.common.largerThanOriginalResize": "الملف الجديد أكبر من الأصل بمقدار {size} — وإعادة الترميز إلى صيغة أخرى قد تفعل ذلك حتى مع انخفاض عدد البكسلات.",
   "js.common.noResampling": "بلا إعادة معايرة",
   "js.common.scaleOfPixels": "{percent} من البكسلات",
@@ -247,8 +250,8 @@
   "js.compress.zipTail": "استخدم «تنزيل الكل في ملف ZIP» للدفعة كاملة.",
   "js.compress.compressedCount": "{count} مضغوطة",
   "js.compress.tryingQuality": "جارٍ تجربة جودة {percent}%…",
-  "js.compress.nearTarget": "قريب جداً: أكبر من هدفك ({target}) بمقدار {over}، وهذا أصغر ما تصل إليه هذه الصورة.",
-  "js.compress.unreachableTarget": "لا يمكن الوصول إلى {target}: أصغر ما تصل إليه هذه الصورة هو {smallest}. قلّل أقصى عرض أو ارتفاع لتوفير أكثر.",
+  "js.compress.nearTarget": "اقتربنا كثيراً: الناتج أكبر من هدفك ({target}) بمقدار {over}، وهو أصغر ما تنتجه هذه الصورة.",
+  "js.compress.unreachableTarget": "تعذّر الوصول إلى {target}: أصغر ما تنتجه هذه الصورة هو {smallest}. قلّل أقصى عرض أو ارتفاع لتوفير أكثر.",
   "js.resize.ready": "جاهز — أفلت صورة أو دفعة لتغيير مقاسها.",
   "js.resize.unsupported": "هذا المتصفح لا يستطيع تغيير مقاس الصور محلياً.",
   "js.resize.workerStopped": "توقف عامل تغيير المقاس على غير المتوقع. أعد تحميل الصفحة وحاول مرة أخرى.",
@@ -285,7 +288,7 @@
   "js.convert.noEncoders": "لا يستطيع هذا المتصفح كتابة أي من الصيغ التي تعرضها هذه الأداة، فلا توجد صيغة يمكن التحويل إليها.",
   "js.convert.heicNeedsDecoder": "قراءة ملف HEIC تحتاج إلى فاكّ ترميز لم نتمكن من تنزيله. تحقق من اتصالك وحاول مرة أخرى.",
   "js.error.ABORTED": "أُلغيت العملية.",
-  "js.error.INTERNAL": "لم ينجح ذلك. لم يُرفع أي شيء؛ حاول مرة أخرى.",
+  "js.error.INTERNAL": "لم تنجح العملية. لم يُرفع أي شيء — حاول مرة أخرى.",
   "js.error.EMPTY_FILE": "يبدو أن هذا الملف فارغ.",
   "js.error.TOO_LARGE": "هذا الملف أكبر من الحدّ الذي تقبله الصفحة.",
   "js.error.TOO_MANY_FILES": "هذا عدد ملفات أكبر مما تستطيع الصفحة التعامل معه.",
@@ -383,37 +386,29 @@
   "js.pdf.pageMany": "صفحات",
   "js.pdf.docTitleFallback": "صور",
   "js.pdf.orderSummary": "{count} {pages} · {size}",
-  "js.pdf.orderTooLong": "{count} {pages} · {size} — وهذا عدد كبير من الصفحات ليبقى في الذاكرة مرة واحدة",
+  "js.pdf.orderTooLong": "{count} {pages} · {size} — وهذا عدد كبير من الصفحات للاحتفاظ بها في الذاكرة دفعة واحدة",
   "js.pdf.starting": "جارٍ تحضير {count} {images} داخل متصفحك…",
   "js.pdf.prepared": "حُضّرت {done} من {total}",
   "js.pdf.preparedFailed": "حُضّرت {done} من {total} — وفشلت {failed}",
-  "js.pdf.couldNotPrepareAll": "لم نتمكن من تحضير أي من تلك الصور، فلا يوجد ما نبني منه PDF.",
-  "js.pdf.nothingToPut": "لا يوجد شيء نضعه في ملف PDF.",
+  "js.pdf.couldNotPrepareAll": "تعذّر تحضير أي صورة، فلا يوجد ما نُجمِّع منه ملف PDF.",
+  "js.pdf.nothingToPut": "لا توجد صور لوضعها في ملف PDF بعد.",
   "js.pdf.writing": "جارٍ كتابة ملف PDF…",
   "js.pdf.readySummary": "ملف PDF جاهز — {count} {pages}، بحجم {size}.",
-  "js.pdf.transcoded": "أُعيد رسم {count} من {total} {images} بصيغة JPEG، لأن PDF يخزّن JPEG وPNG لا WebP.",
-  "js.pdf.transcodedOne": "أُعيد رسم صورة واحدة من {total} بصيغة JPEG، لأن PDF يخزّن JPEG وPNG لا WebP.",
+  "js.pdf.transcoded": "أُعيد رسم {count} من {total} {images} بصيغة JPEG، لأن PDF يدعم JPEG وPNG فقط لا WebP.",
+  "js.pdf.transcodedOne": "أُعيد رسم صورة واحدة من {total} بصيغة JPEG، لأن PDF يدعم JPEG وPNG فقط لا WebP.",
   "js.pdf.largeDoc": "هذا مستند كبير؛ وقد بقي في الذاكرة أثناء كتابته، ولهذا قد يكون بطيئاً على الهاتف.",
   "js.pdf.listCleared": "أُفرغت القائمة.",
   "js.pdf.ready": "جاهز — أضف صوراً لتبني ملف PDF.",
   "js.pdf.imagesReady": "{count} {images} جاهزة. اسحب الأسهم لإعادة الترتيب، ثم ابنِ ملف PDF.",
   "js.pdf.unsupported": "هذا المتصفح لا يستطيع بناء PDF محلياً.",
-  "js.pdf.downloadSize": "حمّل ملف PDF ({size})",
+  "js.pdf.downloadSize": "تنزيل ملف PDF ({size})",
   "js.pdf.startingPages": "{count} {pages}…",
   "js.crop.invalidSelection": "هذا التحديد أصغر من أن ينتج صورة. اسحب مربعاً أكبر."
 }</script>
 </head>
 <body>
   <!--#include partials/ar/header.html-->
-  <div class="container">
-    <nav class="lang-switch" aria-label="اللغة">
-      <ul class="lang-switch-list">
-      <li><a class="lang-switch-link" href="/targets/resize-image-to-1080x1080/" hreflang="en" lang="en">English</a></li>
-      <li><span class="lang-switch-current" lang="ar" aria-current="true">العربية</span></li>
-      </ul>
-    </nav>
-  </div>
-  <main class="main" id="main">
+  <main class="main" id="main" tabindex="-1">
     <div class="container">
       <nav class="breadcrumb" aria-label="مسار التنقل">
         <a href="/ar/">كل الأدوات</a>
@@ -436,108 +431,155 @@
         <p class="tool-hint">مهيّأة لك مسبقاً: نمط منشور مربّع (1080 × 1080 px). ويمكنك تغييرها قبل إسقاط الملف.</p>
       </header>
 
-      <section class="tool-panel" data-tool-root data-tool-slug="resize-image">
-        <div class="dropzone" data-dropzone>
-          <label class="dropzone-label" for="tool-file-input">
-            <span class="dropzone-title">اختر الصور</span>
-            <span class="dropzone-hint">أو اسحبها وأفلتها، أو الصقها — JPEG، PNG أو WebP حتى 50 ميغابايت</span>
-            <span class="dropzone-hint">صورة واحدة أو دفعة كاملة — لا شيء يغادر جهازك في الحالتين.</span>
-          </label>
-          <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple data-dropzone-input>
+﻿      <section class="tool-panel" data-tool-root data-tool-slug="resize-image">
+        <div class="studio-stage">
+          <!--
+            The stage's empty state is one glass surface: not a dashed box, not a card inside a
+            card. It accepts a click, a drop and a paste, and the moment a picture lands the default
+            operation runs. Once it has a file it collapses to a slim strip that keeps the door open
+            for more, because "add images at any time" must be visible, not a setting.
+          -->
+          <div class="dropzone" data-dropzone>
+            <label class="dropzone-label" for="tool-file-input">
+              <span class="dropzone-icon" aria-hidden="true">
+                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="6" width="44" height="44" rx="12"></rect>
+                  <circle cx="21" cy="21" r="5"></circle>
+                  <path d="M6 39l12-11 9 8 7-6 10 9"></path>
+                  <path class="dropzone-icon-drop" d="M28 10v10m-5-5l5 5 5-5"></path>
+                </svg>
+              </span>
+              <span class="dropzone-title">أفلت صورك هنا</span>
+              <span class="dropzone-sub">أو الصقها من الحافظة</span>
+              <span class="dropzone-browse" aria-hidden="true">تصفّح الصور</span>
+              <span class="dropzone-hint">أو اسحبها وأفلتها، أو الصقها — JPEG، PNG أو WebP حتى <bdi dir="ltr">50 MB</bdi></span>
+              <span class="dropzone-hint">صورة واحدة أو دفعة كاملة — لا شيء يغادر جهازك في الحالتين.</span>
+              <button class="dropzone-sample" type="button" data-sample-image>جرّب بصورة تجريبية</button>
+              <span class="dropzone-more" aria-hidden="false">أضف المزيد من الصور</span>
+            </label>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-label="تصفّح الصور" data-dropzone-input>
+          </div>
+
+          <p class="notice notice-warning" data-unsupported hidden>
+            هذا المتصفح لا يستطيع تغيير مقاس الصور محلياً — تنقصه واجهة فك الترميز التي تقوم عليها هذه الأدوات. لا يُرفع أي شيء في كلتا الحالتين؛ جرّب نسخة حديثة من Chrome أو Edge أو Firefox أو Safari.
+          </p>
+
+          <div class="progress-region" data-progress-region hidden>
+            <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="تقدم تغيير المقاس">
+              <div class="progress-bar" data-progress-bar></div>
+            </div>
+            <p class="progress-text" data-progress-text></p>
+            <button class="button button-secondary" type="button" data-cancel>إلغاء</button>
+          </div>
+
+          <div class="result" data-result hidden>
+            <div class="compare-slider" data-compare>
+              <div class="compare-slider-pane compare-slider-before">
+                <img data-compare-before alt="الصورة الأصلية">
+              </div>
+              <div class="compare-slider-pane compare-slider-after">
+                <img data-compare-after alt="الصورة بعد تغيير المقاس">
+              </div>
+              <span class="compare-slider-handle" aria-hidden="true"></span>
+              <span class="compare-slider-label compare-slider-label-before">الأصلية</span>
+              <span class="compare-slider-label compare-slider-label-after">بعد التغيير</span>
+              <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="اسحب للمقارنة بين الصورة الأصلية والصورة بعد تغيير المقاس">
+            </div>
+            <p class="compare-savings" data-compare-savings></p>
+            <dl class="result-stats">
+              <div class="result-stat">
+                <dt>الأبعاد</dt>
+                <dd data-result-dimensions>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>حجم الملف</dt>
+                <dd data-result-size>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>المعامل</dt>
+                <dd data-result-scale>&mdash;</dd>
+              </div>
+            </dl>
+            <p class="notice notice-warning" data-result-warning hidden></p>
+            <div class="result-actions">
+              <a class="button" data-download download>تنزيل</a>
+              <button class="button button-secondary" type="button" data-start-over>البدء من جديد</button>
+            </div>
+          </div>
+
+          <div class="batch" data-batch hidden>
+            <div class="batch-header">
+              <p class="batch-summary" data-batch-summary></p>
+              <div class="batch-actions" data-batch-actions>
+                <button class="button" type="button" data-resize-all data-primary-action data-sticky="off" data-label="غيّر مقاس الكل" data-label-done="إعادة تغيير المقاس">غيّر مقاس الكل</button>
+                <button class="button button-secondary" type="button" data-download-zip hidden>تنزيل الكل في ملف ZIP</button>
+              </div>
+            </div>
+            <ul class="batch-list" data-file-list></ul>
+          </div>
         </div>
 
-        <p class="notice notice-warning" data-unsupported hidden>
-          هذا المتصفح لا يستطيع تغيير مقاس الصور محلياً — ينقصه واجهة فك ترميز الصور التي بُنيت عليها هذه الأدوات. ولا يُرفع أي شيء في كلتا الحالتين. جرّب نسخة حديثة من Chrome أو Edge أو Firefox أو Safari.
-        </p>
-
-        <div class="tool-controls">
-          <div class="field field-wide">
-            <label class="field-label" for="resize-preset">مقاس جاهز</label>
-            <select class="field-input" id="resize-preset" data-preset>
+        <!--
+          The inspector: direct, visual controls. Every one of them presents a hooked control the
+          tool script already owns. The preset and format selects stay as the value holders behind
+          their chip rows, the width and height inputs stay as the value holders behind the
+          dimension row, and the two checkboxes stay as the value holders behind the switches, so
+          nothing here is a second source of truth. The tool also owns the aspect-ratio coupling
+          itself, so the lock switch presents its own checkbox rather than a shell ratio lock.
+        -->
+        <aside class="studio-inspector">
+          <div class="ctl">
+            <span class="ctl-label" id="ctl-preset-label">مقاس جاهز</span>
+            <!--
+              data-shell-chips: the segmented control that replaces the native select. The tool
+              appends the preset optgroups at runtime and the shell's observer rebuilds the row
+              around them, group headings included, so a preset is one tap rather than a dropdown.
+            -->
+            <select class="field-input" id="resize-preset" data-preset data-shell-chips aria-labelledby="ctl-preset-label">
               <option value="">مقاس مخصص</option>
             </select>
+            <p class="preset-note" data-preset-note hidden></p>
           </div>
-          <div class="field">
-            <label class="field-label" for="resize-width">العرض (px)</label>
-            <input class="field-input" id="resize-width" type="number" min="1" step="1" inputmode="numeric" placeholder="الأصلي" data-width>
-          </div>
-          <div class="field">
-            <label class="field-label" for="resize-height">الارتفاع (px)</label>
-            <input class="field-input" id="resize-height" type="number" min="1" step="1" inputmode="numeric" placeholder="الأصلي" data-height>
-          </div>
-          <div class="field">
-            <label class="field-label" for="resize-format">صيغة الإخراج</label>
-            <select class="field-input" id="resize-format" data-output-format></select>
-          </div>
-          <div class="field field-check">
-            <label class="check-label" for="lock-aspect">
-              <input type="checkbox" id="lock-aspect" data-lock-aspect checked>
-              <span>قفل نسبة العرض إلى الارتفاع</span>
-            </label>
-          </div>
-          <div class="field field-check">
-            <label class="check-label" for="allow-upscale">
-              <input type="checkbox" id="allow-upscale" data-allow-upscale>
-              <span>السماح بالتكبير فوق الحجم الأصلي</span>
-            </label>
-          </div>
-        </div>
 
-        <p class="preset-note" data-preset-note hidden></p>
+          <div class="ctl">
+            <span class="ctl-label" id="ctl-dims-label">الأبعاد</span>
+            <!--
+              Width and height: an "Original" chip clears both boxes, which the engine reads as
+              "keep the pixels you already have". That is the value the boxes' placeholder used to
+              pretend to hold, so it is a real, selected chip instead.
+            -->
+            <div class="chips" role="group" aria-labelledby="ctl-dims-label">
+              <button type="button" class="chip" data-shell-dual data-w="" data-h="" data-width="#resize-width" data-height="#resize-height">الأصلي</button>
+            </div>
+            <div class="dim-row">
+              <input class="field-input" id="resize-width" type="number" min="1" step="1" inputmode="numeric" placeholder="الأصلي" data-width aria-label="العرض (px)">
+              <span class="dim-times" aria-hidden="true">&times;</span>
+              <input class="field-input" id="resize-height" type="number" min="1" step="1" inputmode="numeric" placeholder="الأصلي" data-height aria-label="الارتفاع (px)">
+              <button type="button" class="chip lock-button" data-shell-toggle="#lock-aspect" aria-label="قفل نسبة العرض إلى الارتفاع" title="قفل نسبة العرض إلى الارتفاع">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                  <rect x="5" y="11" width="14" height="9" rx="2"></rect>
+                  <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+                </svg>
+              </button>
+              <!-- The switch's value holder: presentToggle flips `checked`, the tool reads it. -->
+              <input class="shell-host" type="checkbox" id="lock-aspect" data-lock-aspect checked>
+            </div>
+          </div>
 
-        <div class="batch" data-batch hidden>
-          <div class="batch-header">
-            <p class="batch-summary" data-batch-summary></p>
-            <div class="batch-actions" data-batch-actions>
-              <button class="button" type="button" data-resize-all data-primary-action data-sticky="off" data-label="غيّر مقاس الكل" data-label-done="إعادة تغيير المقاس">غيّر مقاس الكل</button>
-              <button class="button button-secondary" type="button" data-download-zip hidden>تنزيل الكل في ملف ZIP</button>
-            </div>
+          <div class="ctl">
+            <span class="ctl-label" id="ctl-format-label">صيغة الإخراج</span>
+            <select class="field-input" id="resize-format" data-output-format data-shell-chips aria-labelledby="ctl-format-label"></select>
           </div>
-          <ul class="batch-list" data-file-list></ul>
-        </div>
 
-        <div class="progress-region" data-progress-region hidden>
-          <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="تقدم تغيير المقاس">
-            <div class="progress-bar" data-progress-bar></div>
-          </div>
-          <p class="progress-text" data-progress-text></p>
-          <button class="button button-secondary" type="button" data-cancel>إلغاء</button>
-        </div>
-
-        <div class="result" data-result hidden>
-          <div class="compare-slider" data-compare>
-            <div class="compare-slider-pane compare-slider-before">
-              <img data-compare-before alt="الصورة الأصلية">
-            </div>
-            <div class="compare-slider-pane compare-slider-after">
-              <img data-compare-after alt="الصورة بعد تغيير المقاس">
-            </div>
-            <span class="compare-slider-handle" aria-hidden="true"></span>
-            <span class="compare-slider-label compare-slider-label-before">الأصلية</span>
-            <span class="compare-slider-label compare-slider-label-after">بعد التغيير</span>
-            <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="اسحب للمقارنة بين الصورة الأصلية والصورة بعد تغيير المقاس">
-          </div>
-          <p class="compare-savings" data-compare-savings></p>
-          <dl class="result-stats">
-            <div class="result-stat">
-              <dt>الأبعاد</dt>
-              <dd data-result-dimensions>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>حجم الملف</dt>
-              <dd data-result-size>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>المعامل</dt>
-              <dd data-result-scale>&mdash;</dd>
-            </div>
-          </dl>
-          <p class="notice notice-warning" data-result-warning hidden></p>
-          <div class="result-actions">
-            <a class="button" data-download download>تنزيل</a>
-            <button class="button button-secondary" type="button" data-start-over>البدء من جديد</button>
-          </div>
-        </div>
+          <!--
+            data-shell-toggle: a checkbox presented as a switch. The checkbox keeps its `checked`
+            state, so the tool's own `allowUpscale` reading is untouched; the chip is just the thing
+            a visitor taps, and the accent says which way it is set.
+          -->
+          <button type="button" class="chip" data-shell-toggle="#allow-upscale">السماح بالتكبير فوق الحجم الأصلي</button>
+          <input class="shell-host" type="checkbox" id="allow-upscale" data-allow-upscale>
+        </aside>
 
         <p class="status" data-status role="status" aria-live="polite"></p>
       </section>
@@ -545,7 +587,7 @@
       <section class="secondary-section tool-notes" data-collapsible>
         <details><summary><h2>كيف تعمل الأداة</h2></summary></details>
         <div class="disclosure-body">
-          <p>يجري تغيير المقاس داخل هذا التبويب — على «عامل ويب» مسارٍ خلفيٍّ حيثما يوفّر متصفحك ذلك — بمُرشّح إعادة معايرة على نمط Lanczos، فتبقى الحواف ناعمة بدل أن تتحول إلى حافة مسنّنة كما يحدث في التحجيم السريع بأقرب جار. ولا تصل الصورة إلى أي خادم.</p>
+          <p>يجري تغيير المقاس في مسار خلفي داخل هذا التبويب، فتبقى الصفحة مستجيبة، بمُرشّح إعادة معايرة (Lanczos) يحافظ على نعومة الحواف بدل الحواف المسنّنة التي ينتجها التحجيم السريع. ولا تصل الصورة إلى أي خادم.</p>
           <ul>
             <li><strong>المقاسات الجاهزة</strong> قيم حقيقية من منصّاتها، وكل واحد منها مسجَّل في الشيفرة مع مصدره — فصفحات يوتيوب تطلب 3840&times;2160 لصور الفيديو المصغّرة مثلاً، لا 1280&times;720 التي يكرّرها الناس.</li>
             <li>مع قفل نسبة العرض إلى الارتفاع تُقاس الصورة لتدخل داخل الصندوق الذي تكتبه، فلا يحدث أي تمطيط. وافتح القفل لضبط عرض وارتفاع بالضبط.</li>

@@ -16,7 +16,7 @@ import { scalePercent } from '../core/engine-resize.js';
 import { findResizePreset, groupedResizePresets } from '../core/presets.js';
 import { createQueue } from '../core/queue.js';
 import { downloadZip, toBytes, totalBytes, zipNameFor } from '../core/file-io.js';
-import { saveBlob, wireDownloadAnchor } from '../core/save-photo.js';
+import { primePhotosVariant, saveBatchOrZip, saveBlob, wireDownloadAnchor } from '../core/save-photo.js';
 import { createCompareSlider } from '../ui/compare-slider.js';
 import { createDropzone } from '../ui/dropzone.js';
 import { formatBytes, formatSignedPercent } from '../ui/format.js';
@@ -62,8 +62,11 @@ function init() {
   const defaults = config.defaults ?? {};
   const dropzoneRoot = root.querySelector('[data-dropzone]');
   const presetSelect = root.querySelector('[data-preset]');
-  const widthInput = root.querySelector('[data-width]');
-  const heightInput = root.querySelector('[data-height]');
+  // Scoped to `input`: the "original" chip that clears these boxes also carries a data-width /
+  // data-height pair, but as a *selector reference* (data-width="#resize-width") pointing at them,
+  // so a bare [data-width] matches that button first and the engine reads its empty value.
+  const widthInput = root.querySelector('input[data-width]');
+  const heightInput = root.querySelector('input[data-height]');
   const formatSelect = root.querySelector('[data-output-format]');
   const lockInput = root.querySelector('[data-lock-aspect]');
   const upscaleInput = root.querySelector('[data-allow-upscale]');
@@ -488,6 +491,9 @@ function init() {
       result.download.download = nameFor(item);
       result.download.textContent = t('js.common.downloadSize', { size: formatBytes(meta.bytes) });
     }
+    // Baked now, while the result is merely being shown: an iOS save tap needs a ready file inside
+    // its own activation window, so the Photos-friendly copy must not be encoded on that tap.
+    void primePhotosVariant({ blob: item.result.blob, filename: nameFor(item) });
     if (result.warning) {
       const notes = [];
       if (!meta.scaled && !upscaleInput?.checked) {
@@ -533,6 +539,19 @@ function init() {
       announce(t('js.common.nothingToDownload'), 'error');
       return;
     }
+
+    // iOS Safari cannot save a ZIP at all: an <a download> of one is ignored there. So on iOS the
+    // batch leaves through one share sheet — or one swipeable viewer — instead, and only the
+    // platforms that can actually save a ZIP go on to build one.
+    if (
+      await saveBatchOrZip({
+        entries: finished.map((item) => ({ blob: item.result.blob, filename: nameFor(item) })),
+        statusEl: statusLine,
+      })
+    ) {
+      return;
+    }
+
     zipButton.disabled = true;
     announce(t('js.common.packaging', { count: finished.length }));
     try {

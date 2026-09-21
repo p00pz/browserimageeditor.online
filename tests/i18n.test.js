@@ -66,6 +66,8 @@ const LATIN_ALLOWLIST = new Set([
   'Edge',
   'English',
   'Firefox',
+  // An operating-system name, same class as the browsers above: «iOS» stays Latin in Arabic too.
+  'iOS',
   'HEIC',
   'HEIF',
   'ImageTools',
@@ -370,9 +372,11 @@ test('the shared markup helpers are handed every string they need, in both langu
   const tool = { accepts: ['image/jpeg', 'image/png', 'image/webp'], maxInputBytes: 50 * 1024 * 1024 };
   assert.equal(acceptHint(tool, chromeStrings(loadUi())), 'JPEG, PNG or WebP up to 50 MB');
 
-  // And the Arabic one contains no Latin word that is not a format or product name.
+  // And the Arabic one contains no Latin word that is not a format or product name. Markup is
+  // stripped before tokenising: `ui.shell.acceptHint` wraps the size in `<bdi dir="ltr">` per the
+  // copy rules, and a tag or attribute name is not an untranslated word.
   const arabic = acceptHint(tool, chromeStrings(loadUi('ar')));
-  const offenders = (arabic.match(/[A-Za-z][A-Za-z0-9.+#-]{2,}/g) ?? []).filter(
+  const offenders = (arabic.replace(/<[^>]*>/g, ' ').match(/[A-Za-z][A-Za-z0-9.+#-]{2,}/g) ?? []).filter(
     (word) => !LATIN_ALLOWLIST.has(word.replace(/[.,;:]+$/, '')),
   );
   assert.deepEqual(offenders, [], `"${arabic}" still carries English`);

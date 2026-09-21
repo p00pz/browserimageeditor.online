@@ -135,11 +135,14 @@
   "js.save.shareText": "Processed entirely in my browser — nothing was uploaded.",
   "js.save.saved": "Saved {name} ({size}, {format}).",
   "js.save.savedMany": "Shared {count} {images} ({size}).",
+  "js.save.photosCopy": "Saved {name} ({size}, {format}) to Photos. It is a copy of your file, because iOS does not accept every image format in Photos; the original is still here to download.",
   "js.save.failed": "The image could not be saved on this device.",
   "js.webview.hint": "Saving is limited in this in-app browser, so the image is shown full-screen instead.",
   "js.webview.viewerHint": "Press and hold the image, then choose “Save to Photos”.",
   "js.webview.close": "Close",
   "js.webview.openInSafari": "Open in Safari",
+  "js.webview.viewerHintMany": "Press and hold an image, then choose “Save to Photos”. Swipe sideways for the next one.",
+  "js.webview.counter": "{n} / {total}",
   "js.chrome.menuOpen": "Open menu",
   "js.chrome.menuClose": "Close menu",
   "js.enhance.ready": "Ready — drop a photo, or a batch, to enhance it.",
@@ -406,15 +409,7 @@
 </head>
 <body>
   <!--#include partials/header.html-->
-  <div class="container">
-    <nav class="lang-switch" aria-label="Language">
-      <ul class="lang-switch-list">
-      <li><span class="lang-switch-current" lang="en" aria-current="true">English</span></li>
-      <li><a class="lang-switch-link" href="/ar/targets/resize-image-to-1280x720/" hreflang="ar" lang="ar">العربية</a></li>
-      </ul>
-    </nav>
-  </div>
-  <main class="main" id="main">
+  <main class="main" id="main" tabindex="-1">
     <div class="container">
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="/">All tools</a>
@@ -437,108 +432,155 @@
         <p class="tool-hint">Pre-set for you: 1280 × 720 pixels. You can change it before you drop a file.</p>
       </header>
 
-      <section class="tool-panel" data-tool-root data-tool-slug="resize-image">
-        <div class="dropzone" data-dropzone>
-          <label class="dropzone-label" for="tool-file-input">
-            <span class="dropzone-title">Choose images</span>
-            <span class="dropzone-hint">or drag and drop, or paste — JPEG, PNG or WebP up to 50 MB</span>
-            <span class="dropzone-hint">One image or a whole batch — nothing leaves your device either way.</span>
-          </label>
-          <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple data-dropzone-input>
+﻿      <section class="tool-panel" data-tool-root data-tool-slug="resize-image">
+        <div class="studio-stage">
+          <!--
+            The stage's empty state is one glass surface: not a dashed box, not a card inside a
+            card. It accepts a click, a drop and a paste, and the moment a picture lands the default
+            operation runs. Once it has a file it collapses to a slim strip that keeps the door open
+            for more, because "add images at any time" must be visible, not a setting.
+          -->
+          <div class="dropzone" data-dropzone>
+            <label class="dropzone-label" for="tool-file-input">
+              <span class="dropzone-icon" aria-hidden="true">
+                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="6" width="44" height="44" rx="12"></rect>
+                  <circle cx="21" cy="21" r="5"></circle>
+                  <path d="M6 39l12-11 9 8 7-6 10 9"></path>
+                  <path class="dropzone-icon-drop" d="M28 10v10m-5-5l5 5 5-5"></path>
+                </svg>
+              </span>
+              <span class="dropzone-title">Drop your images here</span>
+              <span class="dropzone-sub">or paste from the clipboard</span>
+              <span class="dropzone-browse" aria-hidden="true">Browse images</span>
+              <span class="dropzone-hint">or drag and drop, or paste — JPEG, PNG or WebP up to 50 MB</span>
+              <span class="dropzone-hint">One image or a whole batch — nothing leaves your device either way.</span>
+              <button class="dropzone-sample" type="button" data-sample-image>Try a sample image</button>
+              <span class="dropzone-more" aria-hidden="false">Add more images</span>
+            </label>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-label="Browse images" data-dropzone-input>
+          </div>
+
+          <p class="notice notice-warning" data-unsupported hidden>
+            This browser cannot resize images locally — it is missing the image-decoding API these tools are built on. Nothing is uploaded either way. Please try a current version of Chrome, Edge, Firefox or Safari.
+          </p>
+
+          <div class="progress-region" data-progress-region hidden>
+            <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Resize progress">
+              <div class="progress-bar" data-progress-bar></div>
+            </div>
+            <p class="progress-text" data-progress-text></p>
+            <button class="button button-secondary" type="button" data-cancel>Cancel</button>
+          </div>
+
+          <div class="result" data-result hidden>
+            <div class="compare-slider" data-compare>
+              <div class="compare-slider-pane compare-slider-before">
+                <img data-compare-before alt="The original image">
+              </div>
+              <div class="compare-slider-pane compare-slider-after">
+                <img data-compare-after alt="The resized image">
+              </div>
+              <span class="compare-slider-handle" aria-hidden="true"></span>
+              <span class="compare-slider-label compare-slider-label-before">Original</span>
+              <span class="compare-slider-label compare-slider-label-after">Resized</span>
+              <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="Drag to compare the original and the resized image">
+            </div>
+            <p class="compare-savings" data-compare-savings></p>
+            <dl class="result-stats">
+              <div class="result-stat">
+                <dt>Dimensions</dt>
+                <dd data-result-dimensions>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>File size</dt>
+                <dd data-result-size>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>Scale</dt>
+                <dd data-result-scale>&mdash;</dd>
+              </div>
+            </dl>
+            <p class="notice notice-warning" data-result-warning hidden></p>
+            <div class="result-actions">
+              <a class="button" data-download download>Download</a>
+              <button class="button button-secondary" type="button" data-start-over>Start over</button>
+            </div>
+          </div>
+
+          <div class="batch" data-batch hidden>
+            <div class="batch-header">
+              <p class="batch-summary" data-batch-summary></p>
+              <div class="batch-actions" data-batch-actions>
+                <button class="button" type="button" data-resize-all data-primary-action data-sticky="off" data-label="Resize all" data-label-done="Resize all again">Resize all</button>
+                <button class="button button-secondary" type="button" data-download-zip hidden>Download all as ZIP</button>
+              </div>
+            </div>
+            <ul class="batch-list" data-file-list></ul>
+          </div>
         </div>
 
-        <p class="notice notice-warning" data-unsupported hidden>
-          This browser cannot resize images locally — it is missing the image-decoding API these tools are built on. Nothing is uploaded either way. Please try a current version of Chrome, Edge, Firefox or Safari.
-        </p>
-
-        <div class="tool-controls">
-          <div class="field field-wide">
-            <label class="field-label" for="resize-preset">Preset size</label>
-            <select class="field-input" id="resize-preset" data-preset>
+        <!--
+          The inspector: direct, visual controls. Every one of them presents a hooked control the
+          tool script already owns. The preset and format selects stay as the value holders behind
+          their chip rows, the width and height inputs stay as the value holders behind the
+          dimension row, and the two checkboxes stay as the value holders behind the switches, so
+          nothing here is a second source of truth. The tool also owns the aspect-ratio coupling
+          itself, so the lock switch presents its own checkbox rather than a shell ratio lock.
+        -->
+        <aside class="studio-inspector">
+          <div class="ctl">
+            <span class="ctl-label" id="ctl-preset-label">Preset size</span>
+            <!--
+              data-shell-chips: the segmented control that replaces the native select. The tool
+              appends the preset optgroups at runtime and the shell's observer rebuilds the row
+              around them, group headings included, so a preset is one tap rather than a dropdown.
+            -->
+            <select class="field-input" id="resize-preset" data-preset data-shell-chips aria-labelledby="ctl-preset-label">
               <option value="">Custom size</option>
             </select>
+            <p class="preset-note" data-preset-note hidden></p>
           </div>
-          <div class="field">
-            <label class="field-label" for="resize-width">Width (px)</label>
-            <input class="field-input" id="resize-width" type="number" min="1" step="1" inputmode="numeric" placeholder="Original" data-width>
-          </div>
-          <div class="field">
-            <label class="field-label" for="resize-height">Height (px)</label>
-            <input class="field-input" id="resize-height" type="number" min="1" step="1" inputmode="numeric" placeholder="Original" data-height>
-          </div>
-          <div class="field">
-            <label class="field-label" for="resize-format">Output format</label>
-            <select class="field-input" id="resize-format" data-output-format></select>
-          </div>
-          <div class="field field-check">
-            <label class="check-label" for="lock-aspect">
-              <input type="checkbox" id="lock-aspect" data-lock-aspect checked>
-              <span>Lock the aspect ratio</span>
-            </label>
-          </div>
-          <div class="field field-check">
-            <label class="check-label" for="allow-upscale">
-              <input type="checkbox" id="allow-upscale" data-allow-upscale>
-              <span>Allow enlarging past the original size</span>
-            </label>
-          </div>
-        </div>
 
-        <p class="preset-note" data-preset-note hidden></p>
+          <div class="ctl">
+            <span class="ctl-label" id="ctl-dims-label">Dimensions</span>
+            <!--
+              Width and height: an "Original" chip clears both boxes, which the engine reads as
+              "keep the pixels you already have". That is the value the boxes' placeholder used to
+              pretend to hold, so it is a real, selected chip instead.
+            -->
+            <div class="chips" role="group" aria-labelledby="ctl-dims-label">
+              <button type="button" class="chip" data-shell-dual data-w="" data-h="" data-width="#resize-width" data-height="#resize-height">Original</button>
+            </div>
+            <div class="dim-row">
+              <input class="field-input" id="resize-width" type="number" min="1" step="1" inputmode="numeric" placeholder="Original" data-width aria-label="Width (px)">
+              <span class="dim-times" aria-hidden="true">&times;</span>
+              <input class="field-input" id="resize-height" type="number" min="1" step="1" inputmode="numeric" placeholder="Original" data-height aria-label="Height (px)">
+              <button type="button" class="chip lock-button" data-shell-toggle="#lock-aspect" aria-label="Lock the aspect ratio" title="Lock the aspect ratio">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                  <rect x="5" y="11" width="14" height="9" rx="2"></rect>
+                  <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+                </svg>
+              </button>
+              <!-- The switch's value holder: presentToggle flips `checked`, the tool reads it. -->
+              <input class="shell-host" type="checkbox" id="lock-aspect" data-lock-aspect checked>
+            </div>
+          </div>
 
-        <div class="batch" data-batch hidden>
-          <div class="batch-header">
-            <p class="batch-summary" data-batch-summary></p>
-            <div class="batch-actions" data-batch-actions>
-              <button class="button" type="button" data-resize-all data-primary-action data-sticky="off" data-label="Resize all" data-label-done="Resize all again">Resize all</button>
-              <button class="button button-secondary" type="button" data-download-zip hidden>Download all as ZIP</button>
-            </div>
+          <div class="ctl">
+            <span class="ctl-label" id="ctl-format-label">Output format</span>
+            <select class="field-input" id="resize-format" data-output-format data-shell-chips aria-labelledby="ctl-format-label"></select>
           </div>
-          <ul class="batch-list" data-file-list></ul>
-        </div>
 
-        <div class="progress-region" data-progress-region hidden>
-          <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Resize progress">
-            <div class="progress-bar" data-progress-bar></div>
-          </div>
-          <p class="progress-text" data-progress-text></p>
-          <button class="button button-secondary" type="button" data-cancel>Cancel</button>
-        </div>
-
-        <div class="result" data-result hidden>
-          <div class="compare-slider" data-compare>
-            <div class="compare-slider-pane compare-slider-before">
-              <img data-compare-before alt="The original image">
-            </div>
-            <div class="compare-slider-pane compare-slider-after">
-              <img data-compare-after alt="The resized image">
-            </div>
-            <span class="compare-slider-handle" aria-hidden="true"></span>
-            <span class="compare-slider-label compare-slider-label-before">Original</span>
-            <span class="compare-slider-label compare-slider-label-after">Resized</span>
-            <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="Drag to compare the original and the resized image">
-          </div>
-          <p class="compare-savings" data-compare-savings></p>
-          <dl class="result-stats">
-            <div class="result-stat">
-              <dt>Dimensions</dt>
-              <dd data-result-dimensions>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>File size</dt>
-              <dd data-result-size>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>Scale</dt>
-              <dd data-result-scale>&mdash;</dd>
-            </div>
-          </dl>
-          <p class="notice notice-warning" data-result-warning hidden></p>
-          <div class="result-actions">
-            <a class="button" data-download download>Download</a>
-            <button class="button button-secondary" type="button" data-start-over>Start over</button>
-          </div>
-        </div>
+          <!--
+            data-shell-toggle: a checkbox presented as a switch. The checkbox keeps its `checked`
+            state, so the tool's own `allowUpscale` reading is untouched; the chip is just the thing
+            a visitor taps, and the accent says which way it is set.
+          -->
+          <button type="button" class="chip" data-shell-toggle="#allow-upscale">Allow enlarging past the original size</button>
+          <input class="shell-host" type="checkbox" id="allow-upscale" data-allow-upscale>
+        </aside>
 
         <p class="status" data-status role="status" aria-live="polite"></p>
       </section>

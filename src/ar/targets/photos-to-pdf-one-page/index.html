@@ -133,11 +133,14 @@
   "js.save.shareText": "تمت معالجتها بالكامل في متصفحي — لم يتم رفع أي شيء.",
   "js.save.saved": "تم حفظ {name} ({size}، {format}).",
   "js.save.savedMany": "تمت مشاركة {count} {images} ({size}).",
+  "js.save.photosCopy": "حُفظ {name} ({size}، {format}) في الصور. هي نسخة من ملفك، لأن iOS لا يقبل كل صيغ الصور في تطبيق الصور؛ أما الملف الأصلي فما زال هنا لتنزيله.",
   "js.save.failed": "تعذّر حفظ الصورة على هذا الجهاز.",
   "js.webview.hint": "الحفظ محدود في هذا المتصفح المدمج، لذا تُعرض الصورة بملء الشاشة بدلاً من ذلك.",
   "js.webview.viewerHint": "اضغط مطولاً على الصورة ثم اختر «حفظ في الصور».",
   "js.webview.close": "إغلاق",
   "js.webview.openInSafari": "فتح في سفاري",
+  "js.webview.viewerHintMany": "اضغط مطولاً على إحدى الصور ثم اختر «حفظ في الصور»، وامسح جانبيًا للانتقال إلى التالية.",
+  "js.webview.counter": "{n} / {total}",
   "js.chrome.menuOpen": "افتح القائمة",
   "js.chrome.menuClose": "أغلق القائمة",
   "js.enhance.ready": "جاهز — أفلت صورة أو مجموعة صور لتحسينها.",
@@ -159,14 +162,14 @@
   "js.enhance.thumbAlt": "صورتك بعد تطبيق نمط {preset}",
   "js.enhance.doneStyled": "تم — {preset} بالشدة التي اخترتها.",
   "js.enhance.doneAuto": "تم — تصحيح تلقائي دون تطبيق أي نمط.",
-  "js.enhance.correctionApplied": "مدّ التصحيح التلقائي كل قناة إلى المدى الكامل: معاملات {gains} للأحمر والأخضر والأزرق. وكانت نقاط الأسود {black} ونقاط الأبيض {white}.",
+  "js.enhance.correctionApplied": "صحّحنا كل قناة لونية على حدة (معاملات {gains} للأحمر والأخضر والأزرق)، وكانت نقطتا الأسود {black} والأبيض {white}.",
   "js.enhance.correctionSkipped": "لم يجد التصحيح التلقائي ما يستحق الإصلاح: هذه الصورة تستخدم المدى الكامل أصلاً، ومدّها أكثر لن يفعل سوى تكبير التشويش.",
   "js.enhance.largerNote": "الملف المحسَّن أكبر بمقدار {size} ({percent}%). إعادة الترميز تفعل ذلك — وأبعاد البكسلات لم تتغيّر.",
-  "js.enhance.manualPath": "لا يدعم هذا المتصفح مرشّحات وحدة الرسوم، فحُسب النمط بكسل بكسل بدل أن يُحسب على شريحة الرسوم. والحساب مكافئ — لا يفترق المساران إلا ببضع قيم لونية — لكنه يستغرق وقتاً أطول قليلاً.",
+  "js.enhance.manualPath": "هذا المتصفح لا يدعم مرشّحات الرسوم، فحُسب النمط بكسلاً بكسلاً بدل حسابه على شريحة الرسوم. الحساب مكافئ — لا يفترق المساران إلا ببضع قيم لونية — لكنه يستغرق وقتاً أطول قليلاً.",
   "js.enhance.formatFallback": "تعذّرت كتابة صيغة صورتك الأصلية على هذا الجهاز، فحُفظ الناتج بصيغة JPEG.",
   "js.enhance.zeroIntensity": "الشدة على 0%، فهذه الصورة بعد التصحيح التلقائي دون أي نمط.",
   "js.enhance.enhancedCount": "{count} محسَّنة",
-  "js.enhance.zipTail": "واستخدم زر ZIP لتنزيل الدفعة كاملة.",
+  "js.enhance.zipTail": "واستخدم «تنزيل الكل في ملف ZIP» للدفعة الكاملة.",
   "js.error.INVALID_PRESET": "نمط التحسين هذا غير موجود.",
   "js.common.waiting": "في الانتظار",
   "js.common.compare": "مقارنة",
@@ -198,7 +201,7 @@
   "js.common.downloadSize": "تنزيل {size}",
   "js.common.downscaled": "تم تصغير الصورة إلى {w} × {h} لأنها أكبر من الحد الأقصى للوح الرسوم في هذا الجهاز.",
   "js.common.jpegFlatten": "JPEG لا يستطيع تخزين الشفافية، لذلك سُطّحت المناطق الشفافة على الأبيض.",
-  "js.common.largerThanOriginal": "خرج هذا الملف أكبر من الأصل بمقدار {size} — جرّب WebP أو حدّد حجماً مستهدفاً.",
+  "js.common.largerThanOriginal": "الناتج أكبر من الأصل بمقدار {size} — جرّب WebP أو حدّد حجماً مستهدفاً.",
   "js.common.largerThanOriginalResize": "الملف الجديد أكبر من الأصل بمقدار {size} — وإعادة الترميز إلى صيغة أخرى قد تفعل ذلك حتى مع انخفاض عدد البكسلات.",
   "js.common.noResampling": "بلا إعادة معايرة",
   "js.common.scaleOfPixels": "{percent} من البكسلات",
@@ -246,8 +249,8 @@
   "js.compress.zipTail": "استخدم «تنزيل الكل في ملف ZIP» للدفعة كاملة.",
   "js.compress.compressedCount": "{count} مضغوطة",
   "js.compress.tryingQuality": "جارٍ تجربة جودة {percent}%…",
-  "js.compress.nearTarget": "قريب جداً: أكبر من هدفك ({target}) بمقدار {over}، وهذا أصغر ما تصل إليه هذه الصورة.",
-  "js.compress.unreachableTarget": "لا يمكن الوصول إلى {target}: أصغر ما تصل إليه هذه الصورة هو {smallest}. قلّل أقصى عرض أو ارتفاع لتوفير أكثر.",
+  "js.compress.nearTarget": "اقتربنا كثيراً: الناتج أكبر من هدفك ({target}) بمقدار {over}، وهو أصغر ما تنتجه هذه الصورة.",
+  "js.compress.unreachableTarget": "تعذّر الوصول إلى {target}: أصغر ما تنتجه هذه الصورة هو {smallest}. قلّل أقصى عرض أو ارتفاع لتوفير أكثر.",
   "js.resize.ready": "جاهز — أفلت صورة أو دفعة لتغيير مقاسها.",
   "js.resize.unsupported": "هذا المتصفح لا يستطيع تغيير مقاس الصور محلياً.",
   "js.resize.workerStopped": "توقف عامل تغيير المقاس على غير المتوقع. أعد تحميل الصفحة وحاول مرة أخرى.",
@@ -284,7 +287,7 @@
   "js.convert.noEncoders": "لا يستطيع هذا المتصفح كتابة أي من الصيغ التي تعرضها هذه الأداة، فلا توجد صيغة يمكن التحويل إليها.",
   "js.convert.heicNeedsDecoder": "قراءة ملف HEIC تحتاج إلى فاكّ ترميز لم نتمكن من تنزيله. تحقق من اتصالك وحاول مرة أخرى.",
   "js.error.ABORTED": "أُلغيت العملية.",
-  "js.error.INTERNAL": "لم ينجح ذلك. لم يُرفع أي شيء؛ حاول مرة أخرى.",
+  "js.error.INTERNAL": "لم تنجح العملية. لم يُرفع أي شيء — حاول مرة أخرى.",
   "js.error.EMPTY_FILE": "يبدو أن هذا الملف فارغ.",
   "js.error.TOO_LARGE": "هذا الملف أكبر من الحدّ الذي تقبله الصفحة.",
   "js.error.TOO_MANY_FILES": "هذا عدد ملفات أكبر مما تستطيع الصفحة التعامل معه.",
@@ -382,37 +385,29 @@
   "js.pdf.pageMany": "صفحات",
   "js.pdf.docTitleFallback": "صور",
   "js.pdf.orderSummary": "{count} {pages} · {size}",
-  "js.pdf.orderTooLong": "{count} {pages} · {size} — وهذا عدد كبير من الصفحات ليبقى في الذاكرة مرة واحدة",
+  "js.pdf.orderTooLong": "{count} {pages} · {size} — وهذا عدد كبير من الصفحات للاحتفاظ بها في الذاكرة دفعة واحدة",
   "js.pdf.starting": "جارٍ تحضير {count} {images} داخل متصفحك…",
   "js.pdf.prepared": "حُضّرت {done} من {total}",
   "js.pdf.preparedFailed": "حُضّرت {done} من {total} — وفشلت {failed}",
-  "js.pdf.couldNotPrepareAll": "لم نتمكن من تحضير أي من تلك الصور، فلا يوجد ما نبني منه PDF.",
-  "js.pdf.nothingToPut": "لا يوجد شيء نضعه في ملف PDF.",
+  "js.pdf.couldNotPrepareAll": "تعذّر تحضير أي صورة، فلا يوجد ما نُجمِّع منه ملف PDF.",
+  "js.pdf.nothingToPut": "لا توجد صور لوضعها في ملف PDF بعد.",
   "js.pdf.writing": "جارٍ كتابة ملف PDF…",
   "js.pdf.readySummary": "ملف PDF جاهز — {count} {pages}، بحجم {size}.",
-  "js.pdf.transcoded": "أُعيد رسم {count} من {total} {images} بصيغة JPEG، لأن PDF يخزّن JPEG وPNG لا WebP.",
-  "js.pdf.transcodedOne": "أُعيد رسم صورة واحدة من {total} بصيغة JPEG، لأن PDF يخزّن JPEG وPNG لا WebP.",
+  "js.pdf.transcoded": "أُعيد رسم {count} من {total} {images} بصيغة JPEG، لأن PDF يدعم JPEG وPNG فقط لا WebP.",
+  "js.pdf.transcodedOne": "أُعيد رسم صورة واحدة من {total} بصيغة JPEG، لأن PDF يدعم JPEG وPNG فقط لا WebP.",
   "js.pdf.largeDoc": "هذا مستند كبير؛ وقد بقي في الذاكرة أثناء كتابته، ولهذا قد يكون بطيئاً على الهاتف.",
   "js.pdf.listCleared": "أُفرغت القائمة.",
   "js.pdf.ready": "جاهز — أضف صوراً لتبني ملف PDF.",
   "js.pdf.imagesReady": "{count} {images} جاهزة. اسحب الأسهم لإعادة الترتيب، ثم ابنِ ملف PDF.",
   "js.pdf.unsupported": "هذا المتصفح لا يستطيع بناء PDF محلياً.",
-  "js.pdf.downloadSize": "حمّل ملف PDF ({size})",
+  "js.pdf.downloadSize": "تنزيل ملف PDF ({size})",
   "js.pdf.startingPages": "{count} {pages}…",
   "js.crop.invalidSelection": "هذا التحديد أصغر من أن ينتج صورة. اسحب مربعاً أكبر."
 }</script>
 </head>
 <body>
   <!--#include partials/ar/header.html-->
-  <div class="container">
-    <nav class="lang-switch" aria-label="اللغة">
-      <ul class="lang-switch-list">
-      <li><a class="lang-switch-link" href="/targets/photos-to-pdf-one-page/" hreflang="en" lang="en">English</a></li>
-      <li><span class="lang-switch-current" lang="ar" aria-current="true">العربية</span></li>
-      </ul>
-    </nav>
-  </div>
-  <main class="main" id="main">
+  <main class="main" id="main" tabindex="-1">
     <div class="container">
       <nav class="breadcrumb" aria-label="مسار التنقل">
         <a href="/ar/">كل الأدوات</a>
@@ -435,76 +430,112 @@
         <p class="tool-hint">مهيّأة لك مسبقاً: مقاس صفحة مطابقة لكل صورة، بلا هوامش، جودة متوازنة (JPEG 85%). ويمكنك تغييرها قبل إسقاط الملف.</p>
       </header>
 
-      <section class="tool-panel" data-tool-root data-tool-slug="image-to-pdf">
-        <div class="dropzone" data-dropzone>
-          <label class="dropzone-label" for="tool-file-input">
-            <span class="dropzone-title">اختر الصور</span>
-            <span class="dropzone-hint">أو اسحبها وأفلتها، أو الصقها — JPEG، PNG أو WebP حتى 50 ميغابايت</span>
-            <span class="dropzone-hint">كل صورة تصبح صفحة. ولا شيء يغادر جهازك.</span>
-          </label>
-          <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple data-dropzone-input>
-        </div>
-
-        <p class="notice notice-warning" data-unsupported hidden>
-          لا يستطيع هذا المتصفح بناء ملف PDF محلياً — ينقصه واجهة فك ترميز الصور التي بُنيت عليها هذه الأدوات. ولا يُرفع أي شيء في كلتا الحالتين. جرّب نسخة حديثة من Chrome أو Edge أو Firefox أو Safari.
-        </p>
-
-        <div class="tool-controls">
-          <div class="field">
-            <label class="field-label" for="pdf-page-size">مقاس الصفحة</label>
-            <select class="field-input" id="pdf-page-size" data-page-size></select>
+﻿      <section class="tool-panel" data-tool-root data-tool-slug="image-to-pdf">
+        <div class="studio-stage">
+          <!--
+            The stage's empty state is one glass surface: not a dashed box, not a card inside a
+            card. It accepts a click, a drop and a paste, and the images accumulate into a document
+            rather than replacing each other, so the hint below stays visible after every drop:
+            "add more" is a standing invitation here, not a setting.
+          -->
+          <div class="dropzone" data-dropzone>
+            <label class="dropzone-label" for="tool-file-input">
+              <span class="dropzone-icon" aria-hidden="true">
+                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="6" width="44" height="44" rx="12"></rect>
+                  <circle cx="21" cy="21" r="5"></circle>
+                  <path d="M6 39l12-11 9 8 7-6 10 9"></path>
+                  <path class="dropzone-icon-drop" d="M28 10v10m-5-5l5 5 5-5"></path>
+                </svg>
+              </span>
+              <span class="dropzone-title">أفلت صورك هنا</span>
+              <span class="dropzone-sub">أو الصقها من الحافظة</span>
+              <span class="dropzone-browse" aria-hidden="true">تصفّح الصور</span>
+              <span class="dropzone-hint">أو اسحبها وأفلتها، أو الصقها — JPEG، PNG أو WebP حتى <bdi dir="ltr">50 MB</bdi></span>
+              <span class="dropzone-hint">كل صورة تصبح صفحة. ولا شيء يغادر جهازك.</span>
+              <button class="dropzone-sample" type="button" data-sample-image>جرّب بصورة تجريبية</button>
+              <span class="dropzone-more" aria-hidden="false">أضف المزيد من الصور</span>
+            </label>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-label="تصفّح الصور" data-dropzone-input>
           </div>
-          <div class="field">
-            <label class="field-label" for="pdf-margin">الهامش</label>
-            <select class="field-input" id="pdf-margin" data-margin></select>
-          </div>
-          <div class="field">
-            <label class="field-label" for="pdf-quality">جودة الصورة</label>
-            <select class="field-input" id="pdf-quality" data-quality></select>
-          </div>
-        </div>
 
-        <div class="order" data-order hidden>
-          <div class="batch-header">
-            <p class="batch-summary" data-order-summary></p>
-            <div class="batch-actions">
-              <button class="button" type="button" data-build-pdf data-primary-action data-sticky="off">ابنِ ملف PDF</button>
-              <button class="button button-secondary" type="button" data-clear-list>أفرغ القائمة</button>
+          <p class="notice notice-warning" data-unsupported hidden>
+            هذا المتصفح لا يستطيع بناء ملف PDF محلياً — تنقصه واجهة فك الترميز التي تقوم عليها هذه الأدوات. لا يُرفع أي شيء في كلتا الحالتين؛ جرّب نسخة حديثة من Chrome أو Edge أو Firefox أو Safari.
+          </p>
+
+          <div class="progress-region" data-progress-region hidden>
+            <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="بناء ملف PDF">
+              <div class="progress-bar" data-progress-bar></div>
+            </div>
+            <p class="progress-text" data-progress-text></p>
+            <button class="button button-secondary" type="button" data-cancel>إلغاء</button>
+          </div>
+
+          <div class="result" data-result hidden>
+            <dl class="result-stats">
+              <div class="result-stat">
+                <dt>الصفحات</dt>
+                <dd data-result-pages>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>مقاس الصفحة</dt>
+                <dd data-result-page-size>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>حجم الملف</dt>
+                <dd data-result-size>&mdash;</dd>
+              </div>
+            </dl>
+            <p class="notice notice-warning" data-result-warning hidden></p>
+            <div class="result-actions">
+              <a class="button" data-download download>تنزيل ملف PDF</a>
+              <button class="button button-secondary" type="button" data-start-over>البدء من جديد</button>
             </div>
           </div>
-          <ol class="order-list" data-order-list></ol>
-          <p class="order-hint">استخدم الأسهم لإعادة الترتيب &mdash; فترتيب القائمة يصبح ترتيب الصفحات.</p>
-        </div>
 
-        <div class="progress-region" data-progress-region hidden>
-          <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="بناء ملف PDF">
-            <div class="progress-bar" data-progress-bar></div>
-          </div>
-          <p class="progress-text" data-progress-text></p>
-          <button class="button button-secondary" type="button" data-cancel>إلغاء</button>
-        </div>
-
-        <div class="result" data-result hidden>
-          <dl class="result-stats">
-            <div class="result-stat">
-              <dt>الصفحات</dt>
-              <dd data-result-pages>&mdash;</dd>
+          <!--
+            The page order is the interface, not a control: this region is the list of pages the
+            document will be built from, with the build action beside its summary. It is a stage
+            citizen for the same reason the batch filmstrip is â€” it is the work in progress, and it
+            stays under the drop zone so a page added late lands where a visitor is already looking.
+          -->
+          <div class="order" data-order hidden>
+            <div class="batch-header">
+              <p class="batch-summary" data-order-summary></p>
+              <div class="batch-actions">
+                <button class="button" type="button" data-build-pdf data-primary-action data-sticky="off">ابنِ ملف PDF</button>
+                <button class="button button-secondary" type="button" data-clear-list>أفرغ القائمة</button>
+              </div>
             </div>
-            <div class="result-stat">
-              <dt>مقاس الصفحة</dt>
-              <dd data-result-page-size>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>حجم الملف</dt>
-              <dd data-result-size>&mdash;</dd>
-            </div>
-          </dl>
-          <p class="notice notice-warning" data-result-warning hidden></p>
-          <div class="result-actions">
-            <a class="button" data-download download>حمّل ملف PDF</a>
-            <button class="button button-secondary" type="button" data-start-over>البدء من جديد</button>
+            <ol class="order-list" data-order-list></ol>
+            <p class="order-hint">استخدم الأسهم لإعادة الترتيب &mdash; فترتيب القائمة يصبح ترتيب الصفحات.</p>
           </div>
         </div>
+
+        <!--
+          The inspector: direct, visual controls. Every one of them presents a hooked control the
+          tool script already owns â€” the <select> stays as the value holder behind the chips â€” so
+          nothing here is a second source of truth, and a tool script that has never heard of the
+          shell still reads the same values and the same change events.
+        -->
+        <aside class="studio-inspector">
+          <div class="ctl">
+            <span class="ctl-label" id="ctl-page-size-label">مقاس الصفحة</span>
+            <!-- data-shell-chips: the segmented control that replaces the native select. -->
+            <select class="field-input" id="pdf-page-size" data-page-size data-shell-chips aria-labelledby="ctl-page-size-label"></select>
+          </div>
+
+          <div class="ctl">
+            <span class="ctl-label" id="ctl-margin-label">الهامش</span>
+            <select class="field-input" id="pdf-margin" data-margin data-shell-chips aria-labelledby="ctl-margin-label"></select>
+          </div>
+
+          <div class="ctl">
+            <span class="ctl-label" id="ctl-quality-label">جودة الصورة</span>
+            <select class="field-input" id="pdf-quality" data-quality data-shell-chips aria-labelledby="ctl-quality-label"></select>
+          </div>
+        </aside>
 
         <p class="status" data-status role="status" aria-live="polite"></p>
       </section>
@@ -512,7 +543,7 @@
       <section class="secondary-section tool-notes" data-collapsible>
         <details><summary><h2>كيف يعمل هذا</h2></summary></details>
         <div class="disclosure-body">
-          <p>يُجمَّع ملف PDF داخل هذا التبويب — على «عامل ويب» مسارٍ خلفيٍّ حيثما يوفّر متصفحك ذلك: تُلاءم كل صورة مع صفحتها وتُكتب في مستند واحد يحفظه متصفحك بعد ذلك. رزمةٌ من الأوراق الممسوحة ضوئياً لا تغادر جهازك أبداً.</p>
+          <p>يُجمَّع ملف PDF في مسار خلفي داخل هذا التبويب: تُلاءم كل صورة مع صفحتها وتُكتب في مستند واحد يحفظه متصفحك. حزمة من الأوراق الممسوحة ضوئياً لا تغادر جهازك أبداً.</p>
           <ul>
             <li><strong>مقاس الصفحة</strong> إما A4، أو US Letter، أو أن تأخذ كل صفحة مقاس صورتها فلا يُضاف هامش ولا يُقتطع شيء دون انتظار.</li>
             <li>تأخذ الصور العريضة صفحة عريضة تلقائياً، فلا تُصغَّر صورة لتلائم الضلع القصير من ورقة طولية.</li>

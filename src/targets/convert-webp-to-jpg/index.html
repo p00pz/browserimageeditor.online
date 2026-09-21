@@ -140,11 +140,14 @@
   "js.save.shareText": "Processed entirely in my browser — nothing was uploaded.",
   "js.save.saved": "Saved {name} ({size}, {format}).",
   "js.save.savedMany": "Shared {count} {images} ({size}).",
+  "js.save.photosCopy": "Saved {name} ({size}, {format}) to Photos. It is a copy of your file, because iOS does not accept every image format in Photos; the original is still here to download.",
   "js.save.failed": "The image could not be saved on this device.",
   "js.webview.hint": "Saving is limited in this in-app browser, so the image is shown full-screen instead.",
   "js.webview.viewerHint": "Press and hold the image, then choose “Save to Photos”.",
   "js.webview.close": "Close",
   "js.webview.openInSafari": "Open in Safari",
+  "js.webview.viewerHintMany": "Press and hold an image, then choose “Save to Photos”. Swipe sideways for the next one.",
+  "js.webview.counter": "{n} / {total}",
   "js.chrome.menuOpen": "Open menu",
   "js.chrome.menuClose": "Close menu",
   "js.enhance.ready": "Ready — drop a photo, or a batch, to enhance it.",
@@ -411,15 +414,7 @@
 </head>
 <body>
   <!--#include partials/header.html-->
-  <div class="container">
-    <nav class="lang-switch" aria-label="Language">
-      <ul class="lang-switch-list">
-      <li><span class="lang-switch-current" lang="en" aria-current="true">English</span></li>
-      <li><a class="lang-switch-link" href="/ar/targets/convert-webp-to-jpg/" hreflang="ar" lang="ar">العربية</a></li>
-      </ul>
-    </nav>
-  </div>
-  <main class="main" id="main">
+  <main class="main" id="main" tabindex="-1">
     <div class="container">
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="/">All tools</a>
@@ -442,86 +437,101 @@
         <p class="tool-hint">Pre-set for you: JPEG output. You can change it before you drop a file.</p>
       </header>
 
-      <section class="tool-panel" data-tool-root data-tool-slug="convert-image">
-        <div class="dropzone" data-dropzone>
-          <label class="dropzone-label" for="tool-file-input">
-            <span class="dropzone-title">Choose images</span>
-            <span class="dropzone-hint">or drag and drop, or paste — JPEG, PNG, WebP, AVIF, HEIC or HEIF up to 50 MB</span>
-            <span class="dropzone-hint">One image or a whole batch — nothing leaves your device either way.</span>
-          </label>
-          <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp,image/avif,image/heic,image/heif" multiple data-dropzone-input>
-        </div>
+﻿      <section class="tool-panel" data-tool-root data-tool-slug="convert-image">
+        <div class="studio-stage">
+          <div class="dropzone" data-dropzone>
+            <label class="dropzone-label" for="tool-file-input">
+              <span class="dropzone-icon" aria-hidden="true">
+                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="6" width="44" height="44" rx="12"></rect>
+                  <circle cx="21" cy="21" r="5"></circle>
+                  <path d="M6 39l12-11 9 8 7-6 10 9"></path>
+                  <path class="dropzone-icon-drop" d="M28 10v10m-5-5l5 5 5-5"></path>
+                </svg>
+              </span>
+              <span class="dropzone-title">Drop your images here</span>
+              <span class="dropzone-sub">or paste from the clipboard</span>
+              <span class="dropzone-browse" aria-hidden="true">Browse images</span>
+              <span class="dropzone-hint">or drag and drop, or paste — JPEG, PNG, WebP, AVIF, HEIC or HEIF up to 50 MB</span>
+              <span class="dropzone-hint">One image or a whole batch — nothing leaves your device either way.</span>
+<button class="dropzone-sample" type="button" data-sample-image>Try a sample image</button>
+               <span class="dropzone-more" aria-hidden="false">Add more images</span>
+             </label>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp,image/avif,image/heic,image/heif" multiple aria-label="Browse images" data-dropzone-input>
+          </div>
 
-        <p class="notice notice-warning" data-unsupported hidden>
-          This browser cannot convert images locally — it is missing the image-decoding API these tools are built on. Nothing is uploaded either way. Please try a current version of Chrome, Edge, Firefox or Safari.
-        </p>
+          <p class="notice notice-warning" data-unsupported hidden>
+            This browser cannot convert images locally — it is missing the image-decoding API these tools are built on. Nothing is uploaded either way. Please try a current version of Chrome, Edge, Firefox or Safari.
+          </p>
 
-        <p class="notice notice-info" data-heic-note hidden>
-          That is a HEIC or HEIF file, the format iPhones and many cameras shoot by default. This browser cannot decode it natively, so a decoder is fetched from this site to read it — still on your device, still never uploaded.
-        </p>
+          <p class="notice notice-info" data-heic-note hidden>
+            That is a HEIC or HEIF file, the format iPhones and many cameras shoot by default. This browser cannot decode it natively, so a decoder is fetched from this site to read it — still on your device, still never uploaded.
+          </p>
 
-        <div class="tool-controls">
-          <div class="field field-wide">
-            <label class="field-label" for="convert-format">Convert to</label>
-            <select class="field-input" id="convert-format" data-output-format></select>
+          <div class="progress-region" data-progress-region hidden>
+            <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Conversion progress">
+              <div class="progress-bar" data-progress-bar></div>
+            </div>
+            <p class="progress-text" data-progress-text></p>
+            <button class="button button-secondary" type="button" data-cancel>Cancel</button>
+          </div>
+
+          <div class="result" data-result hidden>
+            <div class="compare-slider" data-compare>
+              <div class="compare-slider-pane compare-slider-before">
+                <img data-compare-before alt="The original image">
+              </div>
+              <div class="compare-slider-pane compare-slider-after">
+                <img data-compare-after alt="The converted image">
+              </div>
+              <span class="compare-slider-handle" aria-hidden="true"></span>
+              <span class="compare-slider-label compare-slider-label-before">Original</span>
+              <span class="compare-slider-label compare-slider-label-after">Converted</span>
+              <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="Drag to compare the original and the converted image">
+            </div>
+            <p class="compare-savings" data-compare-savings></p>
+            <dl class="result-stats">
+              <div class="result-stat">
+                <dt>Format</dt>
+                <dd data-result-format>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>Dimensions</dt>
+                <dd data-result-dimensions>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>File size</dt>
+                <dd data-result-size>&mdash;</dd>
+              </div>
+            </dl>
+            <p class="notice notice-warning" data-result-warning hidden></p>
+            <div class="result-actions">
+              <a class="button" data-download download>Download</a>
+              <button class="button button-secondary" type="button" data-start-over>Start over</button>
+            </div>
+          </div>
+
+          <div class="batch" data-batch hidden>
+            <div class="batch-header">
+              <p class="batch-summary" data-batch-summary></p>
+              <div class="batch-actions" data-batch-actions>
+                <button class="button" type="button" data-convert-all data-primary-action data-sticky="off" data-label="Convert all" data-label-done="Convert all again">Convert all</button>
+                <button class="button button-secondary" type="button" data-download-zip hidden>Download all as ZIP</button>
+              </div>
+            </div>
+            <ul class="batch-list" data-file-list></ul>
           </div>
         </div>
 
-        <p class="preset-note" data-encoder-note hidden></p>
+        <aside class="studio-inspector">
+          <div class="ctl">
+            <span class="ctl-label" id="ctl-format-label">Convert to</span>
+            <select class="field-input" id="convert-format" data-output-format data-shell-chips aria-labelledby="ctl-format-label"></select>
+          </div>
 
-        <div class="batch" data-batch hidden>
-          <div class="batch-header">
-            <p class="batch-summary" data-batch-summary></p>
-            <div class="batch-actions" data-batch-actions>
-              <button class="button" type="button" data-convert-all data-primary-action data-sticky="off" data-label="Convert all" data-label-done="Convert all again">Convert all</button>
-              <button class="button button-secondary" type="button" data-download-zip hidden>Download all as ZIP</button>
-            </div>
-          </div>
-          <ul class="batch-list" data-file-list></ul>
-        </div>
-
-        <div class="progress-region" data-progress-region hidden>
-          <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Conversion progress">
-            <div class="progress-bar" data-progress-bar></div>
-          </div>
-          <p class="progress-text" data-progress-text></p>
-          <button class="button button-secondary" type="button" data-cancel>Cancel</button>
-        </div>
-
-        <div class="result" data-result hidden>
-          <div class="compare-slider" data-compare>
-            <div class="compare-slider-pane compare-slider-before">
-              <img data-compare-before alt="The original image">
-            </div>
-            <div class="compare-slider-pane compare-slider-after">
-              <img data-compare-after alt="The converted image">
-            </div>
-            <span class="compare-slider-handle" aria-hidden="true"></span>
-            <span class="compare-slider-label compare-slider-label-before">Original</span>
-            <span class="compare-slider-label compare-slider-label-after">Converted</span>
-            <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="Drag to compare the original and the converted image">
-          </div>
-          <p class="compare-savings" data-compare-savings></p>
-          <dl class="result-stats">
-            <div class="result-stat">
-              <dt>Format</dt>
-              <dd data-result-format>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>Dimensions</dt>
-              <dd data-result-dimensions>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>File size</dt>
-              <dd data-result-size>&mdash;</dd>
-            </div>
-          </dl>
-          <p class="notice notice-warning" data-result-warning hidden></p>
-          <div class="result-actions">
-            <a class="button" data-download download>Download</a>
-            <button class="button button-secondary" type="button" data-start-over>Start over</button>
-          </div>
-        </div>
+          <p class="preset-note" data-encoder-note hidden></p>
+        </aside>
 
         <p class="status" data-status role="status" aria-live="polite"></p>
       </section>

@@ -183,6 +183,6 @@ export function reportPlaceholders(audits, { prefix = 'content-audit' } = {}) {
     const shown = list.length <= 3 ? list.join(', ') : `${list.length} pages (${list.slice(0, 3).join(', ')}, …)`;
     console.log(`  ! ${key} — ${shown}`);
   }
-  console.log(`${prefix}: fill these in before launch; they are listed under "Open decisions" in PROGRESS_LOG.md.`);
+  console.log(`${prefix}: fill these in before launch.`);
   return groups.size;
 }

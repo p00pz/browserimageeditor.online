@@ -4,8 +4,7 @@
  * The palette is iOS-caliber and deliberately narrow: one accent, one dark "stage" well that
  * never flips, and separators/fills as alpha grays so the single ambient mesh and the glass chrome
  * can tint the page instead of a second background colour. Every text token below clears WCAG AA
- * on every surface it is used on — see the contrast notes beside the tokens, and §2 of
- * DESIGN_BRIEF.md.
+ * on every surface it is used on — see the contrast notes beside the tokens.
  *
  * Dark tokens are declared twice and must stay in sync: once for a visitor whose system is dark and
  * who made no choice, once for a visitor who chose dark on a light system. CSS cannot share one
@@ -76,6 +75,10 @@
   /* ---------- glass ---------- */
   --color-glass: rgba(255, 255, 255, 0.72);
   --color-glass-border: rgba(255, 255, 255, 0.7);
+  /* The header and the menu sheet: legible even where a browser will not composite the blur.
+     0.72 frosted is beautiful until text scrolls through it, so the chrome that must stay readable
+     over scrolling content carries enough pigment to stand on its own. */
+  --color-glass-strong: rgba(255, 255, 255, 0.92);
   --blur-glass: blur(44px) saturate(180%);
   --blur-chip: blur(24px) saturate(180%);
 
@@ -95,11 +98,31 @@
   /* ---------- type ----------
    * Root at 17px so the scale lands on the pixel values the brief names; the rem units below are
    * 13/15/17/19/22/26/32/40. Nothing in the UI is smaller than 13px, and 12px is reserved for
-   * aria-hidden chrome. */
-  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Arabic', 'Segoe UI', Tahoma,
-    'Noto Sans Arabic', 'Noto Naskh Arabic', 'Geeza Pro', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji';
-  --font-mono: 'SF Mono', 'Fira Code', 'Fira Mono', ui-monospace, Menlo, Consolas, monospace;
+   * aria-hidden chrome.
+   *
+   * Two faces, one family chain. --font-body is the working face: the *text* cut where the
+   * platform splits its cuts, open tracking, tabular figures. --font-display is the same chain
+   * tuned for large sizes: the *display* cut, and the tight tracking comes with it via
+   * --tracking-display. Every face after the system defaults covers U+0600–06FF plus the
+   * presentation forms, so an Arabic page never falls through to a face that drops the dots or
+   * the harakat, and Western digits stay on the chain in both directions.
+   *
+   * The shipped face is IBM Plex Sans Arabic, SIL Open Font License 1.1 — the @font-face block
+   * below, and scripts/gen-fonts.mjs which copies the files in. Thmanyah is deliberately NOT in
+   * this file. Its licence (read in full from LICENSE.pdf in the source archive) permits web
+   * embedding only "as part of a compiled, packaged, or obfuscated product", and separately forbids
+   * hosting the files for download, making them extractable "independently as font files, including
+   * through web embedding", and building derivative works — which bars subsetting. This open-source
+   * repo and its public build fail all three. Shipping it would expose the owner to a Saudi-court
+   * copyright claim, so the closest OFL alternative ships instead. */
+  --font-body: 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Arabic',
+    'Segoe UI', Tahoma, 'Noto Sans Arabic', 'Noto Naskh Arabic', 'Geeza Pro', Helvetica, Arial,
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  --font-display: 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, 'SF Pro Display',
+    'SF Arabic', 'Segoe UI', Tahoma, 'Noto Sans Arabic', 'Noto Naskh Arabic', 'Geeza Pro', Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  --font-mono: 'SF Mono', 'SF Arabic', 'Fira Code', 'Fira Mono', ui-monospace, Menlo, Consolas,
+    monospace;
 
   --text-xs: 0.7647rem;
   --text-sm: 0.8824rem;
@@ -165,6 +188,55 @@
 
   --container-max: 1200px;
   --header-height: 60px;
+}
+
+/* Self-hosted and subset to the two repertoires this site actually uses, at the two weights the
+ * scale lands on: 400 for body and 600 for every display and emphasis token. scripts/gen-fonts.mjs
+ * copies the woff2 from the pinned dev dependency unmodified and reads these `unicode-range`
+ * values from that same package, so a face never claims a repertoire it cannot render; if the
+ * upstream names or ranges change, that generator fails instead of shipping a half-blind font.
+ * Two weights cover the scale because the font-matching algorithm maps a 500 request onto 400 and
+ * a 700 request onto 600, which is where the design put them. font-display: swap keeps the text
+ * readable while the woff2 arrives and the stacks above stay as the metric fallback; the licence
+ * travels with the files at /fonts/OFL.txt.
+ *
+ * These are top-level statements on purpose: an @font-face nested inside the :root rule above is
+ * invalid CSS and the browser silently drops it, which leaves the computed family first in the
+ * stack while nothing is ever fetched — the page reports the font and renders without it. */
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-sans-arabic-latin-400-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2') format('woff2');
+  unicode-range: U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC,U+102E0-102FB,U+10E60-10E7E,U+10EC2-10EC4,U+10EFC-10EFF,U+1EE00-1EE03,U+1EE05-1EE1F,U+1EE21-1EE22,U+1EE24,U+1EE27,U+1EE29-1EE32,U+1EE34-1EE37,U+1EE39,U+1EE3B,U+1EE42,U+1EE47,U+1EE49,U+1EE4B,U+1EE4D-1EE4F,U+1EE51-1EE52,U+1EE54,U+1EE57,U+1EE59,U+1EE5B,U+1EE5D,U+1EE5F,U+1EE61-1EE62,U+1EE64,U+1EE67-1EE6A,U+1EE6C-1EE72,U+1EE74-1EE77,U+1EE79-1EE7C,U+1EE7E,U+1EE80-1EE89,U+1EE8B-1EE9B,U+1EEA1-1EEA3,U+1EEA5-1EEA9,U+1EEAB-1EEBB,U+1EEF0-1EEF1;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-sans-arabic-latin-600-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2') format('woff2');
+  unicode-range: U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC,U+102E0-102FB,U+10E60-10E7E,U+10EC2-10EC4,U+10EFC-10EFF,U+1EE00-1EE03,U+1EE05-1EE1F,U+1EE21-1EE22,U+1EE24,U+1EE27,U+1EE29-1EE32,U+1EE34-1EE37,U+1EE39,U+1EE3B,U+1EE42,U+1EE47,U+1EE49,U+1EE4B,U+1EE4D-1EE4F,U+1EE51-1EE52,U+1EE54,U+1EE57,U+1EE59,U+1EE5B,U+1EE5D,U+1EE5F,U+1EE61-1EE62,U+1EE64,U+1EE67-1EE6A,U+1EE6C-1EE72,U+1EE74-1EE77,U+1EE79-1EE7C,U+1EE7E,U+1EE80-1EE89,U+1EE8B-1EE9B,U+1EEA1-1EEA3,U+1EEA5-1EEA9,U+1EEAB-1EEBB,U+1EEF0-1EEF1;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -265,6 +337,7 @@
 
   --color-glass: rgba(28, 28, 30, 0.72);
   --color-glass-border: rgba(255, 255, 255, 0.08);
+  --color-glass-strong: rgba(20, 20, 22, 0.92);
 
   --mesh-1: rgba(10, 132, 255, 0.24);
   --mesh-2: rgba(255, 45, 85, 0.14);
@@ -305,7 +378,7 @@ body {
   margin: 0;
   background-color: var(--color-bg);
   color: var(--color-text);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: var(--text-base);
   line-height: var(--leading-normal);
   letter-spacing: var(--tracking-body);
@@ -315,6 +388,20 @@ body {
   overflow-x: hidden;
   overflow-x: clip;
   transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* Headings take the display cut and its tight tracking. A base rule rather than a per-component
+ * one, so a heading anywhere — a tool card, a sheet, an FAQ — reads as display type without each
+ * component having to say so. Sizes still come from the component classes. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-tight);
 }
 
 img,
@@ -337,7 +424,10 @@ button,
 input,
 select,
 textarea {
+  /* `font` does not cover letter-spacing, so it needs its own line or a form control quietly
+   * loses the body tracking and reads tighter than the label above it. */
   font: inherit;
+  letter-spacing: inherit;
   color: inherit;
 }
 

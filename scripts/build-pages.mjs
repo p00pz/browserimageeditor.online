@@ -73,7 +73,6 @@ import {
   chromeStrings,
   faqHtml,
   guidesHtml,
-  langSwitchHtml,
   ogImageKey,
   ogImageUrl,
   ogTags,
@@ -132,10 +131,7 @@ function relatedHtml(tool, toolList, strings, prefix = '') {
     .filter((candidate) => candidate && candidate.status === 'live');
   if (related.length === 0) return '';
   const cards = related
-    .map(
-      (item) =>
-        `    <li class="tool-card">\n      <a class="tool-card-link" href="${prefix}${toolPath(item)}">\n        <span class="tool-card-name">${escapeHtml(item.name)}</span>\n        <span class="tool-card-desc">${escapeHtml(item.description)}</span>\n      </a>\n    </li>`,
-    )
+    .map((item) => toolCard(item, { indent: '    ', strings, prefix }))
     .join('\n');
   return secondarySection({
     className: 'related-tools',
@@ -236,10 +232,10 @@ for (const locale of site.locales) {
    * Head values every page kind shares: language, alternates, the canonical URL, install hints and
    * the string catalogue's markup half.
    *
-   * `markupStrings` is spread in last so a template can reach any `ui.*` string as `{{t.ui.…}}`
-   * without the call site naming each one. `langSwitch` and `homeHref` are functions of the path,
-   * which is why this is a function rather than an object.
-   */
+    * `markupStrings` is spread in last so a template can reach any `ui.*` string as `{{t.ui.…}}`
+    * without the call site naming each one. `homeHref` is a function of the path,
+    * which is why this is a function rather than an object.
+    */
   const head = (path) => ({
     lang,
     dir,
@@ -248,7 +244,6 @@ for (const locale of site.locales) {
     alternates: alternatesHtml(localeSite, path),
     pwaHead: pwaHeadHtml(localeSite),
     rtlHead: rtlHeadHtml(locale),
-    langSwitch: langSwitchHtml(localeSite, code, path, catalog),
     translationNotice: translationNoticeHtml(locale, catalog, site.defaultLocale),
     uiStrings: uiStringsBlock(runtimeStrings(catalog)),
     homeHref: localePath(localeSite, code, '/'),
@@ -473,6 +468,30 @@ for (const locale of site.locales) {
 // page names the directory it wants: `<!--#include partials/ar/nav-tools.html-->`. The hand-written
 // chrome (header, footer, theme-boot) keeps its copies in the same place, so a translator has one
 // directory to look in for everything that language's chrome says.
+
+/**
+ * The language switch, as a partial rather than a per-page token.
+ *
+ * Its hrefs are the one thing that varies per route, and every route already declares its
+ * counterparts in `<link rel="alternate">`, so the markup ships with the other language's homepage
+ * as a safe default and `ui/site.js` points each link at this page's own alternate when one exists.
+ * That keeps the untranslated-route behaviour exactly as the per-page switch had it: the link goes
+ * to the other language's homepage and says why.
+ */
+function langSwitchPartial(localeSite, code, catalog = {}) {
+  if (localeSite.locales.length < 2) return '';
+  const label = escapeHtml(catalog['ui.chrome.langSwitchLabel'] ?? 'Language');
+  const fallbackHint = escapeHtml(catalog['ui.chrome.langFallback'] ?? '');
+  const items = localeSite.locales.map((locale) => {
+    const name = escapeHtml(catalog[`ui.chrome.lang.${locale.code}`] ?? locale.label);
+    if (locale.code === code) {
+      return `      <li><span class="lang-switch-current" lang="${locale.code}" aria-current="true">${name}</span></li>`;
+    }
+    return `      <li><a class="lang-switch-link" href="/" data-lang-target="${locale.code}" hreflang="${locale.code}" lang="${locale.code}"${fallbackHint ? ` title="${fallbackHint}"` : ''}>${name}</a></li>`;
+  });
+  return `    <nav class="lang-switch" aria-label="${label}" data-lang-switch>\n      <ul class="lang-switch-list">\n${items.join('\n')}\n      </ul>\n    </nav>`;
+}
+
 for (const locale of site.locales) {
   const code = locale.code;
   const prefix = code === site.defaultLocale ? '' : `${code}/`;
@@ -490,6 +509,7 @@ for (const locale of site.locales) {
       navPagesPartial({ place: 'header', pageList: loadPages(code), code }),
     ),
   );
+  results.push(writeGenerated(partial('lang-switch.html'), langSwitchPartial(site, code, loadUi(code))));
 }
 
 reportWrites(results, { prefix: 'build-pages' });

@@ -22,8 +22,7 @@
 </head>
 <body>
   <!--#include partials/{{partials}}header.html-->
-{{{langSwitch}}}
-  <main class="main" id="main">
+  <main class="main" id="main" tabindex="-1">
     <div class="container">
       <nav class="breadcrumb" aria-label="{{{t.ui.chrome.breadcrumb}}}">
         <a href="{{homeHref}}">{{{t.ui.chrome.allTools}}}</a>
@@ -55,6 +54,9 @@
 {{{translationNotice}}}
   <!--#include partials/{{partials}}footer.html-->
   <script type="module" src="/assets/js/ui/site.js"></script>
+  <!-- The Studio Shell presents the tool's own controls as chips and sliders. It loads before the
+       tool script and never touches a value: the tool's hooked controls stay the source of truth. -->
+  <script type="module" src="/assets/js/ui/studio.js"></script>
   <script type="module" src="{{toolScript}}"></script>
 </body>
 </html>

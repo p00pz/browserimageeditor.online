@@ -5,8 +5,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <!--#include partials/theme-boot.html-->
-  <title>كيف يعمل — معالجة الصور داخل المتصفح مشروحة | محرر الصور في المتصفح</title>
-  <meta name="description" content="النسخة التقنية: كيف يعالج مسار خلفي ولوحة رسم وWebAssembly صورك داخل التبويب، ولماذا لا يُرفع أي شيء إلى أي مكان.">
+  <title>كيف يعمل — معالجة الصور داخل المتصفح | محرر الصور في المتصفح</title>
+  <meta name="description" content="النسخة التقنية: كيف يعالج مسار خلفي ولوحة رسم صورك داخل التبويب، ولماذا لا يُرفع أي شيء إلى أي مكان.">
   <link rel="canonical" href="https://browserimageeditor.online/ar/pages/how-it-works/">
   <link rel="alternate" hreflang="en" href="https://browserimageeditor.online/pages/how-it-works/">
   <link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/pages/how-it-works/">
@@ -14,18 +14,18 @@
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="محرر الصور في المتصفح">
-  <meta property="og:title" content="كيف يعمل — معالجة الصور داخل المتصفح مشروحة">
-  <meta property="og:description" content="النسخة التقنية: كيف يعالج مسار خلفي ولوحة رسم وWebAssembly صورك داخل التبويب، ولماذا لا يُرفع أي شيء إلى أي مكان.">
+  <meta property="og:title" content="كيف يعمل — معالجة الصور داخل المتصفح">
+  <meta property="og:description" content="النسخة التقنية: كيف يعالج مسار خلفي ولوحة رسم صورك داخل التبويب، ولماذا لا يُرفع أي شيء إلى أي مكان.">
   <meta property="og:url" content="https://browserimageeditor.online/ar/pages/how-it-works/">
   <meta property="og:image" content="https://browserimageeditor.online/ar/og/page-how-it-works.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="كيف يعمل — معالجة الصور داخل المتصفح مشروحة">
+  <meta property="og:image:alt" content="كيف يعمل — معالجة الصور داخل المتصفح">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="كيف يعمل — معالجة الصور داخل المتصفح مشروحة">
-  <meta name="twitter:description" content="النسخة التقنية: كيف يعالج مسار خلفي ولوحة رسم وWebAssembly صورك داخل التبويب، ولماذا لا يُرفع أي شيء إلى أي مكان.">
+  <meta name="twitter:title" content="كيف يعمل — معالجة الصور داخل المتصفح">
+  <meta name="twitter:description" content="النسخة التقنية: كيف يعالج مسار خلفي ولوحة رسم صورك داخل التبويب، ولماذا لا يُرفع أي شيء إلى أي مكان.">
   <meta name="twitter:image" content="https://browserimageeditor.online/ar/og/page-how-it-works.png">
-  <meta name="twitter:image:alt" content="كيف يعمل — معالجة الصور داخل المتصفح مشروحة">
+  <meta name="twitter:image:alt" content="كيف يعمل — معالجة الصور داخل المتصفح">
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -65,11 +65,14 @@
   "js.save.shareText": "تمت معالجتها بالكامل في متصفحي — لم يتم رفع أي شيء.",
   "js.save.saved": "تم حفظ {name} ({size}، {format}).",
   "js.save.savedMany": "تمت مشاركة {count} {images} ({size}).",
+  "js.save.photosCopy": "حُفظ {name} ({size}، {format}) في الصور. هي نسخة من ملفك، لأن iOS لا يقبل كل صيغ الصور في تطبيق الصور؛ أما الملف الأصلي فما زال هنا لتنزيله.",
   "js.save.failed": "تعذّر حفظ الصورة على هذا الجهاز.",
   "js.webview.hint": "الحفظ محدود في هذا المتصفح المدمج، لذا تُعرض الصورة بملء الشاشة بدلاً من ذلك.",
   "js.webview.viewerHint": "اضغط مطولاً على الصورة ثم اختر «حفظ في الصور».",
   "js.webview.close": "إغلاق",
   "js.webview.openInSafari": "فتح في سفاري",
+  "js.webview.viewerHintMany": "اضغط مطولاً على إحدى الصور ثم اختر «حفظ في الصور»، وامسح جانبيًا للانتقال إلى التالية.",
+  "js.webview.counter": "{n} / {total}",
   "js.chrome.menuOpen": "افتح القائمة",
   "js.chrome.menuClose": "أغلق القائمة",
   "js.enhance.ready": "جاهز — أفلت صورة أو مجموعة صور لتحسينها.",
@@ -91,14 +94,14 @@
   "js.enhance.thumbAlt": "صورتك بعد تطبيق نمط {preset}",
   "js.enhance.doneStyled": "تم — {preset} بالشدة التي اخترتها.",
   "js.enhance.doneAuto": "تم — تصحيح تلقائي دون تطبيق أي نمط.",
-  "js.enhance.correctionApplied": "مدّ التصحيح التلقائي كل قناة إلى المدى الكامل: معاملات {gains} للأحمر والأخضر والأزرق. وكانت نقاط الأسود {black} ونقاط الأبيض {white}.",
+  "js.enhance.correctionApplied": "صحّحنا كل قناة لونية على حدة (معاملات {gains} للأحمر والأخضر والأزرق)، وكانت نقطتا الأسود {black} والأبيض {white}.",
   "js.enhance.correctionSkipped": "لم يجد التصحيح التلقائي ما يستحق الإصلاح: هذه الصورة تستخدم المدى الكامل أصلاً، ومدّها أكثر لن يفعل سوى تكبير التشويش.",
   "js.enhance.largerNote": "الملف المحسَّن أكبر بمقدار {size} ({percent}%). إعادة الترميز تفعل ذلك — وأبعاد البكسلات لم تتغيّر.",
-  "js.enhance.manualPath": "لا يدعم هذا المتصفح مرشّحات وحدة الرسوم، فحُسب النمط بكسل بكسل بدل أن يُحسب على شريحة الرسوم. والحساب مكافئ — لا يفترق المساران إلا ببضع قيم لونية — لكنه يستغرق وقتاً أطول قليلاً.",
+  "js.enhance.manualPath": "هذا المتصفح لا يدعم مرشّحات الرسوم، فحُسب النمط بكسلاً بكسلاً بدل حسابه على شريحة الرسوم. الحساب مكافئ — لا يفترق المساران إلا ببضع قيم لونية — لكنه يستغرق وقتاً أطول قليلاً.",
   "js.enhance.formatFallback": "تعذّرت كتابة صيغة صورتك الأصلية على هذا الجهاز، فحُفظ الناتج بصيغة JPEG.",
   "js.enhance.zeroIntensity": "الشدة على 0%، فهذه الصورة بعد التصحيح التلقائي دون أي نمط.",
   "js.enhance.enhancedCount": "{count} محسَّنة",
-  "js.enhance.zipTail": "واستخدم زر ZIP لتنزيل الدفعة كاملة.",
+  "js.enhance.zipTail": "واستخدم «تنزيل الكل في ملف ZIP» للدفعة الكاملة.",
   "js.error.INVALID_PRESET": "نمط التحسين هذا غير موجود.",
   "js.common.waiting": "في الانتظار",
   "js.common.compare": "مقارنة",
@@ -130,7 +133,7 @@
   "js.common.downloadSize": "تنزيل {size}",
   "js.common.downscaled": "تم تصغير الصورة إلى {w} × {h} لأنها أكبر من الحد الأقصى للوح الرسوم في هذا الجهاز.",
   "js.common.jpegFlatten": "JPEG لا يستطيع تخزين الشفافية، لذلك سُطّحت المناطق الشفافة على الأبيض.",
-  "js.common.largerThanOriginal": "خرج هذا الملف أكبر من الأصل بمقدار {size} — جرّب WebP أو حدّد حجماً مستهدفاً.",
+  "js.common.largerThanOriginal": "الناتج أكبر من الأصل بمقدار {size} — جرّب WebP أو حدّد حجماً مستهدفاً.",
   "js.common.largerThanOriginalResize": "الملف الجديد أكبر من الأصل بمقدار {size} — وإعادة الترميز إلى صيغة أخرى قد تفعل ذلك حتى مع انخفاض عدد البكسلات.",
   "js.common.noResampling": "بلا إعادة معايرة",
   "js.common.scaleOfPixels": "{percent} من البكسلات",
@@ -178,8 +181,8 @@
   "js.compress.zipTail": "استخدم «تنزيل الكل في ملف ZIP» للدفعة كاملة.",
   "js.compress.compressedCount": "{count} مضغوطة",
   "js.compress.tryingQuality": "جارٍ تجربة جودة {percent}%…",
-  "js.compress.nearTarget": "قريب جداً: أكبر من هدفك ({target}) بمقدار {over}، وهذا أصغر ما تصل إليه هذه الصورة.",
-  "js.compress.unreachableTarget": "لا يمكن الوصول إلى {target}: أصغر ما تصل إليه هذه الصورة هو {smallest}. قلّل أقصى عرض أو ارتفاع لتوفير أكثر.",
+  "js.compress.nearTarget": "اقتربنا كثيراً: الناتج أكبر من هدفك ({target}) بمقدار {over}، وهو أصغر ما تنتجه هذه الصورة.",
+  "js.compress.unreachableTarget": "تعذّر الوصول إلى {target}: أصغر ما تنتجه هذه الصورة هو {smallest}. قلّل أقصى عرض أو ارتفاع لتوفير أكثر.",
   "js.resize.ready": "جاهز — أفلت صورة أو دفعة لتغيير مقاسها.",
   "js.resize.unsupported": "هذا المتصفح لا يستطيع تغيير مقاس الصور محلياً.",
   "js.resize.workerStopped": "توقف عامل تغيير المقاس على غير المتوقع. أعد تحميل الصفحة وحاول مرة أخرى.",
@@ -216,7 +219,7 @@
   "js.convert.noEncoders": "لا يستطيع هذا المتصفح كتابة أي من الصيغ التي تعرضها هذه الأداة، فلا توجد صيغة يمكن التحويل إليها.",
   "js.convert.heicNeedsDecoder": "قراءة ملف HEIC تحتاج إلى فاكّ ترميز لم نتمكن من تنزيله. تحقق من اتصالك وحاول مرة أخرى.",
   "js.error.ABORTED": "أُلغيت العملية.",
-  "js.error.INTERNAL": "لم ينجح ذلك. لم يُرفع أي شيء؛ حاول مرة أخرى.",
+  "js.error.INTERNAL": "لم تنجح العملية. لم يُرفع أي شيء — حاول مرة أخرى.",
   "js.error.EMPTY_FILE": "يبدو أن هذا الملف فارغ.",
   "js.error.TOO_LARGE": "هذا الملف أكبر من الحدّ الذي تقبله الصفحة.",
   "js.error.TOO_MANY_FILES": "هذا عدد ملفات أكبر مما تستطيع الصفحة التعامل معه.",
@@ -314,37 +317,29 @@
   "js.pdf.pageMany": "صفحات",
   "js.pdf.docTitleFallback": "صور",
   "js.pdf.orderSummary": "{count} {pages} · {size}",
-  "js.pdf.orderTooLong": "{count} {pages} · {size} — وهذا عدد كبير من الصفحات ليبقى في الذاكرة مرة واحدة",
+  "js.pdf.orderTooLong": "{count} {pages} · {size} — وهذا عدد كبير من الصفحات للاحتفاظ بها في الذاكرة دفعة واحدة",
   "js.pdf.starting": "جارٍ تحضير {count} {images} داخل متصفحك…",
   "js.pdf.prepared": "حُضّرت {done} من {total}",
   "js.pdf.preparedFailed": "حُضّرت {done} من {total} — وفشلت {failed}",
-  "js.pdf.couldNotPrepareAll": "لم نتمكن من تحضير أي من تلك الصور، فلا يوجد ما نبني منه PDF.",
-  "js.pdf.nothingToPut": "لا يوجد شيء نضعه في ملف PDF.",
+  "js.pdf.couldNotPrepareAll": "تعذّر تحضير أي صورة، فلا يوجد ما نُجمِّع منه ملف PDF.",
+  "js.pdf.nothingToPut": "لا توجد صور لوضعها في ملف PDF بعد.",
   "js.pdf.writing": "جارٍ كتابة ملف PDF…",
   "js.pdf.readySummary": "ملف PDF جاهز — {count} {pages}، بحجم {size}.",
-  "js.pdf.transcoded": "أُعيد رسم {count} من {total} {images} بصيغة JPEG، لأن PDF يخزّن JPEG وPNG لا WebP.",
-  "js.pdf.transcodedOne": "أُعيد رسم صورة واحدة من {total} بصيغة JPEG، لأن PDF يخزّن JPEG وPNG لا WebP.",
+  "js.pdf.transcoded": "أُعيد رسم {count} من {total} {images} بصيغة JPEG، لأن PDF يدعم JPEG وPNG فقط لا WebP.",
+  "js.pdf.transcodedOne": "أُعيد رسم صورة واحدة من {total} بصيغة JPEG، لأن PDF يدعم JPEG وPNG فقط لا WebP.",
   "js.pdf.largeDoc": "هذا مستند كبير؛ وقد بقي في الذاكرة أثناء كتابته، ولهذا قد يكون بطيئاً على الهاتف.",
   "js.pdf.listCleared": "أُفرغت القائمة.",
   "js.pdf.ready": "جاهز — أضف صوراً لتبني ملف PDF.",
   "js.pdf.imagesReady": "{count} {images} جاهزة. اسحب الأسهم لإعادة الترتيب، ثم ابنِ ملف PDF.",
   "js.pdf.unsupported": "هذا المتصفح لا يستطيع بناء PDF محلياً.",
-  "js.pdf.downloadSize": "حمّل ملف PDF ({size})",
+  "js.pdf.downloadSize": "تنزيل ملف PDF ({size})",
   "js.pdf.startingPages": "{count} {pages}…",
   "js.crop.invalidSelection": "هذا التحديد أصغر من أن ينتج صورة. اسحب مربعاً أكبر."
 }</script>
 </head>
 <body>
   <!--#include partials/ar/header.html-->
-  <div class="container">
-    <nav class="lang-switch" aria-label="اللغة">
-      <ul class="lang-switch-list">
-      <li><a class="lang-switch-link" href="/pages/how-it-works/" hreflang="en" lang="en">English</a></li>
-      <li><span class="lang-switch-current" lang="ar" aria-current="true">العربية</span></li>
-      </ul>
-    </nav>
-  </div>
-  <main class="main" id="main">
+  <main class="main" id="main" tabindex="-1">
     <div class="container">
       <nav class="breadcrumb" aria-label="مسار التنقل">
         <a href="/ar/">كل الأدوات</a>
@@ -356,8 +351,8 @@
         <h1>كيف يعمل</h1>
       <h2>النسخة القصيرة</h2>
       <p>
-        متصفحك أصلاً معالج صور قادر. وكل أداة هنا تستخدم اللبنات الثلاث نفسها — فك ترميز الصورة، ثم رسمها
-        على لوحة رسم، ثم إعادة ترميزها — مع «عامل ويب» (Web Worker) لتبقى الصفحة مستجيبة أثناء ذلك. ولا
+        متصفحك أصلاً قادر على معالجة الصور. وكل أداة هنا تستخدم اللبنات الثلاث نفسها — فك ترميز الصورة، ثم رسمها
+        على لوحة رسم، ثم إعادة ترميزها — مع مسار خلفي يُبقي الصفحة مستجيبة أثناء ذلك. ولا
         شيء يُرسَل إلى أي مكان، لأنه لا توجد في هذه الصفحات شيفرة تُرسل شيئاً.
       </p>
 
@@ -373,10 +368,10 @@
           أداة الملف إلى مسار خلفي يعمل في خيطه الخاص ويُبلّغ عن التقدّم.
         </li>
         <li>
-          <strong>يرسمه المسار الخلفي على <code>OffscreenCanvas</code>.</strong> وهي لوحة رسم توجد دون أن
+          <strong>يرسمه المسار الخلفي على لوحة رسم خارجية.</strong> وهي لوحة رسم توجد دون أن
           تُربط بالصفحة، وهذا ما يجعلها قابلة للاستخدام خارج المسار الرئيسي. وهي أيضاً الشرط الوحيد الذي
-          تكاد المتصفحات الحديثة تتفق عليه؛ وحيث تكون غائبة تقول الأداة ذلك وتتوقف، بدل أن تعود إلى تجميد
-          الصفحة.
+          تكاد المتصفحات الحديثة تتفق عليه؛ وحيث تكون غائبة تخبرك الأداة
+          وتتوقف، بدل أن تعود لتجميد الصفحة.
         </li>
         <li>
           <strong>تُعاد ترميزه بالصيغة التي اخترتها</strong>، ثم تُعرض عليك البايتات الناتجة كتحميل. أما
@@ -417,7 +412,7 @@
       <h2>كيف تتحقق من كل هذا بنفسك</h2>
       <p>
         افتح أدوات المطوّر في متصفحك، وانتقل إلى لوحة الشبكة، وشغّل أي أداة. ينبغي ألّا ترى أي طلب أثناء
-        معالجة الصورة — لا رفع، ولا قياسات، ولا خط أو شيفرة من جهة أخرى. الصفحة تحمّل شيفرة HTML وCSS
+        معالجة الصورة — لا رفع، ولا تحليلات، ولا خط أو شيفرة من جهة أخرى. الصفحة تحمّل شيفرة HTML وCSS
         وأيقوناتها الخاصة، وتلك هي القائمة كاملة.
       </p>
 

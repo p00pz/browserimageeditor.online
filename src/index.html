@@ -65,11 +65,14 @@
   "js.save.shareText": "Processed entirely in my browser — nothing was uploaded.",
   "js.save.saved": "Saved {name} ({size}, {format}).",
   "js.save.savedMany": "Shared {count} {images} ({size}).",
+  "js.save.photosCopy": "Saved {name} ({size}, {format}) to Photos. It is a copy of your file, because iOS does not accept every image format in Photos; the original is still here to download.",
   "js.save.failed": "The image could not be saved on this device.",
   "js.webview.hint": "Saving is limited in this in-app browser, so the image is shown full-screen instead.",
   "js.webview.viewerHint": "Press and hold the image, then choose “Save to Photos”.",
   "js.webview.close": "Close",
   "js.webview.openInSafari": "Open in Safari",
+  "js.webview.viewerHintMany": "Press and hold an image, then choose “Save to Photos”. Swipe sideways for the next one.",
+  "js.webview.counter": "{n} / {total}",
   "js.chrome.menuOpen": "Open menu",
   "js.chrome.menuClose": "Close menu",
   "js.enhance.ready": "Ready — drop a photo, or a batch, to enhance it.",
@@ -336,15 +339,7 @@
 </head>
 <body>
   <!--#include partials/header.html-->
-  <div class="container">
-    <nav class="lang-switch" aria-label="Language">
-      <ul class="lang-switch-list">
-      <li><span class="lang-switch-current" lang="en" aria-current="true">English</span></li>
-      <li><a class="lang-switch-link" href="/ar/" hreflang="ar" lang="ar">العربية</a></li>
-      </ul>
-    </nav>
-  </div>
-  <main class="main" id="main">
+  <main class="main" id="main" tabindex="-1">
     <div class="container">
       <section class="hero">
         <p class="hero-eyebrow">
@@ -352,7 +347,7 @@
             <rect x="3" y="11" width="18" height="11" rx="2"></rect>
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
           </svg>
-          No uploads. No servers. 100% on your device.
+          No uploads — 100% on your device.
         </p>
         <h1>Image tools that never upload your files</h1>
         <p class="hero-sub">Every tool here runs inside your own browser tab. Your images are processed on your device and are never sent to a server, because there is no server to send them to.</p>

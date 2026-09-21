@@ -23,10 +23,12 @@
  *      chevron that points somewhere flip, because in Arabic they point the other way. Chevrons
  *      drawn with borders inside a bidirectional container already mirror themselves and are left
  *      alone.
- *   4. **Fonts.** The Latin stack still comes from base.css; the families added here are the ones
- *      that actually carry Arabic glyphs on Windows, macOS, Android and Linux. No webfont is
- *      downloaded: a self-hosted Arabic face would be another third-party asset with a licence to
- *      check, and the system fallbacks are good enough that the trade has not come up.
+ *   4. **Fonts.** The shipped face is the self-hosted IBM Plex Sans Arabic (SIL OFL-1.1, see
+ *      base.css and scripts/gen-fonts.mjs), and it leads the Arabic-first reorderings below because
+ *      its arabic subset draws U+0600–06FF natively. The system faces after it are the ones that
+ *      carry Arabic glyphs on Windows, macOS, Android and Linux, kept as the fallback if the woff2
+ *      cannot load. Both subsets are served from this origin, so an Arabic page makes no
+ *      third-party request and no request a Latin-only visitor would ever make.
  */
 
 /* ---------- the compare slider is a physical coordinate space ---------- */
@@ -79,9 +81,28 @@
 
 /* ---------- typography ---------- */
 
+/* An Arabic page leads with the Arabic-capable faces. The token already carries every one of
+ * them in the chain, so this is not an override of the stack — it is a reordering, putting the
+ * faces that draw U+0600–06FF natively ahead of the Latin-only system defaults so an Arabic
+ * paragraph never rounds a Latin fallback first. The shipped face leads here too: its arabic
+ * subset draws U+0600–06FF natively, so it belongs first on an Arabic page exactly as 'SF Arabic'
+ * does, and the faces below it stay as the metric fallback. */
 [dir='rtl'] body {
-  font-family: 'SF Arabic', 'Segoe UI', Tahoma, 'Noto Sans Arabic', 'Noto Naskh Arabic', 'Geeza Pro',
-    'Arial', sans-serif;
+  font-family: 'IBM Plex Sans Arabic', 'SF Arabic', 'Noto Sans Arabic', 'Noto Naskh Arabic',
+    'Geeza Pro', 'Segoe UI', Tahoma, -apple-system, BlinkMacSystemFont, 'SF Pro Text', Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+}
+
+/* The display chain gets the same Arabic-first reordering for headings. */
+[dir='rtl'] h1,
+[dir='rtl'] h2,
+[dir='rtl'] h3,
+[dir='rtl'] h4,
+[dir='rtl'] h5,
+[dir='rtl'] h6 {
+  font-family: 'IBM Plex Sans Arabic', 'SF Arabic', 'Noto Sans Arabic', 'Noto Naskh Arabic',
+    'Geeza Pro', 'Segoe UI', Tahoma, -apple-system, BlinkMacSystemFont, 'SF Pro Display', Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
 }
 
 /*

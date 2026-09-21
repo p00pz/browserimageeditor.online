@@ -10,7 +10,7 @@
  *
  * No provenance banner in the file itself, unlike the HTML and XML artifacts: JSON has no comments,
  * and a fake member such as `"$generated"` would be a key browsers ignore and humans misread. The
- * header here, `PROGRESS_LOG.md` and `scripts/audit-pwa.mjs` are where that is recorded instead.
+ * header here and `scripts/audit-pwa.mjs` are where that is recorded instead.
  *
  * Output:
  *   public/manifest.webmanifest

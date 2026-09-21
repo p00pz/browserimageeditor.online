@@ -11,8 +11,8 @@
  *     carry stable fragment `@id`s (`…#software`, `…#faq`, `…#breadcrumb`) so they can be
  *     referenced later without renaming anything.
  *   - `FAQPage` is emitted even though Google retired the FAQ rich result in May 2026 (the docs
- *     were removed in June). It stays valid schema.org and is still read by other consumers; the
- *     pin times are recorded in PROGRESS_LOG.md so nobody wonders later why it earns nothing.
+ *     were removed in June). It stays valid schema.org and is still read by other consumers, so it
+ *     costs nothing to keep even though it earns no rich result.
  */
 import { label } from './tool-page.mjs';
 

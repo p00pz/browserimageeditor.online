@@ -4,6 +4,10 @@ dist/
 # Generated from the pinned onnxruntime-web dependency by scripts/gen-ort.mjs. 14 MB of third-party
 # binary, reproducible from package.json — the same reason node_modules is not committed.
 public/ort/
+# Generated from the pinned @fontsource dev dependency by scripts/gen-fonts.mjs. Third-party woff2,
+# byte-for-byte reproducible from package.json, so the binary stays out of the history. The OFL
+# licence they ship under is copied alongside them and is what permits this redistribution.
+public/fonts/
 .env
 .env.*
 *.log
@@ -11,6 +15,30 @@ public/ort/
 Thumbs.db
 Desktop.ini
 *.local
-# Regenerable screenshots from the visual QA harness (qa/visual-qa.mjs).
+*.pem
+*.key
+*.zip
+*.rar
+# The Thmanyah font family stays out of the repo permanently: its licence forbids hosting the files
+# for download, subsetting, and derivative works, so it must never be committed in any form.
+Thmanyah-Font-Family.zip
+thmanyah/
+# Regenerable screenshots and reports from the visual QA harness (qa/visual-qa.mjs).
 qa/shots/
 qa/visual-report.json
+# Playwright and test-run artefacts.
+playwright-report/
+test-results/
+# Editor and OS folders with personal settings.
+.vscode/
+.idea/
+# Internal agent working notes: not user-facing documentation, so they stay local.
+BLOCKED.md
+COPY.md
+DECISIONS.md
+DESIGN_BRIEF.md
+DIAGNOSIS.md
+PROGRESS.md
+PROGRESS_LOG.md
+REPORT.md
+TRANSLATIONS.md

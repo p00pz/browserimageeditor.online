@@ -16,6 +16,8 @@ import {
   isInAppBrowser,
   isIosAgent,
   needsFallbackViewer,
+  primePhotosVariant,
+  saveBatchOrZip,
 } from '../src/assets/js/core/save-photo.js';
 import {
   CompressError,
@@ -31,6 +33,7 @@ import { createStrings } from '../src/assets/js/ui/strings.js';
 
 const t = createStrings({
   'js.save.saved': 'Saved {name} ({size}, {format}).',
+  'js.webview.counter': '{n} / {total}',
   'js.common.downscaled': 'The image was reduced to {w} × {h} to fit this device’s memory.',
 });
 
@@ -180,4 +183,69 @@ test('compressFile still refuses an image past the configured budget on a non-We
     () => compressFile(file, {}, { imageCompression: fakeEncoder, probeSize: probeWith(20_000, 20_000) }),
     (error) => error instanceof CompressError && error.code === 'IMAGE_TOO_LARGE',
   );
+});
+
+/* ---------- the Photos-friendly copy and the batch gate ---------- */
+
+test('the newer in-app browsers are detected, and iOS Safari still is not one', () => {
+  assert.equal(isInAppBrowser('Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 Line/16.0.1'), true, 'Line');
+  assert.equal(isInAppBrowser('Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 KAKAOTALK 9.7.0'), true, 'KakaoTalk');
+  assert.equal(isInAppBrowser('Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 NaverSearchApp 3.0.0'), true, 'Naver');
+  assert.equal(isInAppBrowser('Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 Snapchat 12.80.0.48'), true, 'Snapchat');
+  assert.equal(isInAppBrowser('Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 [FBAN/FBIOS;FBAV/470.0.0.53.94;fb_iab/...]'), true, 'fb_iab');
+  assert.equal(isInAppBrowser('Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1'), false, 'Safari itself');
+});
+
+/* ---------- the Photos-friendly copy and the batch gate ---------- */
+
+/** Node 21+ owns `navigator` as a read-only getter, so it is stubbed through a descriptor. */
+function stubGlobal(name, value) {
+  const descriptor = Object.getOwnPropertyDescriptor(globalThis, name);
+  Object.defineProperty(globalThis, name, { value, configurable: true, writable: true });
+  return () => {
+    if (descriptor) Object.defineProperty(globalThis, name, descriptor);
+    else delete globalThis[name];
+  };
+}
+
+test('a Photos-friendly copy is only baked where it can help', async () => {
+  const iphone = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 Version/17.0 Mobile/15E148 Safari/604.1';
+  const desktop = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+  const restoreNav = stubGlobal('navigator', { userAgent: '' });
+
+  // Formats Photos already accepts never ask for a copy, anywhere.
+  for (const ua of ['', desktop, iphone]) {
+    stubGlobal('navigator', { userAgent: ua });
+    assert.equal(await primePhotosVariant({ blob: new Blob([new Uint8Array(64)], { type: 'image/jpeg' }), filename: 'a.jpg' }), null, `JPEG needs no copy on "${ua}"`);
+    assert.equal(await primePhotosVariant({ blob: new Blob([new Uint8Array(64)], { type: 'image/png' }), filename: 'a.png' }), null, `PNG needs no copy on "${ua}"`);
+    assert.equal(await primePhotosVariant({ blob: new Blob([new Uint8Array(64)], { type: 'application/pdf' }), filename: 'a.pdf' }), null, `a document is not an image on "${ua}"`);
+  }
+
+  // A WebP on a desktop is fine as it is; a WebP on iOS wants a copy, but a platform with no
+  // bitmap decoder keeps the original rather than promising a file it cannot bake.
+  stubGlobal('navigator', { userAgent: desktop });
+  assert.equal(await primePhotosVariant({ blob: new Blob([new Uint8Array(64)], { type: 'image/webp' }), filename: 'a.webp' }), null, 'WebP is saveable off iOS');
+  stubGlobal('navigator', { userAgent: iphone });
+  const restoreBitmap = stubGlobal('createImageBitmap', undefined);
+  try {
+    assert.equal(await primePhotosVariant({ blob: new Blob([new Uint8Array(64)], { type: 'image/webp' }), filename: 'a.webp' }), null, 'no decoder means the original stands');
+  } finally {
+    restoreBitmap();
+  }
+
+  restoreNav();
+});
+
+test('a batch becomes the caller’s ZIP everywhere iOS cannot save one', async () => {
+  const entries = [
+    { blob: new Blob([new Uint8Array(64)], { type: 'image/webp' }), filename: 'a.webp' },
+    { blob: new Blob([new Uint8Array(64)], { type: 'image/jpeg' }), filename: 'b.jpg' },
+  ];
+  // No navigator stub here, so this is not iOS: the share sheet is not offered and the ZIP is built.
+  assert.equal(await saveBatchOrZip({ entries }), null);
+  assert.equal(await saveBatchOrZip({ entries: [] }), null, 'an empty batch is nothing to share');
+});
+
+test('the swipeable viewer’s counter reads n of total', () => {
+  assert.equal(t('js.webview.counter', { n: 3, total: 12 }), '3 / 12');
 });

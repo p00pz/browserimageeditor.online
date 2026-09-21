@@ -117,31 +117,6 @@ export function acceptHint(tool, strings = {}) {
 }
 
 /**
- * The language switcher, rendered per page because its links depend on the route.
- *
- * Two details matter. Each language is named in its own language (`العربية`, `English`) — a switcher
- * that says "Arabic" to an Arabic reader is the small insult that gives away a machine translation.
- * And when the current page has no counterpart in the other language, the link goes to that
- * language's homepage and says so, rather than pointing at a URL that was never generated.
- */
-export function langSwitchHtml(site, code, path, catalog = {}) {
-  if (site.locales.length < 2) return '';
-
-  const items = site.locales.map((locale) => {
-    const name = catalog[`ui.chrome.lang.${locale.code}`] ?? locale.label;
-    if (locale.code === code) {
-      return `      <li><span class="lang-switch-current" lang="${locale.code}" aria-current="true">${escapeHtml(name)}</span></li>`;
-    }
-    const translated = localePublishes(site, locale.code, path);
-    const href = localePath(site, locale.code, translated ? path : '/');
-    const hint = translated ? '' : ` title="${escapeHtml(catalog['ui.chrome.langFallback'] ?? '')}"`;
-    return `      <li><a class="lang-switch-link" href="${href}" hreflang="${locale.code}" lang="${locale.code}"${hint}>${escapeHtml(name)}</a></li>`;
-  });
-
-  return `  <div class="container">\n    <nav class="lang-switch" aria-label="${escapeHtml(catalog['ui.chrome.langSwitchLabel'] ?? 'Language')}">\n      <ul class="lang-switch-list">\n${items.join('\n')}\n      </ul>\n    </nav>\n  </div>`;
-}
-
-/**
  * The right-to-left stylesheet, linked only where it applies.
  *
  * Neither the base nor the component stylesheet mentions direction, so rtl.css is the whole of the
@@ -354,8 +329,8 @@ export function toolCard(item, { badge = false, indent = '', strings = {}, prefi
   const lines = [
     `  <li class="${badge ? 'tool-card tool-card-planned' : 'tool-card'}">`,
     `    <a class="tool-card-link" href="${prefix}${toolPath(item)}">`,
-    `      <span class="tool-card-name">${escapeHtml(item.name)}</span>`,
-    `      <span class="tool-card-desc">${escapeHtml(item.description)}</span>`,
+    `      <span class="tool-card-name">${escapeHtml(item.cardName ?? item.name)}</span>`,
+    `      <span class="tool-card-desc">${escapeHtml(item.cardSubtitle ?? item.description)}</span>`,
   ];
   if (badge) lines.push(`      <span class="tool-card-badge">${escapeHtml(strings.comingSoon ?? 'Coming soon')}</span>`);
   lines.push('    </a>', '  </li>');

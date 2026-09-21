@@ -24,7 +24,7 @@
  * except for the `data-download` save control. That one starts inside a `hidden` result panel whose
  * href is a blob URL that only exists after a file has been processed, so it cannot be a dead link
  * on the page as delivered. Replacing it with a <button> and a programmatically created anchor is a
- * real improvement, and it needs a browser to verify — it is on the list in PROGRESS_LOG.md.
+ * real improvement, and it needs a browser to verify, so qa/strike-proof.mjs is where that is done.
  *
  * Two things it deliberately cannot see, so never treat a clean run as a Lighthouse score:
  * performance metrics (LCP/CLS/INP need a browser) and anything that depends on request headers.

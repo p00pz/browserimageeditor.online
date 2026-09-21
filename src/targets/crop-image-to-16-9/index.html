@@ -137,11 +137,14 @@
   "js.save.shareText": "Processed entirely in my browser — nothing was uploaded.",
   "js.save.saved": "Saved {name} ({size}, {format}).",
   "js.save.savedMany": "Shared {count} {images} ({size}).",
+  "js.save.photosCopy": "Saved {name} ({size}, {format}) to Photos. It is a copy of your file, because iOS does not accept every image format in Photos; the original is still here to download.",
   "js.save.failed": "The image could not be saved on this device.",
   "js.webview.hint": "Saving is limited in this in-app browser, so the image is shown full-screen instead.",
   "js.webview.viewerHint": "Press and hold the image, then choose “Save to Photos”.",
   "js.webview.close": "Close",
   "js.webview.openInSafari": "Open in Safari",
+  "js.webview.viewerHintMany": "Press and hold an image, then choose “Save to Photos”. Swipe sideways for the next one.",
+  "js.webview.counter": "{n} / {total}",
   "js.chrome.menuOpen": "Open menu",
   "js.chrome.menuClose": "Close menu",
   "js.enhance.ready": "Ready — drop a photo, or a batch, to enhance it.",
@@ -408,15 +411,7 @@
 </head>
 <body>
   <!--#include partials/header.html-->
-  <div class="container">
-    <nav class="lang-switch" aria-label="Language">
-      <ul class="lang-switch-list">
-      <li><span class="lang-switch-current" lang="en" aria-current="true">English</span></li>
-      <li><a class="lang-switch-link" href="/ar/targets/crop-image-to-16-9/" hreflang="ar" lang="ar">العربية</a></li>
-      </ul>
-    </nav>
-  </div>
-  <main class="main" id="main">
+  <main class="main" id="main" tabindex="-1">
     <div class="container">
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="/">All tools</a>
@@ -439,87 +434,138 @@
         <p class="tool-hint">Pre-set for you: 16:9 aspect ratio. You can change it before you drop a file.</p>
       </header>
 
-      <section class="tool-panel" data-tool-root data-tool-slug="crop-image">
-        <div class="dropzone" data-dropzone>
-          <label class="dropzone-label" for="tool-file-input">
-            <span class="dropzone-title">Choose an image</span>
-            <span class="dropzone-hint">or drag and drop, or paste — JPEG, PNG or WebP up to 50 MB</span>
-            <span class="dropzone-hint">One image at a time, because you choose the crop yourself.</span>
-          </label>
-          <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" data-dropzone-input>
+﻿      <section class="tool-panel" data-tool-root data-tool-slug="crop-image">
+        <!--
+          The stage is the picture. The cropperjs canvas lives here rather than in the inspector,
+          because it is the thing being worked on rather than a control over it: the drop surface
+          gives way to the canvas the moment an image lands, and the compare slider takes the
+          surface back once a crop is applied. One image at a time â€” a crop is a decision about one
+          picture â€” so there is no batch region and no `multiple` on the input.
+        -->
+        <div class="studio-stage">
+          <div class="dropzone" data-dropzone>
+            <label class="dropzone-label" for="tool-file-input">
+              <span class="dropzone-icon" aria-hidden="true">
+                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="6" width="44" height="44" rx="12"></rect>
+                  <circle cx="21" cy="21" r="5"></circle>
+                  <path d="M6 39l12-11 9 8 7-6 10 9"></path>
+                  <path class="dropzone-icon-drop" d="M28 10v10m-5-5l5 5 5-5"></path>
+                </svg>
+              </span>
+              <span class="dropzone-title">Drop your images here</span>
+              <span class="dropzone-sub">or paste from the clipboard</span>
+              <span class="dropzone-browse" aria-hidden="true">Browse images</span>
+              <span class="dropzone-hint">or drag and drop, or paste — JPEG, PNG or WebP up to 50 MB</span>
+              <span class="dropzone-hint">One image at a time, because you choose the crop yourself.</span>
+              <button class="dropzone-sample" type="button" data-sample-image>Try a sample image</button>
+              <span class="dropzone-more" aria-hidden="false">Add more images</span>
+            </label>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" aria-label="Browse images" data-dropzone-input>
+          </div>
+
+          <p class="notice notice-warning" data-unsupported hidden>
+            This browser cannot crop images locally — it is missing the image-decoding API these tools are built on. Nothing is uploaded either way. Please try a current version of Chrome, Edge, Firefox or Safari.
+          </p>
+
+          <!--
+            The cropperjs canvas. `hidden` until a file is chosen, and toggled by the tool script.
+            It is never a control, so the shell has nothing to present here.
+          -->
+          <div class="crop-stage" data-crop-stage hidden>
+            <img data-crop-image alt="The image being cropped">
+          </div>
+
+          <div class="progress-region" data-progress-region hidden>
+            <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Crop progress">
+              <div class="progress-bar" data-progress-bar></div>
+            </div>
+            <p class="progress-text" data-progress-text></p>
+          </div>
+
+          <div class="result" data-result hidden>
+            <div class="compare-slider" data-compare>
+              <div class="compare-slider-pane compare-slider-before">
+                <img data-compare-before alt="The original image">
+              </div>
+              <div class="compare-slider-pane compare-slider-after">
+                <img data-compare-after alt="The cropped image">
+              </div>
+              <span class="compare-slider-handle" aria-hidden="true"></span>
+              <span class="compare-slider-label compare-slider-label-before">Original</span>
+              <span class="compare-slider-label compare-slider-label-after">Cropped</span>
+              <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="Drag to compare the original and the cropped image">
+            </div>
+            <p class="compare-savings" data-compare-savings></p>
+            <dl class="result-stats">
+              <div class="result-stat">
+                <dt>Dimensions</dt>
+                <dd data-result-dimensions>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>File size</dt>
+                <dd data-result-size>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>Format</dt>
+                <dd data-result-format>&mdash;</dd>
+              </div>
+            </dl>
+            <p class="notice notice-warning" data-result-warning hidden></p>
+            <div class="result-actions">
+              <a class="button" data-download download>Download</a>
+              <button class="button button-secondary" type="button" data-start-over>Start over</button>
+            </div>
+          </div>
         </div>
 
-        <p class="notice notice-warning" data-unsupported hidden>
-          This browser cannot crop images locally — it is missing the image-decoding API these tools are built on. Nothing is uploaded either way. Please try a current version of Chrome, Edge, Firefox or Safari.
-        </p>
+        <!--
+          The inspector: direct, visual controls over one picture. Every one of them presents a
+          hooked control the tool script already owns â€” the <select> stays as the value holder
+          behind the chips, and the ratio list is built at runtime from the tool's own presets â€” so
+          nothing here is a second source of truth, and a tool script that has never heard of the
+          shell still reads the same values and the same change events.
 
-        <div class="crop-stage" data-crop-stage hidden>
-          <img data-crop-image alt="The image being cropped">
-        </div>
-
-        <div class="crop-toolbar" data-crop-toolbar hidden>
-          <div class="crop-ratios" role="group" aria-label="Aspect ratio">
+          The whole rail is `hidden` until an image is loaded: an aspect ratio and a quarter turn
+          are meaningless with nothing to apply them to, and the tool script holds that toggle, as
+          it always has.
+        -->
+        <aside class="studio-inspector crop-toolbar" data-crop-toolbar hidden>
+          <div class="ctl crop-ratios" role="group" aria-label="Aspect ratio">
             <span class="crop-ratios-label">Aspect ratio</span>
+            <!--
+              Built at runtime from CROP_RATIOS, labels included, so the shell leaves the container
+              exactly as it is: the buttons are the tool's own, in their own class, and a preset
+              added there appears here without this template knowing.
+            -->
             <div class="ratio-list" data-ratio-list></div>
           </div>
-          <div class="crop-actions">
+
+          <div class="ctl crop-actions">
             <button class="button button-secondary" type="button" data-rotate-left>Rotate left</button>
             <button class="button button-secondary" type="button" data-rotate-right>Rotate right</button>
             <button class="button button-secondary" type="button" data-flip-h>Flip across</button>
             <button class="button button-secondary" type="button" data-flip-v>Flip down</button>
             <button class="button button-secondary" type="button" data-crop-reset>Reset</button>
           </div>
-          <div class="field">
-            <label class="field-label" for="crop-format">Output format</label>
-            <select class="field-input" id="crop-format" data-output-format></select>
+
+          <div class="ctl">
+            <span class="ctl-label" id="ctl-format-label">Output format</span>
+            <!-- data-shell-chips: the segmented control that replaces the native select. -->
+            <select class="field-input" id="crop-format" data-output-format data-shell-chips aria-labelledby="ctl-format-label"></select>
           </div>
+
+          <!--
+            The primary action. It follows the picture rather than a queue: on a phone it becomes
+            the fixed bar at the bottom of the viewport while there is a selection to apply, and the
+            tool script owns that state through `data-sticky`.
+          -->
           <div class="crop-apply">
             <button class="button" type="button" data-crop-apply data-primary-action data-sticky="off">Apply crop</button>
             <button class="button button-secondary" type="button" data-crop-choose-another>Choose another image</button>
           </div>
-        </div>
-
-        <div class="progress-region" data-progress-region hidden>
-          <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Crop progress">
-            <div class="progress-bar" data-progress-bar></div>
-          </div>
-          <p class="progress-text" data-progress-text></p>
-        </div>
-
-        <div class="result" data-result hidden>
-          <div class="compare-slider" data-compare>
-            <div class="compare-slider-pane compare-slider-before">
-              <img data-compare-before alt="The original image">
-            </div>
-            <div class="compare-slider-pane compare-slider-after">
-              <img data-compare-after alt="The cropped image">
-            </div>
-            <span class="compare-slider-handle" aria-hidden="true"></span>
-            <span class="compare-slider-label compare-slider-label-before">Original</span>
-            <span class="compare-slider-label compare-slider-label-after">Cropped</span>
-            <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="Drag to compare the original and the cropped image">
-          </div>
-          <p class="compare-savings" data-compare-savings></p>
-          <dl class="result-stats">
-            <div class="result-stat">
-              <dt>Dimensions</dt>
-              <dd data-result-dimensions>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>File size</dt>
-              <dd data-result-size>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>Format</dt>
-              <dd data-result-format>&mdash;</dd>
-            </div>
-          </dl>
-          <p class="notice notice-warning" data-result-warning hidden></p>
-          <div class="result-actions">
-            <a class="button" data-download download>Download</a>
-            <button class="button button-secondary" type="button" data-start-over>Start over</button>
-          </div>
-        </div>
+        </aside>
 
         <p class="status" data-status role="status" aria-live="polite"></p>
       </section>
