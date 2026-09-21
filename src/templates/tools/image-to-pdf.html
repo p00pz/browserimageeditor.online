@@ -1,73 +1,108 @@
       <section class="tool-panel" data-tool-root data-tool-slug="{{slug}}">
-        <div class="dropzone" data-dropzone>
-          <label class="dropzone-label" for="tool-file-input">
-            <span class="dropzone-title">{{{t.ui.tool.chooseImages}}}</span>
-            <span class="dropzone-hint">{{{dropzoneHint}}}</span>
-            <span class="dropzone-hint">{{{t.ui.pdf.multiHint}}}</span>
-          </label>
-          <input class="dropzone-input" id="tool-file-input" type="file" accept="{{acceptAttr}}" multiple data-dropzone-input>
-        </div>
-
-        <p class="notice notice-warning" data-unsupported hidden>
-          {{{t.ui.pdf.unsupported}}}
-        </p>
-
-        <div class="tool-controls">
-          <div class="field">
-            <label class="field-label" for="pdf-page-size">{{{t.ui.pdf.pageSize}}}</label>
-            <select class="field-input" id="pdf-page-size" data-page-size></select>
+        <div class="studio-stage">
+          <!--
+            The stage's empty state is one glass surface: not a dashed box, not a card inside a
+            card. It accepts a click, a drop and a paste, and the images accumulate into a document
+            rather than replacing each other, so the hint below stays visible after every drop:
+            "add more" is a standing invitation here, not a setting.
+          -->
+          <div class="dropzone" data-dropzone>
+            <label class="dropzone-label" for="tool-file-input">
+              <span class="dropzone-icon" aria-hidden="true">
+                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="6" width="44" height="44" rx="12"></rect>
+                  <circle cx="21" cy="21" r="5"></circle>
+                  <path d="M6 39l12-11 9 8 7-6 10 9"></path>
+                  <path class="dropzone-icon-drop" d="M28 10v10m-5-5l5 5 5-5"></path>
+                </svg>
+              </span>
+              <span class="dropzone-title">{{{t.ui.studio.dropTitle}}}</span>
+              <span class="dropzone-sub">{{{t.ui.studio.dropSub}}}</span>
+              <span class="dropzone-browse" aria-hidden="true">{{{t.ui.studio.dropBrowse}}}</span>
+              <span class="dropzone-hint">{{{dropzoneHint}}}</span>
+              <span class="dropzone-hint">{{{t.ui.pdf.multiHint}}}</span>
+              <button class="dropzone-sample" type="button" data-sample-image>{{{t.ui.studio.dropSample}}}</button>
+            </label>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="{{acceptAttr}}" multiple data-dropzone-input>
           </div>
-          <div class="field">
-            <label class="field-label" for="pdf-margin">{{{t.ui.pdf.margin}}}</label>
-            <select class="field-input" id="pdf-margin" data-margin></select>
-          </div>
-          <div class="field">
-            <label class="field-label" for="pdf-quality">{{{t.ui.pdf.quality}}}</label>
-            <select class="field-input" id="pdf-quality" data-quality></select>
-          </div>
-        </div>
 
-        <div class="order" data-order hidden>
-          <div class="batch-header">
-            <p class="batch-summary" data-order-summary></p>
-            <div class="batch-actions">
-              <button class="button" type="button" data-build-pdf data-primary-action data-sticky="off">{{{t.ui.pdf.build}}}</button>
-              <button class="button button-secondary" type="button" data-clear-list>{{{t.ui.pdf.clearList}}}</button>
+          <p class="notice notice-warning" data-unsupported hidden>
+            {{{t.ui.pdf.unsupported}}}
+          </p>
+
+          <div class="progress-region" data-progress-region hidden>
+            <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="{{{t.ui.pdf.progressLabel}}}">
+              <div class="progress-bar" data-progress-bar></div>
+            </div>
+            <p class="progress-text" data-progress-text></p>
+            <button class="button button-secondary" type="button" data-cancel>{{{t.ui.tool.cancel}}}</button>
+          </div>
+
+          <div class="result" data-result hidden>
+            <dl class="result-stats">
+              <div class="result-stat">
+                <dt>{{{t.ui.pdf.statPages}}}</dt>
+                <dd data-result-pages>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>{{{t.ui.pdf.pageSize}}}</dt>
+                <dd data-result-page-size>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>{{{t.ui.tool.statFileSize}}}</dt>
+                <dd data-result-size>&mdash;</dd>
+              </div>
+            </dl>
+            <p class="notice notice-warning" data-result-warning hidden></p>
+            <div class="result-actions">
+              <a class="button" data-download download>{{{t.ui.pdf.download}}}</a>
+              <button class="button button-secondary" type="button" data-start-over>{{{t.ui.tool.startOver}}}</button>
             </div>
           </div>
-          <ol class="order-list" data-order-list></ol>
-          <p class="order-hint">{{{t.ui.pdf.orderHint}}}</p>
-        </div>
 
-        <div class="progress-region" data-progress-region hidden>
-          <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="{{{t.ui.pdf.progressLabel}}}">
-            <div class="progress-bar" data-progress-bar></div>
-          </div>
-          <p class="progress-text" data-progress-text></p>
-          <button class="button button-secondary" type="button" data-cancel>{{{t.ui.tool.cancel}}}</button>
-        </div>
-
-        <div class="result" data-result hidden>
-          <dl class="result-stats">
-            <div class="result-stat">
-              <dt>{{{t.ui.pdf.statPages}}}</dt>
-              <dd data-result-pages>&mdash;</dd>
+          <!--
+            The page order is the interface, not a control: this region is the list of pages the
+            document will be built from, with the build action beside its summary. It is a stage
+            citizen for the same reason the batch filmstrip is — it is the work in progress, and it
+            stays under the drop zone so a page added late lands where a visitor is already looking.
+          -->
+          <div class="order" data-order hidden>
+            <div class="batch-header">
+              <p class="batch-summary" data-order-summary></p>
+              <div class="batch-actions">
+                <button class="button" type="button" data-build-pdf data-primary-action data-sticky="off">{{{t.ui.pdf.build}}}</button>
+                <button class="button button-secondary" type="button" data-clear-list>{{{t.ui.pdf.clearList}}}</button>
+              </div>
             </div>
-            <div class="result-stat">
-              <dt>{{{t.ui.pdf.pageSize}}}</dt>
-              <dd data-result-page-size>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>{{{t.ui.tool.statFileSize}}}</dt>
-              <dd data-result-size>&mdash;</dd>
-            </div>
-          </dl>
-          <p class="notice notice-warning" data-result-warning hidden></p>
-          <div class="result-actions">
-            <a class="button" data-download download>{{{t.ui.pdf.download}}}</a>
-            <button class="button button-secondary" type="button" data-start-over>{{{t.ui.tool.startOver}}}</button>
+            <ol class="order-list" data-order-list></ol>
+            <p class="order-hint">{{{t.ui.pdf.orderHint}}}</p>
           </div>
         </div>
+
+        <!--
+          The inspector: direct, visual controls. Every one of them presents a hooked control the
+          tool script already owns — the <select> stays as the value holder behind the chips — so
+          nothing here is a second source of truth, and a tool script that has never heard of the
+          shell still reads the same values and the same change events.
+        -->
+        <aside class="studio-inspector">
+          <div class="ctl">
+            <span class="ctl-label" id="ctl-page-size-label">{{{t.ui.pdf.pageSize}}}</span>
+            <!-- data-shell-chips: the segmented control that replaces the native select. -->
+            <select class="field-input" id="pdf-page-size" data-page-size data-shell-chips aria-labelledby="ctl-page-size-label"></select>
+          </div>
+
+          <div class="ctl">
+            <span class="ctl-label" id="ctl-margin-label">{{{t.ui.pdf.margin}}}</span>
+            <select class="field-input" id="pdf-margin" data-margin data-shell-chips aria-labelledby="ctl-margin-label"></select>
+          </div>
+
+          <div class="ctl">
+            <span class="ctl-label" id="ctl-quality-label">{{{t.ui.pdf.quality}}}</span>
+            <select class="field-input" id="pdf-quality" data-quality data-shell-chips aria-labelledby="ctl-quality-label"></select>
+          </div>
+        </aside>
 
         <p class="status" data-status role="status" aria-live="polite"></p>
       </section>

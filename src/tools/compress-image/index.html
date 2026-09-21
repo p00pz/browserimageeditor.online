@@ -469,10 +469,21 @@
           -->
           <div class="dropzone" data-dropzone>
             <label class="dropzone-label" for="tool-file-input">
-              <span class="dropzone-title">Drop an image to begin</span>
-              <span class="dropzone-more" aria-hidden="false">Add more images</span>
+              <span class="dropzone-icon" aria-hidden="true">
+                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="6" width="44" height="44" rx="12"></rect>
+                  <circle cx="21" cy="21" r="5"></circle>
+                  <path d="M6 39l12-11 9 8 7-6 10 9"></path>
+                  <path class="dropzone-icon-drop" d="M28 10v10m-5-5l5 5 5-5"></path>
+                </svg>
+              </span>
+              <span class="dropzone-title">Drop your images here</span>
+              <span class="dropzone-sub">or paste from the clipboard</span>
+              <span class="dropzone-browse" aria-hidden="true">Browse images</span>
               <span class="dropzone-hint">or drag and drop, or paste — JPEG, PNG or WebP up to 50 MB</span>
               <span class="dropzone-hint">One image or a whole batch — nothing leaves your device either way.</span>
+              <button class="dropzone-sample" type="button" data-sample-image>Try a sample image</button>
             </label>
             <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple data-dropzone-input>
           </div>
@@ -680,7 +691,7 @@
         <li class="tool-card">
           <a class="tool-card-link" href="/tools/resize-image/">
             <span class="tool-card-name">Resize</span>
-            <span class="tool-card-desc">Exact width and height</span>
+            <span class="tool-card-desc">Change width and height</span>
           </a>
         </li>
         <li class="tool-card">
@@ -692,7 +703,7 @@
         <li class="tool-card">
           <a class="tool-card-link" href="/tools/crop-image/">
             <span class="tool-card-name">Crop</span>
-            <span class="tool-card-desc">Trim and reframe</span>
+            <span class="tool-card-desc">Crop and reframe the picture</span>
           </a>
         </li>
       </ul>

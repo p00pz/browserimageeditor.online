@@ -1,105 +1,151 @@
       <section class="tool-panel" data-tool-root data-tool-slug="{{slug}}">
-        <div class="dropzone" data-dropzone>
-          <label class="dropzone-label" for="tool-file-input">
-            <span class="dropzone-title">{{{t.ui.tool.chooseImages}}}</span>
-            <span class="dropzone-hint">{{{dropzoneHint}}}</span>
-            <span class="dropzone-hint">{{{t.ui.tool.batchHint}}}</span>
-          </label>
-          <input class="dropzone-input" id="tool-file-input" type="file" accept="{{acceptAttr}}" multiple data-dropzone-input>
+        <div class="studio-stage">
+          <!--
+            The stage's empty state is one glass surface: not a dashed box, not a card inside a
+            card. It accepts a click, a drop and a paste, and the moment a picture lands the default
+            operation runs. Once it has a file it collapses to a slim strip that keeps the door open
+            for more, because "add images at any time" must be visible, not a setting.
+          -->
+          <div class="dropzone" data-dropzone>
+            <label class="dropzone-label" for="tool-file-input">
+              <span class="dropzone-icon" aria-hidden="true">
+                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="6" width="44" height="44" rx="12"></rect>
+                  <circle cx="21" cy="21" r="5"></circle>
+                  <path d="M6 39l12-11 9 8 7-6 10 9"></path>
+                  <path class="dropzone-icon-drop" d="M28 10v10m-5-5l5 5 5-5"></path>
+                </svg>
+              </span>
+              <span class="dropzone-title">{{{t.ui.studio.dropTitle}}}</span>
+              <span class="dropzone-sub">{{{t.ui.studio.dropSub}}}</span>
+              <span class="dropzone-browse" aria-hidden="true">{{{t.ui.studio.dropBrowse}}}</span>
+              <span class="dropzone-hint">{{{dropzoneHint}}}</span>
+              <span class="dropzone-hint">{{{t.ui.tool.batchHint}}}</span>
+              <button class="dropzone-sample" type="button" data-sample-image>{{{t.ui.studio.dropSample}}}</button>
+            </label>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="{{acceptAttr}}" multiple data-dropzone-input>
+          </div>
+
+          <p class="notice notice-warning" data-unsupported hidden>
+            {{{t.ui.resize.unsupported}}}
+          </p>
+
+          <div class="progress-region" data-progress-region hidden>
+            <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="{{{t.ui.resize.progressLabel}}}">
+              <div class="progress-bar" data-progress-bar></div>
+            </div>
+            <p class="progress-text" data-progress-text></p>
+            <button class="button button-secondary" type="button" data-cancel>{{{t.ui.tool.cancel}}}</button>
+          </div>
+
+          <div class="result" data-result hidden>
+            <div class="compare-slider" data-compare>
+              <div class="compare-slider-pane compare-slider-before">
+                <img data-compare-before alt="{{{t.ui.tool.altOriginal}}}">
+              </div>
+              <div class="compare-slider-pane compare-slider-after">
+                <img data-compare-after alt="{{{t.ui.resize.compareAlt}}}">
+              </div>
+              <span class="compare-slider-handle" aria-hidden="true"></span>
+              <span class="compare-slider-label compare-slider-label-before">{{{t.ui.tool.original}}}</span>
+              <span class="compare-slider-label compare-slider-label-after">{{{t.ui.resize.compareLabel}}}</span>
+              <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="{{{t.ui.resize.sliderLabel}}}">
+            </div>
+            <p class="compare-savings" data-compare-savings></p>
+            <dl class="result-stats">
+              <div class="result-stat">
+                <dt>{{{t.ui.tool.statDimensions}}}</dt>
+                <dd data-result-dimensions>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>{{{t.ui.tool.statFileSize}}}</dt>
+                <dd data-result-size>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>{{{t.ui.resize.statScale}}}</dt>
+                <dd data-result-scale>&mdash;</dd>
+              </div>
+            </dl>
+            <p class="notice notice-warning" data-result-warning hidden></p>
+            <div class="result-actions">
+              <a class="button" data-download download>{{{t.ui.tool.download}}}</a>
+              <button class="button button-secondary" type="button" data-start-over>{{{t.ui.tool.startOver}}}</button>
+            </div>
+          </div>
+
+          <div class="batch" data-batch hidden>
+            <div class="batch-header">
+              <p class="batch-summary" data-batch-summary></p>
+              <div class="batch-actions" data-batch-actions>
+                <button class="button" type="button" data-resize-all data-primary-action data-sticky="off" data-label="{{{t.ui.resize.runAll}}}" data-label-done="{{{t.ui.resize.runAgain}}}">{{{t.ui.resize.runAll}}}</button>
+                <button class="button button-secondary" type="button" data-download-zip hidden>{{{t.ui.tool.downloadZip}}}</button>
+              </div>
+            </div>
+            <ul class="batch-list" data-file-list></ul>
+          </div>
         </div>
 
-        <p class="notice notice-warning" data-unsupported hidden>
-          {{{t.ui.resize.unsupported}}}
-        </p>
-
-        <div class="tool-controls">
-          <div class="field field-wide">
-            <label class="field-label" for="resize-preset">{{{t.ui.resize.presetLabel}}}</label>
-            <select class="field-input" id="resize-preset" data-preset>
+        <!--
+          The inspector: direct, visual controls. Every one of them presents a hooked control the
+          tool script already owns. The preset and format selects stay as the value holders behind
+          their chip rows, the width and height inputs stay as the value holders behind the
+          dimension row, and the two checkboxes stay as the value holders behind the switches, so
+          nothing here is a second source of truth. The tool also owns the aspect-ratio coupling
+          itself, so the lock switch presents its own checkbox rather than a shell ratio lock.
+        -->
+        <aside class="studio-inspector">
+          <div class="ctl">
+            <span class="ctl-label" id="ctl-preset-label">{{{t.ui.resize.presetLabel}}}</span>
+            <!--
+              data-shell-chips: the segmented control that replaces the native select. The tool
+              appends the preset optgroups at runtime and the shell's observer rebuilds the row
+              around them, group headings included, so a preset is one tap rather than a dropdown.
+            -->
+            <select class="field-input" id="resize-preset" data-preset data-shell-chips aria-labelledby="ctl-preset-label">
               <option value="">{{{t.ui.resize.customSize}}}</option>
             </select>
+            <p class="preset-note" data-preset-note hidden></p>
           </div>
-          <div class="field">
-            <label class="field-label" for="resize-width">{{{t.ui.resize.width}}}</label>
-            <input class="field-input" id="resize-width" type="number" min="1" step="1" inputmode="numeric" placeholder="{{{t.ui.tool.placeholderOriginal}}}" data-width>
-          </div>
-          <div class="field">
-            <label class="field-label" for="resize-height">{{{t.ui.resize.height}}}</label>
-            <input class="field-input" id="resize-height" type="number" min="1" step="1" inputmode="numeric" placeholder="{{{t.ui.tool.placeholderOriginal}}}" data-height>
-          </div>
-          <div class="field">
-            <label class="field-label" for="resize-format">{{{t.ui.resize.outputFormat}}}</label>
-            <select class="field-input" id="resize-format" data-output-format></select>
-          </div>
-          <div class="field field-check">
-            <label class="check-label" for="lock-aspect">
-              <input type="checkbox" id="lock-aspect" data-lock-aspect checked>
-              <span>{{{t.ui.resize.lockAspect}}}</span>
-            </label>
-          </div>
-          <div class="field field-check">
-            <label class="check-label" for="allow-upscale">
-              <input type="checkbox" id="allow-upscale" data-allow-upscale>
-              <span>{{{t.ui.resize.allowUpscale}}}</span>
-            </label>
-          </div>
-        </div>
 
-        <p class="preset-note" data-preset-note hidden></p>
+          <div class="ctl">
+            <span class="ctl-label" id="ctl-dims-label">{{{t.ui.resize.dimensionsLabel}}}</span>
+            <!--
+              Width and height: an "Original" chip clears both boxes, which the engine reads as
+              "keep the pixels you already have". That is the value the boxes' placeholder used to
+              pretend to hold, so it is a real, selected chip instead.
+            -->
+            <div class="chips" role="group" aria-labelledby="ctl-dims-label">
+              <button type="button" class="chip" data-shell-dual data-w="" data-h="" data-width="#resize-width" data-height="#resize-height">{{{t.ui.tool.placeholderOriginal}}}</button>
+            </div>
+            <div class="dim-row">
+              <input class="field-input" id="resize-width" type="number" min="1" step="1" inputmode="numeric" placeholder="{{{t.ui.tool.placeholderOriginal}}}" data-width aria-label="{{{t.ui.resize.width}}}">
+              <span class="dim-times" aria-hidden="true">&times;</span>
+              <input class="field-input" id="resize-height" type="number" min="1" step="1" inputmode="numeric" placeholder="{{{t.ui.tool.placeholderOriginal}}}" data-height aria-label="{{{t.ui.resize.height}}}">
+              <button type="button" class="chip lock-button" data-shell-toggle="#lock-aspect" aria-label="{{{t.ui.resize.lockAspect}}}" title="{{{t.ui.resize.lockAspect}}}">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                  <rect x="5" y="11" width="14" height="9" rx="2"></rect>
+                  <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+                </svg>
+              </button>
+              <!-- The switch's value holder: presentToggle flips `checked`, the tool reads it. -->
+              <input class="shell-host" type="checkbox" id="lock-aspect" data-lock-aspect checked>
+            </div>
+          </div>
 
-        <div class="batch" data-batch hidden>
-          <div class="batch-header">
-            <p class="batch-summary" data-batch-summary></p>
-            <div class="batch-actions" data-batch-actions>
-              <button class="button" type="button" data-resize-all data-primary-action data-sticky="off" data-label="{{{t.ui.resize.runAll}}}" data-label-done="{{{t.ui.resize.runAgain}}}">{{{t.ui.resize.runAll}}}</button>
-              <button class="button button-secondary" type="button" data-download-zip hidden>{{{t.ui.tool.downloadZip}}}</button>
-            </div>
+          <div class="ctl">
+            <span class="ctl-label" id="ctl-format-label">{{{t.ui.resize.outputFormat}}}</span>
+            <select class="field-input" id="resize-format" data-output-format data-shell-chips aria-labelledby="ctl-format-label"></select>
           </div>
-          <ul class="batch-list" data-file-list></ul>
-        </div>
 
-        <div class="progress-region" data-progress-region hidden>
-          <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="{{{t.ui.resize.progressLabel}}}">
-            <div class="progress-bar" data-progress-bar></div>
-          </div>
-          <p class="progress-text" data-progress-text></p>
-          <button class="button button-secondary" type="button" data-cancel>{{{t.ui.tool.cancel}}}</button>
-        </div>
-
-        <div class="result" data-result hidden>
-          <div class="compare-slider" data-compare>
-            <div class="compare-slider-pane compare-slider-before">
-              <img data-compare-before alt="{{{t.ui.tool.altOriginal}}}">
-            </div>
-            <div class="compare-slider-pane compare-slider-after">
-              <img data-compare-after alt="{{{t.ui.resize.compareAlt}}}">
-            </div>
-            <span class="compare-slider-handle" aria-hidden="true"></span>
-            <span class="compare-slider-label compare-slider-label-before">{{{t.ui.tool.original}}}</span>
-            <span class="compare-slider-label compare-slider-label-after">{{{t.ui.resize.compareLabel}}}</span>
-            <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="{{{t.ui.resize.sliderLabel}}}">
-          </div>
-          <p class="compare-savings" data-compare-savings></p>
-          <dl class="result-stats">
-            <div class="result-stat">
-              <dt>{{{t.ui.tool.statDimensions}}}</dt>
-              <dd data-result-dimensions>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>{{{t.ui.tool.statFileSize}}}</dt>
-              <dd data-result-size>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>{{{t.ui.resize.statScale}}}</dt>
-              <dd data-result-scale>&mdash;</dd>
-            </div>
-          </dl>
-          <p class="notice notice-warning" data-result-warning hidden></p>
-          <div class="result-actions">
-            <a class="button" data-download download>{{{t.ui.tool.download}}}</a>
-            <button class="button button-secondary" type="button" data-start-over>{{{t.ui.tool.startOver}}}</button>
-          </div>
-        </div>
+          <!--
+            data-shell-toggle: a checkbox presented as a switch. The checkbox keeps its `checked`
+            state, so the tool's own `allowUpscale` reading is untouched; the chip is just the thing
+            a visitor taps, and the accent says which way it is set.
+          -->
+          <button type="button" class="chip" data-shell-toggle="#allow-upscale">{{{t.ui.resize.allowUpscale}}}</button>
+          <input class="shell-host" type="checkbox" id="allow-upscale" data-allow-upscale>
+        </aside>
 
         <p class="status" data-status role="status" aria-live="polite"></p>
       </section>

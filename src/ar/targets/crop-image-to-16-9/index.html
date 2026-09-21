@@ -435,86 +435,136 @@
       </header>
 
       <section class="tool-panel" data-tool-root data-tool-slug="crop-image">
-        <div class="dropzone" data-dropzone>
-          <label class="dropzone-label" for="tool-file-input">
-            <span class="dropzone-title">اختر صورة</span>
-            <span class="dropzone-hint">أو اسحبها وأفلتها، أو الصقها — JPEG، PNG أو WebP حتى <bdi dir="ltr">50 MB</bdi></span>
-            <span class="dropzone-hint">صورة واحدة في المرة، لأنك أنت من يختار القص.</span>
-          </label>
-          <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" data-dropzone-input>
+        <!--
+          The stage is the picture. The cropperjs canvas lives here rather than in the inspector,
+          because it is the thing being worked on rather than a control over it: the drop surface
+          gives way to the canvas the moment an image lands, and the compare slider takes the
+          surface back once a crop is applied. One image at a time — a crop is a decision about one
+          picture — so there is no batch region and no `multiple` on the input.
+        -->
+        <div class="studio-stage">
+          <div class="dropzone" data-dropzone>
+            <label class="dropzone-label" for="tool-file-input">
+              <span class="dropzone-icon" aria-hidden="true">
+                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="6" width="44" height="44" rx="12"></rect>
+                  <circle cx="21" cy="21" r="5"></circle>
+                  <path d="M6 39l12-11 9 8 7-6 10 9"></path>
+                  <path class="dropzone-icon-drop" d="M28 10v10m-5-5l5 5 5-5"></path>
+                </svg>
+              </span>
+              <span class="dropzone-title">أفلت صورك هنا</span>
+              <span class="dropzone-sub">أو الصقها من الحافظة</span>
+              <span class="dropzone-browse" aria-hidden="true">تصفّح الصور</span>
+              <span class="dropzone-hint">أو اسحبها وأفلتها، أو الصقها — JPEG، PNG أو WebP حتى <bdi dir="ltr">50 MB</bdi></span>
+              <span class="dropzone-hint">صورة واحدة في المرة، لأنك أنت من يختار القص.</span>
+              <button class="dropzone-sample" type="button" data-sample-image>جرّب بصورة تجريبية</button>
+            </label>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" data-dropzone-input>
+          </div>
+
+          <p class="notice notice-warning" data-unsupported hidden>
+            هذا المتصفح لا يستطيع قص الصور محلياً — تنقصه واجهة فك الترميز التي تقوم عليها هذه الأدوات. لا يُرفع أي شيء في كلتا الحالتين؛ جرّب نسخة حديثة من Chrome أو Edge أو Firefox أو Safari.
+          </p>
+
+          <!--
+            The cropperjs canvas. `hidden` until a file is chosen, and toggled by the tool script.
+            It is never a control, so the shell has nothing to present here.
+          -->
+          <div class="crop-stage" data-crop-stage hidden>
+            <img data-crop-image alt="الصورة التي يجري قصها">
+          </div>
+
+          <div class="progress-region" data-progress-region hidden>
+            <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="تقدّم القص">
+              <div class="progress-bar" data-progress-bar></div>
+            </div>
+            <p class="progress-text" data-progress-text></p>
+          </div>
+
+          <div class="result" data-result hidden>
+            <div class="compare-slider" data-compare>
+              <div class="compare-slider-pane compare-slider-before">
+                <img data-compare-before alt="الصورة الأصلية">
+              </div>
+              <div class="compare-slider-pane compare-slider-after">
+                <img data-compare-after alt="الصورة المقصوصة">
+              </div>
+              <span class="compare-slider-handle" aria-hidden="true"></span>
+              <span class="compare-slider-label compare-slider-label-before">الأصلية</span>
+              <span class="compare-slider-label compare-slider-label-after">بعد القص</span>
+              <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="اسحب للمقارنة بين الصورة الأصلية والصورة المقصوصة">
+            </div>
+            <p class="compare-savings" data-compare-savings></p>
+            <dl class="result-stats">
+              <div class="result-stat">
+                <dt>الأبعاد</dt>
+                <dd data-result-dimensions>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>حجم الملف</dt>
+                <dd data-result-size>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>الصيغة</dt>
+                <dd data-result-format>&mdash;</dd>
+              </div>
+            </dl>
+            <p class="notice notice-warning" data-result-warning hidden></p>
+            <div class="result-actions">
+              <a class="button" data-download download>تنزيل</a>
+              <button class="button button-secondary" type="button" data-start-over>البدء من جديد</button>
+            </div>
+          </div>
         </div>
 
-        <p class="notice notice-warning" data-unsupported hidden>
-          هذا المتصفح لا يستطيع قص الصور محلياً — تنقصه واجهة فك الترميز التي تقوم عليها هذه الأدوات. لا يُرفع أي شيء في كلتا الحالتين؛ جرّب نسخة حديثة من Chrome أو Edge أو Firefox أو Safari.
-        </p>
+        <!--
+          The inspector: direct, visual controls over one picture. Every one of them presents a
+          hooked control the tool script already owns — the <select> stays as the value holder
+          behind the chips, and the ratio list is built at runtime from the tool's own presets — so
+          nothing here is a second source of truth, and a tool script that has never heard of the
+          shell still reads the same values and the same change events.
 
-        <div class="crop-stage" data-crop-stage hidden>
-          <img data-crop-image alt="الصورة التي يجري قصها">
-        </div>
-
-        <div class="crop-toolbar" data-crop-toolbar hidden>
-          <div class="crop-ratios" role="group" aria-label="نسبة الأبعاد">
+          The whole rail is `hidden` until an image is loaded: an aspect ratio and a quarter turn
+          are meaningless with nothing to apply them to, and the tool script holds that toggle, as
+          it always has.
+        -->
+        <aside class="studio-inspector crop-toolbar" data-crop-toolbar hidden>
+          <div class="ctl crop-ratios" role="group" aria-label="نسبة الأبعاد">
             <span class="crop-ratios-label">نسبة الأبعاد</span>
+            <!--
+              Built at runtime from CROP_RATIOS, labels included, so the shell leaves the container
+              exactly as it is: the buttons are the tool's own, in their own class, and a preset
+              added there appears here without this template knowing.
+            -->
             <div class="ratio-list" data-ratio-list></div>
           </div>
-          <div class="crop-actions">
+
+          <div class="ctl crop-actions">
             <button class="button button-secondary" type="button" data-rotate-left>تدوير لليسار</button>
             <button class="button button-secondary" type="button" data-rotate-right>تدوير لليمين</button>
             <button class="button button-secondary" type="button" data-flip-h>انعكاس عرضي</button>
             <button class="button button-secondary" type="button" data-flip-v>انعكاس رأسي</button>
             <button class="button button-secondary" type="button" data-crop-reset>إعادة التعيين</button>
           </div>
-          <div class="field">
-            <label class="field-label" for="crop-format">صيغة الإخراج</label>
-            <select class="field-input" id="crop-format" data-output-format></select>
+
+          <div class="ctl">
+            <span class="ctl-label" id="ctl-format-label">صيغة الإخراج</span>
+            <!-- data-shell-chips: the segmented control that replaces the native select. -->
+            <select class="field-input" id="crop-format" data-output-format data-shell-chips aria-labelledby="ctl-format-label"></select>
           </div>
+
+          <!--
+            The primary action. It follows the picture rather than a queue: on a phone it becomes
+            the fixed bar at the bottom of the viewport while there is a selection to apply, and the
+            tool script owns that state through `data-sticky`.
+          -->
           <div class="crop-apply">
             <button class="button" type="button" data-crop-apply data-primary-action data-sticky="off">طبّق القص</button>
             <button class="button button-secondary" type="button" data-crop-choose-another>اختر صورة أخرى</button>
           </div>
-        </div>
-
-        <div class="progress-region" data-progress-region hidden>
-          <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="تقدّم القص">
-            <div class="progress-bar" data-progress-bar></div>
-          </div>
-          <p class="progress-text" data-progress-text></p>
-        </div>
-
-        <div class="result" data-result hidden>
-          <div class="compare-slider" data-compare>
-            <div class="compare-slider-pane compare-slider-before">
-              <img data-compare-before alt="الصورة الأصلية">
-            </div>
-            <div class="compare-slider-pane compare-slider-after">
-              <img data-compare-after alt="الصورة المقصوصة">
-            </div>
-            <span class="compare-slider-handle" aria-hidden="true"></span>
-            <span class="compare-slider-label compare-slider-label-before">الأصلية</span>
-            <span class="compare-slider-label compare-slider-label-after">بعد القص</span>
-            <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="اسحب للمقارنة بين الصورة الأصلية والصورة المقصوصة">
-          </div>
-          <p class="compare-savings" data-compare-savings></p>
-          <dl class="result-stats">
-            <div class="result-stat">
-              <dt>الأبعاد</dt>
-              <dd data-result-dimensions>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>حجم الملف</dt>
-              <dd data-result-size>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>الصيغة</dt>
-              <dd data-result-format>&mdash;</dd>
-            </div>
-          </dl>
-          <p class="notice notice-warning" data-result-warning hidden></p>
-          <div class="result-actions">
-            <a class="button" data-download download>تنزيل</a>
-            <button class="button button-secondary" type="button" data-start-over>البدء من جديد</button>
-          </div>
-        </div>
+        </aside>
 
         <p class="status" data-status role="status" aria-live="polite"></p>
       </section>

@@ -463,57 +463,147 @@
       </header>
 
       <section class="tool-panel" data-tool-root data-tool-slug="enhance-photo">
-        <div class="dropzone" data-dropzone>
-          <label class="dropzone-label" for="tool-file-input">
-            <span class="dropzone-title">اختر الصور</span>
-            <span class="dropzone-hint">أو اسحبها وأفلتها، أو الصقها — JPEG، PNG أو WebP حتى <bdi dir="ltr">50 MB</bdi></span>
-            <span class="dropzone-hint">صورة واحدة أو دفعة كاملة — لا شيء يغادر جهازك في الحالتين.</span>
-          </label>
-          <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple data-dropzone-input>
-        </div>
-
-        <p class="notice notice-warning" data-unsupported hidden>
-          هذا المتصفح لا يستطيع تحسين الصور محلياً — تنقصه واجهة فك الترميز التي تقوم عليها هذه الأدوات. لا يُرفع أي شيء في كلتا الحالتين؛ جرّب نسخة حديثة من Chrome أو Edge أو Firefox أو Safari.
-        </p>
-
-        <div class="preset-section">
-          <div class="preset-heading">
-            <h2 class="preset-title">اختر نمطاً</h2>
-            <button class="button button-secondary preset-auto" type="button" data-auto-enhance data-selected="false" aria-pressed="false" data-label="تحسين تلقائي">تحسين تلقائي</button>
-          </div>
-          <p class="preset-note">كل صورة مصغّرة أدناه مرسومة من صورتك أنت، لا من مثال جاهز. واختيار أي نمط يطبّقه على الصورة بالحجم الكامل، ويحدّد شريط الشدة مدى قوته.</p>
+        <div class="studio-stage">
           <!--
-            Five chips, in the order ENHANCE_PRESETS declares them. The `data-preset` values are the
-            engine's own ids and the labels come from content/ui.json, so neither is written down twice.
-            Each chip starts disabled: its thumbnail does not exist until the visitor's own photo has been
-            through the worker, and a style you cannot see is a style you cannot choose.
+            The flagship's stage: one glass surface while it is empty, then the dark well that frames
+            the result. The compare slider, the stats and the save actions all sit inside that well,
+            because a photo is judged against a dark surround rather than listed under a control.
           -->
-          <div class="preset-row" data-preset-row data-state="loading" role="group" aria-label="معاينات الأنماط">
-            <button class="preset-chip" type="button" data-preset-chip data-preset="natural" data-state="pending" data-selected="false" aria-pressed="false" disabled>
-              <img class="preset-thumb" data-preset-thumb alt="" width="160" height="120">
-              <span class="preset-name">نضارة طبيعية</span>
-            </button>
-            <button class="preset-chip" type="button" data-preset-chip data-preset="vivid" data-state="pending" data-selected="false" aria-pressed="false" disabled>
-              <img class="preset-thumb" data-preset-thumb alt="" width="160" height="120">
-              <span class="preset-name">ألوان زاهية</span>
-            </button>
-            <button class="preset-chip" type="button" data-preset-chip data-preset="warm" data-state="pending" data-selected="false" aria-pressed="false" disabled>
-              <img class="preset-thumb" data-preset-thumb alt="" width="160" height="120">
-              <span class="preset-name">دفء ذهبي</span>
-            </button>
-            <button class="preset-chip" type="button" data-preset-chip data-preset="cool" data-state="pending" data-selected="false" aria-pressed="false" disabled>
-              <img class="preset-thumb" data-preset-thumb alt="" width="160" height="120">
-              <span class="preset-name">برودة هادئة</span>
-            </button>
-            <button class="preset-chip" type="button" data-preset-chip data-preset="bw" data-state="pending" data-selected="false" aria-pressed="false" disabled>
-              <img class="preset-thumb" data-preset-thumb alt="" width="160" height="120">
-              <span class="preset-name">أبيض وأسود كلاسيكي</span>
-            </button>
+          <div class="dropzone" data-dropzone>
+            <label class="dropzone-label" for="tool-file-input">
+              <span class="dropzone-icon" aria-hidden="true">
+                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="6" width="44" height="44" rx="12"></rect>
+                  <circle cx="21" cy="21" r="5"></circle>
+                  <path d="M6 39l12-11 9 8 7-6 10 9"></path>
+                  <path class="dropzone-icon-drop" d="M28 10v10m-5-5l5 5 5-5"></path>
+                </svg>
+              </span>
+              <span class="dropzone-title">أفلت صورك هنا</span>
+              <span class="dropzone-sub">أو الصقها من الحافظة</span>
+              <span class="dropzone-browse" aria-hidden="true">تصفّح الصور</span>
+              <span class="dropzone-hint">أو اسحبها وأفلتها، أو الصقها — JPEG، PNG أو WebP حتى <bdi dir="ltr">50 MB</bdi></span>
+              <span class="dropzone-hint">صورة واحدة أو دفعة كاملة — لا شيء يغادر جهازك في الحالتين.</span>
+              <button class="dropzone-sample" type="button" data-sample-image>جرّب بصورة تجريبية</button>
+            </label>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple data-dropzone-input>
           </div>
-          <p class="preset-note" data-preview-status role="status" aria-live="polite"></p>
+
+          <p class="notice notice-warning" data-unsupported hidden>
+            هذا المتصفح لا يستطيع تحسين الصور محلياً — تنقصه واجهة فك الترميز التي تقوم عليها هذه الأدوات. لا يُرفع أي شيء في كلتا الحالتين؛ جرّب نسخة حديثة من Chrome أو Edge أو Firefox أو Safari.
+          </p>
+
+          <div class="progress-region" data-progress-region hidden>
+            <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="تقدّم التحسين">
+              <div class="progress-bar" data-progress-bar></div>
+            </div>
+            <p class="progress-text" data-progress-text></p>
+            <button class="button button-secondary" type="button" data-cancel>إلغاء</button>
+          </div>
+
+          <div class="result" data-result hidden>
+            <div class="compare-slider" data-compare>
+              <div class="compare-slider-pane compare-slider-before">
+                <img data-compare-before alt="الصورة الأصلية">
+              </div>
+              <div class="compare-slider-pane compare-slider-after">
+                <img data-compare-after alt="الصورة بعد التحسين">
+              </div>
+              <span class="compare-slider-handle" aria-hidden="true"></span>
+              <span class="compare-slider-label compare-slider-label-before">الأصلية</span>
+              <span class="compare-slider-label compare-slider-label-after">بعد التحسين</span>
+              <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="اسحب للمقارنة بين الصورة الأصلية والصورة المحسّنة">
+            </div>
+            <p class="compare-savings" data-compare-savings></p>
+            <dl class="result-stats">
+              <div class="result-stat">
+                <dt>النمط</dt>
+                <dd data-result-preset>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>الشدة</dt>
+                <dd data-result-intensity>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>الأبعاد</dt>
+                <dd data-result-dimensions>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>حجم الملف</dt>
+                <dd data-result-size>&mdash;</dd>
+              </div>
+            </dl>
+            <p class="correction-note" data-correction></p>
+            <p class="notice notice-warning" data-result-warning hidden></p>
+            <div class="result-actions">
+              <a class="button" data-download download>تنزيل</a>
+              <button class="button button-secondary" type="button" data-start-over>البدء من جديد</button>
+            </div>
+          </div>
+
+          <div class="batch" data-batch hidden>
+            <div class="batch-header">
+              <p class="batch-summary" data-batch-summary></p>
+              <div class="batch-actions" data-batch-actions>
+                <button class="button" type="button" data-enhance-all data-primary-action data-sticky="off" data-label="حسّن الكل" data-label-done="حسّن الكل مرة أخرى">حسّن الكل</button>
+                <button class="button button-secondary" type="button" data-download-zip hidden>تنزيل الكل في ملف ZIP</button>
+              </div>
+            </div>
+            <ul class="batch-list" data-file-list></ul>
+          </div>
         </div>
 
-        <div class="tool-controls">
+        <!--
+          The inspector: the flagship's controls, which are already visual. The five styles are live
+          thumbnails of the visitor's own photo rather than named chips, the intensity is a real slider
+          and the manual overrides stay behind a disclosure, because none of them is a second source of
+          truth — every one of them is a hooked control the tool script already owns.
+        -->
+        <aside class="studio-inspector">
+          <div class="ctl">
+            <div class="preset-heading">
+              <h2 class="preset-title">اختر نمطاً</h2>
+              <button class="button button-secondary preset-auto" type="button" data-auto-enhance data-selected="false" aria-pressed="false" data-label="تحسين تلقائي">تحسين تلقائي</button>
+            </div>
+            <p class="preset-note">كل صورة مصغّرة أدناه مرسومة من صورتك أنت، لا من مثال جاهز. واختيار أي نمط يطبّقه على الصورة بالحجم الكامل، ويحدّد شريط الشدة مدى قوته.</p>
+            <!--
+              Five chips, in the order ENHANCE_PRESETS declares them. The `data-preset` values are the
+              engine's own ids and the labels come from content/ui.json, so neither is written down twice.
+              Each chip starts disabled: its thumbnail does not exist until the visitor's own photo has been
+              through the worker, and a style you cannot see is a style you cannot choose.
+            -->
+            <div class="preset-row" data-preset-row data-state="loading" role="group" aria-label="معاينات الأنماط">
+              <button class="preset-chip" type="button" data-preset-chip data-preset="natural" data-state="pending" data-selected="false" aria-pressed="false" disabled>
+                <img class="preset-thumb" data-preset-thumb alt="" width="160" height="120">
+                <span class="preset-name">نضارة طبيعية</span>
+              </button>
+              <button class="preset-chip" type="button" data-preset-chip data-preset="vivid" data-state="pending" data-selected="false" aria-pressed="false" disabled>
+                <img class="preset-thumb" data-preset-thumb alt="" width="160" height="120">
+                <span class="preset-name">ألوان زاهية</span>
+              </button>
+              <button class="preset-chip" type="button" data-preset-chip data-preset="warm" data-state="pending" data-selected="false" aria-pressed="false" disabled>
+                <img class="preset-thumb" data-preset-thumb alt="" width="160" height="120">
+                <span class="preset-name">دفء ذهبي</span>
+              </button>
+              <button class="preset-chip" type="button" data-preset-chip data-preset="cool" data-state="pending" data-selected="false" aria-pressed="false" disabled>
+                <img class="preset-thumb" data-preset-thumb alt="" width="160" height="120">
+                <span class="preset-name">برودة هادئة</span>
+              </button>
+              <button class="preset-chip" type="button" data-preset-chip data-preset="bw" data-state="pending" data-selected="false" aria-pressed="false" disabled>
+                <img class="preset-thumb" data-preset-thumb alt="" width="160" height="120">
+                <span class="preset-name">أبيض وأسود كلاسيكي</span>
+              </button>
+            </div>
+            <p class="preset-note" data-preview-status role="status" aria-live="polite"></p>
+          </div>
+
+          <!--
+            Intensity blends between the corrected photo and the chosen style, so it stays the tool's own
+            range input: the shell's slider presenter is for a control whose value a chip or a preset sets
+            from elsewhere, and this one is only ever moved by hand. `data-disabled` is what dims it while
+            Auto is selected, since there is then no style to blend towards.
+          -->
           <div class="field field-wide" data-intensity-field data-disabled="false">
             <label class="field-label" for="enhance-intensity">شدة النمط</label>
             <div class="range-row">
@@ -522,100 +612,41 @@
             </div>
             <p class="field-hint" id="enhance-intensity-hint">مقدار قوة النمط: عند 0% تحصل على التصحيح التلقائي وحده، وعند 100% على النمط كاملاً. ويُعطَّل الشريط مع التحسين التلقائي لأنه لا توجد قوة للمزج.</p>
           </div>
-        </div>
 
-        <!--
-          Optional, and deliberately closed. Everything the main flow needs is above this line; these three
-          sliders are a manual override on top of whichever style is selected, and the tool works exactly
-          as advertised if nobody ever opens it.
-        -->
-        <details class="advanced-adjust" data-advanced data-modified="false">
-          <summary>إعدادات متقدمة (اختيارية)</summary>
-          <div class="advanced-body">
-            <p class="field-hint">تعديلات يدوية تُطبَّق فوق النمط المختار. اتركها على قيمها الأصلية إلا إذا أردت ضبطاً دقيقاً بنفسك.</p>
-            <div class="field field-wide">
-              <label class="field-label" for="enhance-advanced-brightness">السطوع</label>
-              <div class="range-row">
-                <input class="field-input range-input" id="enhance-advanced-brightness" type="range" min="50" max="150" step="1" value="100" data-advanced-brightness>
-                <output class="range-output" for="enhance-advanced-brightness" data-advanced-brightness-output>100%</output>
+          <!--
+            Optional, and deliberately closed. Everything the main flow needs is above this line; these three
+            sliders are a manual override on top of whichever style is selected, and the tool works exactly
+            as advertised if nobody ever opens it.
+          -->
+          <details class="advanced-adjust" data-advanced data-modified="false">
+            <summary>إعدادات متقدمة (اختيارية)</summary>
+            <div class="advanced-body">
+              <p class="field-hint">تعديلات يدوية تُطبَّق فوق النمط المختار. اتركها على قيمها الأصلية إلا إذا أردت ضبطاً دقيقاً بنفسك.</p>
+              <div class="field field-wide">
+                <label class="field-label" for="enhance-advanced-brightness">السطوع</label>
+                <div class="range-row">
+                  <input class="field-input range-input" id="enhance-advanced-brightness" type="range" min="50" max="150" step="1" value="100" data-advanced-brightness>
+                  <output class="range-output" for="enhance-advanced-brightness" data-advanced-brightness-output>100%</output>
+                </div>
               </div>
-            </div>
-            <div class="field field-wide">
-              <label class="field-label" for="enhance-advanced-contrast">التباين</label>
-              <div class="range-row">
-                <input class="field-input range-input" id="enhance-advanced-contrast" type="range" min="50" max="150" step="1" value="100" data-advanced-contrast>
-                <output class="range-output" for="enhance-advanced-contrast" data-advanced-contrast-output>100%</output>
+              <div class="field field-wide">
+                <label class="field-label" for="enhance-advanced-contrast">التباين</label>
+                <div class="range-row">
+                  <input class="field-input range-input" id="enhance-advanced-contrast" type="range" min="50" max="150" step="1" value="100" data-advanced-contrast>
+                  <output class="range-output" for="enhance-advanced-contrast" data-advanced-contrast-output>100%</output>
+                </div>
               </div>
-            </div>
-            <div class="field field-wide">
-              <label class="field-label" for="enhance-advanced-warmth">حرارة اللون</label>
-              <div class="range-row">
-                <input class="field-input range-input" id="enhance-advanced-warmth" type="range" min="-50" max="50" step="1" value="0" data-advanced-warmth>
-                <output class="range-output" for="enhance-advanced-warmth" data-advanced-warmth-output>0</output>
+              <div class="field field-wide">
+                <label class="field-label" for="enhance-advanced-warmth">حرارة اللون</label>
+                <div class="range-row">
+                  <input class="field-input range-input" id="enhance-advanced-warmth" type="range" min="-50" max="50" step="1" value="0" data-advanced-warmth>
+                  <output class="range-output" for="enhance-advanced-warmth" data-advanced-warmth-output>0</output>
+                </div>
               </div>
+              <button class="button button-secondary" type="button" data-advanced-reset disabled>إعادة التعيين</button>
             </div>
-            <button class="button button-secondary" type="button" data-advanced-reset disabled>إعادة التعيين</button>
-          </div>
-        </details>
-
-        <div class="batch" data-batch hidden>
-          <div class="batch-header">
-            <p class="batch-summary" data-batch-summary></p>
-            <div class="batch-actions" data-batch-actions>
-              <button class="button" type="button" data-enhance-all data-primary-action data-sticky="off" data-label="حسّن الكل" data-label-done="حسّن الكل مرة أخرى">حسّن الكل</button>
-              <button class="button button-secondary" type="button" data-download-zip hidden>تنزيل الكل في ملف ZIP</button>
-            </div>
-          </div>
-          <ul class="batch-list" data-file-list></ul>
-        </div>
-
-        <div class="progress-region" data-progress-region hidden>
-          <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="تقدّم التحسين">
-            <div class="progress-bar" data-progress-bar></div>
-          </div>
-          <p class="progress-text" data-progress-text></p>
-          <button class="button button-secondary" type="button" data-cancel>إلغاء</button>
-        </div>
-
-        <div class="result" data-result hidden>
-          <div class="compare-slider" data-compare>
-            <div class="compare-slider-pane compare-slider-before">
-              <img data-compare-before alt="الصورة الأصلية">
-            </div>
-            <div class="compare-slider-pane compare-slider-after">
-              <img data-compare-after alt="الصورة بعد التحسين">
-            </div>
-            <span class="compare-slider-handle" aria-hidden="true"></span>
-            <span class="compare-slider-label compare-slider-label-before">الأصلية</span>
-            <span class="compare-slider-label compare-slider-label-after">بعد التحسين</span>
-            <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="اسحب للمقارنة بين الصورة الأصلية والصورة المحسّنة">
-          </div>
-          <p class="compare-savings" data-compare-savings></p>
-          <dl class="result-stats">
-            <div class="result-stat">
-              <dt>النمط</dt>
-              <dd data-result-preset>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>الشدة</dt>
-              <dd data-result-intensity>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>الأبعاد</dt>
-              <dd data-result-dimensions>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>حجم الملف</dt>
-              <dd data-result-size>&mdash;</dd>
-            </div>
-          </dl>
-          <p class="correction-note" data-correction></p>
-          <p class="notice notice-warning" data-result-warning hidden></p>
-          <div class="result-actions">
-            <a class="button" data-download download>تنزيل</a>
-            <button class="button button-secondary" type="button" data-start-over>البدء من جديد</button>
-          </div>
-        </div>
+          </details>
+        </aside>
 
         <p class="status" data-status role="status" aria-live="polite"></p>
       </section>
@@ -671,19 +702,19 @@
       <ul class="tool-grid">
         <li class="tool-card">
           <a class="tool-card-link" href="/ar/tools/compress-image/">
-            <span class="tool-card-name">تخفيف</span>
-            <span class="tool-card-desc">قلّل حجم صورك</span>
+            <span class="tool-card-name">خفّة</span>
+            <span class="tool-card-desc">صغّر حجم صورك</span>
           </a>
         </li>
         <li class="tool-card">
           <a class="tool-card-link" href="/ar/tools/convert-image/">
-            <span class="tool-card-name">الصيغة</span>
-            <span class="tool-card-desc">بدّل بين JPEG وPNG وWebP</span>
+            <span class="tool-card-name">تبديل</span>
+            <span class="tool-card-desc">حوّل بين JPEG وPNG وWebP</span>
           </a>
         </li>
         <li class="tool-card">
           <a class="tool-card-link" href="/ar/tools/resize-image/">
-            <span class="tool-card-name">الأبعاد</span>
+            <span class="tool-card-name">أبعاد</span>
             <span class="tool-card-desc">غيّر العرض والارتفاع</span>
           </a>
         </li>

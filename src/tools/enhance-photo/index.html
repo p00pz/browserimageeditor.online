@@ -463,57 +463,147 @@
       </header>
 
       <section class="tool-panel" data-tool-root data-tool-slug="enhance-photo">
-        <div class="dropzone" data-dropzone>
-          <label class="dropzone-label" for="tool-file-input">
-            <span class="dropzone-title">Choose images</span>
-            <span class="dropzone-hint">or drag and drop, or paste — JPEG, PNG or WebP up to 50 MB</span>
-            <span class="dropzone-hint">One image or a whole batch — nothing leaves your device either way.</span>
-          </label>
-          <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple data-dropzone-input>
-        </div>
-
-        <p class="notice notice-warning" data-unsupported hidden>
-          This browser cannot enhance photos locally — it is missing the image-decoding API these tools are built on. Nothing is uploaded either way. Please try a current version of Chrome, Edge, Firefox or Safari.
-        </p>
-
-        <div class="preset-section">
-          <div class="preset-heading">
-            <h2 class="preset-title">Choose a style</h2>
-            <button class="button button-secondary preset-auto" type="button" data-auto-enhance data-selected="false" aria-pressed="false" data-label="Auto enhance">Auto enhance</button>
-          </div>
-          <p class="preset-note">Every thumbnail below is rendered from your own photo, not a sample. Picking one applies that style to the full-size image, and the intensity slider decides how far it goes.</p>
+        <div class="studio-stage">
           <!--
-            Five chips, in the order ENHANCE_PRESETS declares them. The `data-preset` values are the
-            engine's own ids and the labels come from content/ui.json, so neither is written down twice.
-            Each chip starts disabled: its thumbnail does not exist until the visitor's own photo has been
-            through the worker, and a style you cannot see is a style you cannot choose.
+            The flagship's stage: one glass surface while it is empty, then the dark well that frames
+            the result. The compare slider, the stats and the save actions all sit inside that well,
+            because a photo is judged against a dark surround rather than listed under a control.
           -->
-          <div class="preset-row" data-preset-row data-state="loading" role="group" aria-label="Preset previews">
-            <button class="preset-chip" type="button" data-preset-chip data-preset="natural" data-state="pending" data-selected="false" aria-pressed="false" disabled>
-              <img class="preset-thumb" data-preset-thumb alt="" width="160" height="120">
-              <span class="preset-name">Natural Pop</span>
-            </button>
-            <button class="preset-chip" type="button" data-preset-chip data-preset="vivid" data-state="pending" data-selected="false" aria-pressed="false" disabled>
-              <img class="preset-thumb" data-preset-thumb alt="" width="160" height="120">
-              <span class="preset-name">Vivid</span>
-            </button>
-            <button class="preset-chip" type="button" data-preset-chip data-preset="warm" data-state="pending" data-selected="false" aria-pressed="false" disabled>
-              <img class="preset-thumb" data-preset-thumb alt="" width="160" height="120">
-              <span class="preset-name">Warm glow</span>
-            </button>
-            <button class="preset-chip" type="button" data-preset-chip data-preset="cool" data-state="pending" data-selected="false" aria-pressed="false" disabled>
-              <img class="preset-thumb" data-preset-thumb alt="" width="160" height="120">
-              <span class="preset-name">Cool mood</span>
-            </button>
-            <button class="preset-chip" type="button" data-preset-chip data-preset="bw" data-state="pending" data-selected="false" aria-pressed="false" disabled>
-              <img class="preset-thumb" data-preset-thumb alt="" width="160" height="120">
-              <span class="preset-name">Classic B&W</span>
-            </button>
+          <div class="dropzone" data-dropzone>
+            <label class="dropzone-label" for="tool-file-input">
+              <span class="dropzone-icon" aria-hidden="true">
+                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="6" width="44" height="44" rx="12"></rect>
+                  <circle cx="21" cy="21" r="5"></circle>
+                  <path d="M6 39l12-11 9 8 7-6 10 9"></path>
+                  <path class="dropzone-icon-drop" d="M28 10v10m-5-5l5 5 5-5"></path>
+                </svg>
+              </span>
+              <span class="dropzone-title">Drop your images here</span>
+              <span class="dropzone-sub">or paste from the clipboard</span>
+              <span class="dropzone-browse" aria-hidden="true">Browse images</span>
+              <span class="dropzone-hint">or drag and drop, or paste — JPEG, PNG or WebP up to 50 MB</span>
+              <span class="dropzone-hint">One image or a whole batch — nothing leaves your device either way.</span>
+              <button class="dropzone-sample" type="button" data-sample-image>Try a sample image</button>
+            </label>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple data-dropzone-input>
           </div>
-          <p class="preset-note" data-preview-status role="status" aria-live="polite"></p>
+
+          <p class="notice notice-warning" data-unsupported hidden>
+            This browser cannot enhance photos locally — it is missing the image-decoding API these tools are built on. Nothing is uploaded either way. Please try a current version of Chrome, Edge, Firefox or Safari.
+          </p>
+
+          <div class="progress-region" data-progress-region hidden>
+            <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Enhancement progress">
+              <div class="progress-bar" data-progress-bar></div>
+            </div>
+            <p class="progress-text" data-progress-text></p>
+            <button class="button button-secondary" type="button" data-cancel>Cancel</button>
+          </div>
+
+          <div class="result" data-result hidden>
+            <div class="compare-slider" data-compare>
+              <div class="compare-slider-pane compare-slider-before">
+                <img data-compare-before alt="The original image">
+              </div>
+              <div class="compare-slider-pane compare-slider-after">
+                <img data-compare-after alt="The enhanced photo">
+              </div>
+              <span class="compare-slider-handle" aria-hidden="true"></span>
+              <span class="compare-slider-label compare-slider-label-before">Original</span>
+              <span class="compare-slider-label compare-slider-label-after">Enhanced</span>
+              <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="Drag to compare the original photo with the enhanced one">
+            </div>
+            <p class="compare-savings" data-compare-savings></p>
+            <dl class="result-stats">
+              <div class="result-stat">
+                <dt>Style</dt>
+                <dd data-result-preset>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>Intensity</dt>
+                <dd data-result-intensity>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>Dimensions</dt>
+                <dd data-result-dimensions>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>File size</dt>
+                <dd data-result-size>&mdash;</dd>
+              </div>
+            </dl>
+            <p class="correction-note" data-correction></p>
+            <p class="notice notice-warning" data-result-warning hidden></p>
+            <div class="result-actions">
+              <a class="button" data-download download>Download</a>
+              <button class="button button-secondary" type="button" data-start-over>Start over</button>
+            </div>
+          </div>
+
+          <div class="batch" data-batch hidden>
+            <div class="batch-header">
+              <p class="batch-summary" data-batch-summary></p>
+              <div class="batch-actions" data-batch-actions>
+                <button class="button" type="button" data-enhance-all data-primary-action data-sticky="off" data-label="Enhance all" data-label-done="Enhance all again">Enhance all</button>
+                <button class="button button-secondary" type="button" data-download-zip hidden>Download all as ZIP</button>
+              </div>
+            </div>
+            <ul class="batch-list" data-file-list></ul>
+          </div>
         </div>
 
-        <div class="tool-controls">
+        <!--
+          The inspector: the flagship's controls, which are already visual. The five styles are live
+          thumbnails of the visitor's own photo rather than named chips, the intensity is a real slider
+          and the manual overrides stay behind a disclosure, because none of them is a second source of
+          truth — every one of them is a hooked control the tool script already owns.
+        -->
+        <aside class="studio-inspector">
+          <div class="ctl">
+            <div class="preset-heading">
+              <h2 class="preset-title">Choose a style</h2>
+              <button class="button button-secondary preset-auto" type="button" data-auto-enhance data-selected="false" aria-pressed="false" data-label="Auto enhance">Auto enhance</button>
+            </div>
+            <p class="preset-note">Every thumbnail below is rendered from your own photo, not a sample. Picking one applies that style to the full-size image, and the intensity slider decides how far it goes.</p>
+            <!--
+              Five chips, in the order ENHANCE_PRESETS declares them. The `data-preset` values are the
+              engine's own ids and the labels come from content/ui.json, so neither is written down twice.
+              Each chip starts disabled: its thumbnail does not exist until the visitor's own photo has been
+              through the worker, and a style you cannot see is a style you cannot choose.
+            -->
+            <div class="preset-row" data-preset-row data-state="loading" role="group" aria-label="Preset previews">
+              <button class="preset-chip" type="button" data-preset-chip data-preset="natural" data-state="pending" data-selected="false" aria-pressed="false" disabled>
+                <img class="preset-thumb" data-preset-thumb alt="" width="160" height="120">
+                <span class="preset-name">Natural Pop</span>
+              </button>
+              <button class="preset-chip" type="button" data-preset-chip data-preset="vivid" data-state="pending" data-selected="false" aria-pressed="false" disabled>
+                <img class="preset-thumb" data-preset-thumb alt="" width="160" height="120">
+                <span class="preset-name">Vivid</span>
+              </button>
+              <button class="preset-chip" type="button" data-preset-chip data-preset="warm" data-state="pending" data-selected="false" aria-pressed="false" disabled>
+                <img class="preset-thumb" data-preset-thumb alt="" width="160" height="120">
+                <span class="preset-name">Warm glow</span>
+              </button>
+              <button class="preset-chip" type="button" data-preset-chip data-preset="cool" data-state="pending" data-selected="false" aria-pressed="false" disabled>
+                <img class="preset-thumb" data-preset-thumb alt="" width="160" height="120">
+                <span class="preset-name">Cool mood</span>
+              </button>
+              <button class="preset-chip" type="button" data-preset-chip data-preset="bw" data-state="pending" data-selected="false" aria-pressed="false" disabled>
+                <img class="preset-thumb" data-preset-thumb alt="" width="160" height="120">
+                <span class="preset-name">Classic B&W</span>
+              </button>
+            </div>
+            <p class="preset-note" data-preview-status role="status" aria-live="polite"></p>
+          </div>
+
+          <!--
+            Intensity blends between the corrected photo and the chosen style, so it stays the tool's own
+            range input: the shell's slider presenter is for a control whose value a chip or a preset sets
+            from elsewhere, and this one is only ever moved by hand. `data-disabled` is what dims it while
+            Auto is selected, since there is then no style to blend towards.
+          -->
           <div class="field field-wide" data-intensity-field data-disabled="false">
             <label class="field-label" for="enhance-intensity">Intensity</label>
             <div class="range-row">
@@ -522,100 +612,41 @@
             </div>
             <p class="field-hint" id="enhance-intensity-hint">How far to push the style. At 0% you get the auto-corrected photo on its own, at 100% the full effect. It is disabled while Auto enhance is selected, because there is no style to blend towards.</p>
           </div>
-        </div>
 
-        <!--
-          Optional, and deliberately closed. Everything the main flow needs is above this line; these three
-          sliders are a manual override on top of whichever style is selected, and the tool works exactly
-          as advertised if nobody ever opens it.
-        -->
-        <details class="advanced-adjust" data-advanced data-modified="false">
-          <summary>Advanced (optional)</summary>
-          <div class="advanced-body">
-            <p class="field-hint">Manual overrides applied on top of whichever style is selected. Leave them at their defaults unless you want to fine-tune by hand.</p>
-            <div class="field field-wide">
-              <label class="field-label" for="enhance-advanced-brightness">Brightness</label>
-              <div class="range-row">
-                <input class="field-input range-input" id="enhance-advanced-brightness" type="range" min="50" max="150" step="1" value="100" data-advanced-brightness>
-                <output class="range-output" for="enhance-advanced-brightness" data-advanced-brightness-output>100%</output>
+          <!--
+            Optional, and deliberately closed. Everything the main flow needs is above this line; these three
+            sliders are a manual override on top of whichever style is selected, and the tool works exactly
+            as advertised if nobody ever opens it.
+          -->
+          <details class="advanced-adjust" data-advanced data-modified="false">
+            <summary>Advanced (optional)</summary>
+            <div class="advanced-body">
+              <p class="field-hint">Manual overrides applied on top of whichever style is selected. Leave them at their defaults unless you want to fine-tune by hand.</p>
+              <div class="field field-wide">
+                <label class="field-label" for="enhance-advanced-brightness">Brightness</label>
+                <div class="range-row">
+                  <input class="field-input range-input" id="enhance-advanced-brightness" type="range" min="50" max="150" step="1" value="100" data-advanced-brightness>
+                  <output class="range-output" for="enhance-advanced-brightness" data-advanced-brightness-output>100%</output>
+                </div>
               </div>
-            </div>
-            <div class="field field-wide">
-              <label class="field-label" for="enhance-advanced-contrast">Contrast</label>
-              <div class="range-row">
-                <input class="field-input range-input" id="enhance-advanced-contrast" type="range" min="50" max="150" step="1" value="100" data-advanced-contrast>
-                <output class="range-output" for="enhance-advanced-contrast" data-advanced-contrast-output>100%</output>
+              <div class="field field-wide">
+                <label class="field-label" for="enhance-advanced-contrast">Contrast</label>
+                <div class="range-row">
+                  <input class="field-input range-input" id="enhance-advanced-contrast" type="range" min="50" max="150" step="1" value="100" data-advanced-contrast>
+                  <output class="range-output" for="enhance-advanced-contrast" data-advanced-contrast-output>100%</output>
+                </div>
               </div>
-            </div>
-            <div class="field field-wide">
-              <label class="field-label" for="enhance-advanced-warmth">Warmth</label>
-              <div class="range-row">
-                <input class="field-input range-input" id="enhance-advanced-warmth" type="range" min="-50" max="50" step="1" value="0" data-advanced-warmth>
-                <output class="range-output" for="enhance-advanced-warmth" data-advanced-warmth-output>0</output>
+              <div class="field field-wide">
+                <label class="field-label" for="enhance-advanced-warmth">Warmth</label>
+                <div class="range-row">
+                  <input class="field-input range-input" id="enhance-advanced-warmth" type="range" min="-50" max="50" step="1" value="0" data-advanced-warmth>
+                  <output class="range-output" for="enhance-advanced-warmth" data-advanced-warmth-output>0</output>
+                </div>
               </div>
+              <button class="button button-secondary" type="button" data-advanced-reset disabled>Reset</button>
             </div>
-            <button class="button button-secondary" type="button" data-advanced-reset disabled>Reset</button>
-          </div>
-        </details>
-
-        <div class="batch" data-batch hidden>
-          <div class="batch-header">
-            <p class="batch-summary" data-batch-summary></p>
-            <div class="batch-actions" data-batch-actions>
-              <button class="button" type="button" data-enhance-all data-primary-action data-sticky="off" data-label="Enhance all" data-label-done="Enhance all again">Enhance all</button>
-              <button class="button button-secondary" type="button" data-download-zip hidden>Download all as ZIP</button>
-            </div>
-          </div>
-          <ul class="batch-list" data-file-list></ul>
-        </div>
-
-        <div class="progress-region" data-progress-region hidden>
-          <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Enhancement progress">
-            <div class="progress-bar" data-progress-bar></div>
-          </div>
-          <p class="progress-text" data-progress-text></p>
-          <button class="button button-secondary" type="button" data-cancel>Cancel</button>
-        </div>
-
-        <div class="result" data-result hidden>
-          <div class="compare-slider" data-compare>
-            <div class="compare-slider-pane compare-slider-before">
-              <img data-compare-before alt="The original image">
-            </div>
-            <div class="compare-slider-pane compare-slider-after">
-              <img data-compare-after alt="The enhanced photo">
-            </div>
-            <span class="compare-slider-handle" aria-hidden="true"></span>
-            <span class="compare-slider-label compare-slider-label-before">Original</span>
-            <span class="compare-slider-label compare-slider-label-after">Enhanced</span>
-            <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="Drag to compare the original photo with the enhanced one">
-          </div>
-          <p class="compare-savings" data-compare-savings></p>
-          <dl class="result-stats">
-            <div class="result-stat">
-              <dt>Style</dt>
-              <dd data-result-preset>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>Intensity</dt>
-              <dd data-result-intensity>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>Dimensions</dt>
-              <dd data-result-dimensions>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>File size</dt>
-              <dd data-result-size>&mdash;</dd>
-            </div>
-          </dl>
-          <p class="correction-note" data-correction></p>
-          <p class="notice notice-warning" data-result-warning hidden></p>
-          <div class="result-actions">
-            <a class="button" data-download download>Download</a>
-            <button class="button button-secondary" type="button" data-start-over>Start over</button>
-          </div>
-        </div>
+          </details>
+        </aside>
 
         <p class="status" data-status role="status" aria-live="polite"></p>
       </section>
@@ -672,7 +703,7 @@
         <li class="tool-card">
           <a class="tool-card-link" href="/tools/compress-image/">
             <span class="tool-card-name">Compress</span>
-            <span class="tool-card-desc">Smaller files, same picture</span>
+            <span class="tool-card-desc">Make image files smaller</span>
           </a>
         </li>
         <li class="tool-card">
@@ -684,7 +715,7 @@
         <li class="tool-card">
           <a class="tool-card-link" href="/tools/resize-image/">
             <span class="tool-card-name">Resize</span>
-            <span class="tool-card-desc">Exact width and height</span>
+            <span class="tool-card-desc">Change width and height</span>
           </a>
         </li>
       </ul>

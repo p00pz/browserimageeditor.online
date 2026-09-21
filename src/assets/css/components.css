@@ -211,6 +211,19 @@
   box-shadow: none;
 }
 
+/* The empty state is the surface and nothing else. Until a picture lands, the inspector is chrome
+ * for a picture that does not exist yet — controls with nothing to control, which is exactly the
+ * "reads like a form" failure the brief rules out — so it leaves the page entirely and the stage
+ * takes the whole column. `:has()` resolves at first paint, so the inspector never flashes on
+ * load; `has-file` is toggled by the shared dropzone the moment a file is accepted or reset. */
+.tool-panel:has(.dropzone:not(.has-file)) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.tool-panel:has(.dropzone:not(.has-file)) .studio-inspector {
+  display: none;
+}
+
 /* ---------- Studio Shell: a stage and an inspector ----------
  *
  * One shared shell for the six tools; only the inspector's contents differ. The stage is where the
@@ -549,6 +562,94 @@
   color: var(--color-text);
 }
 
+/* The calm icon above the headline. The arrow breathes: a slow, small drop that never stops the
+ * surface feeling alive. `prefers-reduced-motion` zeroes every duration in base.css. */
+.dropzone-icon {
+  display: flex;
+  color: var(--color-primary);
+  filter: drop-shadow(0 6px 14px color-mix(in srgb, var(--color-primary) 22%, transparent));
+  animation: dropzone-breathe 4.2s ease-in-out infinite alternate;
+}
+
+@keyframes dropzone-breathe {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-5px);
+  }
+}
+
+.dropzone-icon-drop {
+  animation: dropzone-fall 2.6s ease-in-out infinite alternate;
+}
+
+@keyframes dropzone-fall {
+  from {
+    transform: translateY(-3px);
+    opacity: 0.65;
+  }
+  to {
+    transform: translateY(2px);
+    opacity: 1;
+  }
+}
+
+.dropzone-sub {
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+}
+
+/* The one primary affordance, drawn as a button so the surface reads as actionable at a glance
+ * even though the whole label is the real hit target. aria-hidden: the accessible control is the
+ * focusable file input beside it, and a visitor should never meet the same action twice. */
+.dropzone-browse {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-6);
+  margin-top: var(--space-2);
+  font-size: var(--text-base);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-primary-solid);
+  background-color: var(--color-primary);
+  border-radius: var(--radius-full);
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--color-primary) 32%, transparent);
+  transition: transform var(--transition-fast), background-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.dropzone:hover .dropzone-browse {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 9px 22px color-mix(in srgb, var(--color-primary) 38%, transparent);
+}
+
+.dropzone:active .dropzone-browse {
+  transform: translateY(0) scale(0.985);
+}
+
+/* The quiet "try a sample" door, sitting under everything: a real button so it does not fire the
+ * label's file picker — it draws its own picture locally instead. */
+.dropzone-sample {
+  margin-top: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background-color: transparent;
+  border: 0;
+  border-radius: var(--radius-full);
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.dropzone-sample:hover {
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
+}
+
 .dropzone-more {
   display: none;
   font-size: var(--text-base);
@@ -558,8 +659,13 @@
 }
 
 /* Once a file is in, the surface's job is a slim "add more" strip, so the empty-state copy leaves
-   and the compact copy takes its place. */
+ * and the compact copy takes its place. The sample door leaves with it: a picture exists now, so
+ * there is nothing left to demo. */
 .dropzone.has-file .dropzone-title,
+.dropzone.has-file .dropzone-sub,
+.dropzone.has-file .dropzone-browse,
+.dropzone.has-file .dropzone-icon,
+.dropzone.has-file .dropzone-sample,
 .dropzone.has-file .dropzone-hint {
   display: none;
 }
@@ -626,11 +732,6 @@
 
 /* ---------- Controls ---------- */
 
-.tool-controls {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--space-4);
-}
 
 .field {
   display: flex;
@@ -1735,9 +1836,6 @@
  * dark stage. See the flagship block below for the stage itself.
  */
 
-.preset-section {
-  margin: var(--space-2) 0 0;
-}
 
 .preset-heading {
   display: flex;
@@ -2070,46 +2168,6 @@
   color: var(--color-stage-text);
 }
 
-/*
- * The two-column flagship: the stage and its result on the left, the controls on the right. The
- * panel's children are placed by name — the drop zone and the result own the left rail, the style
- * row, the intensity, the advanced disclosure, the batch and the progress own the right one — so
- * the flow of the tool is unchanged and only its arrangement widens.
- */
-@media (min-width: 768px) {
-  .tool-panel[data-tool-slug='enhance-photo'] {
-    display: grid;
-    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-    align-items: start;
-    gap: var(--space-6);
-  }
-
-  .tool-panel[data-tool-slug='enhance-photo'] > .dropzone {
-    grid-column: 1;
-    grid-row: 1;
-  }
-
-  .tool-panel[data-tool-slug='enhance-photo'] > .notice {
-    grid-column: 2;
-  }
-
-  .tool-panel[data-tool-slug='enhance-photo'] > .preset-section,
-  .tool-panel[data-tool-slug='enhance-photo'] > .tool-controls,
-  .tool-panel[data-tool-slug='enhance-photo'] > .advanced-adjust,
-  .tool-panel[data-tool-slug='enhance-photo'] > .batch,
-  .tool-panel[data-tool-slug='enhance-photo'] > .progress-region {
-    grid-column: 2;
-  }
-
-  .tool-panel[data-tool-slug='enhance-photo'] > .result {
-    grid-column: 1;
-    grid-row: 2;
-  }
-
-  .tool-panel[data-tool-slug='enhance-photo'] > .status {
-    grid-column: 1 / -1;
-  }
-}
 
 /* ---------- Secondary sections: a disclosure on a phone, plain prose on a desktop ----------
  *
@@ -2568,8 +2626,8 @@
   color: #e6e6e6;
   border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: var(--radius-md);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 11px;
+  font-family: var(--font-mono);
+  font-size: 12px;
   line-height: 1.4;
   white-space: pre-wrap;
   direction: ltr;

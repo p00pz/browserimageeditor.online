@@ -469,10 +469,21 @@
           -->
           <div class="dropzone" data-dropzone>
             <label class="dropzone-label" for="tool-file-input">
-              <span class="dropzone-title">أفلت صورة لتبدأ</span>
-              <span class="dropzone-more" aria-hidden="false">أضف المزيد من الصور</span>
+              <span class="dropzone-icon" aria-hidden="true">
+                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="6" width="44" height="44" rx="12"></rect>
+                  <circle cx="21" cy="21" r="5"></circle>
+                  <path d="M6 39l12-11 9 8 7-6 10 9"></path>
+                  <path class="dropzone-icon-drop" d="M28 10v10m-5-5l5 5 5-5"></path>
+                </svg>
+              </span>
+              <span class="dropzone-title">أفلت صورك هنا</span>
+              <span class="dropzone-sub">أو الصقها من الحافظة</span>
+              <span class="dropzone-browse" aria-hidden="true">تصفّح الصور</span>
               <span class="dropzone-hint">أو اسحبها وأفلتها، أو الصقها — JPEG، PNG أو WebP حتى <bdi dir="ltr">50 MB</bdi></span>
               <span class="dropzone-hint">صورة واحدة أو دفعة كاملة — لا شيء يغادر جهازك في الحالتين.</span>
+              <button class="dropzone-sample" type="button" data-sample-image>جرّب بصورة تجريبية</button>
             </label>
             <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple data-dropzone-input>
           </div>
@@ -679,20 +690,20 @@
       <ul class="tool-grid">
         <li class="tool-card">
           <a class="tool-card-link" href="/ar/tools/resize-image/">
-            <span class="tool-card-name">الأبعاد</span>
+            <span class="tool-card-name">أبعاد</span>
             <span class="tool-card-desc">غيّر العرض والارتفاع</span>
           </a>
         </li>
         <li class="tool-card">
           <a class="tool-card-link" href="/ar/tools/convert-image/">
-            <span class="tool-card-name">الصيغة</span>
-            <span class="tool-card-desc">بدّل بين JPEG وPNG وWebP</span>
+            <span class="tool-card-name">تبديل</span>
+            <span class="tool-card-desc">حوّل بين JPEG وPNG وWebP</span>
           </a>
         </li>
         <li class="tool-card">
           <a class="tool-card-link" href="/ar/tools/crop-image/">
-            <span class="tool-card-name">الإطار</span>
-            <span class="tool-card-desc">اقتصّ وأعد التكوين</span>
+            <span class="tool-card-name">إطار</span>
+            <span class="tool-card-desc">اقتصّ الصورة وأعد تكوينها</span>
           </a>
         </li>
       </ul>

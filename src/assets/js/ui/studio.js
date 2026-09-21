@@ -334,12 +334,80 @@ function presentStepper(button) {
 }
 
 /**
+ * Presents a checkbox as a toggle button. The checkbox keeps its `checked` state and its `change`
+ * event — the tool script that owns the behaviour reads `.checked` and never learns a button exists
+ * — while the button is the thing a visitor sees and taps.
+ */
+function presentToggle(button) {
+  const box = document.querySelector(button.dataset.shellToggle);
+  if (!box) return;
+  button.setAttribute('role', 'switch');
+  button.setAttribute('aria-checked', String(box.checked));
+  button.addEventListener('click', () => {
+    if (button.disabled || box.disabled) return;
+    box.checked = !box.checked;
+    button.setAttribute('aria-checked', String(box.checked));
+    announce(box);
+  });
+  box.addEventListener('change', () => {
+    button.setAttribute('aria-checked', String(box.checked));
+  });
+}
+
+/**
  * Highlights the drop surface while a file is dragged anywhere over the studio, so the whole page
  * reads as a target even though the dropzone itself is the element that catches the drop.
  */
 function presentStudio(studio) {
   const dropzone = studio.querySelector('[data-dropzone]');
   if (!dropzone) return;
+
+  /* The "جرّب بصورة تجريبية" door. A button, not a link, so it does not fire the label's file
+   * picker: it draws a picture on a canvas in this tab, wraps the bytes in a File, and hands them
+   * to the input the dropzone already owns — the same path a real drag takes, so every tool's
+   * validation and processing runs untouched. Nothing is fetched; the sample is procedurally
+   * generated, so the promise "nothing leaves your device" holds for the demo too. */
+  const sample = dropzone.querySelector('[data-sample-image]');
+  const input = dropzone.querySelector('[data-dropzone-input]');
+  if (sample && input) {
+    sample.addEventListener('click', () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 1280;
+      canvas.height = 853;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+      const sky = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      sky.addColorStop(0, '#0a84ff');
+      sky.addColorStop(0.55, '#5856d6');
+      sky.addColorStop(1, '#ff2d55');
+      ctx.fillStyle = sky;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.globalAlpha = 0.85;
+      const colours = ['#ffffff', '#ffd60a', '#34c759', '#ff9f0a', '#af52de'];
+      for (let i = 0; i < 7; i += 1) {
+        ctx.beginPath();
+        ctx.arc(
+          canvas.width * (0.14 + 0.72 * ((i * 37) % 100) / 100),
+          canvas.height * (0.18 + 0.64 * ((i * 61) % 100) / 100),
+          canvas.width * (0.07 + 0.045 * (i % 4)),
+          0,
+          Math.PI * 2,
+        );
+        ctx.fillStyle = colours[i % colours.length];
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      canvas.toBlob((blob) => {
+        if (!blob) return;
+        const file = new File([blob], 'sample-image.png', { type: 'image/png' });
+        const transfer = new DataTransfer();
+        transfer.items.add(file);
+        input.files = transfer.files;
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      }, 'image/png');
+    });
+  }
+
   studio.addEventListener('dragenter', (event) => {
     event.preventDefault();
     dropzone.classList.add(MOBILE_DROP_CLASS);
@@ -377,6 +445,7 @@ export function initStudio(scope = document) {
   for (const chip of scope.querySelectorAll('[data-shell-dual]')) presentDualChip(chip);
   for (const button of scope.querySelectorAll('[data-shell-lock]')) presentLock(button);
   for (const button of scope.querySelectorAll('[data-shell-step-for]')) presentStepper(button);
+  for (const button of scope.querySelectorAll('[data-shell-toggle]')) presentToggle(button);
   for (const studio of scope.querySelectorAll('[data-tool-root]')) presentStudio(studio);
 }
 

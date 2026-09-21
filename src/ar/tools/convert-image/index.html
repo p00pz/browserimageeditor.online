@@ -458,85 +458,99 @@
       </header>
 
       <section class="tool-panel" data-tool-root data-tool-slug="convert-image">
-        <div class="dropzone" data-dropzone>
-          <label class="dropzone-label" for="tool-file-input">
-            <span class="dropzone-title">اختر الصور</span>
-            <span class="dropzone-hint">أو اسحبها وأفلتها، أو الصقها — JPEG، PNG، WebP، AVIF، HEIC أو HEIF حتى <bdi dir="ltr">50 MB</bdi></span>
-            <span class="dropzone-hint">صورة واحدة أو دفعة كاملة — لا شيء يغادر جهازك في الحالتين.</span>
-          </label>
-          <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp,image/avif,image/heic,image/heif" multiple data-dropzone-input>
-        </div>
+        <div class="studio-stage">
+          <div class="dropzone" data-dropzone>
+            <label class="dropzone-label" for="tool-file-input">
+              <span class="dropzone-icon" aria-hidden="true">
+                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="6" width="44" height="44" rx="12"></rect>
+                  <circle cx="21" cy="21" r="5"></circle>
+                  <path d="M6 39l12-11 9 8 7-6 10 9"></path>
+                  <path class="dropzone-icon-drop" d="M28 10v10m-5-5l5 5 5-5"></path>
+                </svg>
+              </span>
+              <span class="dropzone-title">أفلت صورك هنا</span>
+              <span class="dropzone-sub">أو الصقها من الحافظة</span>
+              <span class="dropzone-browse" aria-hidden="true">تصفّح الصور</span>
+              <span class="dropzone-hint">أو اسحبها وأفلتها، أو الصقها — JPEG، PNG، WebP، AVIF، HEIC أو HEIF حتى <bdi dir="ltr">50 MB</bdi></span>
+              <span class="dropzone-hint">صورة واحدة أو دفعة كاملة — لا شيء يغادر جهازك في الحالتين.</span>
+              <button class="dropzone-sample" type="button" data-sample-image>جرّب بصورة تجريبية</button>
+            </label>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp,image/avif,image/heic,image/heif" multiple data-dropzone-input>
+          </div>
 
-        <p class="notice notice-warning" data-unsupported hidden>
-          هذا المتصفح لا يستطيع تحويل الصور محلياً — تنقصه واجهة فك الترميز التي تقوم عليها هذه الأدوات. لا يُرفع أي شيء في كلتا الحالتين؛ جرّب نسخة حديثة من Chrome أو Edge أو Firefox أو Safari.
-        </p>
+          <p class="notice notice-warning" data-unsupported hidden>
+            هذا المتصفح لا يستطيع تحويل الصور محلياً — تنقصه واجهة فك الترميز التي تقوم عليها هذه الأدوات. لا يُرفع أي شيء في كلتا الحالتين؛ جرّب نسخة حديثة من Chrome أو Edge أو Firefox أو Safari.
+          </p>
 
-        <p class="notice notice-info" data-heic-note hidden>
-          هذا ملف HEIC أو HEIF، وهي الصيغة التي تصوّر بها هواتف آيفون وكثير من الكاميرات افتراضياً. لا يستطيع هذا المتصفح قراءتها بنفسه، فيُنزَّل فاكّ ترميز صغير من هذا الموقع لقراءتها — وما زال العمل على جهازك، وما زال لا شيء يُرفع.
-        </p>
+          <p class="notice notice-info" data-heic-note hidden>
+            هذا ملف HEIC أو HEIF، وهي الصيغة التي تصوّر بها هواتف آيفون وكثير من الكاميرات افتراضياً. لا يستطيع هذا المتصفح قراءتها بنفسه، فيُنزَّل فاكّ ترميز صغير من هذا الموقع لقراءتها — وما زال العمل على جهازك، وما زال لا شيء يُرفع.
+          </p>
 
-        <div class="tool-controls">
-          <div class="field field-wide">
-            <label class="field-label" for="convert-format">حوّل إلى</label>
-            <select class="field-input" id="convert-format" data-output-format></select>
+          <div class="progress-region" data-progress-region hidden>
+            <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="تقدم التحويل">
+              <div class="progress-bar" data-progress-bar></div>
+            </div>
+            <p class="progress-text" data-progress-text></p>
+            <button class="button button-secondary" type="button" data-cancel>إلغاء</button>
+          </div>
+
+          <div class="result" data-result hidden>
+            <div class="compareSlider" data-compare>
+              <div class="compare-slider-pane compare-slider-before">
+                <img data-compare-before alt="الصورة الأصلية">
+              </div>
+              <div class="compare-slider-pane compare-slider-after">
+                <img data-compare-after alt="الصورة بعد التحويل">
+              </div>
+              <span class="compare-slider-handle" aria-hidden="true"></span>
+              <span class="compare-slider-label compare-slider-label-before">الأصلية</span>
+              <span class="compare-slider-label compare-slider-label-after">محوَّلة</span>
+              <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="اسحب للمقارنة بين الصورة الأصلية والمحوَّلة">
+            </div>
+            <p class="compare-savings" data-compare-savings></p>
+            <dl class="result-stats">
+              <div class="result-stat">
+                <dt>الصيغة</dt>
+                <dd data-result-format>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>الأبعاد</dt>
+                <dd data-result-dimensions>&mdash;</dd>
+              </div>
+              <div class="result-stat">
+                <dt>حجم الملف</dt>
+                <dd data-result-size>&mdash;</dd>
+              </div>
+            </dl>
+            <p class="notice notice-warning" data-result-warning hidden></p>
+            <div class="result-actions">
+              <a class="button" data-download download>تنزيل</a>
+              <button class="button button-secondary" type="button" data-start-over>البدء من جديد</button>
+            </div>
+          </div>
+
+          <div class="batch" data-batch hidden>
+            <div class="batch-header">
+              <p class="batch-summary" data-batch-summary></p>
+              <div class="batch-actions" data-batch-actions>
+                <button class="button" type="button" data-convert-all data-primary-action data-sticky="off" data-label="حوّل الكل" data-label-done="إعادة التحويل">حوّل الكل</button>
+                <button class="button button-secondary" type="button" data-download-zip hidden>تنزيل الكل في ملف ZIP</button>
+              </div>
+            </div>
+            <ul class="batch-list" data-file-list></ul>
           </div>
         </div>
 
-        <p class="preset-note" data-encoder-note hidden></p>
+        <aside class="studio-inspector">
+          <div class="ctl">
+            <span class="ctl-label" id="ctl-format-label">حوّل إلى</span>
+            <select class="field-input" id="convert-format" data-output-format data-shell-chips aria-labelledby="ctl-format-label"></select>
+          </div>
 
-        <div class="batch" data-batch hidden>
-          <div class="batch-header">
-            <p class="batch-summary" data-batch-summary></p>
-            <div class="batch-actions" data-batch-actions>
-              <button class="button" type="button" data-convert-all data-primary-action data-sticky="off" data-label="حوّل الكل" data-label-done="إعادة التحويل">حوّل الكل</button>
-              <button class="button button-secondary" type="button" data-download-zip hidden>تنزيل الكل في ملف ZIP</button>
-            </div>
-          </div>
-          <ul class="batch-list" data-file-list></ul>
-        </div>
-
-        <div class="progress-region" data-progress-region hidden>
-          <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="تقدم التحويل">
-            <div class="progress-bar" data-progress-bar></div>
-          </div>
-          <p class="progress-text" data-progress-text></p>
-          <button class="button button-secondary" type="button" data-cancel>إلغاء</button>
-        </div>
-
-        <div class="result" data-result hidden>
-          <div class="compare-slider" data-compare>
-            <div class="compare-slider-pane compare-slider-before">
-              <img data-compare-before alt="الصورة الأصلية">
-            </div>
-            <div class="compare-slider-pane compare-slider-after">
-              <img data-compare-after alt="الصورة بعد التحويل">
-            </div>
-            <span class="compare-slider-handle" aria-hidden="true"></span>
-            <span class="compare-slider-label compare-slider-label-before">الأصلية</span>
-            <span class="compare-slider-label compare-slider-label-after">محوَّلة</span>
-            <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="اسحب للمقارنة بين الصورة الأصلية والمحوَّلة">
-          </div>
-          <p class="compare-savings" data-compare-savings></p>
-          <dl class="result-stats">
-            <div class="result-stat">
-              <dt>الصيغة</dt>
-              <dd data-result-format>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>الأبعاد</dt>
-              <dd data-result-dimensions>&mdash;</dd>
-            </div>
-            <div class="result-stat">
-              <dt>حجم الملف</dt>
-              <dd data-result-size>&mdash;</dd>
-            </div>
-          </dl>
-          <p class="notice notice-warning" data-result-warning hidden></p>
-          <div class="result-actions">
-            <a class="button" data-download download>تنزيل</a>
-            <button class="button button-secondary" type="button" data-start-over>البدء من جديد</button>
-          </div>
-        </div>
+          <p class="preset-note" data-encoder-note hidden></p>
+        </aside>
 
         <p class="status" data-status role="status" aria-live="polite"></p>
       </section>
@@ -618,13 +632,13 @@
       <ul class="tool-grid">
         <li class="tool-card">
           <a class="tool-card-link" href="/ar/tools/compress-image/">
-            <span class="tool-card-name">تخفيف</span>
-            <span class="tool-card-desc">قلّل حجم صورك</span>
+            <span class="tool-card-name">خفّة</span>
+            <span class="tool-card-desc">صغّر حجم صورك</span>
           </a>
         </li>
         <li class="tool-card">
           <a class="tool-card-link" href="/ar/tools/resize-image/">
-            <span class="tool-card-name">الأبعاد</span>
+            <span class="tool-card-name">أبعاد</span>
             <span class="tool-card-desc">غيّر العرض والارتفاع</span>
           </a>
         </li>
