@@ -131,10 +131,7 @@ function relatedHtml(tool, toolList, strings, prefix = '') {
     .filter((candidate) => candidate && candidate.status === 'live');
   if (related.length === 0) return '';
   const cards = related
-    .map(
-      (item) =>
-        `    <li class="tool-card">\n      <a class="tool-card-link" href="${prefix}${toolPath(item)}">\n        <span class="tool-card-name">${escapeHtml(item.name)}</span>\n        <span class="tool-card-desc">${escapeHtml(item.description)}</span>\n      </a>\n    </li>`,
-    )
+    .map((item) => toolCard(item, { indent: '    ', strings, prefix }))
     .join('\n');
   return secondarySection({
     className: 'related-tools',

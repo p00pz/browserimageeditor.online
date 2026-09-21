@@ -195,14 +195,14 @@
   "js.enhance.thumbAlt": "صورتك بعد تطبيق نمط {preset}",
   "js.enhance.doneStyled": "تم — {preset} بالشدة التي اخترتها.",
   "js.enhance.doneAuto": "تم — تصحيح تلقائي دون تطبيق أي نمط.",
-  "js.enhance.correctionApplied": "مدّ التصحيح التلقائي كل قناة إلى المدى الكامل: معاملات {gains} للأحمر والأخضر والأزرق. وكانت نقاط الأسود {black} ونقاط الأبيض {white}.",
+  "js.enhance.correctionApplied": "صحّحنا كل قناة لونية على حدة (معاملات {gains} للأحمر والأخضر والأزرق)، وكانت نقطتا الأسود {black} والأبيض {white}.",
   "js.enhance.correctionSkipped": "لم يجد التصحيح التلقائي ما يستحق الإصلاح: هذه الصورة تستخدم المدى الكامل أصلاً، ومدّها أكثر لن يفعل سوى تكبير التشويش.",
   "js.enhance.largerNote": "الملف المحسَّن أكبر بمقدار {size} ({percent}%). إعادة الترميز تفعل ذلك — وأبعاد البكسلات لم تتغيّر.",
-  "js.enhance.manualPath": "لا يدعم هذا المتصفح مرشّحات وحدة الرسوم، فحُسب النمط بكسل بكسل بدل أن يُحسب على شريحة الرسوم. والحساب مكافئ — لا يفترق المساران إلا ببضع قيم لونية — لكنه يستغرق وقتاً أطول قليلاً.",
+  "js.enhance.manualPath": "هذا المتصفح لا يدعم مرشّحات الرسوم، فحُسب النمط بكسلاً بكسلاً بدل حسابه على شريحة الرسوم. الحساب مكافئ — لا يفترق المساران إلا ببضع قيم لونية — لكنه يستغرق وقتاً أطول قليلاً.",
   "js.enhance.formatFallback": "تعذّرت كتابة صيغة صورتك الأصلية على هذا الجهاز، فحُفظ الناتج بصيغة JPEG.",
   "js.enhance.zeroIntensity": "الشدة على 0%، فهذه الصورة بعد التصحيح التلقائي دون أي نمط.",
   "js.enhance.enhancedCount": "{count} محسَّنة",
-  "js.enhance.zipTail": "واستخدم زر ZIP لتنزيل الدفعة كاملة.",
+  "js.enhance.zipTail": "واستخدم «تنزيل الكل في ملف ZIP» للدفعة الكاملة.",
   "js.error.INVALID_PRESET": "نمط التحسين هذا غير موجود.",
   "js.common.waiting": "في الانتظار",
   "js.common.compare": "مقارنة",
@@ -234,7 +234,7 @@
   "js.common.downloadSize": "تنزيل {size}",
   "js.common.downscaled": "تم تصغير الصورة إلى {w} × {h} لأنها أكبر من الحد الأقصى للوح الرسوم في هذا الجهاز.",
   "js.common.jpegFlatten": "JPEG لا يستطيع تخزين الشفافية، لذلك سُطّحت المناطق الشفافة على الأبيض.",
-  "js.common.largerThanOriginal": "خرج هذا الملف أكبر من الأصل بمقدار {size} — جرّب WebP أو حدّد حجماً مستهدفاً.",
+  "js.common.largerThanOriginal": "الناتج أكبر من الأصل بمقدار {size} — جرّب WebP أو حدّد حجماً مستهدفاً.",
   "js.common.largerThanOriginalResize": "الملف الجديد أكبر من الأصل بمقدار {size} — وإعادة الترميز إلى صيغة أخرى قد تفعل ذلك حتى مع انخفاض عدد البكسلات.",
   "js.common.noResampling": "بلا إعادة معايرة",
   "js.common.scaleOfPixels": "{percent} من البكسلات",
@@ -282,8 +282,8 @@
   "js.compress.zipTail": "استخدم «تنزيل الكل في ملف ZIP» للدفعة كاملة.",
   "js.compress.compressedCount": "{count} مضغوطة",
   "js.compress.tryingQuality": "جارٍ تجربة جودة {percent}%…",
-  "js.compress.nearTarget": "قريب جداً: أكبر من هدفك ({target}) بمقدار {over}، وهذا أصغر ما تصل إليه هذه الصورة.",
-  "js.compress.unreachableTarget": "لا يمكن الوصول إلى {target}: أصغر ما تصل إليه هذه الصورة هو {smallest}. قلّل أقصى عرض أو ارتفاع لتوفير أكثر.",
+  "js.compress.nearTarget": "اقتربنا كثيراً: الناتج أكبر من هدفك ({target}) بمقدار {over}، وهو أصغر ما تنتجه هذه الصورة.",
+  "js.compress.unreachableTarget": "تعذّر الوصول إلى {target}: أصغر ما تنتجه هذه الصورة هو {smallest}. قلّل أقصى عرض أو ارتفاع لتوفير أكثر.",
   "js.resize.ready": "جاهز — أفلت صورة أو دفعة لتغيير مقاسها.",
   "js.resize.unsupported": "هذا المتصفح لا يستطيع تغيير مقاس الصور محلياً.",
   "js.resize.workerStopped": "توقف عامل تغيير المقاس على غير المتوقع. أعد تحميل الصفحة وحاول مرة أخرى.",
@@ -320,7 +320,7 @@
   "js.convert.noEncoders": "لا يستطيع هذا المتصفح كتابة أي من الصيغ التي تعرضها هذه الأداة، فلا توجد صيغة يمكن التحويل إليها.",
   "js.convert.heicNeedsDecoder": "قراءة ملف HEIC تحتاج إلى فاكّ ترميز لم نتمكن من تنزيله. تحقق من اتصالك وحاول مرة أخرى.",
   "js.error.ABORTED": "أُلغيت العملية.",
-  "js.error.INTERNAL": "لم ينجح ذلك. لم يُرفع أي شيء؛ حاول مرة أخرى.",
+  "js.error.INTERNAL": "لم تنجح العملية. لم يُرفع أي شيء — حاول مرة أخرى.",
   "js.error.EMPTY_FILE": "يبدو أن هذا الملف فارغ.",
   "js.error.TOO_LARGE": "هذا الملف أكبر من الحدّ الذي تقبله الصفحة.",
   "js.error.TOO_MANY_FILES": "هذا عدد ملفات أكبر مما تستطيع الصفحة التعامل معه.",
@@ -418,22 +418,22 @@
   "js.pdf.pageMany": "صفحات",
   "js.pdf.docTitleFallback": "صور",
   "js.pdf.orderSummary": "{count} {pages} · {size}",
-  "js.pdf.orderTooLong": "{count} {pages} · {size} — وهذا عدد كبير من الصفحات ليبقى في الذاكرة مرة واحدة",
+  "js.pdf.orderTooLong": "{count} {pages} · {size} — وهذا عدد كبير من الصفحات للاحتفاظ بها في الذاكرة دفعة واحدة",
   "js.pdf.starting": "جارٍ تحضير {count} {images} داخل متصفحك…",
   "js.pdf.prepared": "حُضّرت {done} من {total}",
   "js.pdf.preparedFailed": "حُضّرت {done} من {total} — وفشلت {failed}",
-  "js.pdf.couldNotPrepareAll": "لم نتمكن من تحضير أي من تلك الصور، فلا يوجد ما نبني منه PDF.",
-  "js.pdf.nothingToPut": "لا يوجد شيء نضعه في ملف PDF.",
+  "js.pdf.couldNotPrepareAll": "تعذّر تحضير أي صورة، فلا يوجد ما نُجمِّع منه ملف PDF.",
+  "js.pdf.nothingToPut": "لا توجد صور لوضعها في ملف PDF بعد.",
   "js.pdf.writing": "جارٍ كتابة ملف PDF…",
   "js.pdf.readySummary": "ملف PDF جاهز — {count} {pages}، بحجم {size}.",
-  "js.pdf.transcoded": "أُعيد رسم {count} من {total} {images} بصيغة JPEG، لأن PDF يخزّن JPEG وPNG لا WebP.",
-  "js.pdf.transcodedOne": "أُعيد رسم صورة واحدة من {total} بصيغة JPEG، لأن PDF يخزّن JPEG وPNG لا WebP.",
+  "js.pdf.transcoded": "أُعيد رسم {count} من {total} {images} بصيغة JPEG، لأن PDF يدعم JPEG وPNG فقط لا WebP.",
+  "js.pdf.transcodedOne": "أُعيد رسم صورة واحدة من {total} بصيغة JPEG، لأن PDF يدعم JPEG وPNG فقط لا WebP.",
   "js.pdf.largeDoc": "هذا مستند كبير؛ وقد بقي في الذاكرة أثناء كتابته، ولهذا قد يكون بطيئاً على الهاتف.",
   "js.pdf.listCleared": "أُفرغت القائمة.",
   "js.pdf.ready": "جاهز — أضف صوراً لتبني ملف PDF.",
   "js.pdf.imagesReady": "{count} {images} جاهزة. اسحب الأسهم لإعادة الترتيب، ثم ابنِ ملف PDF.",
   "js.pdf.unsupported": "هذا المتصفح لا يستطيع بناء PDF محلياً.",
-  "js.pdf.downloadSize": "حمّل ملف PDF ({size})",
+  "js.pdf.downloadSize": "تنزيل ملف PDF ({size})",
   "js.pdf.startingPages": "{count} {pages}…",
   "js.crop.invalidSelection": "هذا التحديد أصغر من أن ينتج صورة. اسحب مربعاً أكبر."
 }</script>
@@ -458,7 +458,7 @@
         -->
         <div class="intro-disclosure" data-collapsible>
           <details><summary>ما الذي تفعله هذه الأداة</summary></details>
-          <p class="tool-intro disclosure-body">أفلت صورة، فتصحّح الأداة سطوعها وانحرافها اللوني أولاً، ثم تعرض عليك خمسة أنماط مرسومة من صورتك أنت. اضبط شريط الشدة الواحد ونزّل النتيجة — بلا طبقات ولا منحنيات ولا حساب، ولا شيء يُرفع إلى أي مكان.</p>
+          <p class="tool-intro disclosure-body">أفلت صورة لتصحّح الأداة سطوعها وانحرافها اللوني أولاً، ثم تعرض عليك خمسة أنماط مرسومة من صورتك أنت. اضبط شريط الشدة الواحد ونزّل النتيجة — بلا طبقات ولا منحنيات ولا حساب.</p>
         </div>
       </header>
 
@@ -466,14 +466,14 @@
         <div class="dropzone" data-dropzone>
           <label class="dropzone-label" for="tool-file-input">
             <span class="dropzone-title">اختر الصور</span>
-            <span class="dropzone-hint">أو اسحبها وأفلتها، أو الصقها — JPEG، PNG أو WebP حتى 50 ميغابايت</span>
+            <span class="dropzone-hint">أو اسحبها وأفلتها، أو الصقها — JPEG، PNG أو WebP حتى <bdi dir="ltr">50 MB</bdi></span>
             <span class="dropzone-hint">صورة واحدة أو دفعة كاملة — لا شيء يغادر جهازك في الحالتين.</span>
           </label>
           <input class="dropzone-input" id="tool-file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple data-dropzone-input>
         </div>
 
         <p class="notice notice-warning" data-unsupported hidden>
-          لا يستطيع هذا المتصفح تحسين الصور على جهازك — ينقصه واجهة فك ترميز الصور التي بُنيت عليها هذه الأدوات. ولا يُرفع أي شيء في كلتا الحالتين. جرّب إصداراً حديثاً من Chrome أو Edge أو Firefox أو Safari.
+          هذا المتصفح لا يستطيع تحسين الصور محلياً — تنقصه واجهة فك الترميز التي تقوم عليها هذه الأدوات. لا يُرفع أي شيء في كلتا الحالتين؛ جرّب نسخة حديثة من Chrome أو Edge أو Firefox أو Safari.
         </p>
 
         <div class="preset-section">
@@ -520,7 +520,7 @@
               <input class="field-input range-input" id="enhance-intensity" type="range" min="0" max="100" step="1" value="100" data-intensity aria-describedby="enhance-intensity-hint">
               <output class="range-output" for="enhance-intensity" data-intensity-output>100%</output>
             </div>
-            <p class="field-hint" id="enhance-intensity-hint">مقدار تطبيق النمط. عند 0% تحصل على الصورة بعد التصحيح التلقائي وحده، وعند 100% على التأثير كاملاً. ويُعطَّل هذا الشريط عند اختيار التحسين التلقائي لأنه لا يوجد نمط للدمج معه.</p>
+            <p class="field-hint" id="enhance-intensity-hint">مقدار قوة النمط: عند 0% تحصل على التصحيح التلقائي وحده، وعند 100% على النمط كاملاً. ويُعطَّل الشريط مع التحسين التلقائي لأنه لا توجد قوة للمزج.</p>
           </div>
         </div>
 
@@ -623,7 +623,7 @@
       <section class="secondary-section tool-notes" data-collapsible>
         <details><summary><h2>كيف يعمل هذا</h2></summary></details>
         <div class="disclosure-body">
-          <p>تُقرأ الصورة وتُصحَّح وتُعالَج وتُعاد كتابتها داخل هذا التبويب — على «عامل ويب» مسارٍ خلفيٍّ حيثما يوفّر متصفحك ذلك. لا يُرفع أي شيء، ولا يوجد خادم تنتظر عليه الملفات، وإغلاق الصفحة يمحو كل شيء.</p>
+          <p>تُقرأ الصورة وتُصحَّح وتُعالَج وتُكتب في مسار خلفي داخل هذا التبويب، فتبقى الصفحة مستجيبة. لا شيء يُرفع، وإغلاق الصفحة يمحو كل شيء.</p>
           <ul>
             <li><strong>أولاً تصحيح المدرّج التكراري.</strong> تبحث الأداة عن نقطتي الأسود والأبيض الحقيقيتين في كل قناة لون، متجاهلةً نسبة صغيرة من البكسلات الشاذة حتى لا تحدّد لقطة واحدة شديدة السطوع المدى كله، ثم تمدّ ما تبقّى على المدى الكامل. ومدّ القنوات الثلاث كلٌّ على حدة هو ما يزيل صبغة اللون، ومقدار المدّ محدود لأن تكبير صورة شبه سوداء يكبّر تشويشها قبل أي شيء آخر.</li>
             <li><strong>ثم نمط.</strong> تُطبَّق الأنماط الخمسة فوق الصورة المصحَّحة، ويمزج شريط الشدة بين الاثنين — فالنمط الأقوى من اللازم يمكن دائماً إرجاعه إلى الصورة المصحَّحة لا إلى الأصلية.</li>
@@ -669,24 +669,24 @@
     <details><summary><h2>أدوات ذات صلة</h2></summary></details>
     <div class="disclosure-body">
       <ul class="tool-grid">
-      <li class="tool-card">
-        <a class="tool-card-link" href="/ar/tools/compress-image/">
-          <span class="tool-card-name">ضغط الصور</span>
-          <span class="tool-card-desc">اضغط صور JPEG وPNG وWebP داخل متصفحك، صورة واحدة أو دفعة كاملة، وحدّد الحجم المستهدف لكل صورة دون رفع أي ملف إلى خادم.</span>
-        </a>
-      </li>
-      <li class="tool-card">
-        <a class="tool-card-link" href="/ar/tools/convert-image/">
-          <span class="tool-card-name">تحويل صيغة الصور</span>
-          <span class="tool-card-desc">حوّل صور JPEG وPNG وWebP وAVIF داخل متصفحك. يجري التحويل على جهازك، فيظل يعمل بلا اتصال ولا يُرفع أي ملف.</span>
-        </a>
-      </li>
-      <li class="tool-card">
-        <a class="tool-card-link" href="/ar/tools/resize-image/">
-          <span class="tool-card-name">تغيير مقاس الصور</span>
-          <span class="tool-card-desc">غيّر مقاس صور JPEG وPNG وWebP إلى بُعد بالبكسل تحدده بنفسك، مع قفل نسبة العرض إلى الارتفاع افتراضياً. بلا رفع وبلا حساب.</span>
-        </a>
-      </li>
+        <li class="tool-card">
+          <a class="tool-card-link" href="/ar/tools/compress-image/">
+            <span class="tool-card-name">تخفيف</span>
+            <span class="tool-card-desc">قلّل حجم صورك</span>
+          </a>
+        </li>
+        <li class="tool-card">
+          <a class="tool-card-link" href="/ar/tools/convert-image/">
+            <span class="tool-card-name">الصيغة</span>
+            <span class="tool-card-desc">بدّل بين JPEG وPNG وWebP</span>
+          </a>
+        </li>
+        <li class="tool-card">
+          <a class="tool-card-link" href="/ar/tools/resize-image/">
+            <span class="tool-card-name">الأبعاد</span>
+            <span class="tool-card-desc">غيّر العرض والارتفاع</span>
+          </a>
+        </li>
       </ul>
     </div>
   </section>

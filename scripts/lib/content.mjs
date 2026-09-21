@@ -259,7 +259,9 @@ const TRANSLATABLE = {
     // `name` is translatable because it is what a card, a breadcrumb and the SoftwareApplication
     // markup call the tool. Left in English, an Arabic homepage would list three tools whose names
     // are English while everything around them is Arabic. `slug` is not: that is the URL.
-    fields: ['name', 'title', 'description', 'h1', 'intro', 'navLabel', 'keywords', 'targetKeyword', 'faq'],
+    // `cardName`/`cardSubtitle` are the short card surface (nav + cards); `name`/`description` stay
+    // descriptive for search, and a card falls back to them when a locale defines no short names.
+    fields: ['name', 'title', 'description', 'h1', 'intro', 'navLabel', 'cardName', 'cardSubtitle', 'keywords', 'targetKeyword', 'faq'],
   },
   'pages.json': { key: 'id', fields: ['title', 'description', 'h1', 'navLabel'] },
   'targets.json': {
@@ -571,6 +573,8 @@ export function validateTools(raw, where = 'content/tools.json', { knownIds = nu
       slug: requireKebabCase(data, 'slug', at),
       name: requireString(data, 'name', at),
       navLabel: requireString(data, 'navLabel', at),
+      cardName: requireOptionalString(data, 'cardName', at),
+      cardSubtitle: requireOptionalString(data, 'cardSubtitle', at),
       status: requireStatus(data, at, TOOL_STATUSES),
       category: requireString(data, 'category', at),
       title: requireString(data, 'title', at),
