@@ -43,6 +43,15 @@ owner to a Saudi-court copyright claim with a takedown demand.
 file enters the repo.** The ZIP stays untracked. The existing system-font stack is
 kept and the type system is polished instead (DESIGN_BRIEF §2, §8).
 
+**Re-verified this strike (2026-09-21).** I extracted the archive and read `LICENSE.pdf`
+myself — 5 pages, via pypdf — rather than relying on the earlier summary, and the three
+binding clauses hold exactly as recorded above. Confirmed additionally: the type
+architecture a permitted font needs is now in place, so unblocking is a diff and not a
+project — `--font-body`/`--font-display` tokens, form controls inheriting letter-spacing,
+`rtl.css` no longer overriding the token with a hard-coded stack, and a commented
+`@font-face` drop-in slot in `base.css` marking where the licensed family goes. Measured
+on all 14 pages: 0 external requests, 0 font requests. See REPORT.md "Goal 1".
+
 **To unblock — owner picks one:**
 
 1. Obtain a **written web-embedding exception** from `ask@thmanyah.com` (the address
