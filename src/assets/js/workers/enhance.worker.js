@@ -1,3 +1,4 @@
+import { upscalePixels, upscaleSize } from '../core/upscale.js';
 /**
  * Enhance worker — same contract as the other four, with one extra entry point.
  *
@@ -213,10 +214,9 @@ async function encodeResult(stage, { width, height }, mime) {
   try {
     return { blob: await blobFrom(target, mime, mime === 'image/png' ? undefined : OUTPUT_QUALITY), mime };
   } catch (error) {
-    if (mime === FALLBACK_OUTPUT_MIME) throw error;
-    const retry = drawTo(width, height, stage, { backdrop: true });
-    const blob = await blobFrom(retry, FALLBACK_OUTPUT_MIME, OUTPUT_QUALITY);
-    return { blob, mime: FALLBACK_OUTPUT_MIME, fallback: true };
+    if (mime === 'image/png') throw error;
+    const blob = await blobFrom(stage, 'image/png');
+    return { blob, mime: 'image/png', fallback: true };
   }
 }
 
@@ -320,9 +320,10 @@ async function enhance(payload = {}, onProgress) {
     // canvas here at all, so it is refused with a reason rather than crashing mid-pipeline.
     const budget = assertEnhanceBudget(bitmap.width, bitmap.height, safeMaxPixels(options.maxPixels, navigator.userAgent));
     const { width, height } = budget;
+    const output = upscaleSize(width, height, options.scale ?? 1, Math.min(16000000, safeMaxPixels(options.maxPixels, navigator.userAgent)));
 
     onProgress?.({ jobId, phase: 'analyse', ratio: 0.2 });
-    const source = drawTo(width, height, bitmap, { backdrop: true });
+    const source = drawTo(width, height, bitmap);
     // `enhancePixels` copies before it writes, so this plane stays the original for the before-numbers.
     const pixels = new Uint8ClampedArray(source.getContext('2d').getImageData(0, 0, width, height).data);
 
@@ -339,12 +340,15 @@ async function enhance(payload = {}, onProgress) {
     onProgress?.({ jobId, phase: 'grade', ratio: 0.55 });
     throwIfAborted(signal);
 
-    const stage = new OffscreenCanvas(width, height);
-    stage.getContext('2d').putImageData(new ImageData(enhanced, width, height), 0, 0);
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    const scaled = await upscalePixels(enhanced, width, height, output.scale, { signal,
+      onProgress: (ratio) => onProgress?.({ jobId, phase: 'upscale', ratio: .55 + ratio * .3 }) });
+    const stage = new OffscreenCanvas(output.width, output.height);
+    stage.getContext('2d').putImageData(new ImageData(scaled.pixels, output.width, output.height), 0, 0);
 
     onProgress?.({ jobId, phase: 'encode', ratio: 0.9 });
     const outputMime = resolveOutputMime(options, file);
-    const { blob, mime, fallback } = await encodeResult(stage, budget, outputMime);
+    const { blob, mime, fallback } = await encodeResult(stage, output, outputMime);
     if (!blob || !Number.isFinite(blob.size)) {
       throw { code: 'ENCODE_FAILED', message: 'The encoder did not return a usable image.' };
     }
@@ -365,9 +369,10 @@ async function enhance(payload = {}, onProgress) {
         sourceMime: file.type || '',
         sourceBytes: file.size,
         bytes: blob.size,
-        width,
-        height,
-        pixels: budget.pixels,
+        width: output.width,
+        height: output.height,
+        sourceWidth: width, sourceHeight: height,
+        pixels: output.pixels,
         flatten: needsOpaqueBackdrop(blob.type || mime),
         filterPath: capabilityReport.filterPath,
       },

@@ -25,6 +25,7 @@
  *   is-invalid   the last batch contained a rejected file (transient)
  *   has-file     at least one file was accepted (cleared by reset())
  */
+import { receiveHandoff } from './tool-handoff.js';
 import { formatBytes } from './format.js';
 import { t } from './strings.js';
 import { HEIC_TYPES } from '../core/formats.js';
@@ -170,12 +171,19 @@ export function createDropzone(root, { accept = null, maxBytes = null, multiple 
   }
 
   function onPaste(event) {
+    if (disabled || event.defaultPrevented || event.target?.closest?.('input, textarea, [contenteditable="true"]')) return;
     const files = event.clipboardData?.files;
     if (files && files.length > 0) {
       event.preventDefault();
       handleFiles(files);
     }
   }
+
+  let pendingFile = null;
+  const stopHandoff = receiveHandoff((file) => {
+    if (disabled) pendingFile = file;
+    else handleFiles([file]);
+  });
 
   root.addEventListener('dragenter', onDragOver);
   root.addEventListener('dragover', onDragOver);
@@ -186,6 +194,8 @@ export function createDropzone(root, { accept = null, maxBytes = null, multiple 
 
   return {
     destroy() {
+      stopHandoff();
+      pendingFile = null;
       if (invalidTimer) clearTimeout(invalidTimer);
       invalidTimer = null;
       root.removeEventListener('dragenter', onDragOver);
@@ -204,6 +214,11 @@ export function createDropzone(root, { accept = null, maxBytes = null, multiple 
       disabled = false;
       input.disabled = false;
       root.classList.remove('is-disabled');
+      if (pendingFile) {
+        const file = pendingFile;
+        pendingFile = null;
+        queueMicrotask(() => handleFiles([file]));
+      }
     },
     reset() {
       input.value = '';

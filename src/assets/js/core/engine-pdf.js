@@ -170,3 +170,49 @@ export function describePdf({ pages, bytes, pageSizeId }) {
     bulk: pages > PDF_PAGE_WARNING,
   };
 }
+
+export const IMAGES_PER_PAGE = [1, 2, 4, 6, 9];
+
+/** Shared by the live preview and both PDF execution paths. Coordinates are top-down. */
+export function planDocument(images, options = {}) {
+  const count = Number(options.imagesPerPage ?? 1);
+  if (!IMAGES_PER_PAGE.includes(count)) throw new CompressError('INVALID_LAYOUT', 'Choose 1, 2, 4, 6 or 9 images per page.');
+  const size = findPageSize(options.pageSizeId ?? 'a4');
+  const orientation = options.orientation ?? 'auto';
+  const margin = Number(options.marginPoints ?? findMargin(options.marginId ?? 'normal')?.points ?? 36);
+  const gap = Number(options.gapPoints ?? 12);
+  if (!size || !['auto', 'portrait', 'landscape'].includes(orientation) || !Number.isFinite(margin) || margin < 0 || !Number.isFinite(gap) || gap < 0) {
+    throw new CompressError('INVALID_LAYOUT', 'Check the page size, orientation, margins and spacing.');
+  }
+  if (size.id === 'match' && count !== 1) throw new CompressError('INVALID_LAYOUT', 'Choose A4 or Letter for multiple images per page.');
+  const pages = [];
+  for (let start = 0; start < images.length; start += count) {
+    const group = images.slice(start, start + count);
+    if (group.some((image) => !Number.isFinite(image.width) || !Number.isFinite(image.height) || image.width < 1 || image.height < 1)) {
+      throw new CompressError('INVALID_DIMENSIONS', 'An image has invalid dimensions.');
+    }
+    if (size.id === 'match') {
+      const placement = planPage({ imageWidth: group[0].width, imageHeight: group[0].height, pageSizeId: 'match' });
+      pages.push({ ...placement, cells: [{ ...placement, index: start }] });
+      continue;
+    }
+    const landscape = orientation === 'landscape' || (orientation === 'auto' && count === 1 && group[0].width > group[0].height);
+    const pageWidth = landscape ? size.height : size.width;
+    const pageHeight = landscape ? size.width : size.height;
+    let [columns, rows] = ({ 1: [1, 1], 2: [1, 2], 4: [2, 2], 6: [2, 3], 9: [3, 3] })[count];
+    if (landscape) [columns, rows] = [rows, columns];
+    const cellWidth = (pageWidth - 2 * margin - (columns - 1) * gap) / columns;
+    const cellHeight = (pageHeight - 2 * margin - (rows - 1) * gap) / rows;
+    if (cellWidth <= 0 || cellHeight <= 0) throw new CompressError('INVALID_LAYOUT', 'Margins and spacing leave no room for images.');
+    const cells = group.map((image, offset) => {
+      const scale = Math.min(cellWidth / image.width, cellHeight / image.height);
+      const drawWidth = image.width * scale;
+      const drawHeight = image.height * scale;
+      return { index: start + offset, pageHeight, drawWidth, drawHeight,
+        x: margin + (offset % columns) * (cellWidth + gap) + (cellWidth - drawWidth) / 2,
+        y: margin + Math.floor(offset / columns) * (cellHeight + gap) + (cellHeight - drawHeight) / 2 };
+    });
+    pages.push({ pageWidth, pageHeight, cells });
+  }
+  return pages;
+}

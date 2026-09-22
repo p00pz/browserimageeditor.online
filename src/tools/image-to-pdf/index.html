@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <!--#include partials/theme-boot.html-->
   <title>Image to PDF — Free, Private, No Upload | Browser Image Editor</title>
-  <meta name="description" content="Turn JPEG, PNG and WebP images into a single PDF in your browser. Reorder the pages, choose a page size, and download it without uploading anything.">
+  <meta name="description" content="Create PDFs locally with 1, 2, 4, 6 or 9 images per page. Reorder photos, choose orientation, margins and gaps, and preview before downloading.">
   <link rel="canonical" href="https://browserimageeditor.online/tools/image-to-pdf/">
   <link rel="alternate" hreflang="en" href="https://browserimageeditor.online/tools/image-to-pdf/">
   <link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/tools/image-to-pdf/">
@@ -14,7 +14,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Browser Image Editor">
   <meta property="og:title" content="Image to PDF — Free, Private, No Upload">
-  <meta property="og:description" content="Turn JPEG, PNG and WebP images into a single PDF in your browser. Reorder the pages, choose a page size, and download it without uploading anything.">
+  <meta property="og:description" content="Create PDFs locally with 1, 2, 4, 6 or 9 images per page. Reorder photos, choose orientation, margins and gaps, and preview before downloading.">
   <meta property="og:url" content="https://browserimageeditor.online/tools/image-to-pdf/">
   <meta property="og:image" content="https://browserimageeditor.online/og/tool-image-to-pdf.png">
   <meta property="og:image:width" content="1200">
@@ -22,7 +22,7 @@
   <meta property="og:image:alt" content="Image to PDF — a free tool that runs entirely in your browser">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Image to PDF — Free, Private, No Upload">
-  <meta name="twitter:description" content="Turn JPEG, PNG and WebP images into a single PDF in your browser. Reorder the pages, choose a page size, and download it without uploading anything.">
+  <meta name="twitter:description" content="Create PDFs locally with 1, 2, 4, 6 or 9 images per page. Reorder photos, choose orientation, margins and gaps, and preview before downloading.">
   <meta name="twitter:image" content="https://browserimageeditor.online/og/tool-image-to-pdf.png">
   <meta name="twitter:image:alt" content="Image to PDF — a free tool that runs entirely in your browser">
   <script type="application/ld+json">
@@ -33,7 +33,7 @@
       "@type": "SoftwareApplication",
       "@id": "https://browserimageeditor.online/tools/image-to-pdf/#software",
       "name": "Image to PDF",
-      "description": "Turn JPEG, PNG and WebP images into a single PDF in your browser. Reorder the pages, choose a page size, and download it without uploading anything.",
+      "description": "Create PDFs locally with 1, 2, 4, 6 or 9 images per page. Reorder photos, choose orientation, margins and gaps, and preview before downloading.",
       "url": "https://browserimageeditor.online/tools/image-to-pdf/",
       "image": "https://browserimageeditor.online/og/tool-image-to-pdf.png",
       "applicationCategory": "MultimediaApplication",
@@ -57,26 +57,34 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What page size will the PDF use?",
+          "name": "How many images fit on each page?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "A4 by default, or US Letter, or each page sized to its own image so nothing is padded or cropped unexpectedly. A landscape photo gets a landscape page, so it is not shrunk to fit the short side of an upright sheet."
+            "text": "Choose 1, 2, 4, 6 or 9 images per page. Twelve images at four per page produce three pages. The final page can have empty cells."
           }
         },
         {
           "@type": "Question",
-          "name": "Can I choose the order of the pages?",
+          "name": "Can I change the page layout?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes — images are listed in the order you add them, and the list can be rearranged before the PDF is built."
+            "text": "Yes. Select A4 or Letter, portrait or landscape, margins and spacing. Each image stays proportional and fully visible."
           }
         },
         {
           "@type": "Question",
-          "name": "Is there a limit on how many images I can add?",
+          "name": "Can I reorder or remove images?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The practical limit is your device's memory, because the whole PDF is assembled in the browser tab. Very large batches are processed in order so the page stays responsive."
+            "text": "Use the controls beside each image before creating the PDF. The preview follows that order."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this upload my images?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Preview, processing and PDF creation happen on your device."
           }
         }
       ]
@@ -110,6 +118,7 @@
   <link rel="stylesheet" href="/assets/css/base.css">
   <link rel="stylesheet" href="/assets/css/layout.css">
   <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/product.css">
 
   <script type="application/json" id="tool-config">{
   "slug": "image-to-pdf",
@@ -169,7 +178,7 @@
   "js.enhance.correctionSkipped": "Auto-correct found nothing worth fixing: this photo already used the full tonal range, so stretching it further would only have amplified noise.",
   "js.enhance.largerNote": "The enhanced file is {size} larger ({percent}%). Re-encoding does that — the pixel dimensions are unchanged.",
   "js.enhance.manualPath": "This browser has no GPU filter support, so the style was computed pixel by pixel instead of on the graphics chip. The arithmetic is equivalent — the two paths land within a few code values of each other — but it takes a little longer.",
-  "js.enhance.formatFallback": "Your photo's own format could not be written back on this device, so the result was saved as JPEG.",
+  "js.enhance.formatFallback": "The requested format was unavailable, so the result was saved as PNG to preserve transparency.",
   "js.enhance.zeroIntensity": "The intensity sits at 0%, so this is the auto-corrected photo with no style on it.",
   "js.enhance.enhancedCount": "{count} enhanced",
   "js.enhance.zipTail": "Use \"Download all as ZIP\" for the whole batch.",
@@ -392,7 +401,7 @@
   "js.pdf.starting": "Preparing {count} {images} in your browser…",
   "js.pdf.prepared": "{done} of {total} prepared",
   "js.pdf.preparedFailed": "{done} of {total} prepared — {failed} failed",
-  "js.pdf.couldNotPrepareAll": "None of those images could be prepared, so there is no PDF to build.",
+  "js.pdf.couldNotPrepareAll": "Some images could not be prepared. Remove unreadable files and try again; no incomplete PDF was created.",
   "js.pdf.nothingToPut": "There is nothing to put in the PDF.",
   "js.pdf.writing": "Writing the PDF…",
   "js.pdf.readySummary": "PDF ready — {count} {pages}, {size}.",
@@ -405,7 +414,29 @@
   "js.pdf.unsupported": "This browser cannot build a PDF locally.",
   "js.pdf.downloadSize": "Download PDF ({size})",
   "js.pdf.startingPages": "{count} {pages}…",
-  "js.crop.invalidSelection": "That selection is too small to produce an image. Drag a larger box."
+  "js.crop.invalidSelection": "That selection is too small to produce an image. Drag a larger box.",
+  "js.handoff.label": "Continue editing this result",
+  "js.handoff.open": "Open in new tab",
+  "js.handoff.blocked": "Allow pop-ups to continue, or download your result and open it in another tool.",
+  "js.handoff.unavailable": "Create a JPEG, PNG or WebP result before continuing.",
+  "js.handoff.timeout": "The next tool did not respond. Keep this tab open and try again, or download the result.",
+  "js.handoff.compress-image": "Compress",
+  "js.handoff.resize-image": "Resize",
+  "js.handoff.convert-image": "Convert",
+  "js.handoff.crop-image": "Crop",
+  "js.handoff.image-to-pdf": "Create PDF",
+  "js.handoff.enhance-photo": "Enhance / Upscale Image",
+  "js.pdf.previewPage": "Page {page} of {pages} · {images} images",
+  "js.pdf.layoutSummary": "{images} images → {pages} pages · {count} per page",
+  "js.pdf.previewLoading": "Preparing page preview…",
+  "js.pdf.previewFailed": "Preview unavailable. Check your images, margins and spacing.",
+  "js.pdf.cancelled": "PDF creation cancelled. Your images are still here.",
+  "js.enhance.sourceInfo": "Original: {width} × {height} px · {size}",
+  "js.enhance.outputInfo": "Output: {width} × {height} px",
+  "js.enhance.phaseUpscale": "Upscaling image…",
+  "js.error.UPSCALE_TOO_LARGE": "This output is too large for safe processing. Choose a smaller scale or resize the original first.",
+  "js.error.INVALID_SCALE": "Choose 1×, 2× or 4×.",
+  "js.error.INVALID_LAYOUT": "Check the page size, margins and image spacing. Choose A4 or Letter for multiple images."
 }</script>
 </head>
 <body>
@@ -428,7 +459,7 @@
         -->
         <div class="intro-disclosure" data-collapsible>
           <details><summary>What this tool does</summary></details>
-          <p class="tool-intro disclosure-body">Add images and they are assembled into one PDF file inside your browser tab, in the order you arrange them. Scanned documents and photos never leave your device.</p>
+          <p class="tool-intro disclosure-body">Choose your images, arrange them in order, and preview the pages. Fit up to nine images per page without stretching or uploading your files.</p>
         </div>
       </header>
 
@@ -455,7 +486,7 @@
               <span class="dropzone-sub">or paste from the clipboard</span>
               <span class="dropzone-browse" aria-hidden="true">Browse images</span>
               <span class="dropzone-hint">or drag and drop, or paste — JPEG, PNG or WebP up to 50 MB</span>
-              <span class="dropzone-hint">Each image becomes one page. Nothing leaves your device.</span>
+              <span class="dropzone-hint">Choose 1, 2, 4, 6 or 9 images per page. Nothing is uploaded.</span>
               <button class="dropzone-sample" type="button" data-sample-image>Try a sample image</button>
               <span class="dropzone-more" aria-hidden="false">Add more images</span>
             </label>
@@ -510,6 +541,10 @@
                 <button class="button button-secondary" type="button" data-clear-list>Clear list</button>
               </div>
             </div>
+            <section class="pdf-preview" data-pdf-preview hidden aria-label="Page layout preview">
+              <div class="pdf-preview-toolbar"><button type="button" class="button button-secondary" data-preview-previous>Previous page</button><p data-pdf-preview-status role="status"></p><button type="button" class="button button-secondary" data-preview-next>Next page</button></div>
+              <div class="pdf-paper" data-pdf-paper></div>
+            </section>
             <ol class="order-list" data-order-list></ol>
             <p class="order-hint">Use the arrows to reorder &mdash; the list order becomes the page order.</p>
           </div>
@@ -522,6 +557,10 @@
           shell still reads the same values and the same change events.
         -->
         <aside class="studio-inspector">
+          <div class="ctl"><label class="ctl-label" for="pdf-per-page">Images per page</label><select id="pdf-per-page" class="field-input" data-per-page data-shell-chips aria-label="Images per page"><option>1</option><option>2</option><option>4</option><option>6</option><option>9</option></select></div>
+          <div class="ctl"><label class="ctl-label" for="pdf-orientation">Page orientation</label><select id="pdf-orientation" class="field-input" data-orientation><option value="portrait">Portrait</option><option value="landscape">Landscape</option></select></div>
+          <div class="ctl"><label class="ctl-label" for="pdf-gap">Space between images (mm)</label><input id="pdf-gap" class="field-input" data-pdf-gap type="number" min="0" max="30" step="1" value="4" inputmode="numeric"></div>
+          <p class="field-hint">Images keep their proportions and fit inside each cell. Multi-image layouts use A4 or Letter.</p>
           <div class="ctl">
             <span class="ctl-label" id="ctl-page-size-label">Page size</span>
             <!-- data-shell-chips: the segmented control that replaces the native select. -->
@@ -545,12 +584,12 @@
       <section class="secondary-section tool-notes" data-collapsible>
         <details><summary><h2>How this works</h2></summary></details>
         <div class="disclosure-body">
-          <p>The PDF is assembled right here in this browser tab — on a background Web Worker, where this browser offers one: each image is fitted to its page and written into a single document, which your browser then saves. A scanned stack of paperwork never leaves your device.</p>
+          <p>Arrange images in a document, preview each page, then create your PDF locally.</p>
           <ul>
-            <li><strong>Page size</strong> is A4, US Letter, or each page sized to its own image so nothing is padded or cropped unexpectedly.</li>
-            <li>Landscape images get a landscape page automatically, so a photo is never shrunk to fit the short side of a portrait sheet.</li>
-            <li>Drag in more images at any time &mdash; the list order is the page order, and it can be rearranged before you build.</li>
-            <li>JPEG and PNG are written into the PDF as they are. Other formats are converted first, because PDF does not store WebP or HEIC.</li>
+            <li>Choose A4 or Letter for a grid. Match image size is available with one image per page.</li>
+            <li>Choose portrait or landscape. Each image fits its cell without stretching or cropping.</li>
+            <li>Move or remove images in the list. Preview and export follow the same order.</li>
+            <li>PNG is embedded directly. Other formats are re-encoded as JPEG, with orientation applied and a white background behind transparency.</li>
             <li>Nothing is stored: reloading the page discards everything.</li>
           </ul>
         </div>
@@ -580,16 +619,20 @@
     <details><summary><h2>Frequently asked questions</h2></summary></details>
     <div class="disclosure-body">
       <details class="faq-item" data-faq-item>
-        <summary>What page size will the PDF use?</summary>
-        <p>A4 by default, or US Letter, or each page sized to its own image so nothing is padded or cropped unexpectedly. A landscape photo gets a landscape page, so it is not shrunk to fit the short side of an upright sheet.</p>
+        <summary>How many images fit on each page?</summary>
+        <p>Choose 1, 2, 4, 6 or 9 images per page. Twelve images at four per page produce three pages. The final page can have empty cells.</p>
       </details>
       <details class="faq-item" data-faq-item>
-        <summary>Can I choose the order of the pages?</summary>
-        <p>Yes — images are listed in the order you add them, and the list can be rearranged before the PDF is built.</p>
+        <summary>Can I change the page layout?</summary>
+        <p>Yes. Select A4 or Letter, portrait or landscape, margins and spacing. Each image stays proportional and fully visible.</p>
       </details>
       <details class="faq-item" data-faq-item>
-        <summary>Is there a limit on how many images I can add?</summary>
-        <p>The practical limit is your device&#39;s memory, because the whole PDF is assembled in the browser tab. Very large batches are processed in order so the page stays responsive.</p>
+        <summary>Can I reorder or remove images?</summary>
+        <p>Use the controls beside each image before creating the PDF. The preview follows that order.</p>
+      </details>
+      <details class="faq-item" data-faq-item>
+        <summary>Does this upload my images?</summary>
+        <p>No. Preview, processing and PDF creation happen on your device.</p>
       </details>
     </div>
   </section>

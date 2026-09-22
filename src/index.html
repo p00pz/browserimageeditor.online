@@ -59,6 +59,7 @@
   <link rel="stylesheet" href="/assets/css/base.css">
   <link rel="stylesheet" href="/assets/css/layout.css">
   <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/product.css">
 
   <script type="application/json" id="ui-strings">{
   "js.save.shareTitle": "Photos from the browser image editor",
@@ -98,7 +99,7 @@
   "js.enhance.correctionSkipped": "Auto-correct found nothing worth fixing: this photo already used the full tonal range, so stretching it further would only have amplified noise.",
   "js.enhance.largerNote": "The enhanced file is {size} larger ({percent}%). Re-encoding does that — the pixel dimensions are unchanged.",
   "js.enhance.manualPath": "This browser has no GPU filter support, so the style was computed pixel by pixel instead of on the graphics chip. The arithmetic is equivalent — the two paths land within a few code values of each other — but it takes a little longer.",
-  "js.enhance.formatFallback": "Your photo's own format could not be written back on this device, so the result was saved as JPEG.",
+  "js.enhance.formatFallback": "The requested format was unavailable, so the result was saved as PNG to preserve transparency.",
   "js.enhance.zeroIntensity": "The intensity sits at 0%, so this is the auto-corrected photo with no style on it.",
   "js.enhance.enhancedCount": "{count} enhanced",
   "js.enhance.zipTail": "Use \"Download all as ZIP\" for the whole batch.",
@@ -321,7 +322,7 @@
   "js.pdf.starting": "Preparing {count} {images} in your browser…",
   "js.pdf.prepared": "{done} of {total} prepared",
   "js.pdf.preparedFailed": "{done} of {total} prepared — {failed} failed",
-  "js.pdf.couldNotPrepareAll": "None of those images could be prepared, so there is no PDF to build.",
+  "js.pdf.couldNotPrepareAll": "Some images could not be prepared. Remove unreadable files and try again; no incomplete PDF was created.",
   "js.pdf.nothingToPut": "There is nothing to put in the PDF.",
   "js.pdf.writing": "Writing the PDF…",
   "js.pdf.readySummary": "PDF ready — {count} {pages}, {size}.",
@@ -334,38 +335,64 @@
   "js.pdf.unsupported": "This browser cannot build a PDF locally.",
   "js.pdf.downloadSize": "Download PDF ({size})",
   "js.pdf.startingPages": "{count} {pages}…",
-  "js.crop.invalidSelection": "That selection is too small to produce an image. Drag a larger box."
+  "js.crop.invalidSelection": "That selection is too small to produce an image. Drag a larger box.",
+  "js.handoff.label": "Continue editing this result",
+  "js.handoff.open": "Open in new tab",
+  "js.handoff.blocked": "Allow pop-ups to continue, or download your result and open it in another tool.",
+  "js.handoff.unavailable": "Create a JPEG, PNG or WebP result before continuing.",
+  "js.handoff.timeout": "The next tool did not respond. Keep this tab open and try again, or download the result.",
+  "js.handoff.compress-image": "Compress",
+  "js.handoff.resize-image": "Resize",
+  "js.handoff.convert-image": "Convert",
+  "js.handoff.crop-image": "Crop",
+  "js.handoff.image-to-pdf": "Create PDF",
+  "js.handoff.enhance-photo": "Enhance / Upscale Image",
+  "js.pdf.previewPage": "Page {page} of {pages} · {images} images",
+  "js.pdf.layoutSummary": "{images} images → {pages} pages · {count} per page",
+  "js.pdf.previewLoading": "Preparing page preview…",
+  "js.pdf.previewFailed": "Preview unavailable. Check your images, margins and spacing.",
+  "js.pdf.cancelled": "PDF creation cancelled. Your images are still here.",
+  "js.enhance.sourceInfo": "Original: {width} × {height} px · {size}",
+  "js.enhance.outputInfo": "Output: {width} × {height} px",
+  "js.enhance.phaseUpscale": "Upscaling image…",
+  "js.error.UPSCALE_TOO_LARGE": "This output is too large for safe processing. Choose a smaller scale or resize the original first.",
+  "js.error.INVALID_SCALE": "Choose 1×, 2× or 4×.",
+  "js.error.INVALID_LAYOUT": "Check the page size, margins and image spacing. Choose A4 or Letter for multiple images."
 }</script>
 </head>
 <body>
   <!--#include partials/header.html-->
   <main class="main" id="main" tabindex="-1">
     <div class="container">
-      <section class="hero">
-        <p class="hero-eyebrow">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="3" y="11" width="18" height="11" rx="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
-          No uploads — 100% on your device.
-        </p>
-        <h1>Image tools that never upload your files</h1>
-        <p class="hero-sub">Every tool here runs inside your own browser tab. Your images are processed on your device and are never sent to a server, because there is no server to send them to.</p>
-        <div class="hero-actions">
-          <a class="button" href="#tools">Browse the tools</a>
-          <a class="button button-secondary" href="/pages/how-it-works/">How it works</a>
+      <div class="home-intro">
+        <section class="hero">
+          <p class="hero-eyebrow">PRIVATE BY DESIGN · FREE TO USE</p>
+          <h1>Your images.<br>Your device.<br>Ready for anything.</h1>
+          <p class="hero-sub">Compress, resize, convert and perfect your photos. Six focused tools, with no uploads and no account standing in your way.</p>
+          <div class="hero-actions"><a class="button" href="/tools/compress-image/">Compress an image</a><a class="button button-secondary" href="#tools">Explore all tools</a></div>
+        </section>
+        <aside class="workflow-card" aria-labelledby="quick-heading">
+          <h2 id="quick-heading">What do you need to do?</h2><p>Start with the outcome. We’ll take you to the right tool.</p>
+          <div class="workflow-links">
+            <a href="/targets/compress-image-to-100kb/">Meet an upload limit <small>100 KB ↗</small></a>
+            <a href="/tools/resize-image/">Get the dimensions right <small>Resize ↗</small></a>
+            <a href="/tools/convert-image/">Change a file format <small>Convert ↗</small></a>
+            <a href="/tools/image-to-pdf/">Put photos into one document <small>PDF ↗</small></a>
+          </div>
+        </aside>
+      </div>
+      <div class="trust-strip" aria-label="Your privacy"><span>✓ Images stay on your device</span><span>✓ No account required</span><span>✓ Original files stay untouched</span></div>
+      <section class="discovery" id="tools" data-discovery aria-labelledby="tools-heading">
+        <div class="discovery-heading"><div><h2 id="tools-heading">A tool for every next step</h2><p>One image or a whole batch. Start here.</p></div>
+          <div class="tool-search" data-search-controls hidden><label for="tool-search">Find a tool</label><input id="tool-search" type="search" placeholder="Try compress, crop, PDF…" autocomplete="off" aria-controls="tool-results"><button class="button button-secondary" type="button" data-search-clear hidden>Clear</button></div>
         </div>
+        <p class="search-status" data-search-status role="status" data-found="{count} tools found" data-empty="No matching tools. Try a different word or clear your search."></p>
+        <div id="tool-results"><!--#include partials/tool-grid.html--></div>
       </section>
-
-      <section class="prose">
-        <h2>What happens when you use a tool</h2>
-        <p>You pick an image straight from your device. The page hands those bytes to a Web Worker — a background thread inside the tab — which does the decoding, resizing and re-encoding there. When it finishes, your browser saves the result back to your device. Nothing is uploaded, nothing is queued, and closing the tab ends the whole thing.</p>
-        <p>That means no sign-up, no file size limit imposed by a server, and no copies of your images sitting on someone else's disk. It also means the tools work offline once the page has loaded, and that a slow connection only affects how fast the page arrives — never how fast your images are processed.</p>
-      </section>
-
-      <section class="tools-section" id="tools">
-        <h2>All tools</h2>
-        <!--#include partials/tool-grid.html-->
+      <section class="home-steps" aria-label="How it works">
+        <div><h2>01 · Choose your image</h2><p>Browse, drag a file, or paste an image. Try a sample first if you want to explore before using your own photos.</p></div>
+        <div><h2>02 · Make it yours</h2><p>Adjust your settings and review the result. Processing happens in your browser; your images are never uploaded.</p></div>
+        <div><h2>03 · Save and keep going</h2><p>Download the result or send it directly to another tool. Offline use is available after the required tool resources are cached. <a href="/pages/how-it-works/">How it works</a></p></div>
       </section>
 
 

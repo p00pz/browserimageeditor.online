@@ -22,11 +22,22 @@
       "compress image to 100kb"
     ],
     "targetKeyword": "compress image",
-    "accepts": ["image/jpeg", "image/png", "image/webp"],
-    "outputs": ["image/webp", "image/jpeg"],
+    "accepts": [
+      "image/jpeg",
+      "image/png",
+      "image/webp"
+    ],
+    "outputs": [
+      "image/webp",
+      "image/jpeg"
+    ],
     "defaultOutput": "image/webp",
     "maxInputBytes": 52428800,
-    "related": ["resize", "convert", "crop"],
+    "related": [
+      "resize",
+      "convert",
+      "crop"
+    ],
     "faq": [
       {
         "q": "Does my image get uploaded anywhere?",
@@ -76,11 +87,22 @@
       "change image dimensions"
     ],
     "targetKeyword": "resize image",
-    "accepts": ["image/jpeg", "image/png", "image/webp"],
-    "outputs": ["image/webp", "image/jpeg"],
+    "accepts": [
+      "image/jpeg",
+      "image/png",
+      "image/webp"
+    ],
+    "outputs": [
+      "image/webp",
+      "image/jpeg"
+    ],
     "defaultOutput": "image/webp",
     "maxInputBytes": 52428800,
-    "related": ["compress", "crop", "convert"],
+    "related": [
+      "compress",
+      "crop",
+      "convert"
+    ],
     "faq": [
       {
         "q": "Will resizing make my image smaller in bytes?",
@@ -123,11 +145,25 @@
       "avif to jpg"
     ],
     "targetKeyword": "convert image",
-    "accepts": ["image/jpeg", "image/png", "image/webp", "image/avif", "image/heic", "image/heif"],
-    "outputs": ["image/webp", "image/png", "image/jpeg"],
+    "accepts": [
+      "image/jpeg",
+      "image/png",
+      "image/webp",
+      "image/avif",
+      "image/heic",
+      "image/heif"
+    ],
+    "outputs": [
+      "image/webp",
+      "image/png",
+      "image/jpeg"
+    ],
     "defaultOutput": "image/webp",
     "maxInputBytes": 52428800,
-    "related": ["compress", "resize"],
+    "related": [
+      "compress",
+      "resize"
+    ],
     "faq": [
       {
         "q": "Which format should I choose?",
@@ -173,11 +209,23 @@
       "crop image to square"
     ],
     "targetKeyword": "crop image",
-    "accepts": ["image/jpeg", "image/png", "image/webp"],
-    "outputs": ["image/webp", "image/jpeg", "image/png"],
+    "accepts": [
+      "image/jpeg",
+      "image/png",
+      "image/webp"
+    ],
+    "outputs": [
+      "image/webp",
+      "image/jpeg",
+      "image/png"
+    ],
     "defaultOutput": "image/webp",
     "maxInputBytes": 52428800,
-    "related": ["resize", "compress", "convert"],
+    "related": [
+      "resize",
+      "compress",
+      "convert"
+    ],
     "faq": [
       {
         "q": "Is cropping destructive?",
@@ -203,13 +251,13 @@
     "name": "Image to PDF",
     "navLabel": "PDF",
     "cardName": "PDF",
-    "cardSubtitle": "Combine images into one PDF",
+    "cardSubtitle": "Arrange 1–9 images per page in a PDF",
     "status": "live",
     "category": "convert",
     "title": "Image to PDF — Free, Private, No Upload",
-    "description": "Turn JPEG, PNG and WebP images into a single PDF in your browser. Reorder the pages, choose a page size, and download it without uploading anything.",
+    "description": "Create PDFs locally with 1, 2, 4, 6 or 9 images per page. Reorder photos, choose orientation, margins and gaps, and preview before downloading.",
     "h1": "Turn images into a single PDF",
-    "intro": "Add images and they are assembled into one PDF file inside your browser tab, in the order you arrange them. Scanned documents and photos never leave your device.",
+    "intro": "Choose your images, arrange them in order, and preview the pages. Fit up to nine images per page without stretching or uploading your files.",
     "keywords": [
       "image to pdf",
       "jpg to pdf",
@@ -219,39 +267,52 @@
       "scan to pdf"
     ],
     "targetKeyword": "image to pdf",
-    "accepts": ["image/jpeg", "image/png", "image/webp"],
-    "outputs": ["application/pdf"],
+    "accepts": [
+      "image/jpeg",
+      "image/png",
+      "image/webp"
+    ],
+    "outputs": [
+      "application/pdf"
+    ],
     "defaultOutput": "application/pdf",
     "maxInputBytes": 52428800,
-    "related": ["compress", "convert"],
+    "related": [
+      "compress",
+      "convert"
+    ],
     "faq": [
       {
-        "q": "What page size will the PDF use?",
-        "a": "A4 by default, or US Letter, or each page sized to its own image so nothing is padded or cropped unexpectedly. A landscape photo gets a landscape page, so it is not shrunk to fit the short side of an upright sheet."
+        "q": "How many images fit on each page?",
+        "a": "Choose 1, 2, 4, 6 or 9 images per page. Twelve images at four per page produce three pages. The final page can have empty cells."
       },
       {
-        "q": "Can I choose the order of the pages?",
-        "a": "Yes — images are listed in the order you add them, and the list can be rearranged before the PDF is built."
+        "q": "Can I change the page layout?",
+        "a": "Yes. Select A4 or Letter, portrait or landscape, margins and spacing. Each image stays proportional and fully visible."
       },
       {
-        "q": "Is there a limit on how many images I can add?",
-        "a": "The practical limit is your device's memory, because the whole PDF is assembled in the browser tab. Very large batches are processed in order so the page stays responsive."
+        "q": "Can I reorder or remove images?",
+        "a": "Use the controls beside each image before creating the PDF. The preview follows that order."
+      },
+      {
+        "q": "Does this upload my images?",
+        "a": "No. Preview, processing and PDF creation happen on your device."
       }
     ]
   },
   {
     "id": "enhance-photo",
     "slug": "enhance-photo",
-    "name": "Enhance Photo",
-    "navLabel": "Enhance",
-    "cardName": "Enhance",
-    "cardSubtitle": "Bring light and colour back",
+    "name": "Enhance / Upscale Image",
+    "navLabel": "Enhance / Upscale Image",
+    "cardName": "Enhance / Upscale Image",
+    "cardSubtitle": "Improve clarity and enlarge images 2× or 4×",
     "status": "live",
     "category": "enhance",
-    "title": "Photo Enhancer — 5 One-Click Styles, No Upload",
-    "description": "Fix a dull or colour-cast photo in one click, then choose from five styles — Natural Pop, Vivid, Warm, Cool and Classic B&W. Nothing is uploaded.",
-    "h1": "Enhance a photo in one click",
-    "intro": "Drop a photo and the tool corrects its exposure and colour cast first, then shows you five styles rendered from your own image. Adjust one slider and download — no layers, no curves, no account, and nothing uploaded.",
+    "title": "Enhance & Upscale Image — 2× / 4×",
+    "description": "Enhance photos and upscale 2× or 4× locally. Compare details and export JPG, PNG or WebP, with no uploads or AI claims.",
+    "h1": "Enhance and upscale your images",
+    "intro": "Improve colour and clarity, enlarge images 2× or 4×, and inspect the details before saving. High-quality local resampling keeps your images on your device.",
     "keywords": [
       "photo enhancer",
       "enhance photo online",
@@ -262,15 +323,27 @@
       "black and white converter"
     ],
     "targetKeyword": "enhance photo",
-    "accepts": ["image/jpeg", "image/png", "image/webp"],
-    "outputs": ["image/jpeg", "image/png", "image/webp"],
+    "accepts": [
+      "image/jpeg",
+      "image/png",
+      "image/webp"
+    ],
+    "outputs": [
+      "image/jpeg",
+      "image/png",
+      "image/webp"
+    ],
     "defaultOutput": "image/jpeg",
     "maxInputBytes": 52428800,
-    "related": ["compress", "convert", "resize"],
+    "related": [
+      "compress",
+      "convert",
+      "resize"
+    ],
     "faq": [
       {
-        "q": "Does enhancing a photo reduce its quality?",
-        "a": "The pixel dimensions never change — no resizing, no cropping. The only loss comes from re-encoding the file, which is why the output keeps your photo's own format and a JPEG is re-saved at high quality rather than through a chain of edits."
+        "q": "Does upscaling recover missing detail?",
+        "a": "No. Bicubic resampling creates a larger image with smooth edges, and enhancement adjusts colour and sharpness. It is not AI and cannot reconstruct missing detail. Choose PNG or WebP to keep transparency."
       },
       {
         "q": "What does the auto-correct actually do?",
@@ -314,11 +387,22 @@
       "magic eraser"
     ],
     "targetKeyword": "remove background",
-    "accepts": ["image/jpeg", "image/png", "image/webp"],
-    "outputs": ["image/png", "image/webp"],
+    "accepts": [
+      "image/jpeg",
+      "image/png",
+      "image/webp"
+    ],
+    "outputs": [
+      "image/png",
+      "image/webp"
+    ],
     "defaultOutput": "image/png",
     "maxInputBytes": 52428800,
-    "related": ["crop", "compress", "convert"],
+    "related": [
+      "crop",
+      "compress",
+      "convert"
+    ],
     "models": [
       {
         "id": "segment",

@@ -425,3 +425,12 @@ test('the engine never mutates the buffer it was handed', () => {
   autoCorrectPixels(inPlace);
   assert.notDeepEqual([...inPlace], new Array(inPlace.length).fill(40), 'the in-place variant does write');
 });
+
+
+test('transparent borders do not change the color correction histogram', () => {
+  const plane = new Uint8ClampedArray([0, 0, 0, 0, 72, 124, 160, 255]);
+  const histogram = histogramChannels(plane);
+  assert.equal(histogram[0][0], 0);
+  assert.equal(histogram[0][72], 1);
+  assert.equal(buildAutoLut(histogram).stats.applied, false);
+});

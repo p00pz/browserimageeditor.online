@@ -53,6 +53,10 @@
               <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="{{{t.ui.enhance.sliderLabel}}}">
             </div>
             <p class="compare-savings" data-compare-savings></p>
+            <details class="detail-preview"><summary>{{{t.ui.enhance.zoom}}}</summary><div class="detail-columns">
+              <div><p>{{{t.ui.tool.original}}}</p><div class="detail-scroll" tabindex="0" role="region" aria-label="{{{t.ui.tool.original}}}"><img data-detail-before alt="{{{t.ui.tool.altOriginal}}}"></div></div>
+              <div><p>{{{t.ui.enhance.after}}}</p><div class="detail-scroll" tabindex="0" role="region" aria-label="{{{t.ui.enhance.after}}}"><img data-detail-after alt="{{{t.ui.enhance.after}}}"></div></div>
+            </div></details>
             <dl class="result-stats">
               <div class="result-stat">
                 <dt>{{{t.ui.enhance.statPreset}}}</dt>
@@ -98,6 +102,10 @@
           truth â€” every one of them is a hooked control the tool script already owns.
         -->
         <aside class="studio-inspector">
+          <div class="ctl"><label class="ctl-label" for="enhance-scale">{{{t.ui.enhance.scale}}}</label><select id="enhance-scale" class="field-input" data-upscale data-shell-chips aria-label="{{{t.ui.enhance.scale}}}"><option value="1">1×</option><option value="2">2×</option><option value="4">4×</option></select></div>
+          <p data-source-info class="field-hint" dir="auto"></p><p data-output-info class="field-hint" dir="auto" role="status"></p>
+          <div class="ctl"><label class="ctl-label" for="enhance-format">{{{t.ui.compress.outputFormat}}}</label><select id="enhance-format" class="field-input" data-enhance-format><option value="">{{{t.ui.enhance.keepFormat}}}</option><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select></div>
+          <p class="field-hint">{{{t.ui.enhance.resampleHint}}}</p>
           <div class="ctl">
             <div class="preset-heading">
               <h2 class="preset-title">{{{t.ui.enhance.styleHeading}}}</h2>

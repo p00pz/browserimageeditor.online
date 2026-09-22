@@ -76,6 +76,10 @@
                 <button class="button button-secondary" type="button" data-clear-list>{{{t.ui.pdf.clearList}}}</button>
               </div>
             </div>
+            <section class="pdf-preview" data-pdf-preview hidden aria-label="{{{t.ui.pdf.preview}}}">
+              <div class="pdf-preview-toolbar"><button type="button" class="button button-secondary" data-preview-previous>{{{t.ui.pdf.previous}}}</button><p data-pdf-preview-status role="status"></p><button type="button" class="button button-secondary" data-preview-next>{{{t.ui.pdf.next}}}</button></div>
+              <div class="pdf-paper" data-pdf-paper></div>
+            </section>
             <ol class="order-list" data-order-list></ol>
             <p class="order-hint">{{{t.ui.pdf.orderHint}}}</p>
           </div>
@@ -88,6 +92,10 @@
           shell still reads the same values and the same change events.
         -->
         <aside class="studio-inspector">
+          <div class="ctl"><label class="ctl-label" for="pdf-per-page">{{{t.ui.pdf.perPage}}}</label><select id="pdf-per-page" class="field-input" data-per-page data-shell-chips aria-label="{{{t.ui.pdf.perPage}}}"><option>1</option><option>2</option><option>4</option><option>6</option><option>9</option></select></div>
+          <div class="ctl"><label class="ctl-label" for="pdf-orientation">{{{t.ui.pdf.orientation}}}</label><select id="pdf-orientation" class="field-input" data-orientation><option value="portrait">{{{t.ui.pdf.portrait}}}</option><option value="landscape">{{{t.ui.pdf.landscape}}}</option></select></div>
+          <div class="ctl"><label class="ctl-label" for="pdf-gap">{{{t.ui.pdf.gap}}}</label><input id="pdf-gap" class="field-input" data-pdf-gap type="number" min="0" max="30" step="1" value="4" inputmode="numeric"></div>
+          <p class="field-hint">{{{t.ui.pdf.containHint}}}</p>
           <div class="ctl">
             <span class="ctl-label" id="ctl-page-size-label">{{{t.ui.pdf.pageSize}}}</span>
             <!-- data-shell-chips: the segmented control that replaces the native select. -->

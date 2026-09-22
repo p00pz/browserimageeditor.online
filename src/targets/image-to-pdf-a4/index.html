@@ -62,7 +62,7 @@
           "name": "Does the quality setting re-compress my JPEGs?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. The quality setting applies to images that must be re-encoded to go into the PDF, such as PNG and WebP files. Photos that are already JPEG are embedded as they are."
+            "text": "No. The quality setting applies to images that must be re-encoded to go into the PDF, such as JPEG and WebP files. Photos that are already JPEG are embedded as they are."
           }
         }
       ]
@@ -102,6 +102,7 @@
   <link rel="stylesheet" href="/assets/css/base.css">
   <link rel="stylesheet" href="/assets/css/layout.css">
   <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/product.css">
 
   <script type="application/json" id="tool-config">{
   "slug": "image-to-pdf",
@@ -166,7 +167,7 @@
   "js.enhance.correctionSkipped": "Auto-correct found nothing worth fixing: this photo already used the full tonal range, so stretching it further would only have amplified noise.",
   "js.enhance.largerNote": "The enhanced file is {size} larger ({percent}%). Re-encoding does that — the pixel dimensions are unchanged.",
   "js.enhance.manualPath": "This browser has no GPU filter support, so the style was computed pixel by pixel instead of on the graphics chip. The arithmetic is equivalent — the two paths land within a few code values of each other — but it takes a little longer.",
-  "js.enhance.formatFallback": "Your photo's own format could not be written back on this device, so the result was saved as JPEG.",
+  "js.enhance.formatFallback": "The requested format was unavailable, so the result was saved as PNG to preserve transparency.",
   "js.enhance.zeroIntensity": "The intensity sits at 0%, so this is the auto-corrected photo with no style on it.",
   "js.enhance.enhancedCount": "{count} enhanced",
   "js.enhance.zipTail": "Use \"Download all as ZIP\" for the whole batch.",
@@ -389,7 +390,7 @@
   "js.pdf.starting": "Preparing {count} {images} in your browser…",
   "js.pdf.prepared": "{done} of {total} prepared",
   "js.pdf.preparedFailed": "{done} of {total} prepared — {failed} failed",
-  "js.pdf.couldNotPrepareAll": "None of those images could be prepared, so there is no PDF to build.",
+  "js.pdf.couldNotPrepareAll": "Some images could not be prepared. Remove unreadable files and try again; no incomplete PDF was created.",
   "js.pdf.nothingToPut": "There is nothing to put in the PDF.",
   "js.pdf.writing": "Writing the PDF…",
   "js.pdf.readySummary": "PDF ready — {count} {pages}, {size}.",
@@ -402,7 +403,29 @@
   "js.pdf.unsupported": "This browser cannot build a PDF locally.",
   "js.pdf.downloadSize": "Download PDF ({size})",
   "js.pdf.startingPages": "{count} {pages}…",
-  "js.crop.invalidSelection": "That selection is too small to produce an image. Drag a larger box."
+  "js.crop.invalidSelection": "That selection is too small to produce an image. Drag a larger box.",
+  "js.handoff.label": "Continue editing this result",
+  "js.handoff.open": "Open in new tab",
+  "js.handoff.blocked": "Allow pop-ups to continue, or download your result and open it in another tool.",
+  "js.handoff.unavailable": "Create a JPEG, PNG or WebP result before continuing.",
+  "js.handoff.timeout": "The next tool did not respond. Keep this tab open and try again, or download the result.",
+  "js.handoff.compress-image": "Compress",
+  "js.handoff.resize-image": "Resize",
+  "js.handoff.convert-image": "Convert",
+  "js.handoff.crop-image": "Crop",
+  "js.handoff.image-to-pdf": "Create PDF",
+  "js.handoff.enhance-photo": "Enhance / Upscale Image",
+  "js.pdf.previewPage": "Page {page} of {pages} · {images} images",
+  "js.pdf.layoutSummary": "{images} images → {pages} pages · {count} per page",
+  "js.pdf.previewLoading": "Preparing page preview…",
+  "js.pdf.previewFailed": "Preview unavailable. Check your images, margins and spacing.",
+  "js.pdf.cancelled": "PDF creation cancelled. Your images are still here.",
+  "js.enhance.sourceInfo": "Original: {width} × {height} px · {size}",
+  "js.enhance.outputInfo": "Output: {width} × {height} px",
+  "js.enhance.phaseUpscale": "Upscaling image…",
+  "js.error.UPSCALE_TOO_LARGE": "This output is too large for safe processing. Choose a smaller scale or resize the original first.",
+  "js.error.INVALID_SCALE": "Choose 1×, 2× or 4×.",
+  "js.error.INVALID_LAYOUT": "Check the page size, margins and image spacing. Choose A4 or Letter for multiple images."
 }</script>
 </head>
 <body>
@@ -453,7 +476,7 @@
               <span class="dropzone-sub">or paste from the clipboard</span>
               <span class="dropzone-browse" aria-hidden="true">Browse images</span>
               <span class="dropzone-hint">or drag and drop, or paste — JPEG, PNG or WebP up to 50 MB</span>
-              <span class="dropzone-hint">Each image becomes one page. Nothing leaves your device.</span>
+              <span class="dropzone-hint">Choose 1, 2, 4, 6 or 9 images per page. Nothing is uploaded.</span>
               <button class="dropzone-sample" type="button" data-sample-image>Try a sample image</button>
               <span class="dropzone-more" aria-hidden="false">Add more images</span>
             </label>
@@ -508,6 +531,10 @@
                 <button class="button button-secondary" type="button" data-clear-list>Clear list</button>
               </div>
             </div>
+            <section class="pdf-preview" data-pdf-preview hidden aria-label="Page layout preview">
+              <div class="pdf-preview-toolbar"><button type="button" class="button button-secondary" data-preview-previous>Previous page</button><p data-pdf-preview-status role="status"></p><button type="button" class="button button-secondary" data-preview-next>Next page</button></div>
+              <div class="pdf-paper" data-pdf-paper></div>
+            </section>
             <ol class="order-list" data-order-list></ol>
             <p class="order-hint">Use the arrows to reorder &mdash; the list order becomes the page order.</p>
           </div>
@@ -520,6 +547,10 @@
           shell still reads the same values and the same change events.
         -->
         <aside class="studio-inspector">
+          <div class="ctl"><label class="ctl-label" for="pdf-per-page">Images per page</label><select id="pdf-per-page" class="field-input" data-per-page data-shell-chips aria-label="Images per page"><option>1</option><option>2</option><option>4</option><option>6</option><option>9</option></select></div>
+          <div class="ctl"><label class="ctl-label" for="pdf-orientation">Page orientation</label><select id="pdf-orientation" class="field-input" data-orientation><option value="portrait">Portrait</option><option value="landscape">Landscape</option></select></div>
+          <div class="ctl"><label class="ctl-label" for="pdf-gap">Space between images (mm)</label><input id="pdf-gap" class="field-input" data-pdf-gap type="number" min="0" max="30" step="1" value="4" inputmode="numeric"></div>
+          <p class="field-hint">Images keep their proportions and fit inside each cell. Multi-image layouts use A4 or Letter.</p>
           <div class="ctl">
             <span class="ctl-label" id="ctl-page-size-label">Page size</span>
             <!-- data-shell-chips: the segmented control that replaces the native select. -->
@@ -543,12 +574,12 @@
       <section class="secondary-section tool-notes" data-collapsible>
         <details><summary><h2>How this works</h2></summary></details>
         <div class="disclosure-body">
-          <p>The PDF is assembled right here in this browser tab — on a background Web Worker, where this browser offers one: each image is fitted to its page and written into a single document, which your browser then saves. A scanned stack of paperwork never leaves your device.</p>
+          <p>Arrange images in a document, preview each page, then create your PDF locally.</p>
           <ul>
-            <li><strong>Page size</strong> is A4, US Letter, or each page sized to its own image so nothing is padded or cropped unexpectedly.</li>
-            <li>Landscape images get a landscape page automatically, so a photo is never shrunk to fit the short side of a portrait sheet.</li>
-            <li>Drag in more images at any time &mdash; the list order is the page order, and it can be rearranged before you build.</li>
-            <li>JPEG and PNG are written into the PDF as they are. Other formats are converted first, because PDF does not store WebP or HEIC.</li>
+            <li>Choose A4 or Letter for a grid. Match image size is available with one image per page.</li>
+            <li>Choose portrait or landscape. Each image fits its cell without stretching or cropping.</li>
+            <li>Move or remove images in the list. Preview and export follow the same order.</li>
+            <li>PNG is embedded directly. Other formats are re-encoded as JPEG, with orientation applied and a white background behind transparency.</li>
             <li>Nothing is stored: reloading the page discards everything.</li>
           </ul>
         </div>
@@ -563,7 +594,7 @@
     <ul>
       <li>Page order is the order you drop them in, and you can rearrange it with the move buttons before building the PDF. For a scanned document, getting this right at the start is easier than fixing it afterwards.</li>
       <li>Mixed orientations are fine. Portrait and landscape pages can sit in the same document, each fitted to the same printable area.</li>
-      <li>The quality setting applies to images that have to be re-encoded — PNG and WebP sources — converting them to JPEG at high, balanced or smaller quality. Photographic sources that are already JPEG are embedded as they are, so nothing is re-compressed twice.</li>
+      <li>The quality setting applies to images that have to be re-encoded — JPEG and WebP sources — converting them to JPEG at high, balanced or smaller quality. PNG images are embedded directly. JPEG is re-encoded so the orientation is applied correctly.</li>
     </ul>
     <p>Because the PDF is assembled locally, there is no upload and no page limit imposed by a server. A file that would be awkward to send anywhere never leaves your machine, and the result downloads straight to your device when it is ready.</p>
   </section>
@@ -597,14 +628,14 @@
       </details>
       <details class="faq-item" data-faq-item>
         <summary>Does the quality setting re-compress my JPEGs?</summary>
-        <p>No. The quality setting applies to images that must be re-encoded to go into the PDF, such as PNG and WebP files. Photos that are already JPEG are embedded as they are.</p>
+        <p>No. The quality setting applies to images that must be re-encoded to go into the PDF, such as JPEG and WebP files. Photos that are already JPEG are embedded as they are.</p>
       </details>
     </div>
   </section>
 
       <section class="tool-cta" data-parent-tool-cta>
         <h2>Image to PDF with different settings</h2>
-        <p>Add images and they are assembled into one PDF file inside your browser tab, in the order you arrange them. Scanned documents and photos never leave your device.</p>
+        <p>Choose your images, arrange them in order, and preview the pages. Fit up to nine images per page without stretching or uploading your files.</p>
         <p><a class="button" href="/tools/image-to-pdf/">Open Image to PDF</a></p>
       </section>
     </div>

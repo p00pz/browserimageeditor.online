@@ -8,6 +8,7 @@
  */
 
 import { t } from './strings.js';
+import { initDiscovery } from './discovery.js';
 import { initPwa } from './pwa.js';
 
 // The renamed settings key means existing users will need to choose their theme once again.
@@ -95,6 +96,9 @@ function initMobileMenu() {
     }
   }
 
+  window.matchMedia('(min-width: 768px)').addEventListener('change', (event) => {
+    if (event.matches && nav.classList.contains('is-open')) setOpen(false);
+  });
   setOpen(false);
   toggle.addEventListener('click', () => setOpen(!nav.classList.contains('is-open')));
   nav.addEventListener('click', (event) => {
@@ -174,6 +178,7 @@ export function initSite() {
   initLangSwitch();
   initMobileMenu();
   initFooterYear();
+  initDiscovery();
   // Offline registration and the install prompt. Nothing here is needed for a tool to work, which is
   // why it is initialised last and why a failure inside it is not surfaced to the visitor.
   initPwa();

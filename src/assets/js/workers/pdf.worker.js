@@ -1,3 +1,4 @@
+import { createPdf } from '../core/pdf-document.js';
 /**
  * PDF worker — one RPC per image, then one to assemble the document.
  *
@@ -141,46 +142,11 @@ async function encodePage(payload = {}, onProgress) {
  * Assembles the document from prepared pages, in the order given.
  * `pages` is `[{ bytes, mime, width, height }]`.
  */
-async function assemble({ pages = [], options = {} } = {}) {
-  if (pages.length === 0) throw { code: 'INVALID_INPUT', message: 'There are no images to build a PDF from.' };
-
-  try {
-    const { PDFDocument } = await import('pdf-lib');
-    const document = await PDFDocument.create();
-    document.setTitle(options.title || 'Images');
-    // Identifying the producer is honest and useful; nothing here is third-party branding.
-    document.setProducer('Browser Image Editor (browser)');
-    document.setCreator('Browser Image Editor');
-
-    for (const page of pages) {
-      const placement = planPage({
-        imageWidth: page.width,
-        imageHeight: page.height,
-        pageSizeId: options.pageSizeId ?? 'a4',
-        marginId: options.marginId ?? 'normal',
-      });
-      const embedded = page.mime === 'image/png'
-        ? await document.embedPng(page.bytes)
-        : await document.embedJpg(page.bytes);
-      const sheet = document.addPage([placement.pageWidth, placement.pageHeight]);
-      sheet.drawImage(embedded, toPdfBox(placement));
-    }
-
-    const bytes = await document.save();
-    return {
-      blob: new Blob([bytes], { type: 'application/pdf' }),
-      meta: {
-        pages: pages.length,
-        bytes: bytes.byteLength,
-        pageSizeId: options.pageSizeId ?? 'a4',
-        marginId: options.marginId ?? 'normal',
-        qualityId: options.qualityId ?? 'balanced',
-      },
-    };
-  } catch (error) {
-    if (error && typeof error.code === 'string') throw error;
-    throw { code: 'PDF_FAILED', message: error?.message || 'The PDF could not be assembled.' };
-  }
+async function assemble({ pages = [], options = {}, jobId = 'pdf-assemble' } = {}) {
+  const controller = new AbortController();
+  controllers.set(jobId, controller);
+  try { return await createPdf(pages, options, controller.signal); }
+  finally { controllers.delete(jobId); }
 }
 
 function cancel(jobId) {

@@ -6,7 +6,6 @@
   "ui.chrome.lang.en": "English",
   "ui.chrome.lang.ar": "العربية",
   "ui.chrome.translationNotice": "This Arabic version was translated automatically and has not yet been reviewed by a native speaker. If a phrase reads awkwardly, the English page is the original.",
-
   "ui.shell.faqHeading": "Frequently asked questions",
   "ui.shell.relatedHeading": "Related tools",
   "ui.shell.guidesHeading": "Guides and use cases",
@@ -20,7 +19,6 @@
   "ui.shell.listOr": "or",
   "ui.shell.listSeparator": ",",
   "ui.shell.mb": "MB",
-
   "ui.target.presetHint": "Pre-set for you: {summary}. You can change it before you drop a file.",
   "ui.target.ctaHeading": "{name} with different settings",
   "ui.target.ctaButton": "Open {name}",
@@ -34,14 +32,12 @@
   "ui.target.option.margin": "{label} page margins",
   "ui.target.option.quality": "{label}",
   "ui.target.option.fallback": "the suggested settings",
-
   "ui.home.h1": "Image tools that never upload your files",
   "ui.home.intro": "Every tool here runs inside your own browser tab. Your images are processed on your device and are never sent to a server, because there is no server to send them to.",
   "ui.home.howHeading": "What happens when you use a tool",
   "ui.home.howP1": "You pick an image straight from your device. The page does the decoding, resizing and re-encoding right there in the tab — on a background Web Worker, wherever this browser offers one, so the page stays responsive — and your browser saves the result back to your device. Nothing is uploaded, nothing is queued, and closing the tab ends the whole thing.",
   "ui.home.howP2": "That means no sign-up, no file size limit imposed by a server, and no copies of your images sitting on someone else's disk. It also means the tools work offline once the page has loaded, and that a slow connection only affects how fast the page arrives — never how fast your images are processed.",
   "ui.home.allToolsHeading": "All tools",
-
   "ui.tool.chooseImages": "Choose images",
   "ui.tool.dropzoneHint": "or drag and drop, or paste — {acceptHint}",
   "ui.tool.batchHint": "One image or a whole batch — nothing leaves your device either way.",
@@ -58,7 +54,6 @@
   "ui.tool.placeholderOriginal": "Original",
   "ui.tool.statDimensions": "Dimensions",
   "ui.tool.statFileSize": "File size",
-
   "ui.compress.runAll": "Compress all",
   "ui.compress.runAgain": "Re-run all",
   "ui.compress.unsupported": "This browser cannot compress images locally — it is missing the image-decoding API these tools are built on. Nothing is uploaded either way. Please try a current version of Chrome, Edge, Firefox or Safari.",
@@ -80,7 +75,6 @@
   "ui.compress.notes3": "Max width and height shrink the pixel dimensions first, which often saves more bytes than quality alone.",
   "ui.compress.notes4": "Drop several images at once and the finished ones come back together in a single ZIP.",
   "ui.compress.notes5": "Nothing is stored: reloading the page discards everything.",
-
   "ui.resize.runAll": "Resize all",
   "ui.resize.runAgain": "Resize all again",
   "ui.resize.unsupported": "This browser cannot resize images locally — it is missing the image-decoding API these tools are built on. Nothing is uploaded either way. Please try a current version of Chrome, Edge, Firefox or Safari.",
@@ -104,7 +98,6 @@
   "ui.resize.notes3": "Small images are left alone unless you tick <strong>Allow enlarging</strong>: interpolation can add pixels but not detail.",
   "ui.resize.notes4": "A batch resizes every image to the same box, then comes back as a single ZIP.",
   "ui.resize.notes5": "Nothing is stored: reloading the page discards everything.",
-
   "ui.convert.runAll": "Convert all",
   "ui.convert.runAgain": "Convert all again",
   "ui.convert.unsupported": "This browser cannot convert images locally — it is missing the image-decoding API these tools are built on. Nothing is uploaded either way. Please try a current version of Chrome, Edge, Firefox or Safari.",
@@ -122,7 +115,6 @@
   "ui.convert.notes3": "HEIC and HEIF files from an iPhone work: Safari reads them directly, and other browsers fetch a small decoder that runs on your device.",
   "ui.convert.notes4": "A batch converts every image to the same format and returns them as one ZIP.",
   "ui.convert.notes5": "Re-encoding an already-optimised image can add a few bytes. The readout shows what actually happened rather than promising a saving.",
-
   "ui.enhance.styleHeading": "Choose a style",
   "ui.enhance.styleHint": "Every thumbnail below is rendered from your own photo, not a sample. Picking one applies that style to the full-size image, and the intensity slider decides how far it goes.",
   "ui.enhance.presetNatural": "Natural Pop",
@@ -154,9 +146,8 @@
   "ui.enhance.notes1": "<strong>First, a histogram correction.</strong> The tool finds the real black and white point of each colour channel, ignoring a small slice of outlier pixels so that one reflected highlight cannot set the range, then stretches what is left across the full range. Stretching the three channels independently is what removes a colour cast; the amount of stretch is capped, because amplifying a nearly black photo mostly amplifies its noise.",
   "ui.enhance.notes2": "<strong>Then a style.</strong> The five styles are applied on top of the corrected photo, and the intensity slider blends between the two — so a look that is too strong can always be dialled back to the corrected photo rather than to the original.",
   "ui.enhance.notes3": "The <strong>thumbnails are your own photo</strong>, rendered at 160 pixels wide by the same code that processes the full-size image. A style you have not seen applied to your picture is a style you cannot really choose.",
-  "ui.enhance.notes4": "Nothing is cropped or resized, and the result keeps your photo's own format, so a JPEG stays a JPEG instead of turning into a much larger PNG.",
+  "ui.enhance.notes4": "Keep the original dimensions or upscale 2×/4× with bicubic resampling. Choose JPG, PNG or WebP. Upscaling cannot recover detail absent from the original.",
   "ui.enhance.notes5": "Drop several photos and the whole batch is enhanced with the same style and returned as one ZIP. The style still applies to the pixels on your device, one image at a time.",
-
   "js.save.shareTitle": "Photos from the browser image editor",
   "js.save.shareText": "Processed entirely in my browser — nothing was uploaded.",
   "js.save.saved": "Saved {name} ({size}, {format}).",
@@ -169,10 +160,8 @@
   "js.webview.openInSafari": "Open in Safari",
   "js.webview.viewerHintMany": "Press and hold an image, then choose “Save to Photos”. Swipe sideways for the next one.",
   "js.webview.counter": "{n} / {total}",
-
   "js.chrome.menuOpen": "Open menu",
   "js.chrome.menuClose": "Close menu",
-
   "js.enhance.ready": "Ready — drop a photo, or a batch, to enhance it.",
   "js.enhance.unsupported": "This browser cannot enhance photos locally.",
   "js.enhance.workerStopped": "The enhancement worker stopped unexpectedly. Reload the page and try again.",
@@ -196,13 +185,11 @@
   "js.enhance.correctionSkipped": "Auto-correct found nothing worth fixing: this photo already used the full tonal range, so stretching it further would only have amplified noise.",
   "js.enhance.largerNote": "The enhanced file is {size} larger ({percent}%). Re-encoding does that — the pixel dimensions are unchanged.",
   "js.enhance.manualPath": "This browser has no GPU filter support, so the style was computed pixel by pixel instead of on the graphics chip. The arithmetic is equivalent — the two paths land within a few code values of each other — but it takes a little longer.",
-  "js.enhance.formatFallback": "Your photo's own format could not be written back on this device, so the result was saved as JPEG.",
+  "js.enhance.formatFallback": "The requested format was unavailable, so the result was saved as PNG to preserve transparency.",
   "js.enhance.zeroIntensity": "The intensity sits at 0%, so this is the auto-corrected photo with no style on it.",
   "js.enhance.enhancedCount": "{count} enhanced",
   "js.enhance.zipTail": " Use \"Download all as ZIP\" for the whole batch.",
-
   "js.error.INVALID_PRESET": "That enhancement style does not exist.",
-
   "js.common.waiting": "Waiting",
   "js.common.compare": "Compare",
   "js.common.download": "Download",
@@ -232,7 +219,6 @@
   "js.common.progressFor": "Progress for {name}",
   "js.common.downloadSize": "Download {size}",
   "js.common.downscaled": "This photo was larger than this device’s canvas limit, so it was downscaled to {w} × {h}.",
-
   "js.common.jpegFlatten": "JPEG cannot store transparency, so transparent areas were flattened onto white.",
   "js.common.largerThanOriginal": "This file ended up {size} larger than the original — try WebP, or set a target size.",
   "js.common.largerThanOriginalResize": "The new file is {size} larger than the original — re-encoding to a different format can do that even when the pixel count drops.",
@@ -249,7 +235,6 @@
   "js.common.presetOriginPublished": "published by the platform",
   "js.common.presetNote": "{label}: {width}×{height} px ({ratio}) — {origin}. {note} {source}",
   "js.common.doneParts": "Done — {parts}.",
-
   "js.preset.instagram-square": "Square post",
   "js.preset.instagram-portrait": "Portrait post",
   "js.preset.instagram-landscape": "Landscape post",
@@ -258,17 +243,14 @@
   "js.preset.youtube-shorts-cover": "Shorts cover",
   "js.preset.hd-1080p": "Full HD (1080p)",
   "js.preset.web-1280": "Web image (1280 wide)",
-
   "js.dropzone.empty": "{name} appears to be empty.",
   "js.dropzone.tooLarge": "{name} is {size}. The limit here is {limit}.",
   "js.dropzone.unsupportedType": "{name} is not a supported type. Accepted formats: {accepted}.",
   "js.dropzone.tooMany": "{count} files were provided; only {name} can be used here.",
-
   "js.pwa.bannerLabel": "Install Browser Image Editor",
   "js.pwa.bannerText": "Install Browser Image Editor: it opens like an app, and the tools you have visited keep working with no connection at all.",
   "js.pwa.install": "Install app",
   "js.pwa.notNow": "Not now",
-
   "js.compress.ready": "Ready — drop an image, or a batch, to compress it.",
   "js.compress.unsupported": "This browser cannot compress images locally.",
   "js.compress.workerStopped": "The compression worker stopped unexpectedly. Reload the page and try again.",
@@ -288,7 +270,6 @@
   "js.compress.tryingQuality": "Trying quality {percent}%…",
   "js.compress.nearTarget": "Close: {over} over your {target} target, and this is the smallest this image gets.",
   "js.compress.unreachableTarget": "Cannot reach {target}: the smallest this image gets is {smallest}. Lower the max width or height to save more.",
-
   "js.resize.ready": "Ready — drop an image, or a batch, to resize it.",
   "js.resize.unsupported": "This browser cannot resize images locally.",
   "js.resize.workerStopped": "The resize worker stopped unexpectedly. Reload the page and try again.",
@@ -305,7 +286,6 @@
   "js.resize.doneUnchanged": "Done — unchanged size, {change}",
   "js.resize.upscaleSkipped": "That image was already smaller than the size you asked for, so it was left alone. Tick \"Allow enlarging\" to scale it up.",
   "js.resize.resizedCount": "{count} resized",
-
   "js.convert.ready": "Ready — drop an image, or a batch, to convert it.",
   "js.convert.unsupported": "This browser cannot convert images locally.",
   "js.convert.workerStopped": "The conversion worker stopped unexpectedly. Reload the page and try again.",
@@ -325,7 +305,6 @@
   "js.convert.largerNote": "The new file is {size} larger ({percent}). Converting an already-optimised image can add bytes — WebP usually gives the smallest result.",
   "js.convert.noEncoders": "This browser cannot write any of the formats this tool offers, so there is nothing to convert to.",
   "js.convert.heicNeedsDecoder": "Reading a HEIC file needs a decoder that could not be fetched. Check your connection and try again.",
-
   "js.error.ABORTED": "That was cancelled.",
   "js.error.INTERNAL": "That did not work. Nothing was uploaded; please try again.",
   "js.error.EMPTY_FILE": "That file appears to be empty.",
@@ -363,7 +342,6 @@
   "js.error.IMAGE_TOO_LARGE": "That image has too many pixels for a canvas to hold. Shrink it first, then try again.",
   "js.error.UNSUPPORTED_FORMAT": "That format is not one this tool can read.",
   "js.error.INVALID_ENCODE_RESULT": "The encoder returned something that is not an image.",
-
   "ui.tool.chooseImage": "Choose an image",
   "ui.tool.statFormat": "Format",
   "ui.studio.dropTitle": "Drop your images here",
@@ -380,7 +358,6 @@
   "ui.studio.stepDown": "Decrease",
   "ui.page.repoLink": "The code behind this site lives at <a href=\"{url}\" rel=\"noopener\">{label}</a> — bug reports and fixes are welcome there.",
   "ui.page.repoMissing": "<span class=\"page-placeholder\"><strong>TO CONFIRM:</strong> no repository link is published yet, because no URL is set in content/site.json.</span>",
-
   "ui.crop.singleHint": "One image at a time, because you choose the crop yourself.",
   "ui.crop.unsupported": "This browser cannot crop images locally — it is missing the image-decoding API these tools are built on. Nothing is uploaded either way. Please try a current version of Chrome, Edge, Firefox or Safari.",
   "ui.crop.altImage": "The image being cropped",
@@ -404,8 +381,7 @@
   "ui.crop.notes2": "Rotate in 90&deg; steps and flip across or down if the photo is the wrong way round. Rotating by a quarter turn swaps the output's width and height.",
   "ui.crop.notes3": "The crop is applied at full resolution &mdash; the selection is a view of the pixels, not a downscale of them.",
   "ui.crop.notes4": "Nothing is stored: reloading the page discards everything, including the selection.",
-
-  "ui.pdf.multiHint": "Each image becomes one page. Nothing leaves your device.",
+  "ui.pdf.multiHint": "Choose 1, 2, 4, 6 or 9 images per page. Nothing is uploaded.",
   "ui.pdf.unsupported": "This browser cannot build a PDF locally — it is missing the image-decoding API these tools are built on. Nothing is uploaded either way. Please try a current version of Chrome, Edge, Firefox or Safari.",
   "ui.pdf.pageSize": "Page size",
   "ui.pdf.margin": "Margin",
@@ -417,19 +393,17 @@
   "ui.pdf.statPages": "Pages",
   "ui.pdf.download": "Download PDF",
   "ui.pdf.notesHeading": "How this works",
-  "ui.pdf.notesIntro": "The PDF is assembled right here in this browser tab — on a background Web Worker, where this browser offers one: each image is fitted to its page and written into a single document, which your browser then saves. A scanned stack of paperwork never leaves your device.",
-  "ui.pdf.notes1": "<strong>Page size</strong> is A4, US Letter, or each page sized to its own image so nothing is padded or cropped unexpectedly.",
-  "ui.pdf.notes2": "Landscape images get a landscape page automatically, so a photo is never shrunk to fit the short side of a portrait sheet.",
-  "ui.pdf.notes3": "Drag in more images at any time &mdash; the list order is the page order, and it can be rearranged before you build.",
-  "ui.pdf.notes4": "JPEG and PNG are written into the PDF as they are. Other formats are converted first, because PDF does not store WebP or HEIC.",
+  "ui.pdf.notesIntro": "Arrange images in a document, preview each page, then create your PDF locally.",
+  "ui.pdf.notes1": "Choose A4 or Letter for a grid. Match image size is available with one image per page.",
+  "ui.pdf.notes2": "Choose portrait or landscape. Each image fits its cell without stretching or cropping.",
+  "ui.pdf.notes3": "Move or remove images in the list. Preview and export follow the same order.",
+  "ui.pdf.notes4": "PNG is embedded directly. Other formats are re-encoded as JPEG, with orientation applied and a white background behind transparency.",
   "ui.pdf.notes5": "Nothing is stored: reloading the page discards everything.",
-
   "js.order.moveUp": "Move up",
   "js.order.moveDown": "Move down",
   "js.order.moveFirst": "Move to start",
   "js.order.moveLast": "Move to end",
   "js.order.remove": "Remove",
-
   "js.ratio.free.label": "Free",
   "js.ratio.free.note": "Drag any rectangle.",
   "js.ratio.square.label": "1:1",
@@ -442,7 +416,6 @@
   "js.ratio.photo.note": "Most phone cameras.",
   "js.ratio.wide.label": "16:9",
   "js.ratio.wide.note": "Widescreen — thumbnails and slides.",
-
   "js.crop.progressLabel": "Applying the crop…",
   "js.crop.workerStopped": "The encoding worker stopped unexpectedly. Reload the page and try again.",
   "js.crop.failed": "The crop could not be encoded.",
@@ -464,7 +437,6 @@
   "js.crop.selectionReset": "Selection reset.",
   "js.crop.ready": "Ready — drop an image to crop it.",
   "js.crop.unsupported": "This browser cannot crop images locally.",
-
   "js.pdf.pageSize.a4.label": "A4 (210 × 297 mm)",
   "js.pdf.pageSize.a4.note": "The default almost everywhere except North America.",
   "js.pdf.pageSize.letter.label": "US Letter (8.5 × 11 in)",
@@ -478,7 +450,6 @@
   "js.pdf.quality.high.label": "High (JPEG 95%)",
   "js.pdf.quality.balanced.label": "Balanced (JPEG 85%)",
   "js.pdf.quality.small.label": "Smaller file (JPEG 70%)",
-
   "js.pdf.progressLabel": "Building the PDF…",
   "js.pdf.workerStopped": "The PDF worker stopped unexpectedly. Reload the page and try again.",
   "js.pdf.failed": "The PDF could not be built.",
@@ -494,7 +465,7 @@
   "js.pdf.starting": "Preparing {count} {images} in your browser…",
   "js.pdf.prepared": "{done} of {total} prepared",
   "js.pdf.preparedFailed": "{done} of {total} prepared — {failed} failed",
-  "js.pdf.couldNotPrepareAll": "None of those images could be prepared, so there is no PDF to build.",
+  "js.pdf.couldNotPrepareAll": "Some images could not be prepared. Remove unreadable files and try again; no incomplete PDF was created.",
   "js.pdf.nothingToPut": "There is nothing to put in the PDF.",
   "js.pdf.writing": "Writing the PDF…",
   "js.pdf.readySummary": "PDF ready — {count} {pages}, {size}.",
@@ -508,7 +479,6 @@
   "js.pdf.downloadSize": "Download PDF ({size})",
   "js.pdf.startingPages": "{count} {pages}…",
   "js.crop.invalidSelection": "That selection is too small to produce an image. Drag a larger box.",
-
   "ui.chrome.month.01": "January",
   "ui.chrome.month.02": "February",
   "ui.chrome.month.03": "March",
@@ -520,5 +490,41 @@
   "ui.chrome.month.09": "September",
   "ui.chrome.month.10": "October",
   "ui.chrome.month.11": "November",
-  "ui.chrome.month.12": "December"
+  "ui.chrome.month.12": "December",
+  "js.handoff.label": "Continue editing this result",
+  "js.handoff.open": "Open in new tab",
+  "js.handoff.blocked": "Allow pop-ups to continue, or download your result and open it in another tool.",
+  "js.handoff.unavailable": "Create a JPEG, PNG or WebP result before continuing.",
+  "js.handoff.timeout": "The next tool did not respond. Keep this tab open and try again, or download the result.",
+  "js.handoff.compress-image": "Compress",
+  "js.handoff.resize-image": "Resize",
+  "js.handoff.convert-image": "Convert",
+  "js.handoff.crop-image": "Crop",
+  "js.handoff.image-to-pdf": "Create PDF",
+  "js.handoff.enhance-photo": "Enhance / Upscale Image",
+  "ui.pdf.perPage": "Images per page",
+  "ui.pdf.orientation": "Page orientation",
+  "ui.pdf.portrait": "Portrait",
+  "ui.pdf.landscape": "Landscape",
+  "ui.pdf.gap": "Space between images (mm)",
+  "ui.pdf.containHint": "Images keep their proportions and fit inside each cell. Multi-image layouts use A4 or Letter.",
+  "ui.pdf.preview": "Page layout preview",
+  "ui.pdf.previous": "Previous page",
+  "ui.pdf.next": "Next page",
+  "js.pdf.previewPage": "Page {page} of {pages} · {images} images",
+  "js.pdf.layoutSummary": "{images} images → {pages} pages · {count} per page",
+  "js.pdf.previewLoading": "Preparing page preview…",
+  "js.pdf.previewFailed": "Preview unavailable. Check your images, margins and spacing.",
+  "js.pdf.cancelled": "PDF creation cancelled. Your images are still here.",
+  "ui.enhance.scale": "Resolution scale",
+  "ui.enhance.keepFormat": "Keep original format",
+  "ui.enhance.resampleHint": "High-quality bicubic resampling, not AI. 2× doubles width and height; 4× uses 16× as many pixels. PNG/WebP preserve transparency; JPG uses white. Output is limited to 16 MP, or less on some devices.",
+  "ui.enhance.zoom": "Inspect details at 100% · scroll to pan",
+  "ui.enhance.after": "Enhanced result",
+  "js.enhance.sourceInfo": "Original: {width} × {height} px · {size}",
+  "js.enhance.outputInfo": "Output: {width} × {height} px",
+  "js.enhance.phaseUpscale": "Upscaling image…",
+  "js.error.UPSCALE_TOO_LARGE": "This output is too large for safe processing. Choose a smaller scale or resize the original first.",
+  "js.error.INVALID_SCALE": "Choose 1×, 2× or 4×.",
+  "js.error.INVALID_LAYOUT": "Check the page size, margins and image spacing. Choose A4 or Letter for multiple images."
 }

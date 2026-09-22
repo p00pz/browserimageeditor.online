@@ -184,6 +184,7 @@ export function histogramChannels(pixels, bins = 256) {
   const scale = bins / 256;
 
   for (let index = 0; index < pixels.length; index += 4) {
+    if (pixels[index + 3] === 0) continue;
     red[Math.min(bins - 1, Math.floor(pixels[index] * scale))] += 1;
     green[Math.min(bins - 1, Math.floor(pixels[index + 1] * scale))] += 1;
     blue[Math.min(bins - 1, Math.floor(pixels[index + 2] * scale))] += 1;

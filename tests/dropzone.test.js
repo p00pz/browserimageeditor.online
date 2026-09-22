@@ -38,7 +38,7 @@ function makeEnvironment() {
     addEventListener: (event, handler) => documentListeners.set(event, handler),
     removeEventListener: () => {},
   };
-  return { root, input, inputListeners };
+  return { root, input, inputListeners, documentListeners };
 }
 
 /** A HEIC file as a browser actually delivers one: an empty type, the extension doing the work. */
@@ -96,4 +96,25 @@ test('HEIC stays recognisable as a HEIC, by type or by extension', () => {
     resolved.add(mime.replace('image/', ''));
   }
   assert.deepEqual([...resolved].sort(), ['heic', 'heif']);
+});
+
+
+test('paste leaves editable fields and disabled tools alone', () => {
+  const { root, documentListeners } = makeEnvironment();
+  const files = [];
+  const dropzone = createDropzone(root, { onFiles: (items) => files.push(...items) });
+  let prevented = false;
+  const event = { clipboardData: { files: [heicFile()] }, preventDefault: () => { prevented = true; }, target: { closest: () => ({}) } };
+  documentListeners.get('paste')(event);
+  assert.equal(prevented, false);
+  assert.equal(files.length, 0);
+  event.target.closest = () => null;
+  dropzone.disable();
+  documentListeners.get('paste')(event);
+  assert.equal(prevented, false);
+  dropzone.enable();
+  documentListeners.get('paste')(event);
+  assert.equal(prevented, true);
+  assert.equal(files.length, 1);
+  dropzone.destroy();
 });

@@ -1,3 +1,4 @@
+import { upscaleSize } from '../core/upscale.js';
 /**
  * Enhance tool wiring — same shape as tools/convert-image.js:
  * dropzone -> core/queue.js -> enhance.worker.js -> compare slider -> core/file-io.js.
@@ -35,13 +36,14 @@ import { markProcessed } from '../ui/pwa.js';
 import { localizeError, t } from '../ui/strings.js';
 
 const PHASE_MESSAGES = {
+  upscale: t('js.enhance.phaseUpscale'),
   probe: t('js.enhance.phaseProbe'),
   analyse: t('js.enhance.phaseAnalyse'),
   grade: t('js.enhance.phaseGrade'),
   encode: t('js.enhance.phaseEncode'),
 };
 
-const CONCURRENCY = 2;
+const CONCURRENCY = 1;
 
 /**
  * The width at which the primary action leaves the batch row and becomes a fixed bar at the bottom of
@@ -76,6 +78,9 @@ function init() {
   // "defaults" key at all. Filling a control is all this does: it must never start a run, since nothing
   // has been dropped yet.
   const defaults = config.defaults ?? {};
+  const scaleInput = root.querySelector('[data-upscale]');
+  const outputSelect = root.querySelector('[data-enhance-format]');
+  let sourceSize = null;
   const dropzoneRoot = root.querySelector('[data-dropzone]');
   const unsupportedNotice = root.querySelector('[data-unsupported]');
   const presetRow = root.querySelector('[data-preset-row]');
@@ -149,6 +154,7 @@ function init() {
    */
   const chips = new Map();
   for (const chip of presetRow.querySelectorAll('[data-preset-chip]')) {
+    chip.dataset.label = chip.querySelector('.preset-name')?.textContent?.trim() || chip.dataset.preset;
     chips.set(chip.dataset.preset, chip);
   }
   const autoLabel = autoButton?.dataset.label ?? '';
@@ -225,6 +231,8 @@ function init() {
     const options = {
       presetId,
       intensity,
+      scale: Number(scaleInput.value),
+      outputMime: outputSelect.value || undefined,
       advanced: isNeutralAdvanced(advanced) ? null : { ...advanced },
     };
     const forwardAbort = () => {
@@ -356,6 +364,8 @@ function init() {
   }
 
   function renderBatch(snapshot = null) {
+    scaleInput.disabled = busy;
+    outputSelect.disabled = busy;
     const state = snapshot ?? queue?.snapshot() ?? null;
     if (!state) return;
 
@@ -446,6 +456,7 @@ function init() {
   }
 
   function clearPreview() {
+    for (const image of root.querySelectorAll('[data-detail-before], [data-detail-after]')) image.removeAttribute('src');
     if (resultUrls.before) URL.revokeObjectURL(resultUrls.before);
     if (resultUrls.after) URL.revokeObjectURL(resultUrls.after);
     resultUrls = { before: null, after: null };
@@ -508,6 +519,13 @@ function init() {
     if (result.preset) result.preset.textContent = labelForPreset(meta.presetId);
     if (result.intensity) {
       result.intensity.textContent = meta.styled ? `${Math.round(meta.intensity * 100)}%` : '—';
+    }
+    sourceSize = { width: meta.sourceWidth ?? meta.width, height: meta.sourceHeight ?? meta.height, size: formatBytes(item.file.size) };
+    describeSize();
+    for (const side of ['before', 'after']) {
+      const image = root.querySelector(`[data-detail-${side}]`);
+      image.src = resultUrls[side];
+      image.style.width = `${meta.width}px`;
     }
     if (result.dimensions) result.dimensions.textContent = `${meta.width}×${meta.height}`;
     if (result.size) result.size.textContent = formatBytes(meta.bytes);
@@ -608,7 +626,19 @@ function init() {
 
   /* ---------- the controls ---------- */
 
+  function describeSize() {
+    if (!sourceSize) return;
+    root.querySelector('[data-source-info]').textContent = t('js.enhance.sourceInfo', sourceSize);
+    let message;
+    try { message = t('js.enhance.outputInfo', upscaleSize(sourceSize.width, sourceSize.height, Number(scaleInput.value))); }
+    catch { message = t('js.error.UPSCALE_TOO_LARGE'); }
+    root.querySelector('[data-output-info]').textContent = message;
+  }
+
   function renderControls() {
+    scaleInput.disabled = busy;
+    outputSelect.disabled = busy;
+    describeSize();
     for (const [id, chip] of chips) {
       const isSelected = presetId === id;
       chip.dataset.selected = isSelected ? 'true' : 'false';
@@ -686,6 +716,8 @@ function init() {
         { jobId: PREVIEW_JOB_ID, file, options: {} },
         previewProgressProxy,
       );
+      sourceSize = { width: report.width, height: report.height, size: formatBytes(file.size) };
+      describeSize();
       for (const preset of ENHANCE_PRESETS) {
         const chip = chips.get(preset.id);
         const item = report.items?.find((entry) => entry.presetId === preset.id);
@@ -785,6 +817,9 @@ function init() {
 
   function startOver() {
     if (busy) return;
+    sourceSize = null;
+    root.querySelector('[data-source-info]').textContent = '';
+    root.querySelector('[data-output-info]').textContent = '';
     disposeQueue();
     clearRows();
     clearResult();
@@ -850,6 +885,7 @@ function init() {
   });
 
   resultPanel.querySelector('[data-start-over]')?.addEventListener('click', startOver);
+  for (const input of [scaleInput, outputSelect]) input.addEventListener('change', () => { describeSize(); scheduleLiveRerun(); });
 
   for (const [id, chip] of chips) {
     chip.addEventListener('click', () => {

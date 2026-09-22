@@ -1,3 +1,4 @@
+import { attachHandoff } from '../ui/tool-handoff.js';
 /**
  * Saving — the one path every tool uses to get a finished image off the page.
  *
@@ -645,6 +646,7 @@ export async function saveBatchOrZip({ entries, statusEl = null } = {}) {
  */
 export function wireDownloadAnchor(anchor, { getBlob, getFilename, statusEl } = {}) {
   if (!anchor) return () => {};
+  const detachHandoff = attachHandoff(anchor, { getBlob, getFilename, statusEl });
 
   const handler = (event) => {
     const blob = typeof getBlob === 'function' ? getBlob() : null;
@@ -659,5 +661,5 @@ export function wireDownloadAnchor(anchor, { getBlob, getFilename, statusEl } = 
   };
 
   anchor.addEventListener('click', handler);
-  return () => anchor.removeEventListener('click', handler);
+  return () => { anchor.removeEventListener('click', handler); detachHandoff(); };
 }

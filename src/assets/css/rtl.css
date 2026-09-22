@@ -111,3 +111,9 @@
  * adequate. Nothing more is needed here, and inventing a rule nobody asked for would be worse than
  * this comment.
  */
+
+/* Keep dimensions, file extensions and numeric controls stable in mixed text. */
+[dir='rtl'] input[type='number'], [dir='rtl'] .result-stat dd { direction: ltr; unicode-bidi: isolate; }
+[dir='rtl'] .ctl-label, [dir='rtl'] .field-hint { text-align: start; }
+[dir='rtl'] .workflow-links small { unicode-bidi: isolate; }
+[dir='rtl'] .discovery .tool-card-link::after { content: '↖'; }

@@ -105,7 +105,7 @@ function presentSelect(select) {
       chip.textContent = option.textContent;
       chip.setAttribute('role', 'radio');
       chip.setAttribute('aria-checked', String(option.selected));
-      chip.disabled = select.disabled;
+      chip.disabled = select.disabled || option.disabled || Boolean(option.parentElement?.disabled);
       group.append(chip);
     }
   }
@@ -113,7 +113,9 @@ function presentSelect(select) {
   /** Marks the chip for the select's current value. */
   function sync() {
     for (const chip of group.querySelectorAll('.chip')) {
-      chip.setAttribute('aria-checked', String(chip.dataset.shellValue === select.value));
+      const selected = chip.dataset.shellValue === select.value;
+      chip.setAttribute('aria-checked', String(selected));
+      chip.tabIndex = selected ? 0 : -1;
     }
   }
 
@@ -180,7 +182,7 @@ function presentSelect(select) {
     build();
     sync();
   });
-  observer.observe(select, { childList: true, attributes: true, attributeFilter: ['disabled'] });
+  observer.observe(select, { childList: true, subtree: true, attributes: true, attributeFilter: ['disabled'] });
 
   build();
   sync();

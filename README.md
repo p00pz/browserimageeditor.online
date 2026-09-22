@@ -105,3 +105,15 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+### Phase 2 verification
+
+After `npm run build`, run `npm run preview -- --host 127.0.0.1 --port 4317`, then:
+
+```sh
+node qa/product-smoke.mjs http://127.0.0.1:4317
+node qa/phase2-smoke.mjs http://127.0.0.1:4317
+```
+
+For the additional main-thread engine checks, run Vite on port 4318 and run `node qa/phase2-smoke.mjs`.
+The enhancement tool shares its existing `/tools/enhance-photo/` URL and supports local bicubic 2×/4× upscaling, with an output budget of at most 16 MP (lower on some devices). It does not use AI. PDF grids and their preview share `planDocument`; only one preview page is mounted at a time.

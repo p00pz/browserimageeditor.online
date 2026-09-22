@@ -1,3 +1,5 @@
+import { upscalePixels, upscaleSize } from './upscale.js';
+import { createPdf } from './pdf-document.js';
 /**
  * The main-thread engine implementations.
  *
@@ -612,12 +614,12 @@ async function encodeResultMain(stage, { width, height }, mime) {
   } catch (error) {
     // The retry cannot silently misreport itself: the returned `mime` on the fallback path is the
     // fallback, and the blob's own type is what the result panel prints.
-    if (mime === FALLBACK_OUTPUT_MIME) throw error;
-    const retry = drawToMain(width, height, stage, { backdrop: true });
+    if (mime === 'image/png') throw error;
+    const retry = drawToMain(width, height, stage);
     try {
       return {
-        blob: await canvasToBlob(retry, encodeOptions({ mime: FALLBACK_OUTPUT_MIME, quality: OUTPUT_QUALITY })),
-        mime: FALLBACK_OUTPUT_MIME,
+        blob: await canvasToBlob(retry, encodeOptions({ mime: 'image/png' })),
+        mime: 'image/png',
         fallback: true,
       };
     } finally {
@@ -717,12 +719,13 @@ async function enhanceMain(state, payload = {}, onProgress) {
     // canvas here at all, so it is refused with a reason rather than crashing mid-pipeline.
     const budget = assertEnhanceBudget(bitmap.width, bitmap.height, safeMaxPixels(options.maxPixels, navigator.userAgent));
     const { width, height } = budget;
+    const output = upscaleSize(width, height, options.scale ?? 1, Math.min(16000000, safeMaxPixels(options.maxPixels, navigator.userAgent)));
 
     onProgress?.({ jobId, phase: 'analyse', ratio: 0.2 });
 
     // One canvas holds the decoded photo; the plane is filled from it in reads small enough to
     // cost a few milliseconds rather than a few hundred.
-    const source = drawToMain(width, height, bitmap, { backdrop: true });
+    const source = drawToMain(width, height, bitmap);
     const context = source.getContext('2d');
     const plane = new Uint8ClampedArray(width * height * 4);
     const histograms = [new Uint32Array(256), new Uint32Array(256), new Uint32Array(256)];
@@ -791,25 +794,16 @@ async function enhanceMain(state, payload = {}, onProgress) {
       await sharpenBandedMain(graded, width, height, adjustments.sharpen, { signal });
     }
 
-    const stage = domCanvas(width, height);
-    const stageContext = stage.getContext('2d');
-    await forEachRowBand(
-      height,
-      (y0, y1) => {
-        stageContext.putImageData(
-          new ImageData(planeRows(graded, width, y0, y1), width, y1 - y0),
-          0,
-          y0,
-        );
-      },
-      { signal },
-    );
+    const scaled = await upscalePixels(graded, width, height, output.scale, { signal,
+      onProgress: (ratio) => onProgress?.({ jobId, phase: 'upscale', ratio: .55 + ratio * .3 }) });
+    const stage = domCanvas(output.width, output.height);
+    stage.getContext('2d').putImageData(new ImageData(scaled.pixels, output.width, output.height), 0, 0);
 
     onProgress?.({ jobId, phase: 'encode', ratio: 0.9 });
     const outputMime = resolveOutputMimeMain(options, file);
     let encoded;
     try {
-      encoded = await encodeResultMain(stage, budget, outputMime);
+      encoded = await encodeResultMain(stage, output, outputMime);
     } finally {
       discardCanvas(stage);
     }
@@ -834,9 +828,10 @@ async function enhanceMain(state, payload = {}, onProgress) {
         sourceMime: file.type || '',
         sourceBytes: file.size,
         bytes: blob.size,
-        width,
-        height,
-        pixels: budget.pixels,
+        width: output.width,
+        height: output.height,
+        sourceWidth: width, sourceHeight: height,
+        pixels: output.pixels,
         flatten: needsOpaqueBackdrop(blob.type || mime),
         filterPath: detectFilterPathMain(),
       },
@@ -1011,50 +1006,13 @@ async function encodePageMain(state, payload = {}, onProgress) {
   }
 }
 
-async function assembleMain(state, { pages = [], options = {} } = {}) {
-  if (pages.length === 0) {
-    throw { code: 'INVALID_INPUT', message: 'There are no images to build a PDF from.' };
-  }
-
-  try {
-    // pdf-lib works on the main thread; the DOM canvas replaced the worker's encode step above. It
-    // is imported here, as in the worker, so the library is fetched when a document is assembled
-    // and not when the page loads.
-    const { PDFDocument } = await import('pdf-lib');
-    const document = await PDFDocument.create();
-    document.setTitle(options.title || 'Images');
-    document.setProducer('Browser Image Editor (browser)');
-    document.setCreator('Browser Image Editor');
-
-    for (const page of pages) {
-      const placement = planPage({
-        imageWidth: page.width,
-        imageHeight: page.height,
-        pageSizeId: options.pageSizeId ?? 'a4',
-        marginId: options.marginId ?? 'normal',
-      });
-      const embedded =
-        page.mime === 'image/png' ? await document.embedPng(page.bytes) : await document.embedJpg(page.bytes);
-      const sheet = document.addPage([placement.pageWidth, placement.pageHeight]);
-      sheet.drawImage(embedded, toPdfBox(placement));
-    }
-
-    const bytes = await document.save();
-    return {
-      blob: new Blob([bytes], { type: 'application/pdf' }),
-      meta: {
-        pages: pages.length,
-        bytes: bytes.byteLength,
-        pageSizeId: options.pageSizeId ?? 'a4',
-        marginId: options.marginId ?? 'normal',
-        qualityId: options.qualityId ?? 'balanced',
-      },
-    };
-  } catch (error) {
-    if (error && typeof error.code === 'string') throw error;
-    throw { code: 'PDF_FAILED', message: error?.message || 'The PDF could not be assembled.' };
-  }
+async function assembleMain(state, { pages = [], options = {}, jobId = 'pdf-assemble' } = {}) {
+  const controller = new AbortController();
+  state.controllers.set(jobId, controller);
+  try { return await createPdf(pages, options, controller.signal); }
+  finally { state.controllers.delete(jobId); }
 }
+
 
 /* ---------- the engines the main thread can serve ---------- */
 

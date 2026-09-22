@@ -1,3 +1,4 @@
+import { createPdfPreview } from '../ui/pdf-preview.js';
 /**
  * Image → PDF wiring — dropzone + order list + core/queue.js + pdf.worker.js + core/file-io.js.
  *
@@ -46,6 +47,15 @@ function init() {
   if (!root) return;
 
   const config = readConfig();
+  const inspector = root.querySelector('.studio-inspector');
+  const stage = root.querySelector('.studio-stage');
+  const mobile = matchMedia('(max-width: 767px)');
+  function placeSettings() {
+    if (mobile.matches) stage.querySelector('[data-dropzone]').after(inspector);
+    else stage.after(inspector);
+  }
+  mobile.addEventListener('change', placeSettings);
+  placeSettings();
   // A target landing page (/targets/<slug>/) ships this panel pre-configured, and tool pages send
   // no "defaults" key at all. Filling a control is all this does: it must never start a run, since
   // nothing has been dropped yet.
@@ -53,6 +63,10 @@ function init() {
   const dropzoneRoot = root.querySelector('[data-dropzone]');
   const pageSizeSelect = root.querySelector('[data-page-size]');
   const marginSelect = root.querySelector('[data-margin]');
+  const perPageSelect = root.querySelector('[data-per-page]');
+  const orientationSelect = root.querySelector('[data-orientation]');
+  const gapInput = root.querySelector('[data-pdf-gap]');
+  const preview = createPdfPreview(root.querySelector('[data-pdf-preview]'));
   const qualitySelect = root.querySelector('[data-quality]');
   const orderRegion = root.querySelector('[data-order]');
   const orderListRoot = root.querySelector('[data-order-list]');
@@ -115,6 +129,7 @@ function init() {
   let queue = null;
   let busy = false;
   let ready = false;
+  let cancelled = false;
   let resultUrl = null;
   /** The finished document, cached so a save tap is a share call, not a rebuild. */
   let lastPdf = null;
@@ -130,6 +145,7 @@ function init() {
     onMove: ({ id, action }) => {
       if (busy) return;
       items = applyMove(items, { id, action });
+      clearResult();
       renderOrder();
     },
   });
@@ -165,7 +181,20 @@ function init() {
     return new CompressError('INTERNAL', localizeError('INTERNAL', error?.message ?? t('js.pdf.failedUnknown')));
   }
 
+  function layoutOptions() {
+    return { imagesPerPage: Number(perPageSelect.value), orientation: orientationSelect.value,
+      gapPoints: Number(gapInput.value) * 72 / 25.4, pageSizeId: pageSizeSelect.value || 'a4', marginId: marginSelect.value || 'normal' };
+  }
+
   function renderOrder() {
+    if (Number(perPageSelect.value) > 1 && pageSizeSelect.value === 'match') pageSizeSelect.value = 'a4';
+    const match = pageSizeSelect.querySelector('option[value="match"]');
+    if (match) match.disabled = Number(perPageSelect.value) > 1;
+    for (const control of [perPageSelect, orientationSelect, gapInput, pageSizeSelect, marginSelect, qualitySelect]) control.disabled = busy;
+    orientationSelect.disabled = busy || pageSizeSelect.value === 'match';
+    marginSelect.disabled = busy || pageSizeSelect.value === 'match';
+    gapInput.disabled = busy || pageSizeSelect.value === 'match';
+    void preview.update(items, layoutOptions());
     orderRegion.hidden = items.length === 0;
     buildButton.disabled = items.length === 0 || busy;
     /*
@@ -185,13 +214,9 @@ function init() {
     );
     const output = findPageSize(pageSizeSelect?.value ?? 'a4');
     const size = t(`js.pdf.pageSize.${output?.id ?? 'a4'}.label`);
-    orderSummary.textContent = items.length === 0
-      ? ''
-      : t(items.length > PDF_PAGE_WARNING ? 'js.pdf.orderTooLong' : 'js.pdf.orderSummary', {
-          count: items.length,
-          pages: items.length === 1 ? t('js.pdf.pageOne') : t('js.pdf.pageMany'),
-          size,
-        });
+    orderSummary.textContent = items.length ? t('js.pdf.layoutSummary', {
+      images: items.length, pages: Math.ceil(items.length / Number(perPageSelect.value)), count: perPageSelect.value,
+    }) : '';
   }
 
   function pagesFromQueue() {
@@ -209,6 +234,9 @@ function init() {
 
   async function build() {
     if (busy || !ready || items.length === 0) return;
+    if (!gapInput.checkValidity() || gapInput.value === '') { gapInput.reportValidity(); return; }
+    const settings = { ...layoutOptions(), qualityId: qualitySelect.value || 'balanced' };
+    cancelled = false;
     busy = true;
     /* Recomputes `disabled` and the sticky attribute together, so the two cannot disagree. */
     renderOrder();
@@ -250,7 +278,7 @@ function init() {
         signal.addEventListener('abort', forwardAbort, { once: true });
         try {
           const page = await client.encodePage(
-            { jobId: id, file, options: { qualityId: qualitySelect?.value ?? 'balanced' } },
+            { jobId: id, file, options: { qualityId: settings.qualityId } },
             progressProxy,
           );
           report(1);
@@ -265,7 +293,8 @@ function init() {
 
     try {
       const state = await queue.process(items.map((item) => item.file));
-      if (state.failed > 0 && state.succeeded === 0) {
+      if (cancelled || state.cancelled > 0) throw new CompressError('ABORTED', t('js.pdf.cancelled'));
+      if (state.failed > 0) {
         throw new CompressError('PDF_FAILED', t('js.pdf.couldNotPrepareAll'));
       }
       const pages = pagesFromQueue();
@@ -274,15 +303,15 @@ function init() {
       progress.set(0.95, t('js.pdf.writing'));
       const client = ensureWorker();
       const { blob, meta } = await client.assemble({
+        jobId: 'pdf-assemble',
         pages,
         options: {
-          pageSizeId: pageSizeSelect?.value ?? 'a4',
-          marginId: marginSelect?.value ?? 'normal',
-          qualityId: qualitySelect?.value ?? 'balanced',
+          ...settings,
           title: items[0]?.file?.name?.replace(/\.[^./\\]+$/, '') ?? t('js.pdf.docTitleFallback'),
         },
       });
 
+      if (cancelled) throw new CompressError('ABORTED', t('js.pdf.cancelled'));
       if (resultUrl) URL.revokeObjectURL(resultUrl);
       resultUrl = URL.createObjectURL(blob);
       lastPdf = { blob, filename: PDF_NAME };
@@ -372,7 +401,9 @@ function init() {
   cancelButton?.addEventListener('click', () => {
     if (!busy || !queue) return;
     announce(t('js.common.cancelling'));
+    cancelled = true;
     queue.cancel();
+    void api?.cancel('pdf-assemble');
   });
   resultPanel.querySelector('[data-start-over]')?.addEventListener('click', startOver);
 
@@ -385,8 +416,8 @@ function init() {
     statusEl: statusLine,
   });
 
-  for (const select of [pageSizeSelect, marginSelect, qualitySelect]) {
-    select?.addEventListener('change', renderOrder);
+  for (const select of [pageSizeSelect, marginSelect, qualitySelect, perPageSelect, orientationSelect, gapInput]) {
+    select?.addEventListener('change', () => { clearResult(); renderOrder(); });
   }
 
   const dropzone = createDropzone(dropzoneRoot, {
@@ -431,6 +462,7 @@ function init() {
   renderOrder();
 
   window.addEventListener('pagehide', () => {
+    preview.destroy();
     queue?.dispose();
     clearResult();
     api?.dispose();

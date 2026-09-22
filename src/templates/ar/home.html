@@ -1,26 +1,30 @@
-      <section class="hero">
-        <p class="hero-eyebrow">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="3" y="11" width="18" height="11" rx="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
-          بلا رفع ملفات — 100% على جهازك.
-        </p>
-        <h1>أدوات صور لا ترفع ملفاتك</h1>
-        <p class="hero-sub">كل أداة هنا تعمل داخل تبويب متصفحك. تُعالَج صورك على جهازك ولا تُرسَل إلى أي خادم — لأنه لا يوجد خادم أصلاً.</p>
-        <div class="hero-actions">
-          <a class="button" href="#tools">تصفّح الأدوات</a>
-          <a class="button button-secondary" href="/ar/pages/how-it-works/">كيف يعمل الموقع</a>
+      <div class="home-intro">
+        <section class="hero">
+          <p class="hero-eyebrow">خصوصية أولاً · استخدام مجاني</p>
+          <h1>صورك.<br>على جهازك.<br>جاهزة لكل ما تحتاجه.</h1>
+          <p class="hero-sub">اضغط صورك وغيّر أبعادها وصيغتها وحسّنها. ست أدوات متخصصة، بلا رفع ملفات وبلا حساب.</p>
+          <div class="hero-actions"><a class="button" href="/ar/tools/compress-image/">اضغط صورة</a><a class="button button-secondary" href="#tools">استكشف الأدوات</a></div>
+        </section>
+        <aside class="workflow-card" aria-labelledby="quick-heading">
+          <h2 id="quick-heading">ماذا تريد أن تفعل؟</h2><p>اختر النتيجة المطلوبة للوصول إلى الأداة المناسبة.</p>
+          <div class="workflow-links">
+            <a href="/ar/targets/compress-image-to-100kb/">تصغير الملف لحد الرفع <small>100 كيلوبايت ↗</small></a>
+            <a href="/ar/tools/resize-image/">ضبط أبعاد الصورة <small>المقاس ↗</small></a>
+            <a href="/ar/tools/convert-image/">تغيير صيغة الملف <small>تحويل ↗</small></a>
+            <a href="/ar/tools/image-to-pdf/">جمع الصور في مستند <small>PDF ↗</small></a>
+          </div>
+        </aside>
+      </div>
+      <div class="trust-strip" aria-label="خصوصيتك"><span>✓ صورك تبقى على جهازك</span><span>✓ بلا إنشاء حساب</span><span>✓ ملفاتك الأصلية لا تتغير</span></div>
+      <section class="discovery" id="tools" data-discovery aria-labelledby="tools-heading">
+        <div class="discovery-heading"><div><h2 id="tools-heading">أداة لكل خطوة</h2><p>صورة واحدة أو مجموعة كاملة. ابدأ هنا.</p></div>
+          <div class="tool-search" data-search-controls hidden><label for="tool-search">ابحث عن أداة</label><input id="tool-search" type="search" placeholder="ضغط، قص، PDF…" autocomplete="off" aria-controls="tool-results"><button class="button button-secondary" type="button" data-search-clear hidden>مسح</button></div>
         </div>
+        <p class="search-status" data-search-status role="status" data-found="عدد الأدوات: {count}" data-empty="لا توجد أدوات مطابقة. جرّب كلمة أخرى أو امسح البحث."></p>
+        <div id="tool-results"><!--#include partials/ar/tool-grid.html--></div>
       </section>
-
-      <section class="prose">
-        <h2>ما الذي يحدث عند استخدام أداة</h2>
-        <p>تختار صورة من جهازك مباشرة، فتجري المعالجة كلها في مسار خلفي داخل التبويب — فك الترميز وتغيير المقاس وإعادة الترميز — دون أن تتوقف الواجهة. ثم يحفظ متصفحك الناتج على جهازك. لا شيء يُرفع، ولا شيء ينتظر في قائمة، وإغلاق التبويب ينهي الأمر كله.</p>
-        <p>وهذا يعني: بلا تسجيل، وبلا حدّ لحجم الملف يفرضه خادم، وبلا نسخ من صورك على قرص أحد غيرك. ويعني أيضاً أن الأدوات تعمل بلا اتصال بعد تحميل الصفحة، وأن بطء الاتصال يؤثر فقط في سرعة وصول الصفحة — لا في سرعة معالجة صورك إطلاقاً.</p>
-      </section>
-
-      <section class="tools-section" id="tools">
-        <h2>كل الأدوات</h2>
-        <!--#include partials/ar/tool-grid.html-->
+      <section class="home-steps" aria-label="كيف يعمل الموقع">
+        <div><h2>01 · اختر صورتك</h2><p>تصفّح ملفاتك أو اسحب صورة أو الصقها. يمكنك تجربة صورة نموذجية قبل استخدام صورك.</p></div>
+        <div><h2>02 · عدّلها كما تريد</h2><p>اضبط الإعدادات وراجع النتيجة. تتم المعالجة في متصفحك، ولا تُرفع صورك إلى أي خادم.</p></div>
+        <div><h2>03 · احفظ وتابع</h2><p>نزّل النتيجة أو أرسلها مباشرة إلى أداة أخرى. يتاح العمل بلا اتصال بعد تخزين موارد الأداة المطلوبة مؤقتاً. <a href="/ar/pages/how-it-works/">كيف يعمل الموقع</a></p></div>
       </section>

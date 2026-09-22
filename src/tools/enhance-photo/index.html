@@ -5,26 +5,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <!--#include partials/theme-boot.html-->
-  <title>Photo Enhancer — 5 One-Click Styles, No Upload | Browser Image Editor</title>
-  <meta name="description" content="Fix a dull or colour-cast photo in one click, then choose from five styles — Natural Pop, Vivid, Warm, Cool and Classic B&amp;W. Nothing is uploaded.">
+  <title>Enhance &amp; Upscale Image — 2× / 4× | Browser Image Editor</title>
+  <meta name="description" content="Enhance photos and upscale 2× or 4× locally. Compare details and export JPG, PNG or WebP, with no uploads or AI claims.">
   <link rel="canonical" href="https://browserimageeditor.online/tools/enhance-photo/">
   <link rel="alternate" hreflang="en" href="https://browserimageeditor.online/tools/enhance-photo/">
   <link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/tools/enhance-photo/">
   <link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/tools/enhance-photo/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Browser Image Editor">
-  <meta property="og:title" content="Photo Enhancer — 5 One-Click Styles, No Upload">
-  <meta property="og:description" content="Fix a dull or colour-cast photo in one click, then choose from five styles — Natural Pop, Vivid, Warm, Cool and Classic B&amp;W. Nothing is uploaded.">
+  <meta property="og:title" content="Enhance &amp; Upscale Image — 2× / 4×">
+  <meta property="og:description" content="Enhance photos and upscale 2× or 4× locally. Compare details and export JPG, PNG or WebP, with no uploads or AI claims.">
   <meta property="og:url" content="https://browserimageeditor.online/tools/enhance-photo/">
   <meta property="og:image" content="https://browserimageeditor.online/og/tool-enhance-photo.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Enhance Photo — a free tool that runs entirely in your browser">
+  <meta property="og:image:alt" content="Enhance / Upscale Image — a free tool that runs entirely in your browser">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Photo Enhancer — 5 One-Click Styles, No Upload">
-  <meta name="twitter:description" content="Fix a dull or colour-cast photo in one click, then choose from five styles — Natural Pop, Vivid, Warm, Cool and Classic B&amp;W. Nothing is uploaded.">
+  <meta name="twitter:title" content="Enhance &amp; Upscale Image — 2× / 4×">
+  <meta name="twitter:description" content="Enhance photos and upscale 2× or 4× locally. Compare details and export JPG, PNG or WebP, with no uploads or AI claims.">
   <meta name="twitter:image" content="https://browserimageeditor.online/og/tool-enhance-photo.png">
-  <meta name="twitter:image:alt" content="Enhance Photo — a free tool that runs entirely in your browser">
+  <meta name="twitter:image:alt" content="Enhance / Upscale Image — a free tool that runs entirely in your browser">
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -32,8 +32,8 @@
     {
       "@type": "SoftwareApplication",
       "@id": "https://browserimageeditor.online/tools/enhance-photo/#software",
-      "name": "Enhance Photo",
-      "description": "Fix a dull or colour-cast photo in one click, then choose from five styles — Natural Pop, Vivid, Warm, Cool and Classic B&W. Nothing is uploaded.",
+      "name": "Enhance / Upscale Image",
+      "description": "Enhance photos and upscale 2× or 4× locally. Compare details and export JPG, PNG or WebP, with no uploads or AI claims.",
       "url": "https://browserimageeditor.online/tools/enhance-photo/",
       "image": "https://browserimageeditor.online/og/tool-enhance-photo.png",
       "applicationCategory": "MultimediaApplication",
@@ -57,10 +57,10 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Does enhancing a photo reduce its quality?",
+          "name": "Does upscaling recover missing detail?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The pixel dimensions never change — no resizing, no cropping. The only loss comes from re-encoding the file, which is why the output keeps your photo's own format and a JPEG is re-saved at high quality rather than through a chain of edits."
+            "text": "No. Bicubic resampling creates a larger image with smooth edges, and enhancement adjusts colour and sharpness. It is not AI and cannot reconstruct missing detail. Choose PNG or WebP to keep transparency."
           }
         },
         {
@@ -118,7 +118,7 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Enhance Photo",
+          "name": "Enhance / Upscale Image",
           "item": "https://browserimageeditor.online/tools/enhance-photo/"
         }
       ]
@@ -134,10 +134,11 @@
   <link rel="stylesheet" href="/assets/css/base.css">
   <link rel="stylesheet" href="/assets/css/layout.css">
   <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/product.css">
 
   <script type="application/json" id="tool-config">{
   "slug": "enhance-photo",
-  "name": "Enhance Photo",
+  "name": "Enhance / Upscale Image",
   "accepts": [
     "image/jpeg",
     "image/png",
@@ -199,7 +200,7 @@
   "js.enhance.correctionSkipped": "Auto-correct found nothing worth fixing: this photo already used the full tonal range, so stretching it further would only have amplified noise.",
   "js.enhance.largerNote": "The enhanced file is {size} larger ({percent}%). Re-encoding does that — the pixel dimensions are unchanged.",
   "js.enhance.manualPath": "This browser has no GPU filter support, so the style was computed pixel by pixel instead of on the graphics chip. The arithmetic is equivalent — the two paths land within a few code values of each other — but it takes a little longer.",
-  "js.enhance.formatFallback": "Your photo's own format could not be written back on this device, so the result was saved as JPEG.",
+  "js.enhance.formatFallback": "The requested format was unavailable, so the result was saved as PNG to preserve transparency.",
   "js.enhance.zeroIntensity": "The intensity sits at 0%, so this is the auto-corrected photo with no style on it.",
   "js.enhance.enhancedCount": "{count} enhanced",
   "js.enhance.zipTail": "Use \"Download all as ZIP\" for the whole batch.",
@@ -422,7 +423,7 @@
   "js.pdf.starting": "Preparing {count} {images} in your browser…",
   "js.pdf.prepared": "{done} of {total} prepared",
   "js.pdf.preparedFailed": "{done} of {total} prepared — {failed} failed",
-  "js.pdf.couldNotPrepareAll": "None of those images could be prepared, so there is no PDF to build.",
+  "js.pdf.couldNotPrepareAll": "Some images could not be prepared. Remove unreadable files and try again; no incomplete PDF was created.",
   "js.pdf.nothingToPut": "There is nothing to put in the PDF.",
   "js.pdf.writing": "Writing the PDF…",
   "js.pdf.readySummary": "PDF ready — {count} {pages}, {size}.",
@@ -435,7 +436,29 @@
   "js.pdf.unsupported": "This browser cannot build a PDF locally.",
   "js.pdf.downloadSize": "Download PDF ({size})",
   "js.pdf.startingPages": "{count} {pages}…",
-  "js.crop.invalidSelection": "That selection is too small to produce an image. Drag a larger box."
+  "js.crop.invalidSelection": "That selection is too small to produce an image. Drag a larger box.",
+  "js.handoff.label": "Continue editing this result",
+  "js.handoff.open": "Open in new tab",
+  "js.handoff.blocked": "Allow pop-ups to continue, or download your result and open it in another tool.",
+  "js.handoff.unavailable": "Create a JPEG, PNG or WebP result before continuing.",
+  "js.handoff.timeout": "The next tool did not respond. Keep this tab open and try again, or download the result.",
+  "js.handoff.compress-image": "Compress",
+  "js.handoff.resize-image": "Resize",
+  "js.handoff.convert-image": "Convert",
+  "js.handoff.crop-image": "Crop",
+  "js.handoff.image-to-pdf": "Create PDF",
+  "js.handoff.enhance-photo": "Enhance / Upscale Image",
+  "js.pdf.previewPage": "Page {page} of {pages} · {images} images",
+  "js.pdf.layoutSummary": "{images} images → {pages} pages · {count} per page",
+  "js.pdf.previewLoading": "Preparing page preview…",
+  "js.pdf.previewFailed": "Preview unavailable. Check your images, margins and spacing.",
+  "js.pdf.cancelled": "PDF creation cancelled. Your images are still here.",
+  "js.enhance.sourceInfo": "Original: {width} × {height} px · {size}",
+  "js.enhance.outputInfo": "Output: {width} × {height} px",
+  "js.enhance.phaseUpscale": "Upscaling image…",
+  "js.error.UPSCALE_TOO_LARGE": "This output is too large for safe processing. Choose a smaller scale or resize the original first.",
+  "js.error.INVALID_SCALE": "Choose 1×, 2× or 4×.",
+  "js.error.INVALID_LAYOUT": "Check the page size, margins and image spacing. Choose A4 or Letter for multiple images."
 }</script>
 </head>
 <body>
@@ -445,11 +468,11 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="/">All tools</a>
         <span class="breadcrumb-separator" aria-hidden="true">/</span>
-        <span aria-current="page">Enhance Photo</span>
+        <span aria-current="page">Enhance / Upscale Image</span>
       </nav>
 
       <header class="tool-header">
-        <h1>Enhance a photo in one click</h1>
+        <h1>Enhance and upscale your images</h1>
         <!--
           The intro is the last thing standing between a phone's viewport and the drop zone, at around
           190px of prose for a typical tool. It keeps its place in the document — a desktop shows it
@@ -458,7 +481,7 @@
         -->
         <div class="intro-disclosure" data-collapsible>
           <details><summary>What this tool does</summary></details>
-          <p class="tool-intro disclosure-body">Drop a photo and the tool corrects its exposure and colour cast first, then shows you five styles rendered from your own image. Adjust one slider and download — no layers, no curves, no account, and nothing uploaded.</p>
+          <p class="tool-intro disclosure-body">Improve colour and clarity, enlarge images 2× or 4×, and inspect the details before saving. High-quality local resampling keeps your images on your device.</p>
         </div>
       </header>
 
@@ -517,6 +540,10 @@
               <input class="compare-slider-input" type="range" min="0" max="100" step="1" value="50" data-compare-input aria-label="Drag to compare the original photo with the enhanced one">
             </div>
             <p class="compare-savings" data-compare-savings></p>
+            <details class="detail-preview"><summary>Inspect details at 100% · scroll to pan</summary><div class="detail-columns">
+              <div><p>Original</p><div class="detail-scroll" tabindex="0" role="region" aria-label="Original"><img data-detail-before alt="The original image"></div></div>
+              <div><p>Enhanced result</p><div class="detail-scroll" tabindex="0" role="region" aria-label="Enhanced result"><img data-detail-after alt="Enhanced result"></div></div>
+            </div></details>
             <dl class="result-stats">
               <div class="result-stat">
                 <dt>Style</dt>
@@ -562,6 +589,10 @@
           truth â€” every one of them is a hooked control the tool script already owns.
         -->
         <aside class="studio-inspector">
+          <div class="ctl"><label class="ctl-label" for="enhance-scale">Resolution scale</label><select id="enhance-scale" class="field-input" data-upscale data-shell-chips aria-label="Resolution scale"><option value="1">1×</option><option value="2">2×</option><option value="4">4×</option></select></div>
+          <p data-source-info class="field-hint" dir="auto"></p><p data-output-info class="field-hint" dir="auto" role="status"></p>
+          <div class="ctl"><label class="ctl-label" for="enhance-format">Output format</label><select id="enhance-format" class="field-input" data-enhance-format><option value="">Keep original format</option><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select></div>
+          <p class="field-hint">High-quality bicubic resampling, not AI. 2× doubles width and height; 4× uses 16× as many pixels. PNG/WebP preserve transparency; JPG uses white. Output is limited to 16 MP, or less on some devices.</p>
           <div class="ctl">
             <div class="preset-heading">
               <h2 class="preset-title">Choose a style</h2>
@@ -660,7 +691,7 @@
             <li><strong>First, a histogram correction.</strong> The tool finds the real black and white point of each colour channel, ignoring a small slice of outlier pixels so that one reflected highlight cannot set the range, then stretches what is left across the full range. Stretching the three channels independently is what removes a colour cast; the amount of stretch is capped, because amplifying a nearly black photo mostly amplifies its noise.</li>
             <li><strong>Then a style.</strong> The five styles are applied on top of the corrected photo, and the intensity slider blends between the two — so a look that is too strong can always be dialled back to the corrected photo rather than to the original.</li>
             <li>The <strong>thumbnails are your own photo</strong>, rendered at 160 pixels wide by the same code that processes the full-size image. A style you have not seen applied to your picture is a style you cannot really choose.</li>
-            <li>Nothing is cropped or resized, and the result keeps your photo's own format, so a JPEG stays a JPEG instead of turning into a much larger PNG.</li>
+            <li>Keep the original dimensions or upscale 2×/4× with bicubic resampling. Choose JPG, PNG or WebP. Upscaling cannot recover detail absent from the original.</li>
             <li>Drop several photos and the whole batch is enhanced with the same style and returned as one ZIP. The style still applies to the pixels on your device, one image at a time.</li>
           </ul>
         </div>
@@ -672,8 +703,8 @@
     <details><summary><h2>Frequently asked questions</h2></summary></details>
     <div class="disclosure-body">
       <details class="faq-item" data-faq-item>
-        <summary>Does enhancing a photo reduce its quality?</summary>
-        <p>The pixel dimensions never change — no resizing, no cropping. The only loss comes from re-encoding the file, which is why the output keeps your photo&#39;s own format and a JPEG is re-saved at high quality rather than through a chain of edits.</p>
+        <summary>Does upscaling recover missing detail?</summary>
+        <p>No. Bicubic resampling creates a larger image with smooth edges, and enhancement adjusts colour and sharpness. It is not AI and cannot reconstruct missing detail. Choose PNG or WebP to keep transparency.</p>
       </details>
       <details class="faq-item" data-faq-item>
         <summary>What does the auto-correct actually do?</summary>
