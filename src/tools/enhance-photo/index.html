@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <!--#include partials/theme-boot.html-->
-  <title>Enhance &amp; Upscale Image — 2× / 4× | Browser Image Editor</title>
+  <title>Enhance &amp; Upscale Image — 2× / 4×</title>
   <meta name="description" content="Enhance photos and upscale 2× or 4× locally. Compare details and export JPG, PNG or WebP, with no uploads or AI claims.">
   <link rel="canonical" href="https://browserimageeditor.online/tools/enhance-photo/">
   <link rel="alternate" hreflang="en" href="https://browserimageeditor.online/tools/enhance-photo/">
@@ -458,7 +458,12 @@
   "js.enhance.phaseUpscale": "Upscaling image…",
   "js.error.UPSCALE_TOO_LARGE": "This output is too large for safe processing. Choose a smaller scale or resize the original first.",
   "js.error.INVALID_SCALE": "Choose 1×, 2× or 4×.",
-  "js.error.INVALID_LAYOUT": "Check the page size, margins and image spacing. Choose A4 or Letter for multiple images."
+  "js.error.INVALID_LAYOUT": "Check the page size, margins and image spacing. Choose A4 or Letter for multiple images.",
+  "js.favorite.add": "Add to favorites",
+  "js.favorite.remove": "Remove from favorites",
+  "js.favorite.saved": "Favorites saved on this device.",
+  "js.favorite.storageUnavailable": "Favorites work for this visit but could not be saved in this browser.",
+  "js.favorite.empty": "No favorites yet. Add a tool with the star button."
 }</script>
 </head>
 <body>
@@ -732,23 +737,26 @@
     <details><summary><h2>Related tools</h2></summary></details>
     <div class="disclosure-body">
       <ul class="tool-grid">
-        <li class="tool-card">
+        <li class="tool-card" data-category="optimize">
           <a class="tool-card-link" href="/tools/compress-image/">
             <span class="tool-card-name">Compress</span>
             <span class="tool-card-desc">Make image files smaller</span>
           </a>
+          <button class="tool-favorite" type="button" data-favorite-toggle="compress-image" aria-pressed="false" hidden>☆</button>
         </li>
-        <li class="tool-card">
+        <li class="tool-card" data-category="convert">
           <a class="tool-card-link" href="/tools/convert-image/">
             <span class="tool-card-name">Convert</span>
             <span class="tool-card-desc">Switch between JPEG, PNG and WebP</span>
           </a>
+          <button class="tool-favorite" type="button" data-favorite-toggle="convert-image" aria-pressed="false" hidden>☆</button>
         </li>
-        <li class="tool-card">
+        <li class="tool-card" data-category="transform">
           <a class="tool-card-link" href="/tools/resize-image/">
             <span class="tool-card-name">Resize</span>
             <span class="tool-card-desc">Change width and height</span>
           </a>
+          <button class="tool-favorite" type="button" data-favorite-toggle="resize-image" aria-pressed="false" hidden>☆</button>
         </li>
       </ul>
     </div>

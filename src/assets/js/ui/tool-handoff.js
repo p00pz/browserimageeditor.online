@@ -1,7 +1,17 @@
 import { t } from './strings.js';
 
-const TOOLS = ['compress-image', 'resize-image', 'convert-image', 'crop-image', 'image-to-pdf', 'enhance-photo'];
 const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+
+function liveToolLinks(current) {
+  const seen = new Set();
+  return [...document.querySelectorAll('.nav-link[href]')].flatMap((anchor) => {
+    const url = new URL(anchor.href, location.origin);
+    const match = url.pathname.match(/(?:^|\/)tools\/([\w-]+)\/?$/);
+    if (!match || match[1] === current || seen.has(match[1])) return [];
+    seen.add(match[1]);
+    return [{ slug: match[1], path: url.pathname, label: anchor.textContent.trim() }];
+  });
+}
 
 /** A one-use, same-origin handoff. Bytes live only in the two open tabs, never in storage. */
 export function receiveHandoff(onFile) {
@@ -28,8 +38,9 @@ export function attachHandoff(anchor, { getBlob, getFilename, statusEl }) {
   const result = anchor.closest?.('[data-result]');
   if (!result || typeof window === 'undefined') return () => {};
   const current = document.querySelector('[data-tool-slug]')?.dataset.toolSlug;
-  // PDFs cannot be used as input to these image tools.
   if (current === 'image-to-pdf') return () => {};
+  const tools = liveToolLinks(current);
+  if (!tools.length) return () => {};
   const region = document.createElement('div');
   region.className = 'next-tool';
   const label = document.createElement('label');
@@ -37,10 +48,11 @@ export function attachHandoff(anchor, { getBlob, getFilename, statusEl }) {
   const select = document.createElement('select');
   select.id = 'next-tool-select';
   label.htmlFor = select.id;
-  for (const slug of TOOLS.filter((slug) => slug !== current)) {
+  for (const tool of tools) {
     const option = document.createElement('option');
-    option.value = slug;
-    option.textContent = t(`js.handoff.${slug}`);
+    option.value = tool.slug;
+    option.dataset.path = tool.path;
+    option.textContent = tool.label || tool.slug;
     select.append(option);
   }
   const button = document.createElement('button');
@@ -56,9 +68,13 @@ export function attachHandoff(anchor, { getBlob, getFilename, statusEl }) {
     }
     cleanup();
     const file = new File([blob], getFilename?.() || 'edited-image', { type: blob.type });
-    const token = `edit-${crypto.randomUUID()}`;
-    const prefix = document.documentElement.lang === 'ar' ? '/ar' : '';
-    const child = window.open(`${prefix}/tools/${select.value}/#${token}`, '_blank');
+    const token = 'edit-' + crypto.randomUUID();
+    const path = select.selectedOptions[0]?.dataset.path;
+    if (!path) {
+      if (statusEl) statusEl.textContent = t('js.handoff.unavailable');
+      return;
+    }
+    const child = window.open(path + '#' + token, '_blank');
     if (!child) {
       if (statusEl) statusEl.textContent = t('js.handoff.blocked');
       return;

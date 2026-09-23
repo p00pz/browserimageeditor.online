@@ -7,7 +7,6 @@
  * (A dev server works too — the run is against PREVIEW_URL either way.)
  */
 import { webkit } from 'playwright';
-import zlib from 'node:zlib';
 
 const PREVIEW_URL = process.env.PREVIEW_URL ?? 'http://localhost:4317';
 const IPHONE =
@@ -17,48 +16,6 @@ const findings = [];
 function check(ok, message) {
   findings.push({ ok, message });
   console.log(`${ok ? 'PASS' : 'FAIL'}  ${message}`);
-}
-
-/** A valid solid-colour PNG, built by hand so the harness needs no image library. */
-function solidPng(width, height, [r, g, b]) {
-  const crcTable = [];
-  for (let n = 0; n < 256; n++) {
-    let c = n;
-    for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
-    crcTable[n] = c;
-  }
-  const crc = (buf) => {
-    let c = 0xffffffff;
-    for (const byte of buf) c = crcTable[(c ^ byte) & 0xff] ^ (c >>> 8);
-    return (c ^ 0xffffffff) >>> 0;
-  };
-  const chunk = (type, data) => {
-    const buf = Buffer.concat([Buffer.from(type, 'latin1'), Buffer.from(data)]);
-    const len = Buffer.alloc(4);
-    len.writeUInt32BE(buf.length, 0);
-    const crcBuf = Buffer.alloc(4);
-    crcBuf.writeUInt32BE(crc(buf), 0);
-    return Buffer.concat([len, buf, crcBuf]);
-  };
-  const row = Buffer.alloc(1 + width * 4);
-  for (let x = 0; x < width; x++) {
-    row[1 + x * 4] = r;
-    row[1 + x * 4 + 1] = g;
-    row[1 + x * 4 + 2] = b;
-    row[1 + x * 4 + 3] = 255;
-  }
-  const rows = Buffer.concat(Array.from({ length: height }, () => row));
-  const ihdr = Buffer.alloc(13);
-  ihdr.writeUInt32BE(width, 0);
-  ihdr.writeUInt32BE(height, 4);
-  ihdr[8] = 8; // bit depth
-  ihdr[9] = 6; // RGBA
-  return Buffer.concat([
-    Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]),
-    chunk('IHDR', ihdr),
-    chunk('IDAT', zlib.deflateSync(rows)),
-    chunk('IEND', Buffer.alloc(0)),
-  ]);
 }
 
 async function openMenu(page) {
@@ -131,11 +88,7 @@ async function main() {
 
   /* ---------- B. the save path, end to end ---------- */
 
-  await page.setInputFiles('[data-dropzone-input]', {
-    name: 'photo.png',
-    mimeType: 'image/png',
-    buffer: solidPng(640, 480, [96, 160, 216]),
-  });
+  await page.click('[data-sample-image]');
 
   // The default operation runs the moment an image lands; the result panel is the signal.
   await page.waitForSelector('[data-result]:not([hidden])', { timeout: 45000 });
@@ -153,16 +106,25 @@ async function main() {
   // Headless WebKit has no share sheet, so an iPhone UA takes the fallback viewer by design.
   await page.waitForSelector('.save-viewer:not([hidden])', { timeout: 8000 });
 
-  const viewer = await page.evaluate(() => {
+  const viewer = await page.evaluate(async () => {
     const img = document.querySelector('.save-viewer-img');
     if (!img) return { missing: true };
     const cs = getComputedStyle(img);
+    let callout = cs.getPropertyValue('-webkit-touch-callout') || cs.webkitTouchCallout;
+    if (!callout) {
+      // Linux WebKit does not expose this iOS-only property through computed style. Verify the
+      // production stylesheet declaration, rather than treating unsupported CSSOM as a failure.
+      for (const link of document.querySelectorAll('link[rel="stylesheet"]')) {
+        const css = await fetch(link.href).then((response) => response.text()).catch(() => '');
+        if (/\.save-viewer-img\s*\{[^}]*-webkit-touch-callout\s*:\s*auto\s*;/s.test(css)) callout = 'auto';
+      }
+    }
     const r = img.getBoundingClientRect();
     const header = document.querySelector('.header').getBoundingClientRect();
     // elementFromPoint at the image's centre: whatever is on top of the pixels.
     const top = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
     return {
-      callout: cs.webkitTouchCallout,
+      callout,
       userSelect: cs.userSelect,
       userDrag: cs.webkitUserDrag,
       isImg: top === img,
@@ -193,11 +155,7 @@ async function main() {
   /* ---------- C. ?debug=1 diagnostics ---------- */
 
   await page.goto(`${url}?debug=1`, { waitUntil: 'networkidle' });
-  await page.setInputFiles('[data-dropzone-input]', {
-    name: 'photo.png',
-    mimeType: 'image/png',
-    buffer: solidPng(640, 480, [96, 160, 216]),
-  });
+  await page.click('[data-sample-image]');
   await page.waitForSelector('[data-result]:not([hidden])', { timeout: 45000 });
   await page.click('[data-download]');
   await page.waitForSelector('pre.save-debug', { timeout: 8000 });

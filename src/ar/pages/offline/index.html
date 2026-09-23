@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <!--#include partials/theme-boot.html-->
-  <title>الاستخدام دون اتصال — أدوات الصور | محرر الصور في المتصفح</title>
+  <title>الاستخدام دون اتصال — أدوات الصور</title>
   <meta name="description" content="تعرّف على الأدوات التي يمكن تشغيلها دون اتصال بعد اكتمال تنزيل ملفاتها، وكيفية استئناف العمل.">
   <link rel="canonical" href="https://browserimageeditor.online/ar/pages/offline/">
   <link rel="alternate" hreflang="en" href="https://browserimageeditor.online/pages/offline/">
@@ -357,7 +357,12 @@
   "js.enhance.phaseUpscale": "جاري تكبير الصورة…",
   "js.error.UPSCALE_TOO_LARGE": "أبعاد النتيجة أكبر مما يستطيع جهازك معالجته بأمان. اختر تكبيراً أقل أو صغّر الصورة الأصلية أولاً.",
   "js.error.INVALID_SCALE": "اختر 1× أو 2× أو 4×.",
-  "js.error.INVALID_LAYOUT": "تحقّق من مقاس الصفحة والهوامش والمسافة بين الصور. اختر A4 أو Letter عند وضع عدة صور في الصفحة."
+  "js.error.INVALID_LAYOUT": "تحقّق من مقاس الصفحة والهوامش والمسافة بين الصور. اختر A4 أو Letter عند وضع عدة صور في الصفحة.",
+  "js.favorite.add": "أضف إلى المفضلة",
+  "js.favorite.remove": "أزل من المفضلة",
+  "js.favorite.saved": "حُفظت المفضلة على هذا الجهاز.",
+  "js.favorite.storageUnavailable": "تعمل المفضلة خلال هذه الزيارة، لكن تعذّر حفظها في هذا المتصفح.",
+  "js.favorite.empty": "لا توجد أدوات مفضلة بعد. أضف أداة بزر النجمة."
 }</script>
 </head>
 <body>
@@ -373,41 +378,47 @@
       <article class="prose" data-page-root data-page-slug="offline">
         <h1>أنت غير متصل بالإنترنت</h1>
 <h2>الاتصال غير متاح حالياً</h2><p>تعذّر تحميل الصفحة المطلوبة. قد تكون هذه أول زيارة لها، أو لم يكتمل تنزيل ملفاتها للاستخدام دون اتصال.</p><h2>ما الذي يمكنك استخدامه؟</h2><p>تعمل الأدوات محلياً بعد اكتمال تخزين مواردها على جهازك. قد تحتاج بعض الميزات، مثل تحويل HEIC وإنشاء PDF لأول مرة، إلى الاتصال لتنزيل ملفات إضافية.</p><p>الأدوات المتاحة في الموقع موضّحة أدناه. وجود الأداة في القائمة لا يعني اكتمال تنزيلها على هذا الجهاز.</p>    <ul class="tool-grid">
-      <li class="tool-card">
+      <li class="tool-card" data-category="optimize">
         <a class="tool-card-link" href="/ar/tools/compress-image/">
           <span class="tool-card-name">ضغط الصور</span>
           <span class="tool-card-desc">قلّل حجم الملف مع ضبط الجودة</span>
         </a>
+        <button class="tool-favorite" type="button" data-favorite-toggle="compress-image" aria-pressed="false" hidden>☆</button>
       </li>
-      <li class="tool-card">
+      <li class="tool-card" data-category="transform">
         <a class="tool-card-link" href="/ar/tools/resize-image/">
           <span class="tool-card-name">تغيير أبعاد الصورة</span>
           <span class="tool-card-desc">اضبط العرض والارتفاع حسب حاجتك</span>
         </a>
+        <button class="tool-favorite" type="button" data-favorite-toggle="resize-image" aria-pressed="false" hidden>☆</button>
       </li>
-      <li class="tool-card">
+      <li class="tool-card" data-category="convert">
         <a class="tool-card-link" href="/ar/tools/convert-image/">
           <span class="tool-card-name">تحويل صيغة الصور</span>
           <span class="tool-card-desc">حوّل الصور إلى JPEG أو PNG أو WebP</span>
         </a>
+        <button class="tool-favorite" type="button" data-favorite-toggle="convert-image" aria-pressed="false" hidden>☆</button>
       </li>
-      <li class="tool-card">
+      <li class="tool-card" data-category="transform">
         <a class="tool-card-link" href="/ar/tools/crop-image/">
           <span class="tool-card-name">قص الصور</span>
           <span class="tool-card-desc">اختر الجزء الذي تريد الاحتفاظ به</span>
         </a>
+        <button class="tool-favorite" type="button" data-favorite-toggle="crop-image" aria-pressed="false" hidden>☆</button>
       </li>
-      <li class="tool-card">
+      <li class="tool-card" data-category="convert">
         <a class="tool-card-link" href="/ar/tools/image-to-pdf/">
           <span class="tool-card-name">صور إلى PDF</span>
           <span class="tool-card-desc">اجمع صورك في ملف PDF، حتى 9 صور في الصفحة</span>
         </a>
+        <button class="tool-favorite" type="button" data-favorite-toggle="image-to-pdf" aria-pressed="false" hidden>☆</button>
       </li>
-      <li class="tool-card">
+      <li class="tool-card" data-category="enhance">
         <a class="tool-card-link" href="/ar/tools/enhance-photo/">
           <span class="tool-card-name">رفع جودة الصورة</span>
           <span class="tool-card-desc">حسّن وضوح الصورة وكبّرها 2× أو 4×</span>
         </a>
+        <button class="tool-favorite" type="button" data-favorite-toggle="enhance-photo" aria-pressed="false" hidden>☆</button>
       </li>
     </ul><h2>للمتابعة</h2><p>أعد الاتصال ثم افتح الصفحة مجدداً. صورك لا تُرفع إلى خادم. إذا كانت لديك نتيجة جاهزة في تبويب آخر، نزّلها قبل إغلاقه أو إعادة تحميله.</p><p><a href="/ar/">العودة إلى الأدوات</a></p>
 

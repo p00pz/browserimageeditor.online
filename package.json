@@ -21,7 +21,10 @@
     "postbuild": "npm run gen:sw && npm run audit:pwa",
     "gen:sw": "node scripts/gen-sw.mjs",
     "preview": "vite preview",
-    "test": "node --test tests/*.test.js"
+    "test": "node --test tests/*.test.js",
+    "qa:browser": "node qa/product-smoke.mjs && node qa/pwa-offline.mjs",
+    "qa:ios": "node qa/ios-verify.mjs",
+    "qa:visual": "node qa/visual-qa.mjs"
   },
   "devDependencies": {
     "@fontsource/ibm-plex-sans-arabic": "^5.3.0",

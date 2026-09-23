@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <!--#include partials/theme-boot.html-->
-  <title>تحويل صيغة الصور — JPEG وPNG وWebP | محرر الصور في المتصفح</title>
+  <title>تحويل صيغة الصور — JPEG وPNG وWebP</title>
   <meta name="description" content="حوّل صورك بين الصيغ المدعومة، واختر JPEG أو PNG أو WebP للحفظ. تتم المعالجة على جهازك دون رفع الصور.">
   <link rel="canonical" href="https://browserimageeditor.online/ar/tools/convert-image/">
   <link rel="alternate" hreflang="en" href="https://browserimageeditor.online/tools/convert-image/">
@@ -453,7 +453,12 @@
   "js.enhance.phaseUpscale": "جاري تكبير الصورة…",
   "js.error.UPSCALE_TOO_LARGE": "أبعاد النتيجة أكبر مما يستطيع جهازك معالجته بأمان. اختر تكبيراً أقل أو صغّر الصورة الأصلية أولاً.",
   "js.error.INVALID_SCALE": "اختر 1× أو 2× أو 4×.",
-  "js.error.INVALID_LAYOUT": "تحقّق من مقاس الصفحة والهوامش والمسافة بين الصور. اختر A4 أو Letter عند وضع عدة صور في الصفحة."
+  "js.error.INVALID_LAYOUT": "تحقّق من مقاس الصفحة والهوامش والمسافة بين الصور. اختر A4 أو Letter عند وضع عدة صور في الصفحة.",
+  "js.favorite.add": "أضف إلى المفضلة",
+  "js.favorite.remove": "أزل من المفضلة",
+  "js.favorite.saved": "حُفظت المفضلة على هذا الجهاز.",
+  "js.favorite.storageUnavailable": "تعمل المفضلة خلال هذه الزيارة، لكن تعذّر حفظها في هذا المتصفح.",
+  "js.favorite.empty": "لا توجد أدوات مفضلة بعد. أضف أداة بزر النجمة."
 }</script>
 </head>
 <body>
@@ -654,17 +659,19 @@
     <details><summary><h2>أدوات ذات صلة</h2></summary></details>
     <div class="disclosure-body">
       <ul class="tool-grid">
-        <li class="tool-card">
+        <li class="tool-card" data-category="optimize">
           <a class="tool-card-link" href="/ar/tools/compress-image/">
             <span class="tool-card-name">ضغط الصور</span>
             <span class="tool-card-desc">قلّل حجم الملف مع ضبط الجودة</span>
           </a>
+          <button class="tool-favorite" type="button" data-favorite-toggle="compress-image" aria-pressed="false" hidden>☆</button>
         </li>
-        <li class="tool-card">
+        <li class="tool-card" data-category="transform">
           <a class="tool-card-link" href="/ar/tools/resize-image/">
             <span class="tool-card-name">تغيير أبعاد الصورة</span>
             <span class="tool-card-desc">اضبط العرض والارتفاع حسب حاجتك</span>
           </a>
+          <button class="tool-favorite" type="button" data-favorite-toggle="resize-image" aria-pressed="false" hidden>☆</button>
         </li>
       </ul>
     </div>

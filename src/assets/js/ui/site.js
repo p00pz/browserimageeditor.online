@@ -70,6 +70,8 @@ function initMobileMenu() {
   if (!toggle || !nav) return;
 
   let lastFocus = null;
+  const inertSiblings = new Map();
+  toggle.setAttribute('aria-controls', nav.id || 'mobile-menu');
 
   function focusables() {
     return [...nav.querySelectorAll('a[href], button:not([disabled])')].filter(
@@ -80,12 +82,25 @@ function initMobileMenu() {
   function setOpen(open) {
     nav.classList.toggle('is-open', open);
     toggle.setAttribute('aria-expanded', String(open));
+    nav.setAttribute('aria-hidden', String(!open));
     // The label a screen reader announces is part of the page's language, so it comes from the
     // page's own catalogue rather than a literal. Both catalogues hold the same English words,
     // so this changes nothing on an English page.
     toggle.setAttribute('aria-label', t(open ? 'js.chrome.menuClose' : 'js.chrome.menuOpen'));
     // The page behind an open sheet is not content to be scrolled to; it is a backdrop.
     document.body.style.overflow = open ? 'hidden' : '';
+    for (const sibling of document.body.children) {
+      // Keep the header interactive so the same hamburger/X button can close the sheet.
+      // The sheet is a body-level sibling, so inert only the page content around it.
+      if (sibling === nav || sibling.contains(toggle)) continue;
+      if (open) {
+        inertSiblings.set(sibling, sibling.inert);
+        sibling.inert = true;
+      } else if (inertSiblings.has(sibling)) {
+        sibling.inert = inertSiblings.get(sibling);
+        inertSiblings.delete(sibling);
+      }
+    }
     if (open) {
       lastFocus = document.activeElement;
       focusables()[0]?.focus();
@@ -96,7 +111,7 @@ function initMobileMenu() {
     }
   }
 
-  window.matchMedia('(min-width: 768px)').addEventListener('change', (event) => {
+  window.matchMedia('(min-width: 900px)').addEventListener('change', (event) => {
     if (event.matches && nav.classList.contains('is-open')) setOpen(false);
   });
   setOpen(false);

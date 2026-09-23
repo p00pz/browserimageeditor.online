@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <!--#include partials/theme-boot.html-->
-  <title>Remove Image Background — Free, No Upload | Browser Image Editor</title>
+  <title>Remove Image Background — Free, No Upload</title>
   <meta name="description" content="Cut the background out of a photo and download a transparent PNG, or brush over an object and erase it — on your own device, no upload and no account.">
   <link rel="canonical" href="https://browserimageeditor.online/tools/remove-background/">
   <link rel="alternate" hreflang="en" href="https://browserimageeditor.online/tools/remove-background/">
@@ -406,7 +406,12 @@
   "js.enhance.phaseUpscale": "Upscaling image…",
   "js.error.UPSCALE_TOO_LARGE": "This output is too large for safe processing. Choose a smaller scale or resize the original first.",
   "js.error.INVALID_SCALE": "Choose 1×, 2× or 4×.",
-  "js.error.INVALID_LAYOUT": "Check the page size, margins and image spacing. Choose A4 or Letter for multiple images."
+  "js.error.INVALID_LAYOUT": "Check the page size, margins and image spacing. Choose A4 or Letter for multiple images.",
+  "js.favorite.add": "Add to favorites",
+  "js.favorite.remove": "Remove from favorites",
+  "js.favorite.saved": "Favorites saved on this device.",
+  "js.favorite.storageUnavailable": "Favorites work for this visit but could not be saved in this browser.",
+  "js.favorite.empty": "No favorites yet. Add a tool with the star button."
 }</script>
 </head>
 <body>
@@ -437,41 +442,47 @@
         <div class="planned-tools">
           <h2>Tools that do work today</h2>
     <ul class="tool-grid">
-      <li class="tool-card">
+      <li class="tool-card" data-category="optimize">
         <a class="tool-card-link" href="/tools/compress-image/">
           <span class="tool-card-name">Compress</span>
           <span class="tool-card-desc">Make image files smaller</span>
         </a>
+        <button class="tool-favorite" type="button" data-favorite-toggle="compress-image" aria-pressed="false" hidden>☆</button>
       </li>
-      <li class="tool-card">
+      <li class="tool-card" data-category="transform">
         <a class="tool-card-link" href="/tools/resize-image/">
           <span class="tool-card-name">Resize</span>
           <span class="tool-card-desc">Change width and height</span>
         </a>
+        <button class="tool-favorite" type="button" data-favorite-toggle="resize-image" aria-pressed="false" hidden>☆</button>
       </li>
-      <li class="tool-card">
+      <li class="tool-card" data-category="convert">
         <a class="tool-card-link" href="/tools/convert-image/">
           <span class="tool-card-name">Convert</span>
           <span class="tool-card-desc">Switch between JPEG, PNG and WebP</span>
         </a>
+        <button class="tool-favorite" type="button" data-favorite-toggle="convert-image" aria-pressed="false" hidden>☆</button>
       </li>
-      <li class="tool-card">
+      <li class="tool-card" data-category="transform">
         <a class="tool-card-link" href="/tools/crop-image/">
           <span class="tool-card-name">Crop</span>
           <span class="tool-card-desc">Crop and reframe the picture</span>
         </a>
+        <button class="tool-favorite" type="button" data-favorite-toggle="crop-image" aria-pressed="false" hidden>☆</button>
       </li>
-      <li class="tool-card">
+      <li class="tool-card" data-category="convert">
         <a class="tool-card-link" href="/tools/image-to-pdf/">
           <span class="tool-card-name">PDF</span>
           <span class="tool-card-desc">Arrange 1–9 images per page in a PDF</span>
         </a>
+        <button class="tool-favorite" type="button" data-favorite-toggle="image-to-pdf" aria-pressed="false" hidden>☆</button>
       </li>
-      <li class="tool-card">
+      <li class="tool-card" data-category="enhance">
         <a class="tool-card-link" href="/tools/enhance-photo/">
           <span class="tool-card-name">Enhance / Upscale Image</span>
           <span class="tool-card-desc">Improve clarity and enlarge images 2× or 4×</span>
         </a>
+        <button class="tool-favorite" type="button" data-favorite-toggle="enhance-photo" aria-pressed="false" hidden>☆</button>
       </li>
     </ul>
         </div>
@@ -507,23 +518,26 @@
     <details><summary><h2>Related tools</h2></summary></details>
     <div class="disclosure-body">
       <ul class="tool-grid">
-        <li class="tool-card">
+        <li class="tool-card" data-category="transform">
           <a class="tool-card-link" href="/tools/crop-image/">
             <span class="tool-card-name">Crop</span>
             <span class="tool-card-desc">Crop and reframe the picture</span>
           </a>
+          <button class="tool-favorite" type="button" data-favorite-toggle="crop-image" aria-pressed="false" hidden>☆</button>
         </li>
-        <li class="tool-card">
+        <li class="tool-card" data-category="optimize">
           <a class="tool-card-link" href="/tools/compress-image/">
             <span class="tool-card-name">Compress</span>
             <span class="tool-card-desc">Make image files smaller</span>
           </a>
+          <button class="tool-favorite" type="button" data-favorite-toggle="compress-image" aria-pressed="false" hidden>☆</button>
         </li>
-        <li class="tool-card">
+        <li class="tool-card" data-category="convert">
           <a class="tool-card-link" href="/tools/convert-image/">
             <span class="tool-card-name">Convert</span>
             <span class="tool-card-desc">Switch between JPEG, PNG and WebP</span>
           </a>
+          <button class="tool-favorite" type="button" data-favorite-toggle="convert-image" aria-pressed="false" hidden>☆</button>
         </li>
       </ul>
     </div>

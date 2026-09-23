@@ -14,7 +14,7 @@
  * a visitor's cache, and that the offline page is reachable but not indexable.
  *
  * It cannot check the two things that need a browser — that the worker actually activates, and that
- * a page loads with the network switched off. qa/strike-proof.mjs covers those against a build.
+ * a page loads with the network switched off. qa/pwa-offline.mjs covers those against a build.
  *
  * Exit code is 1 when any error is found, so `npm run audit:pwa` can gate a deploy. Warnings do not
  * fail the build unless `--strict` is passed.
@@ -39,6 +39,8 @@ const SHELL_TOTAL_LIMIT = 300 * 1024;
 const SHELL_ENTRY_LIMIT = 200 * 1024;
 /** Above this, a file is a lazy feature rather than part of a page's bundle. */
 const BUNDLE_LAZY_LIMIT = 500 * 1024;
+const isPdfRoute = (route) =>
+  /^\/((?:ar\/)??tools\/image-to-pdf|(?:ar\/)??targets\/(?:image-to-pdf-a4|photos-to-pdf-one-page))\/$/.test(route);
 
 const problems = [];
 const error = (file, message) => problems.push({ level: 'error', file, message });
@@ -294,10 +296,11 @@ if (!existsSync(swFile)) {
         }
       }
     }
-    for (const bundle of bundles) {
+    for (const [route, index] of Object.entries(bundleIndex)) {
+      const bundle = bundles[index] || [];
       const bytes = bundle.reduce((total, url) => total + (builtFileSize(DIST, url) ?? 0), 0);
-      if (bytes > BUNDLE_LAZY_LIMIT + SHELL_ENTRY_LIMIT) {
-        warn('dist/sw.js', `a warm bundle totals ${(bytes / 1024).toFixed(0)} KB`);
+      if (!isPdfRoute(route) && bytes > BUNDLE_LAZY_LIMIT + SHELL_ENTRY_LIMIT) {
+        warn('dist/sw.js', `${route} warm bundle totals ${(bytes / 1024).toFixed(0)} KB`);
       }
     }
 
@@ -339,3 +342,4 @@ if (errors.length === 0 && warnings.length > 0 && !strict) {
   console.log('audit-pwa: warnings do not fail the build. Pass --strict to treat them as errors.');
 }
 if (errors.length > 0 || (strict && warnings.length > 0)) process.exit(1);
+

@@ -34,6 +34,9 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
+      - name: Run unit tests
+        run: bun test
+
       - name: Generate pages and static artifacts
         run: bun run gen
 
@@ -44,11 +47,43 @@ jobs:
         run: bun run gen:sw
 
       - name: Audit SEO
-        run: bun run audit:seo
+        run: node scripts/audit-seo.mjs --strict
 
       - name: Audit PWA
-        run: bun run audit:pwa
+        run: node scripts/audit-pwa.mjs --strict
 
+      - name: Install Playwright browsers
+        run: bunx playwright install --with-deps chromium webkit
+
+      - name: Start production preview
+        run: |
+          bun run preview -- --host 127.0.0.1 --port 4317 > /tmp/image-editor-preview.log 2>&1 &
+          echo $! > /tmp/image-editor-preview.pid
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4317/ >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/image-editor-preview.log
+          exit 1
+
+      - name: Run browser product and offline checks
+        run: bun run qa:browser
+
+      - name: Run visual layout and accessibility checks
+        env:
+          PREVIEW_URL: http://127.0.0.1:4317
+          ENGINE: chromium
+          QA_VISUAL_OUT: /tmp/browser-image-editor-visual
+          QA_VISUAL_REPORT: /tmp/browser-image-editor-visual-report.json
+        run: |
+          mkdir -p "$QA_VISUAL_OUT"
+          bun run qa:visual
+      - name: Verify iPhone save behavior in WebKit
+        env:
+          PREVIEW_URL: http://127.0.0.1:4317
+        run: bun run qa:ios
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

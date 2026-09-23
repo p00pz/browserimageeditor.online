@@ -31,6 +31,15 @@
 .discovery .tool-card-planned .tool-card-badge { margin: 0; align-self: center; }
 @media (min-width: 900px) { .discovery .tool-grid { grid-template-columns: repeat(3, 1fr); } }
 .discovery [hidden], .tool-search[hidden] { display: none !important; }
+.discovery-controls { display: grid; justify-items: end; gap: 10px; }
+.tool-filters { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 6px; }
+.tool-filters button { min-width: 44px; min-height: 44px; padding: 6px 12px; border: 1px solid var(--color-border); border-radius: 999px; background: var(--color-surface); color: var(--color-text-secondary); font: inherit; font-size: 13px; }
+.tool-filters button[aria-pressed='true'] { border-color: var(--color-primary-solid); background: var(--color-primary-solid); color: #fff; }
+.discovery .tool-card { position: relative; }
+.discovery .tool-card:not(.tool-card-planned) .tool-card-link { padding-inline-end: 64px; }
+.tool-favorite { position: absolute; inset-block-start: 10px; inset-inline-end: 10px; z-index: 1; display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--color-border); border-radius: 50%; background: var(--color-surface); color: var(--color-link); font-size: 23px; cursor: pointer; }
+.tool-favorite[aria-pressed='true'] { color: var(--color-primary-solid); }
+.tool-favorite:focus-visible, .tool-filters button:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
 .search-status { margin: 0; color: var(--color-text-secondary); }
 .search-status:not(:empty) { margin-bottom: 16px; }
 .home-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding-block: 24px 48px; }
@@ -47,6 +56,8 @@
   .tool-search { flex-wrap: wrap; width: 100%; }
   .tool-search input { flex: 1; width: 100%; }
   .tool-search label { width: 100%; }
+  .discovery-controls { width: 100%; justify-items: stretch; }
+  .tool-filters { justify-content: flex-start; }
 }
 
 /* Layout previews share their geometry with the exported PDF. */
@@ -67,10 +78,40 @@
  .pdf-preview-toolbar p { order: -1; width: 100%; }
  .pdf-preview-toolbar button { flex: 1; padding-inline: 8px; }
 }
-@media (min-width: 768px) {
+@media (min-width: 900px) {
  .nav-inline .nav-list { flex-wrap: wrap; }
  .nav-inline .nav-link { padding-inline: 8px; font-size: 12px; }
 }
 
 [data-tool-slug='image-to-pdf'] .order-list { max-height: 360px; overflow-y: auto; overscroll-behavior: contain; }
 [data-tool-slug='image-to-pdf'] .order-item-name { overflow-wrap: anywhere; }
+
+/* Consistent finger-sized targets at the navigation boundary and on tablets. */
+.logo,
+.nav-link,
+.lang-switch-link,
+.lang-switch-current {
+  min-height: 44px;
+}
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-width: 44px;
+}
+.button { min-height: 44px; }
+.breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  min-width: 44px;
+  min-height: 44px;
+}
+@media (max-width: 899px) {
+  .tool-panel button:not([hidden]),
+  .tool-panel .button:not([hidden]),
+  .tool-panel select,
+  .tool-panel input:not([type='range']):not(.dropzone-input),
+  .dropzone-label,
+  [data-sample-image] {
+    min-height: 44px;
+  }
+}

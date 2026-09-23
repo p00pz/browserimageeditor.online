@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <!--#include partials/theme-boot.html-->
-  <title>محرر الصور في المتصفح — أدوات صور مجانية لا ترفع ملفاتك أبداً</title>
+  <title>محرر الصور في المتصفح — أدوات صور بلا رفع</title>
   <meta name="description" content="أدوات صور مجانية تعمل داخل المتصفح. اضغط صورك وغيّر مقاسها وحوّل صيغتها دون رفعها إلى أي مكان.">
   <link rel="canonical" href="https://browserimageeditor.online/ar/">
   <link rel="alternate" hreflang="en" href="https://browserimageeditor.online/">
@@ -13,18 +13,18 @@
   <link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="محرر الصور في المتصفح">
-  <meta property="og:title" content="محرر الصور في المتصفح — أدوات صور مجانية لا ترفع ملفاتك أبداً">
+  <meta property="og:title" content="محرر الصور في المتصفح — أدوات صور بلا رفع">
   <meta property="og:description" content="أدوات صور مجانية تعمل داخل المتصفح. اضغط صورك وغيّر مقاسها وحوّل صيغتها دون رفعها إلى أي مكان.">
   <meta property="og:url" content="https://browserimageeditor.online/ar/">
   <meta property="og:image" content="https://browserimageeditor.online/ar/og/home.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="محرر الصور في المتصفح — أدوات صور مجانية لا ترفع ملفاتك أبداً">
+  <meta property="og:image:alt" content="محرر الصور في المتصفح — أدوات صور بلا رفع">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="محرر الصور في المتصفح — أدوات صور مجانية لا ترفع ملفاتك أبداً">
+  <meta name="twitter:title" content="محرر الصور في المتصفح — أدوات صور بلا رفع">
   <meta name="twitter:description" content="أدوات صور مجانية تعمل داخل المتصفح. اضغط صورك وغيّر مقاسها وحوّل صيغتها دون رفعها إلى أي مكان.">
   <meta name="twitter:image" content="https://browserimageeditor.online/ar/og/home.png">
-  <meta name="twitter:image:alt" content="محرر الصور في المتصفح — أدوات صور مجانية لا ترفع ملفاتك أبداً">
+  <meta name="twitter:image:alt" content="محرر الصور في المتصفح — أدوات صور بلا رفع">
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -46,7 +46,10 @@
       "name": "محرر الصور في المتصفح",
       "url": "https://browserimageeditor.online/ar/",
       "logo": "https://browserimageeditor.online/ar/og/home.png",
-      "email": "hello@browserimageeditor.online"
+      "email": "hello@browserimageeditor.online",
+      "sameAs": [
+        "https://github.com/p00pz/browserimageeditor.online"
+      ]
     }
   ]
 }
@@ -357,7 +360,12 @@
   "js.enhance.phaseUpscale": "جاري تكبير الصورة…",
   "js.error.UPSCALE_TOO_LARGE": "أبعاد النتيجة أكبر مما يستطيع جهازك معالجته بأمان. اختر تكبيراً أقل أو صغّر الصورة الأصلية أولاً.",
   "js.error.INVALID_SCALE": "اختر 1× أو 2× أو 4×.",
-  "js.error.INVALID_LAYOUT": "تحقّق من مقاس الصفحة والهوامش والمسافة بين الصور. اختر A4 أو Letter عند وضع عدة صور في الصفحة."
+  "js.error.INVALID_LAYOUT": "تحقّق من مقاس الصفحة والهوامش والمسافة بين الصور. اختر A4 أو Letter عند وضع عدة صور في الصفحة.",
+  "js.favorite.add": "أضف إلى المفضلة",
+  "js.favorite.remove": "أزل من المفضلة",
+  "js.favorite.saved": "حُفظت المفضلة على هذا الجهاز.",
+  "js.favorite.storageUnavailable": "تعمل المفضلة خلال هذه الزيارة، لكن تعذّر حفظها في هذا المتصفح.",
+  "js.favorite.empty": "لا توجد أدوات مفضلة بعد. أضف أداة بزر النجمة."
 }</script>
 </head>
 <body>
@@ -384,7 +392,12 @@
       <div class="trust-strip" aria-label="خصوصيتك"><span>✓ صورك تبقى على جهازك</span><span>✓ بلا إنشاء حساب</span><span>✓ ملفاتك الأصلية لا تتغير</span></div>
       <section class="discovery" id="tools" data-discovery aria-labelledby="tools-heading">
         <div class="discovery-heading"><div><h2 id="tools-heading">أداة لكل خطوة</h2><p>صورة واحدة أو مجموعة كاملة. ابدأ هنا.</p></div>
-          <div class="tool-search" data-search-controls hidden><label for="tool-search">ابحث عن أداة</label><input id="tool-search" type="search" placeholder="ضغط، قص، PDF…" autocomplete="off" aria-controls="tool-results"><button class="button button-secondary" type="button" data-search-clear hidden>مسح</button></div>
+          <div class="discovery-controls" data-search-controls hidden>
+            <div class="tool-search"><label for="tool-search">ابحث عن أداة</label><input id="tool-search" type="search" placeholder="ضغط، قص، PDF…" autocomplete="off" aria-controls="tool-results"><button class="button button-secondary" type="button" data-search-clear hidden>مسح</button></div>
+            <div class="tool-filters" role="group" aria-label="تصفية الأدوات" data-category-filters>
+              <button type="button" data-category-filter="all" aria-pressed="true">كل الأدوات</button><button type="button" data-category-filter="favorites" aria-pressed="false">المفضلة</button><button type="button" data-category-filter="optimize" aria-pressed="false">تحسين الحجم</button><button type="button" data-category-filter="transform" aria-pressed="false">تغيير المقاس والقص</button><button type="button" data-category-filter="convert" aria-pressed="false">تحويل وPDF</button><button type="button" data-category-filter="enhance" aria-pressed="false">تحسين الصور</button>
+            </div>
+          </div>
         </div>
         <p class="search-status" data-search-status role="status" data-found="عدد الأدوات: {count}" data-empty="لا توجد أدوات مطابقة. جرّب كلمة أخرى أو امسح البحث."></p>
         <div id="tool-results"><!--#include partials/ar/tool-grid.html--></div>
@@ -394,6 +407,7 @@
         <div><h2>02 · عدّلها كما تريد</h2><p>اضبط الإعدادات وراجع النتيجة. تتم المعالجة في متصفحك، ولا تُرفع صورك إلى أي خادم.</p></div>
         <div><h2>03 · احفظ وتابع</h2><p>نزّل النتيجة أو أرسلها مباشرة إلى أداة أخرى. يتاح العمل بلا اتصال بعد تخزين موارد الأداة المطلوبة مؤقتاً. <a href="/ar/pages/how-it-works/">كيف يعمل الموقع</a></p></div>
       </section>
+
 
 
     </div>

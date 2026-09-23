@@ -270,6 +270,7 @@ test('the generated service worker lists only files the build produced', { skip:
   const offline = source.match(/const OFFLINE_URL = '([^']+)';/)[1];
 
   assert.match(source.match(/const VERSION = '([^']+)';/)[1], /^[0-9a-f]{8,}$/, 'the shell version must be a content hash');
+  assert.match(source, /warm-complete/, 'route warm-up must acknowledge completion to callers that transfer a MessagePort');
 
   for (const url of shell) {
     assert.ok(builtFileSize(DIST, url) !== null, `${url} is precached but does not exist`);

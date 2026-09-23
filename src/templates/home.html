@@ -18,7 +18,12 @@
       <div class="trust-strip" aria-label="Your privacy"><span>✓ Images stay on your device</span><span>✓ No account required</span><span>✓ Original files stay untouched</span></div>
       <section class="discovery" id="tools" data-discovery aria-labelledby="tools-heading">
         <div class="discovery-heading"><div><h2 id="tools-heading">A tool for every next step</h2><p>One image or a whole batch. Start here.</p></div>
-          <div class="tool-search" data-search-controls hidden><label for="tool-search">Find a tool</label><input id="tool-search" type="search" placeholder="Try compress, crop, PDF…" autocomplete="off" aria-controls="tool-results"><button class="button button-secondary" type="button" data-search-clear hidden>Clear</button></div>
+          <div class="discovery-controls" data-search-controls hidden>
+            <div class="tool-search"><label for="tool-search">Find a tool</label><input id="tool-search" type="search" placeholder="Try compress, crop, PDF…" autocomplete="off" aria-controls="tool-results"><button class="button button-secondary" type="button" data-search-clear hidden>Clear</button></div>
+            <div class="tool-filters" role="group" aria-label="Filter tools" data-category-filters>
+              <button type="button" data-category-filter="all" aria-pressed="true">All tools</button><button type="button" data-category-filter="favorites" aria-pressed="false">Favorites</button><button type="button" data-category-filter="optimize" aria-pressed="false">Optimize</button><button type="button" data-category-filter="transform" aria-pressed="false">Resize &amp; crop</button><button type="button" data-category-filter="convert" aria-pressed="false">Convert / PDF</button><button type="button" data-category-filter="enhance" aria-pressed="false">Enhance</button>
+            </div>
+          </div>
         </div>
         <p class="search-status" data-search-status role="status" data-found="{count} tools found" data-empty="No matching tools. Try a different word or clear your search."></p>
         <div id="tool-results"><!--#include partials/tool-grid.html--></div>
@@ -28,3 +33,4 @@
         <div><h2>02 · Make it yours</h2><p>Adjust your settings and review the result. Processing happens in your browser; your images are never uploaded.</p></div>
         <div><h2>03 · Save and keep going</h2><p>Download the result or send it directly to another tool. Offline use is available after the required tool resources are cached. <a href="/pages/how-it-works/">How it works</a></p></div>
       </section>
+

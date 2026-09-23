@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <!--#include partials/theme-boot.html-->
-  <title>Browser Image Editor — Free image tools that never upload your files</title>
+  <title>Browser Image Editor — Private image tools, no uploads</title>
   <meta name="description" content="Free browser-based image tools. Compress, resize and convert images without uploading them anywhere.">
   <link rel="canonical" href="https://browserimageeditor.online/">
   <link rel="alternate" hreflang="en" href="https://browserimageeditor.online/">
@@ -13,18 +13,18 @@
   <link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Browser Image Editor">
-  <meta property="og:title" content="Browser Image Editor — Free image tools that never upload your files">
+  <meta property="og:title" content="Browser Image Editor — Private image tools, no uploads">
   <meta property="og:description" content="Free browser-based image tools. Compress, resize and convert images without uploading them anywhere.">
   <meta property="og:url" content="https://browserimageeditor.online/">
   <meta property="og:image" content="https://browserimageeditor.online/og/home.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Browser Image Editor — Free image tools that never upload your files">
+  <meta property="og:image:alt" content="Browser Image Editor — Private image tools, no uploads">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Browser Image Editor — Free image tools that never upload your files">
+  <meta name="twitter:title" content="Browser Image Editor — Private image tools, no uploads">
   <meta name="twitter:description" content="Free browser-based image tools. Compress, resize and convert images without uploading them anywhere.">
   <meta name="twitter:image" content="https://browserimageeditor.online/og/home.png">
-  <meta name="twitter:image:alt" content="Browser Image Editor — Free image tools that never upload your files">
+  <meta name="twitter:image:alt" content="Browser Image Editor — Private image tools, no uploads">
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -46,7 +46,10 @@
       "name": "Browser Image Editor",
       "url": "https://browserimageeditor.online/",
       "logo": "https://browserimageeditor.online/og/home.png",
-      "email": "hello@browserimageeditor.online"
+      "email": "hello@browserimageeditor.online",
+      "sameAs": [
+        "https://github.com/p00pz/browserimageeditor.online"
+      ]
     }
   ]
 }
@@ -357,7 +360,12 @@
   "js.enhance.phaseUpscale": "Upscaling image…",
   "js.error.UPSCALE_TOO_LARGE": "This output is too large for safe processing. Choose a smaller scale or resize the original first.",
   "js.error.INVALID_SCALE": "Choose 1×, 2× or 4×.",
-  "js.error.INVALID_LAYOUT": "Check the page size, margins and image spacing. Choose A4 or Letter for multiple images."
+  "js.error.INVALID_LAYOUT": "Check the page size, margins and image spacing. Choose A4 or Letter for multiple images.",
+  "js.favorite.add": "Add to favorites",
+  "js.favorite.remove": "Remove from favorites",
+  "js.favorite.saved": "Favorites saved on this device.",
+  "js.favorite.storageUnavailable": "Favorites work for this visit but could not be saved in this browser.",
+  "js.favorite.empty": "No favorites yet. Add a tool with the star button."
 }</script>
 </head>
 <body>
@@ -384,7 +392,12 @@
       <div class="trust-strip" aria-label="Your privacy"><span>✓ Images stay on your device</span><span>✓ No account required</span><span>✓ Original files stay untouched</span></div>
       <section class="discovery" id="tools" data-discovery aria-labelledby="tools-heading">
         <div class="discovery-heading"><div><h2 id="tools-heading">A tool for every next step</h2><p>One image or a whole batch. Start here.</p></div>
-          <div class="tool-search" data-search-controls hidden><label for="tool-search">Find a tool</label><input id="tool-search" type="search" placeholder="Try compress, crop, PDF…" autocomplete="off" aria-controls="tool-results"><button class="button button-secondary" type="button" data-search-clear hidden>Clear</button></div>
+          <div class="discovery-controls" data-search-controls hidden>
+            <div class="tool-search"><label for="tool-search">Find a tool</label><input id="tool-search" type="search" placeholder="Try compress, crop, PDF…" autocomplete="off" aria-controls="tool-results"><button class="button button-secondary" type="button" data-search-clear hidden>Clear</button></div>
+            <div class="tool-filters" role="group" aria-label="Filter tools" data-category-filters>
+              <button type="button" data-category-filter="all" aria-pressed="true">All tools</button><button type="button" data-category-filter="favorites" aria-pressed="false">Favorites</button><button type="button" data-category-filter="optimize" aria-pressed="false">Optimize</button><button type="button" data-category-filter="transform" aria-pressed="false">Resize &amp; crop</button><button type="button" data-category-filter="convert" aria-pressed="false">Convert / PDF</button><button type="button" data-category-filter="enhance" aria-pressed="false">Enhance</button>
+            </div>
+          </div>
         </div>
         <p class="search-status" data-search-status role="status" data-found="{count} tools found" data-empty="No matching tools. Try a different word or clear your search."></p>
         <div id="tool-results"><!--#include partials/tool-grid.html--></div>
@@ -394,6 +407,7 @@
         <div><h2>02 · Make it yours</h2><p>Adjust your settings and review the result. Processing happens in your browser; your images are never uploaded.</p></div>
         <div><h2>03 · Save and keep going</h2><p>Download the result or send it directly to another tool. Offline use is available after the required tool resources are cached. <a href="/pages/how-it-works/">How it works</a></p></div>
       </section>
+
 
 
     </div>

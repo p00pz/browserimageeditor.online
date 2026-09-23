@@ -121,7 +121,8 @@ export function bundleForRoute(distDir, route, { dynamicLimit = Infinity, readFi
         ignored += 1;
         continue;
       }
-      if (dynamicSize <= dynamicLimit) queue.push(spec);
+      const limit = typeof dynamicLimit === 'function' ? dynamicLimit(spec, route) : dynamicLimit;
+      if (dynamicSize <= limit) queue.push(spec);
       else skipped.set(spec, dynamicSize);
     }
   }

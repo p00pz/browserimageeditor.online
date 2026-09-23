@@ -124,7 +124,17 @@ async function activate() {
 self.addEventListener('message', (event) => {
   const data = event.data;
   if (!data || data.type !== 'warm' || typeof data.path !== 'string' || !data.path.startsWith('/')) return;
-  event.waitUntil(warm(data.path));
+  const reply = event.ports?.[0];
+  const acknowledge = (ok) => {
+    try {
+      reply?.postMessage({ type: 'warm-complete', path: data.path, ok });
+    } catch {
+      // The page may have closed its one-use reply port; warming still benefits other visits.
+    }
+  };
+  event.waitUntil(
+    warm(data.path).then(acknowledge, () => acknowledge(false)),
+  );
 });
 
 /**
@@ -136,9 +146,10 @@ self.addEventListener('message', (event) => {
  */
 async function warm(path) {
   const index = PAGE_BUNDLE_INDEX[path];
-  if (index === undefined) return;
+  if (index === undefined) return false;
   const files = [path, ...(PAGE_ASSET_SETS[index] || [])];
   const [pages, assets] = await Promise.all([caches.open(PAGES_CACHE), caches.open(ASSETS_CACHE)]);
+  let ok = true;
 
   await Promise.all(
     files.map(async (url) => {
@@ -146,15 +157,20 @@ async function warm(path) {
       if (await cache.match(url, MATCH)) return;
       try {
         const response = await fetch(url);
-        if (!response.ok || response.type !== 'basic') return;
+        if (!response.ok || response.type !== 'basic') {
+          ok = false;
+          return;
+        }
         await cache.put(url, response);
       } catch {
         // Offline already, or the file moved on: a warm-up must never surface an error.
+        ok = false;
       }
     }),
   );
 
   await Promise.all([trim(pages, PAGES_LIMIT), trim(assets, ASSETS_LIMIT)]);
+  return ok;
 }
 
 /** Drops the oldest entries once a cache is over its cap. */

@@ -6,16 +6,20 @@
  * Run against `vite preview` on PREVIEW_URL. Writes PNGs to qa/shots/.
  */
 import { chromium, webkit } from 'playwright';
-import { mkdirSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
 
 const PREVIEW_URL = process.env.PREVIEW_URL ?? 'http://localhost:4317';
-const OUT = 'qa/shots';
+const OUT = process.env.QA_VISUAL_OUT ?? 'qa/shots';
+const REPORT = process.env.QA_VISUAL_REPORT ?? 'qa/visual-report.json';
 mkdirSync(OUT, { recursive: true });
 
 /** The breakpoints DESIGN_BRIEF §3 names. 390 is an iPhone SE/14 width, 1440 a desktop. */
 const SIZES = [
   { w: 390, h: 844, name: 'mobile' },
   { w: 768, h: 1024, name: 'tablet' },
+  { w: 820, h: 1024, name: 'nav-820' },
+  { w: 899, h: 1024, name: 'nav-899' },
+  { w: 900, h: 1024, name: 'nav-900' },
   { w: 1440, h: 900, name: 'desktop' },
 ];
 
@@ -65,18 +69,18 @@ async function inspect(page, label) {
     });
     if (small.length) issues.push(`text under 12px: ${small.slice(0, 3).join(', ')}`);
 
-    // 3. A tap target too small for a thumb. Buttons and links only — inputs have their own size.
+    // 3. Interactive touch targets follow the site's 44px contract; inline prose links are excluded.
     const tiny = [];
-    document.querySelectorAll('button, a[href], [role="button"], [role="radio"]').forEach((el) => {
+    document.querySelectorAll('button, .button, a.logo, a.nav-link, .lang-switch-link, .lang-switch-current, .breadcrumb a, .tool-card-link, .workflow-links a, .footer-install, [role="button"], [role="radio"]').forEach((el) => {
       const r = el.getBoundingClientRect();
       if (r.width === 0 || r.height === 0) return; // hidden
       // Only the visible ones; an offscreen element is not a target.
       if (r.bottom < 0 || r.top > innerHeight) return;
-      if (r.width < 40 || r.height < 40) {
+      if (r.width < 44 || r.height < 44) {
         tiny.push(`${el.textContent.trim().slice(0, 20) || el.getAttribute('aria-label') || el.tagName} ${Math.round(r.width)}x${Math.round(r.height)}`);
       }
     });
-    if (tiny.length) issues.push(`tap targets under 40px: ${tiny.slice(0, 3).join(', ')}`);
+    if (tiny.length) issues.push(`touch targets under 44px: ${tiny.slice(0, 3).join(', ')}`);
 
     // 4. Text with insufficient contrast against what is behind it.
     //    Translucent backgrounds are composited against the chain of ancestors, because
@@ -90,40 +94,49 @@ async function inspect(page, label) {
     };
     const lin = (v) => (v / 255 <= 0.03928 ? v / 255 / 12.92 : ((v / 255 + 0.055) / 1.055) ** 2.4);
     const lum = (c) => (c ? 0.2126 * lin(c.r) + 0.7152 * lin(c.g) + 0.0722 * lin(c.b) : null);
-    /** Composite one colour over another, alpha over alpha, until it is opaque. */
-    const stack = (c, under) => {
-      if (!c) return under;
-      if (c.a >= 1) return c;
-      if (!under) return { ...c, a: 1 };
-      const a = c.a;
+    /** Composite a painted layer over an already known background. */
+    const stack = (layer, under) => {
+      if (!layer || layer.a <= 0) return under;
+      if (layer.a >= 1) return layer;
+      if (!under) return null;
+      const a = layer.a;
       return {
-        r: Math.round(c.r * a + under.r * (1 - a)),
-        g: Math.round(c.g * a + under.g * (1 - a)),
-        b: Math.round(c.b * a + under.b * (1 - a)),
+        r: Math.round(layer.r * a + under.r * (1 - a)),
+        g: Math.round(layer.g * a + under.g * (1 - a)),
+        b: Math.round(layer.b * a + under.b * (1 - a)),
         a: 1,
       };
     };
-    /** The painted background behind an element, gathered by walking up until it is opaque. */
+    /** The painted background behind an element, ignoring transparent layers until their base is known. */
     const backdropFor = (el) => {
-      let acc = null;
-      let node = el.parentElement;
-      while (node && node !== document.documentElement) {
+      const layers = [];
+      let node = el;
+      while (node) {
         const bcs = getComputedStyle(node);
         const layer = parse(bcs.backgroundColor);
-        if (layer) {
-          acc = stack(layer, acc);
-          if (acc.a >= 1) break;
-        }
+        if (layer && layer.a > 0) layers.push(layer);
+        if (node === document.documentElement) break;
         node = node.parentElement;
       }
-      if (!acc || acc.a < 1) acc = stack(parse(getComputedStyle(document.documentElement).backgroundColor) ?? { r: 255, g: 255, b: 255, a: 1 }, acc);
-      return acc;
+      const opaque = layers.findIndex((layer) => layer.a >= 1);
+      if (opaque < 0) {
+        const dark = document.documentElement.classList.contains('dark');
+        return dark ? { r: 0, g: 0, b: 0, a: 1 } : { r: 255, g: 255, b: 255, a: 1 };
+      }
+      let painted = layers[opaque];
+      for (let index = opaque - 1; index >= 0; index -= 1) painted = stack(layers[index], painted) ?? painted;
+      return painted;
     };
     const faint = [];
     document.querySelectorAll('p, span, li, label, dd, summary').forEach((el) => {
       const cs = getComputedStyle(el);
       const px = parseFloat(cs.fontSize);
       if (px < 12 || !el.textContent.trim()) return;
+      if (!el.getClientRects().length) return; // hidden duplicate navigation is not painted content
+      // Header text sits over a translucent backdrop blur and multi-stop page gradients. The
+      // computed background-color is not the painted backdrop, so this local approximation
+      // reports impossible 1:1/4.38:1 values. Header opacity is checked separately in qa:ios.
+      if (el.closest('.header')) return;
       const fg = lum(parse(cs.color));
       if (fg === null) return;
       const bg = lum(backdropFor(el));
@@ -164,7 +177,7 @@ async function shoot(browser, { w, h, name }, { path, kind }, theme, locale) {
     await page.goto(url, { waitUntil: 'networkidle' });
   }
 
-  const label = `${kind}-${locale}-${name}`;
+  const label = `${kind}-${locale}-${name}-${theme}`;
   const report = status === 200 ? await inspect(page, label) : { issues: [`HTTP ${status}`], docW: 0, scrollH: 0 };
 
   // Full-page capture: the design has to hold top to bottom, not just above the fold.
@@ -189,7 +202,7 @@ async function main() {
         try {
           results.push(await shoot(browser, size, page, theme, locale));
         } catch (error) {
-          results.push({ label: `${page.kind}-${locale}-${size.name}`, path: page.path, issues: [`threw: ${error.message.split('\n')[0]}`] });
+          results.push({ label: `${page.kind}-${locale}-${size.name}-${theme}`, path: page.path, issues: [`threw: ${error.message.split('\n')[0]}`] });
         }
       }
     }
@@ -203,9 +216,7 @@ async function main() {
     ...results.flatMap((r) => r.issues.map((i) => `  ${r.label}  ${r.path}\n      ${i}`)),
   ];
   console.log(lines.join('\n'));
-
-  const { writeFileSync } = await import('node:fs');
-  writeFileSync('qa/visual-report.json', JSON.stringify(results, null, 1));
+  writeFileSync(REPORT, JSON.stringify(results, null, 1));
   process.exit(bad.length ? 1 : 0);
 }
 

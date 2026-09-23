@@ -125,7 +125,7 @@
   cursor: not-allowed;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .nav-list {
     display: flex;
   }
@@ -146,8 +146,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   padding: 0;
   flex-shrink: 0;
   color: var(--color-text);
@@ -192,8 +192,8 @@ html.dark .theme-toggle .icon-sun {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   padding: 0;
   flex-shrink: 0;
   color: var(--color-text);
@@ -231,7 +231,7 @@ html.dark .theme-toggle .icon-sun {
   transform-origin: center;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .mobile-menu-toggle {
     display: none;
   }
@@ -404,7 +404,23 @@ html.dark .theme-toggle .icon-sun {
  *
  * No scrim is drawn: the sheet is heavily frosted and the page behind it is inert while it is open,
  * so a separate darkening layer would double the cost for nothing. */
-@media (max-width: 767px) {
+@media (max-width: 899px) {
+  /* Keep the sheet interaction model through tablet widths. At 768px the old compact desktop
+   * header produced sub-40px targets and squeezed the full navigation into one row. */
+  .mobile-menu-toggle {
+    display: inline-flex;
+  }
+
+  /* The sheet remains the navigation surface through tablet widths, so its adjacent controls
+   * must keep the same 44px touch contract as the hamburger. Phone-only page spacing stays in
+   * components.css; this rule is intentionally limited to chrome. */
+  .theme-toggle,
+  .nav-sheet .lang-switch-link,
+  .nav-sheet .lang-switch-current {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
   /* The inline copy is a desktop's row of links; on a phone it would be an empty flex item
    * between the logo and the toggles, so it leaves the layout entirely. The language switch lives
    * in the sheet on a phone, so it leaves the header with it. */

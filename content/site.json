@@ -4,12 +4,12 @@
   "themeColor": "#f2f2f7",
   "themeColorDark": "#000000",
   "backgroundColor": "#f2f2f7",
-  "tagline": "Free image tools that never upload your files",
+  "tagline": "Private image tools, no uploads",
   "url": "https://browserimageeditor.online",
   "description": "Free browser-based image tools. Compress, resize and convert images without uploading them anywhere.",
   "ogImage": "/og/home.png",
   "contactEmail": "hello@browserimageeditor.online",
-  "contactRepo": null,
+  "contactRepo": "https://github.com/p00pz/browserimageeditor.online",
   "defaultLocale": "en",
   "locales": [
     {

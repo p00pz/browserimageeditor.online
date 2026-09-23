@@ -327,13 +327,17 @@ export function indentLines(text, indent) {
  */
 export function toolCard(item, { badge = false, indent = '', strings = {}, prefix = '' } = {}) {
   const lines = [
-    `  <li class="${badge ? 'tool-card tool-card-planned' : 'tool-card'}">`,
-    `    <a class="tool-card-link" href="${prefix}${toolPath(item)}">`,
-    `      <span class="tool-card-name">${escapeHtml(item.cardName ?? item.name)}</span>`,
-    `      <span class="tool-card-desc">${escapeHtml(item.cardSubtitle ?? item.description)}</span>`,
+    '  <li class="' + (badge ? 'tool-card tool-card-planned' : 'tool-card') + '" data-category="' + escapeHtml(item.category ?? 'other') + '">',
+    '    <a class="tool-card-link" href="' + prefix + toolPath(item) + '">',
+    '      <span class="tool-card-name">' + escapeHtml(item.cardName ?? item.name) + '</span>',
+    '      <span class="tool-card-desc">' + escapeHtml(item.cardSubtitle ?? item.description) + '</span>',
   ];
-  if (badge) lines.push(`      <span class="tool-card-badge">${escapeHtml(strings.comingSoon ?? 'Coming soon')}</span>`);
-  lines.push('    </a>', '  </li>');
+  if (badge) lines.push('      <span class="tool-card-badge">' + escapeHtml(strings.comingSoon ?? 'Coming soon') + '</span>');
+  lines.push('    </a>');
+  if (!badge) {
+    lines.push('    <button class="tool-favorite" type="button" data-favorite-toggle="' + escapeHtml(item.slug) + '" aria-pressed="false" hidden>☆</button>');
+  }
+  lines.push('  </li>');
   return indentLines(lines.join('\n'), indent);
 }
 
@@ -578,3 +582,4 @@ export function uniqueContentHtml(blocks) {
   });
   return `  <section class="prose" data-unique-content>\n${parts.join('\n')}\n  </section>`;
 }
+

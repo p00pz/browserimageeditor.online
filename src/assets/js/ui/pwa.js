@@ -9,7 +9,7 @@
  * and hashed chunk names do not exist, so a worker registered there would cache URLs that are only
  * valid in a build. `import.meta.env.PROD` is what keeps the two apart, which also means the offline
  * behaviour can only be tested against a real build: `bun run build`, then `bun run preview`, then
- * the network-off check in qa/strike-proof.mjs.
+ * the network-off check in qa/pwa-offline.mjs.
  *
  * **The warm-up exists because of a real gap.** A service worker installs *after* the page that
  * registered it has already fetched its CSS, JavaScript and worker script, so none of those requests
@@ -225,3 +225,4 @@ export function initPwa() {
   initInstallPrompt();
   initServiceWorker();
 }
+

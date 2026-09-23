@@ -42,14 +42,18 @@ const TEMPLATE = resolve(projectRoot, 'scripts', 'templates', 'sw.js');
 /**
  * The largest dynamic chunk worth warming, in bytes.
  *
- * Measured, not guessed: `vite build` emits exactly two dynamic chunks today — the document writer
- * at 438 KB, which the PDF tool needs before it can do anything, and the HEIC decoder at 2.9 MB,
- * which only a HEIC conversion needs. The cap sits between them, so a tool is usable offline after
- * being visited, while a rarely needed multi-megabyte decoder is never pushed at someone who is just
- * looking at the page. Both are cached when they are actually used, because by then the worker is in
- * control of the page.
+ * Measured, not guessed: `vite build` emits a document-writer chunk just above 400 KB and a HEIC
+ * decoder near 3 MB. Keeping the cap below the writer prevents every ordinary route from warming a
+ * 400+ KB PDF dependency; the PDF chunk is still cached by the service worker when the PDF tool
+ * actually imports it. The multi-megabyte decoder is likewise fetched only for HEIC conversion.
  */
-const DYNAMIC_WARM_LIMIT = 500 * 1024;
+const DYNAMIC_WARM_LIMIT = 400 * 1024;
+const PDF_DYNAMIC_WARM_LIMIT = 500 * 1024;
+
+/** PDF pages are the one exception: their route promises offline PDF creation after the page has
+ * loaded, so they warm the document-writer chunk. Ordinary routes keep that dependency lazy. */
+const isPdfRoute = (route) =>
+  /^\/((?:ar\/)??tools\/image-to-pdf|(?:ar\/)??targets\/(?:image-to-pdf-a4|photos-to-pdf-one-page))\/$/.test(route);
 
 if (!existsSync(DIST)) {
   console.error('gen-sw: dist/ does not exist. Run "npm run build" first.');
@@ -65,7 +69,9 @@ const routes = findBuiltRoutes(DIST).sort();
 const bundles = new Map();
 
 for (const route of routes) {
-  bundles.set(route, bundleForRoute(DIST, route, { dynamicLimit: DYNAMIC_WARM_LIMIT }));
+  bundles.set(route, bundleForRoute(DIST, route, {
+    dynamicLimit: (spec) => (isPdfRoute(route) ? PDF_DYNAMIC_WARM_LIMIT : DYNAMIC_WARM_LIMIT),
+  }));
 }
 
 /**

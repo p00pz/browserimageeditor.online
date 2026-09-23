@@ -18,7 +18,12 @@
       <div class="trust-strip" aria-label="خصوصيتك"><span>✓ صورك تبقى على جهازك</span><span>✓ بلا إنشاء حساب</span><span>✓ ملفاتك الأصلية لا تتغير</span></div>
       <section class="discovery" id="tools" data-discovery aria-labelledby="tools-heading">
         <div class="discovery-heading"><div><h2 id="tools-heading">أداة لكل خطوة</h2><p>صورة واحدة أو مجموعة كاملة. ابدأ هنا.</p></div>
-          <div class="tool-search" data-search-controls hidden><label for="tool-search">ابحث عن أداة</label><input id="tool-search" type="search" placeholder="ضغط، قص، PDF…" autocomplete="off" aria-controls="tool-results"><button class="button button-secondary" type="button" data-search-clear hidden>مسح</button></div>
+          <div class="discovery-controls" data-search-controls hidden>
+            <div class="tool-search"><label for="tool-search">ابحث عن أداة</label><input id="tool-search" type="search" placeholder="ضغط، قص، PDF…" autocomplete="off" aria-controls="tool-results"><button class="button button-secondary" type="button" data-search-clear hidden>مسح</button></div>
+            <div class="tool-filters" role="group" aria-label="تصفية الأدوات" data-category-filters>
+              <button type="button" data-category-filter="all" aria-pressed="true">كل الأدوات</button><button type="button" data-category-filter="favorites" aria-pressed="false">المفضلة</button><button type="button" data-category-filter="optimize" aria-pressed="false">تحسين الحجم</button><button type="button" data-category-filter="transform" aria-pressed="false">تغيير المقاس والقص</button><button type="button" data-category-filter="convert" aria-pressed="false">تحويل وPDF</button><button type="button" data-category-filter="enhance" aria-pressed="false">تحسين الصور</button>
+            </div>
+          </div>
         </div>
         <p class="search-status" data-search-status role="status" data-found="عدد الأدوات: {count}" data-empty="لا توجد أدوات مطابقة. جرّب كلمة أخرى أو امسح البحث."></p>
         <div id="tool-results"><!--#include partials/ar/tool-grid.html--></div>
@@ -28,3 +33,4 @@
         <div><h2>02 · عدّلها كما تريد</h2><p>اضبط الإعدادات وراجع النتيجة. تتم المعالجة في متصفحك، ولا تُرفع صورك إلى أي خادم.</p></div>
         <div><h2>03 · احفظ وتابع</h2><p>نزّل النتيجة أو أرسلها مباشرة إلى أداة أخرى. يتاح العمل بلا اتصال بعد تخزين موارد الأداة المطلوبة مؤقتاً. <a href="/ar/pages/how-it-works/">كيف يعمل الموقع</a></p></div>
       </section>
+

@@ -100,6 +100,22 @@ export function openEngine(name, worker, { onError = null } = {}) {
   const state = { controllers: new Map() };
   let remote = null;
   let modePromise = null;
+  // Register the error listener before the first capabilities() call. A module worker can emit its
+  // load error in the same turn that the caller opens the engine; registering inside resolveMode()
+  // leaves a small race where the probe waits for the full timeout instead of handing over.
+  let probeReject = null;
+  let probeError = null;
+  let committedToWorker = false;
+  const handleWorkerError = () => {
+    const error = new Error('worker-error');
+    if (!committedToWorker) {
+      probeError = error;
+      probeReject?.(error);
+    } else {
+      onError?.();
+    }
+  };
+  worker?.addEventListener('error', handleWorkerError);
   /** One proxied callback per function, for the life of the page, so jobs do not leak proxies. */
   const proxyFor = new WeakMap();
 
@@ -124,7 +140,8 @@ export function openEngine(name, worker, { onError = null } = {}) {
         // that goes quiet without one. Whichever fires first decides.
         let timer = null;
         const failed = new Promise((resolve, reject) => {
-          worker.addEventListener('error', () => reject(new Error('worker-error')), { once: true });
+          probeReject = reject;
+          if (probeError) reject(probeError);
           timer = setTimeout(() => reject(new Error('worker-timeout')), PROBE_TIMEOUT_MS);
         });
         let report;
@@ -132,10 +149,11 @@ export function openEngine(name, worker, { onError = null } = {}) {
           report = await Promise.race([wrapped.capabilities(), failed]);
         } finally {
           clearTimeout(timer);
+          probeReject = null;
         }
         if (report && report.supported) {
           remote = wrapped;
-          if (onError) worker.addEventListener('error', () => onError());
+          committedToWorker = true;
           return { mode: 'worker', report };
         }
         // The worker is up and honest about what it lacks, which is the case this module exists for.
@@ -182,6 +200,7 @@ export function openEngine(name, worker, { onError = null } = {}) {
     dispose() {
       try {
         worker?.terminate();
+        worker?.removeEventListener('error', handleWorkerError);
       } catch {
         /* terminated already */
       }
