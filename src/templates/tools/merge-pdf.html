@@ -1,0 +1,37 @@
+      <section class="tool-panel pdf-merge" data-tool-root data-tool-slug="{{slug}}" aria-label="{{name}}">
+        <div class="merge-workspace">
+          <div class="dropzone" data-dropzone>
+            <label class="dropzone-label" for="tool-file-input">
+              <span class="merge-icon" aria-hidden="true">PDF + PDF</span>
+              <span class="dropzone-title">{{t.ui.merge.choose}}</span>
+              <span class="dropzone-sub">{{t.ui.merge.dropHint}}</span>
+              <span class="dropzone-browse" aria-hidden="true">{{t.ui.merge.browse}}</span>
+              <span class="dropzone-hint">{{t.ui.merge.limits}}</span>
+            </label>
+            <input class="dropzone-input" id="tool-file-input" type="file" accept="application/pdf,.pdf" multiple aria-label="{{t.ui.merge.choose}}" data-dropzone-input>
+          </div>
+          <div class="merge-order-heading"><h2 id="merge-order-heading">{{t.ui.merge.order}}</h2><p data-summary>{{t.ui.merge.empty}}</p></div>
+          <p class="merge-hint">{{t.ui.merge.orderHint}}</p>
+          <ol class="order-list" data-order-list aria-labelledby="merge-order-heading"></ol>
+          <p class="status-line" data-status role="status" aria-live="polite" aria-atomic="true"></p>
+          <ul class="merge-errors" data-errors aria-live="polite" aria-relevant="additions text" hidden></ul>
+        </div>
+        <aside class="merge-sidebar">
+          <h2>{{t.ui.merge.stepsHeading}}</h2>
+          <ol class="merge-steps"><li>{{t.ui.merge.step1}}</li><li>{{t.ui.merge.step2}}</li><li>{{t.ui.merge.step3}}</li></ol>
+          <p class="merge-privacy">{{t.ui.merge.privacy}}</p>
+          <p class="merge-hint">{{t.ui.merge.documentNote}}</p>
+          <div class="progress-region" data-progress-region hidden>
+            <div class="progress" data-progress role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="{{t.ui.merge.progress}}"><div class="progress-bar" data-progress-bar></div></div>
+            <p class="progress-text" data-progress-text></p>
+            <button class="button button-secondary" type="button" data-cancel>{{t.ui.tool.cancel}}</button>
+          </div>
+          <div class="primary-action" data-primary-action data-sticky="off"><button class="button" type="button" data-merge disabled>{{t.ui.merge.run}}</button></div>
+          <button class="button button-secondary" type="button" data-clear disabled>{{t.ui.merge.clear}}</button>
+          <section class="merge-result" data-result hidden aria-labelledby="merge-result-heading">
+            <h2 id="merge-result-heading">{{t.ui.merge.ready}}</h2><p data-result-info></p>
+            <a class="button" data-download download="browserimageeditor-merged.pdf">{{t.ui.merge.download}}</a>
+            <p class="merge-hint">{{t.ui.merge.saveHint}}</p>
+          </section>
+        </aside>
+      </section>

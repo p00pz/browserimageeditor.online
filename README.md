@@ -11,6 +11,7 @@ Browser Image Editor is an open-source, client-side image tools website.
 - Converts common image formats.
 - Crops images with fixed or custom aspect ratios.
 - Creates PDFs from images.
+- Merges PDF files in a numbered, adjustable order without uploads.
 - Enhances photos on the device.
 - Supports installable and offline-friendly use.
 

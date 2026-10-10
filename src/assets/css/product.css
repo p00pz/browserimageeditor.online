@@ -1,4 +1,39 @@
 /* Product surfaces share the studio's theme tokens and respect RTL. */
+/* PDF merge uses the same glass surfaces, with a numbered document list as its stage. */
+.tool-panel.pdf-merge { display: grid; grid-template-columns: minmax(0, 1fr) 310px; gap: 28px; padding: 28px; align-items: start; }
+.merge-workspace, .merge-sidebar { min-width: 0; }
+.pdf-merge .dropzone { background: var(--color-stage); color: var(--color-stage-text); border-radius: 20px; }
+.pdf-merge .dropzone-label { min-height: 235px; padding: 24px; }
+.pdf-merge .dropzone-title, .pdf-merge .dropzone-sub { color: var(--color-stage-text); }
+.pdf-merge .dropzone-hint { color: var(--color-stage-secondary); }
+.pdf-merge .dropzone.has-file .dropzone-browse { display: inline-flex; }
+.pdf-merge .dropzone.has-file .dropzone-hint { display: block; }
+.pdf-merge .dropzone.has-file .merge-icon { display: none; }
+.pdf-merge .dropzone.has-file .dropzone-label { min-height: 125px; flex-direction: column; padding: 18px; }
+.pdf-merge .dropzone-browse { flex-shrink: 0; white-space: nowrap; }
+.merge-icon { display: inline-block; font-size: 18px; font-weight: 700; letter-spacing: .04em; padding: 12px 18px; border: 1px solid var(--color-stage-separator); border-radius: 12px; color: var(--color-stage-text); }
+.merge-order-heading { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 20px; margin-block-start: 24px; }
+.merge-order-heading h2, .merge-sidebar h2, .merge-result h2 { font-size: 20px; margin: 0; }
+.merge-order-heading p { margin: 0; font-size: 15px; color: var(--color-text-secondary); }
+.merge-hint { font-size: 14px; line-height: 1.65; color: var(--color-text-secondary); margin-block: 12px; }
+.pdf-merge .order-item { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 12px; padding: 14px; }
+.pdf-merge .order-item-name { white-space: normal; overflow-wrap: anywhere; unicode-bidi: plaintext; }
+.pdf-merge .order-item-actions { grid-column: 2; flex-wrap: wrap; gap: 6px; }
+.pdf-merge .order-button { width: 44px; height: 44px; min-width: 44px; min-height: 44px; touch-action: manipulation; }
+.pdf-merge .order-item-meta { unicode-bidi: plaintext; }
+.merge-steps { padding-inline-start: 24px; margin-block: 20px; }
+.merge-steps li { padding-inline-start: 4px; margin-block: 12px; }
+.merge-privacy { background: var(--color-primary-light); padding: 16px; border-radius: 14px; font-size: 15px; line-height: 1.6; }
+.merge-sidebar .button { width: 100%; min-height: 48px; margin-block-start: 12px; }
+.merge-result { margin-block-start: 24px; padding-block-start: 24px; border-top: 1px solid var(--color-separator); }
+.merge-errors { padding-inline-start: 22px; color: var(--color-error); font-size: 15px; overflow-wrap: anywhere; }
+.merge-errors li { margin-block: 8px; }
+.pdf-promo { display: flex; gap: 24px; align-items: center; justify-content: space-between; padding: 24px 28px; margin-block: 24px 40px; border: 1px solid var(--color-glass-border); border-radius: 20px; background: var(--color-primary-light); }
+.pdf-promo h2 { font-size: clamp(22px, 2.4vw, 28px); margin-block: 8px; }
+.pdf-promo p { margin: 0; max-width: 62ch; color: var(--color-text-secondary); }
+.pdf-promo .button { flex-shrink: 0; min-height: 48px; }
+@media (max-width: 1000px) { .tool-panel.pdf-merge { grid-template-columns: minmax(0, 1fr); } .merge-sidebar { border-top: 1px solid var(--color-separator); padding-block-start: 24px; } .merge-steps { display: flex; flex-wrap: wrap; gap: 8px 32px; } }
+@media (max-width: 600px) { .tool-panel.pdf-merge { padding: 16px; gap: 20px; } .pdf-merge .dropzone-label { padding: 20px 12px; } .pdf-merge .order-item { grid-template-columns: 28px minmax(0, 1fr); padding: 12px 8px; gap: 8px; } .pdf-merge .order-item-actions { grid-column: 1 / -1; justify-content: flex-end; } .pdf-promo { align-items: stretch; flex-direction: column; padding: 22px; } }
 .home-intro { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: center; padding-block: 48px; }
 .home-intro .hero { margin: 0; padding: 0; text-align: start; max-width: none; }
 .home-intro .hero h1 { font-size: clamp(36px, 4.8vw, 64px); line-height: 1.08; letter-spacing: -.045em; margin-block: 18px; }

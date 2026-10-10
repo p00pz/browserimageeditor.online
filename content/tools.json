@@ -279,7 +279,8 @@
     "maxInputBytes": 52428800,
     "related": [
       "compress",
-      "convert"
+      "convert",
+      "merge-pdf"
     ],
     "faq": [
       {
@@ -298,6 +299,60 @@
         "q": "Does this upload my images?",
         "a": "No. Preview, processing and PDF creation happen on your device."
       }
+    ]
+  },
+  {
+    "id": "merge-pdf",
+    "slug": "merge-pdf",
+    "name": "Merge PDF",
+    "navLabel": "Merge PDF",
+    "cardName": "Merge PDF",
+    "cardSubtitle": "Combine PDF files in your chosen order",
+    "title": "Merge PDF Online — Free, Private, No Upload",
+    "description": "Combine several PDF files into one document. Reorder, remove and add files, then download your merged PDF. Free, private and entirely in your browser.",
+    "h1": "Your PDFs. One document.",
+    "intro": "Choose your PDF files, put them in the order you want, and download one document. Every page is merged on your device, with no uploads or account.",
+    "keywords": [
+      "merge PDF",
+      "combine PDF files",
+      "PDF merger"
+    ],
+    "targetKeyword": "merge PDF",
+    "faq": [
+      {
+        "q": "Are my PDF files uploaded?",
+        "a": "No. Files are read and merged in your browser on your device. No PDF content is sent to a server or stored by this tool."
+      },
+      {
+        "q": "How do I change the order?",
+        "a": "Use the arrow buttons beside each file to move it earlier or later, or to the start or end. The numbered list is the merge order. Pages within each file keep their original order, size and rotation."
+      },
+      {
+        "q": "Can I merge password-protected PDFs?",
+        "a": "Encrypted PDFs are not supported. Save an unprotected copy using a PDF application you trust, then add that copy. Invalid and unsupported files are rejected individually, so you can keep working with the valid files."
+      },
+      {
+        "q": "What are the limits and what is preserved?",
+        "a": "Choose 2 to 30 files, up to 20 MB each, 60 MB combined and 500 pages total. Complex files may exceed your device’s available memory even within these limits. Standard form fields become static; XFA forms are not supported. Bookmarks, attachments and digital signatures are not preserved. Keep your originals."
+      },
+      {
+        "q": "How do I save on iPhone or iPad?",
+        "a": "Tap Download PDF. If Safari opens the document, use Share and Save to Files. The merged file stays available while this page is open, so you can download it again."
+      }
+    ],
+    "status": "live",
+    "category": "convert",
+    "accepts": [
+      "application/pdf"
+    ],
+    "outputs": [
+      "application/pdf"
+    ],
+    "defaultOutput": "application/pdf",
+    "maxInputBytes": 20971520,
+    "related": [
+      "image-to-pdf",
+      "convert"
     ]
   },
   {
