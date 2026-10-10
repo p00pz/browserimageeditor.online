@@ -44,6 +44,13 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://browserimageeditor.online/tools/merge-pdf/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/tools/merge-pdf/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/tools/merge-pdf/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/tools/merge-pdf/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://browserimageeditor.online/tools/enhance-photo/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/tools/enhance-photo/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/tools/enhance-photo/"/>
@@ -223,6 +230,13 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/tools/image-to-pdf/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/tools/image-to-pdf/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/tools/image-to-pdf/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://browserimageeditor.online/ar/tools/merge-pdf/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://browserimageeditor.online/tools/merge-pdf/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://browserimageeditor.online/ar/tools/merge-pdf/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://browserimageeditor.online/tools/merge-pdf/"/>
     <priority>0.8</priority>
   </url>
   <url>

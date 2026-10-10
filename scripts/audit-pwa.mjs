@@ -220,7 +220,8 @@ if (!existsSync(swFile)) {
   const source = readFileSync(swFile, 'utf8');
   const version = source.match(/const VERSION = '([0-9a-f]{6,})';/)?.[1] ?? null;
   if (!version) error('dist/sw.js', 'has no version constant, so a deploy could never replace the shell');
-  if (source.includes('__')) warn('dist/sw.js', 'still contains a template placeholder');
+  // Vite content hashes can contain "__"; only template-token syntax is a placeholder.
+  if (/__[A-Z][A-Z_]*__/.test(source)) warn('dist/sw.js', 'still contains a template placeholder');
 
   // Every lookup must ignore Vary, and this is a build gate rather than a style rule. Cache Storage
   // only matches a stored response against a request whose varying headers agree with the request

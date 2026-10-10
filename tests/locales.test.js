@@ -146,7 +146,7 @@ test('a translation file is a publish list, not a merge', () => {
 
   assert.deepEqual(
     arabic.map((tool) => tool.id),
-    ['compress', 'resize', 'convert', 'crop', 'image-to-pdf', 'enhance-photo'],
+    ['compress', 'resize', 'convert', 'crop', 'image-to-pdf', 'merge-pdf', 'enhance-photo'],
     'Arabic publishes exactly the tools its overlay lists',
   );
   assert.ok(
@@ -204,7 +204,7 @@ test('an untranslated entry is not published, and it says so', () => {
     console.log = original;
   }
   assert.ok(
-    lines.some((line) => /"ar" publishes 6 of 7 tools\.json entries/.test(line)),
+    lines.some((line) => /"ar" publishes 7 of 8 tools\.json entries/.test(line)),
     'the loader reports the subset it published',
   );
   assert.ok(
@@ -227,7 +227,7 @@ test('the route inventory is one list, and it is what the generators write', () 
   // service worker serves. It is a route like any other — it is just not advertised anywhere. Seven
   // tools, counting Remove Background, which is published as a coming-soon page while its engine is
   // still being written.
-  assert.deepEqual(kinds, { home: 1, tool: 7, target: 14, page: 6 });
+  assert.deepEqual(kinds, { home: 1, tool: 8, target: 14, page: 6 });
   assert.ok(routes.every((route) => route.path.startsWith('/') && route.path.endsWith('/')));
 
   // Every route resolves to a URL in the locale it belongs to, and no two routes collide.
@@ -243,7 +243,7 @@ test('the route inventory is one list, and it is what the generators write', () 
     counts[route.kind] = (counts[route.kind] ?? 0) + 1;
     return counts;
   }, {});
-  assert.deepEqual(arabicKinds, { home: 1, tool: 6, target: 14, page: 6 },
+  assert.deepEqual(arabicKinds, { home: 1, tool: 7, target: 14, page: 6 },
     'Arabic is the homepage, the six translated tools, all fourteen guides and the six standalone pages');
   assert.deepEqual(
     arabic.routes.filter((route) => !englishPaths.has(route.path)).map((route) => route.path),
